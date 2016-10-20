@@ -1,0 +1,53 @@
+﻿@using MvcCheckBoxList.Model
+
+@model RaceAnalysis.Models.RaceFilterViewModel
+
+
+
+
+@{
+    var controllerName = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
+}
+
+
+
+@using (Html.BeginForm("SelectedRaces", controllerName, FormMethod.Get))
+{
+
+
+        <h4>Races</h4>
+        @Html.CheckBoxListFor(x => x.PostedValues.RaceIds,
+                        x => x.AvailableRaces,
+                        x => x.RaceId,
+                        x => x.DisplayName,
+                        x => x.SelectedRaces,
+                        Position.Horizontal)
+        <hr />
+        <h4>Age Groups</h4>
+        @Html.CheckBoxListFor(x => x.PostedValues.AgeGroupIds,
+                        x => x.AvailableAgeGroups,
+                        x => x.AgeGroupId,
+                        x => x.DisplayName,
+                        x => x.SelectedAgeGroups,
+                        Position.Horizontal)
+
+    <hr />
+    <h4>Genders</h4>
+        @Html.CheckBoxListFor(x => x.PostedValues.GenderIds,
+                        x => x.AvailableGenders,
+                        x => x.GenderId,
+                        x => x.DisplayName,
+                        x => x.SelectedGenders,
+                        Position.Horizontal)
+
+
+
+
+        <button type="submit" id="submitButton" class="btn btn-primary" style="float:right" 
+                onclick="return DisplayProgressMessage(this, 'One Moment...')" >
+            Apply</button>
+}
+
+
+
+

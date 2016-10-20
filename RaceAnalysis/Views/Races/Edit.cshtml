@@ -1,0 +1,127 @@
+﻿@model RaceAnalysis.Models.Race
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Race</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.RaceId, new { Name = "Race.RaceId" })
+        @Html.HiddenFor(model => model.ConditionsId, new { Name = "Race.ConditionsId" })
+        @Html.HiddenFor(model => model.ConditionsId, new { Name = "Conditions.RaceConditionsId" })
+
+
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.BaseURL, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.BaseURL,null,"Race.BaseURL", new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.BaseURL,"", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DisplayName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DisplayName,null,"Race.DisplayName", new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DisplayName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.RaceDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.RaceDate,null,"Race.RaceDate", new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.RaceDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ShortName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ShortName,null, "Race.ShortName", new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ShortName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Distance, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Distance,null,"Race.Distance", new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Distance, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+      
+     <!--      @Html.LabelFor(model => model.ConditionsId, "Conditions", htmlAttributes: new { @class = "control-label col-md-2" }) -->
+            <div class="col-md-10">
+    <!--       @Html.HiddenFor(model=>model.ConditionsId,new { @class = "form-control", id="Conditions.ConditionsId",Name="Conditions.RaceConditionsId" })   -->
+
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Conditions)
+                    </dt>
+                    <dd>
+                        <table class="table table-striped">
+                            <tr>
+                                <th></th>
+
+                                <th>General</th>
+                                <th>Elevation</th>
+                                <th>Weather</th>
+                            </tr>
+
+                            <tr>
+                                <td>Swim</td>
+                                <td>
+                                    @Html.EditorFor(model => model.Conditions.SwimGeneral, new { htmlAttributes = new { @class = "form-control" } })
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Bike</td>
+
+                                <td>
+                                    @Html.EditorFor(model => model.Conditions.BikeGeneral, new { htmlAttributes = new { @class = "form-control" } })
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Run</td>
+                                <td>
+                                    @Html.EditorFor(model => model.Conditions.RunGeneral, new { htmlAttributes = new { @class = "form-control" } })
+                                </td>
+                            </tr>
+
+                        </table>
+                    </dd>
+                    </dl>
+
+
+</div>
+
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,36 @@
+﻿
+@model RaceAnalysis.Models.TriStatsViewModel
+@{
+    ViewBag.Title = "TriStats";
+    Layout = "~/Views/Shared/_AnalysisLayout.cshtml";
+}
+<!-- import the included stylesheet for some (very basic) default styling -->
+<link href="/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Athletes List";
+      
+}
+<h2>List</h2>
+<p>
+</p>
+
+
+@section filter{
+    @Html.ActionLink("Select Races", "ShowFilter", null,
+                          new
+                          {
+                              races = @String.Join(",", Model.Filter.SelectedRaces.Select(x => x.RaceId.ToString()).ToArray()),
+                              agegroups = @String.Join(",", Model.Filter.SelectedAgeGroups.Select(x => x.AgeGroupId.ToString()).ToArray()),
+                              genders = @String.Join(",", Model.Filter.SelectedGenders.Select(x => x.GenderId.ToString()).ToArray())
+                           },
+
+                          new { @class = "modal-link btn btn-success", title = "Select Race" })
+
+}
+@section results{
+    @if (Model.Triathletes != null)
+    {
+        @Html.Partial("~/Views/Shared/_PagedList.cshtml", Model);
+    }
+}

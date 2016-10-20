@@ -1,0 +1,73 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+ //   padding-left: 15px;
+  //  padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+#filter
+{
+   max-width: 200px;
+ 
+   padding-left:5px;
+   padding-right:5px;
+   margin:10px;
+}
+.col-sm-3 
+{
+    padding-right:0px;
+    max-width: 200px; /*this is sort of kludge*/
+}
+
+#results {
+  
+}
+
+.body-content{
+     
+   // background-color:aqua;
+   // float: right;
+    
+}
+.slider-step{
+    background-color:red;
+    width: 70%;
+  display:block;
+  margin-left:auto;
+  margin-right:auto;
+}
+.ui-slider-horizontal {
+	width:80%; /*scott override*/
+    
+}
+.ui-slider .ui-slider-range {
+    width:70%;
+    background-color:yellow;
+}
+.ui-slider-range .ui-corner-all .ui-widget-header{
+background-color:black;
+
+}
+
+
+
+
+

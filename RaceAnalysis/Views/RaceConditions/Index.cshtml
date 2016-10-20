@@ -1,0 +1,45 @@
+﻿@model IEnumerable<RaceAnalysis.Models.RaceConditions>
+
+@{
+    ViewBag.Title = "Race Conditions";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SwimGeneral)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BikeGeneral)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RunGeneral)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.SwimGeneral)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BikeGeneral)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RunGeneral)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.RaceConditionsId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.RaceConditionsId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.RaceConditionsId })
+        </td>
+    </tr>
+}
+
+</table>

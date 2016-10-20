@@ -1,0 +1,122 @@
+﻿
+
+@model RaceAnalysis.Models.TriathletesViewModel
+
+
+
+@using RaceAnalysis.Helpers;
+@using System.Web.Optimization
+@using X.PagedList
+@using X.PagedList.Mvc;
+@using System.Runtime;
+
+
+<!-- import the included stylesheet for some (very basic) default styling -->
+<link href="/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Paged List";
+
+}
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Race Name</th>
+                <th>Linked Name</th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Triathletes[0].Country)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Triathletes[0].DivRank)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Triathletes[0].GenderRank)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Triathletes[0].OverallRank)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Triathletes[0].Swim)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Triathletes[0].Bike)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Triathletes[0].Run)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Triathletes[0].Finish)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Triathletes[0].Points)
+                </th>
+
+
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var athlete in Model.Triathletes)
+            {
+                <tr>
+                    <td>
+                        @athlete.Race.DisplayName
+                    </td>
+                    <td>
+                        @Html.Raw(String.Format("<a href='{0}/{1}' target='_blank'>{2}</a>", athlete.Race.BaseURL, athlete.Link, athlete.Name))
+                                     
+  
+                    </td>
+                    <td>
+                        @athlete.Country
+                    </td>
+                    <td>
+                        @athlete.DivRank
+                    </td>
+                    <td>
+                        @athlete.GenderRank
+                    </td>
+                    <td>
+                        @athlete.OverallRank
+                    </td>
+
+                    <td>
+                        @athlete.Swim
+                    </td>
+                    <td>
+                        @athlete.Bike
+                    </td>
+                    <td>
+                        @athlete.Run
+                    </td>
+                    <td>
+                        @athlete.Finish
+                    </td>
+                    <td>
+                        @athlete.Points
+                    </td>
+
+
+
+                </tr>
+            }
+
+            <!-- a paging control that lets the user navigation to the previous page, next page, etc -->
+
+            @Html.PagedListPager((IPagedList)Model.Triathletes,
+                        page => Url.Action("DisplayPagedAthletes",
+                        new RouteValueDictionary{
+                            { "page", page },
+                            { "races",  @String.Join(",",Model.Filter.SelectedRaces.Select(x => x.RaceId.ToString()).ToArray())},
+                            { "agegroups",  @String.Join(",",Model.Filter.SelectedAgeGroups.Select(x =>x.AgeGroupId.ToString()).ToArray()) },
+                            { "genders" , @String.Join(",",Model.Filter.SelectedGenders.Select(x => x.GenderId.ToString()).ToArray()) }
+                        }))
+
+        </tbody>
+    </table>
+    </div>
+    
+
+

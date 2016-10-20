@@ -1,0 +1,30 @@
+﻿@model RaceAnalysis.Models.TriathletesViewModel
+@{
+    ViewBag.Title = "Athletes List";
+    Layout = "~/Views/Shared/_AnalysisLayout.cshtml";
+}
+
+
+<!-- import the included stylesheet for some (very basic) default styling -->
+<link href="/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+
+<h2>Search</h2>
+<p>
+</p>
+
+
+@section filter{
+    @Html.Partial("~/Views/Shared/_RaceFilter.cshtml", Model.Filter)
+}
+@section results{
+    @Html.Partial("~/Views/Shared/_Search.cshtml", Model)
+
+    @if (Model.Triathletes != null)
+    {
+        @Html.Partial("~/Views/Shared/_PagedList.cshtml", Model)
+
+    }
+
+
+ }

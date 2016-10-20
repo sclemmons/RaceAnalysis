@@ -1,0 +1,96 @@
+﻿@model RaceAnalysis.Models.Race
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Race</h4>
+    <hr />
+    <dl class="dl-horizontal">
+     
+        <dt>
+            @Html.DisplayNameFor(model => model.BaseURL)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BaseURL)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DisplayName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DisplayName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RaceDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RaceDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ShortName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ShortName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Distance)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Distance)
+        </dd>
+
+                
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Conditions)
+        </dt>
+        <dd>
+            <table class="table table-striped">
+                <tr>
+                    <th></th>
+                    <th>General</th>
+                    <th>Elevation</th>
+                    <th>Weather</th>
+                </tr>
+                
+                    <tr>
+                        <td>Swim</td>
+                        <td>
+                            @Html.DisplayFor(model => model.Conditions.SwimGeneral)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Bike</td>
+
+                        <td>
+                            @Html.DisplayFor(model => model.Conditions.BikeGeneral)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Run</td>
+                        <td>
+                            @Html.DisplayFor(model => model.Conditions.RunGeneral)
+                        </td>
+                    </tr>
+                
+            </table>
+        </dd>
+     
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.RaceId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

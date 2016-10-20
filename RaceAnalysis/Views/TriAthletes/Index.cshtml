@@ -1,0 +1,25 @@
+﻿
+@model RaceAnalysis.Models.TriathletesViewModel
+ 
+@{
+    ViewBag.Title = "Triathletes";
+    Layout = "~/Views/Shared/_AnalysisLayout.cshtml";
+}
+
+<h2>Athletes List</h2>
+<p>
+</p>
+
+@section filter{
+    @Html.ActionLink("Select Races", "ShowFilterByRace", null,
+                          new
+                          {
+                              races = @String.Join(",", Model.Filter.SelectedRaces.Select(x => x.RaceId.ToString()).ToArray()),
+                              agegroups = @String.Join(",", Model.Filter.SelectedAgeGroups.Select(x => x.AgeGroupId.ToString()).ToArray()),
+                              genders = @String.Join(",", Model.Filter.SelectedGenders.Select(x => x.GenderId.ToString()).ToArray())
+                          },
+
+
+                          new { @class = "modal-link btn btn-success", title = "Pick Race" })
+
+}
