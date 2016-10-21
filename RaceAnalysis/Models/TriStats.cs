@@ -48,7 +48,7 @@ namespace RaceAnalysis.Models
             {
                 var dataTable = new GoogleVisualizationDataTable();
 
-                string[] labels = { "Fastest", "Slowest", "Median" };
+                string[] labels = { "Fastest", "Median", "Slowest" };
 
 
                 // Specify the columns for the DataTable.
@@ -68,9 +68,8 @@ namespace RaceAnalysis.Models
                     var swim = new List<object>(new[] {
                             "swim",
                             Swim.Min.ToString(),
-                            Swim.Max.ToString(),
                             Swim.Median.ToString(),
-
+                            Swim.Max.ToString(),
                         }
 
                     );
@@ -80,9 +79,8 @@ namespace RaceAnalysis.Models
                     var bike = new List<object>(new[] {
                             "bike",
                             Bike.Min.ToString(),
-                            Bike.Max.ToString(),
                             Bike.Median.ToString(),
-
+                            Bike.Max.ToString(),
                         }
 
                     );
@@ -92,8 +90,8 @@ namespace RaceAnalysis.Models
                     var run = new List<object>(new[] {
                             "run",
                             Run.Min.ToString(),
-                            Run.Max.ToString(),
                             Run.Median.ToString(),
+                            Run.Max.ToString(),
 
                         }
 
@@ -103,8 +101,8 @@ namespace RaceAnalysis.Models
                     var finish = new List<object>(new[] {
                             "finish",
                             Finish.Min.ToString(),
-                            Finish.Max.ToString(),
                             Finish.Median.ToString(),
+                            Finish.Max.ToString(),
 
                         }
 

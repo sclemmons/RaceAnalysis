@@ -4,7 +4,7 @@
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <div>
-        <div id="chart" style="width: 600px; height: 400px;"></div>
+        <div id='@Model.Race.DisplayName' style="width: 600px; height: 500px;"></div>
         <script type="text/javascript">
             google.charts.load('current', { 'packages': ['corechart', 'bar'] });
 
@@ -16,10 +16,9 @@
                     @Html.Raw(Json.Encode(Model.ChartData))
                 );
 
-                drawBarChart('chart', title, subtitle, dataTable);
-                //drawColumnChart('chart', title, dataTable);
+                drawBarChart('@Model.Race.DisplayName', title, subtitle, dataTable);
+                //drawColumnChart('@Model.Race.DisplayName', title, dataTable);
             });
-
             function drawBarChart(elementId, title, subtitle, dataTable) {
                 var options = {
                     chart: {
