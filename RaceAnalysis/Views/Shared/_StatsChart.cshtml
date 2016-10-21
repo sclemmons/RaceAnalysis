@@ -1,0 +1,45 @@
+﻿
+@model RaceAnalysis.Models.TriStats
+
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <div>
+        <div id="chart" style="width: 600px; height: 400px;"></div>
+        <script type="text/javascript">
+            google.charts.load('current', { 'packages': ['corechart', 'bar'] });
+
+            google.charts.setOnLoadCallback(function () {
+                var title = '@Model.Race.DisplayName';
+                var subtitle = '@Model.Athletes.Count' + ' Athletes';
+
+                var dataTable = new google.visualization.DataTable(
+                    @Html.Raw(Json.Encode(Model.ChartData))
+                );
+
+                drawBarChart('chart', title, subtitle, dataTable);
+                //drawColumnChart('chart', title, dataTable);
+            });
+
+            function drawBarChart(elementId, title, subtitle, dataTable) {
+                var options = {
+                    chart: {
+                        title: title,
+                        subtitle: subtitle
+                    }
+                };
+                var chart = new google.charts.Bar(document.getElementById(elementId));
+                chart.draw(dataTable, options);
+            }
+
+            function drawColumnChart(elementId, title, dataTable) {
+                var options = {
+                    title: title
+                };
+                var chart = new google.visualization.ColumnChart(document.getElementById(elementId));
+                chart.draw(dataTable, options);
+            }
+        </script>
+    </div>
+
+        
+  

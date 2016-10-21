@@ -17,7 +17,6 @@ namespace RaceAnalysis.Models
         public RaceFilterViewModel Filter { get; set; }
         public List<TriStats> Stats { get; set; }
      
-
     }
 }
 

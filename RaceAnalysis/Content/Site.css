@@ -22,7 +22,10 @@ select,
 textarea {
     max-width: 280px;
 }
-
+.container .content {
+    display: none;
+    padding : 5px;
+}
 #filter
 {
    max-width: 200px;

@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using RaceAnalysis.Helpers;
 using RaceAnalysis.Models;
-
+using System.Web.Helpers;
+using System.Collections;
 
 
 namespace RaceAnalysis.Controllers
@@ -29,7 +28,11 @@ namespace RaceAnalysis.Controllers
             return View(viewmodel);
 
         }
-   
+
+        public void ShowChart()
+        {
+        
+        }
 
         protected override ActionResult DisplayResultsView(List<Triathlete> athletes,RaceFilterViewModel filter)
         {

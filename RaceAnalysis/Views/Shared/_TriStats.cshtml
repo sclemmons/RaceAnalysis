@@ -1,87 +1,76 @@
 ﻿
-@model RaceAnalysis.Models.TriStatsViewModel
+@model RaceAnalysis.Models.TriStats
 
-@if (Model.Stats.Count > 0)
-{
-    foreach (var stat in Model.Stats)
-    {
-    <p/>
+
+   <p/>
     <div>
-        <div>Race: @Html.DisplayFor(r => stat.Race.DisplayName)</div>
-        <div>Count: @Html.DisplayFor(a => stat.Athletes.Count)</div>
-        @if(stat.Race.Conditions != null)
-        {
-            <div>Swim Conditions: @Html.DisplayFor(r => stat.Race.Conditions.SwimGeneral)</div>
-            <div>Bike Conditions: @Html.DisplayFor(r => stat.Race.Conditions.BikeGeneral)</div>
-            <div>Run Conditions:  @Html.DisplayFor(r => stat.Race.Conditions.RunGeneral)</div>
-        }
-    </div>
-    <div class="table-responsive">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>Swim</th>
-                    <th>Bike</th>
-                    <th>Run</th>
-                    <th>Finish</th>
-                    <th>Div Rank</th>
-                    <th>Gender Rank</th>
-                    <th>Overall Rank</th>
-                    <th>Points Rank</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Fastest:</td>
-                    <td>@Html.DisplayFor(s => stat.Swim.Min) </td>
-                    <td>@Html.DisplayFor(s => stat.Bike.Min) </td>
-                    <td>@Html.DisplayFor(s => stat.Run.Min)</td>
-                    <td>@Html.DisplayFor(s => stat.Finish.Min)</td>
-                    <td>@Html.DisplayFor(s => stat.DivRank.Min)</td>
-                    <td>@Html.DisplayFor(s => stat.GenderRank.Min)</td>
-                    <td>@Html.DisplayFor(s => stat.OverallRank.Min)</td>
-                    <td>@Html.DisplayFor(s => stat.Points.Min)</td>
-                </tr>
-                <tr>
-                    <td>Slowest:</td>
-                    <td>@Html.DisplayFor(s => stat.Swim.Max) </td>
-                    <td>@Html.DisplayFor(s => stat.Bike.Max) </td>
-                    <td>@Html.DisplayFor(s => stat.Run.Max)</td>
-                    <td>@Html.DisplayFor(s => stat.Finish.Max)</td>
-                    <td>@Html.DisplayFor(s => stat.DivRank.Max)</td>
-                    <td>@Html.DisplayFor(s => stat.GenderRank.Max)</td>
-                    <td>@Html.DisplayFor(s => stat.OverallRank.Max)</td>
-                    <td>@Html.DisplayFor(s => stat.Points.Max)</td>
-                </tr>
-                <tr>
-                    <td>Median:</td>
-                    <td>@Html.DisplayFor(s => stat.Swim.Median) </td>
-                    <td>@Html.DisplayFor(s => stat.Bike.Median) </td>
-                    <td>@Html.DisplayFor(s => stat.Run.Median)</td>
-                    <td>@Html.DisplayFor(s => stat.Finish.Median)</td>
-                    <td>@Html.DisplayFor(s => stat.DivRank.Median)</td>
-                    <td>@Html.DisplayFor(s => stat.GenderRank.Median)</td>
-                    <td>@Html.DisplayFor(s => stat.OverallRank.Median)</td>
-                    <td>@Html.DisplayFor(s => stat.Points.Median)</td>
+       
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Swim</th>
+                        <th>Bike</th>
+                        <th>Run</th>
+                        <th>Finish</th>
+                        <th>Div Rank</th>
+                        <th>Gender Rank</th>
+                        <th>Overall Rank</th>
+                        <th>Points Rank</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Fastest:</td>
+                        <td>@Html.DisplayFor(s => Model.Swim.Min) </td>
+                        <td>@Html.DisplayFor(s => Model.Bike.Min) </td>
+                        <td>@Html.DisplayFor(s => Model.Run.Min)</td>
+                        <td>@Html.DisplayFor(s => Model.Finish.Min)</td>
+                        <td>@Html.DisplayFor(s => Model.DivRank.Min)</td>
+                        <td>@Html.DisplayFor(s => Model.GenderRank.Min)</td>
+                        <td>@Html.DisplayFor(s => Model.OverallRank.Min)</td>
+                        <td>@Html.DisplayFor(s => Model.Points.Min)</td>
+                    </tr>
+                    <tr>
+                        <td>Slowest:</td>
+                        <td>@Html.DisplayFor(s => Model.Swim.Max) </td>
+                        <td>@Html.DisplayFor(s => Model.Bike.Max) </td>
+                        <td>@Html.DisplayFor(s => Model.Run.Max)</td>
+                        <td>@Html.DisplayFor(s => Model.Finish.Max)</td>
+                        <td>@Html.DisplayFor(s => Model.DivRank.Max)</td>
+                        <td>@Html.DisplayFor(s => Model.GenderRank.Max)</td>
+                        <td>@Html.DisplayFor(s => Model.OverallRank.Max)</td>
+                        <td>@Html.DisplayFor(s => Model.Points.Max)</td>
+                    </tr>
+                    <tr>
+                        <td>Median:</td>
+                        <td>@Html.DisplayFor(s => Model.Swim.Median) </td>
+                        <td>@Html.DisplayFor(s => Model.Bike.Median) </td>
+                        <td>@Html.DisplayFor(s => Model.Run.Median)</td>
+                        <td>@Html.DisplayFor(s => Model.Finish.Median)</td>
+                        <td>@Html.DisplayFor(s => Model.DivRank.Median)</td>
+                        <td>@Html.DisplayFor(s => Model.GenderRank.Median)</td>
+                        <td>@Html.DisplayFor(s => Model.OverallRank.Median)</td>
+                        <td>@Html.DisplayFor(s => Model.Points.Median)</td>
 
-                </tr>
-                <tr>
-                    <td>Average:</td>
-                    <td>@Html.DisplayFor(s => stat.Swim.Average) </td>
-                    <td>@Html.DisplayFor(s => stat.Bike.Average) </td>
-                    <td>@Html.DisplayFor(s => stat.Run.Average)</td>
-                    <td>@Html.DisplayFor(s => stat.Finish.Average)</td>
-                    <td>@Html.DisplayFor(s => stat.DivRank.Average)</td>
-                    <td>@Html.DisplayFor(s => stat.GenderRank.Average)</td>
-                    <td>@Html.DisplayFor(s => stat.OverallRank.Average)</td>
-                    <td>@Html.DisplayFor(s => stat.Points.Average)</td>
-                </tr>
-            </tbody>
+                    </tr>
+                    <tr>
+                        <td>Average:</td>
+                        <td>@Html.DisplayFor(s => Model.Swim.Average) </td>
+                        <td>@Html.DisplayFor(s => Model.Bike.Average) </td>
+                        <td>@Html.DisplayFor(s => Model.Run.Average)</td>
+                        <td>@Html.DisplayFor(s => Model.Finish.Average)</td>
+                        <td>@Html.DisplayFor(s => Model.DivRank.Average)</td>
+                        <td>@Html.DisplayFor(s => Model.GenderRank.Average)</td>
+                        <td>@Html.DisplayFor(s => Model.OverallRank.Average)</td>
+                        <td>@Html.DisplayFor(s => Model.Points.Average)</td>
+                    </tr>
+                </tbody>
 
 
-        </table>
-    </div>//responsive
-    }
-}
+            </table>
+        </div> <!--responsive-->
+     </div> <!--container-->
+
 

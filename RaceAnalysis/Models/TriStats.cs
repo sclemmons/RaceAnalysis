@@ -42,6 +42,82 @@ namespace RaceAnalysis.Models
        public OverallRankingStats    OverallRank { get; set; }
        public PointsStats            Points { get; set; }
 
+       public GoogleVisualizationDataTable ChartData
+        {
+            get
+            {
+                var dataTable = new GoogleVisualizationDataTable();
+
+                string[] labels = { "Fastest", "Slowest", "Median" };
+
+
+                // Specify the columns for the DataTable.
+                dataTable.AddColumn("Label for this group", "string");
+                foreach (var l in labels)
+                {
+                    dataTable.AddColumn(l, "string");
+                }
+
+
+
+                // Specify the rows for the DataTable.
+                // Each row is a stat.
+           //     foreach (var stat in Stats)
+                {
+
+                    var swim = new List<object>(new[] {
+                            "swim",
+                            Swim.Min.ToString(),
+                            Swim.Max.ToString(),
+                            Swim.Median.ToString(),
+
+                        }
+
+                    );
+                    dataTable.AddRow(swim);
+
+
+                    var bike = new List<object>(new[] {
+                            "bike",
+                            Bike.Min.ToString(),
+                            Bike.Max.ToString(),
+                            Bike.Median.ToString(),
+
+                        }
+
+                    );
+                    dataTable.AddRow(bike);
+
+
+                    var run = new List<object>(new[] {
+                            "run",
+                            Run.Min.ToString(),
+                            Run.Max.ToString(),
+                            Run.Median.ToString(),
+
+                        }
+
+                    );
+                    dataTable.AddRow(run);
+
+                    var finish = new List<object>(new[] {
+                            "finish",
+                            Finish.Min.ToString(),
+                            Finish.Max.ToString(),
+                            Finish.Median.ToString(),
+
+                        }
+
+                    );
+                    dataTable.AddRow(finish);
+
+
+                }
+
+                return dataTable;
+            }
+
+        }
     }
 
     public class SwimStats

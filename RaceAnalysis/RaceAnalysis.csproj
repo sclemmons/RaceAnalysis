@@ -244,6 +244,7 @@
     <Compile Include="Helpers\RestClient.cs" />
     <Compile Include="Helpers\TriStatsCalculator.cs" />
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\GoogleVisualizationDataTable.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\AgeGroup.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
@@ -411,6 +412,9 @@
     <Content Include="Views\TriAthletes\SearchResults.cshtml" />
     <Content Include="Views\Shared\_SearchByDuration.cshtml" />
     <Content Include="Views\TriStats\TriStats.cshtml" />
+    <Content Include="Views\Shared\_TestChart.cshtml" />
+    <Content Include="Views\Shared\_StatsChart.cshtml" />
+    <Content Include="Views\Shared\_RaceConditions.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

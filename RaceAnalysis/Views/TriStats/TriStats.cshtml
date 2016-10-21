@@ -40,9 +40,15 @@
  
 
 @section results{
-
-
-    @Html.Partial("~/Views/Shared/_TriStats.cshtml",Model)
+    @if (Model.Stats.Count > 0)
+    {
+        foreach (var stat in Model.Stats)
+        {
+                @Html.Partial("~/Views/Shared/_RaceConditions.cshtml", stat)
+                @Html.Partial("~/Views/Shared/_TriStats.cshtml",stat)
+                @Html.Partial("~/Views/Shared/_StatsChart.cshtml",stat)
+        }
+    }
 }
 
 
