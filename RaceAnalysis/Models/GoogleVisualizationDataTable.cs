@@ -17,6 +17,11 @@ namespace RaceAnalysis.Models
             cols.Add(new Col() { label = label, type = type });
         }
 
+        public void AddColumn(string label, string type, string role)
+        {
+            cols.Add(new Col() { label = label, type = type, role = role });
+        }
+
         public void AddRow(IList<object> values)
         {
             rows.Add(new Row() { c = values.Select(x => new Row.RowValue() { v = x }) });
@@ -26,6 +31,7 @@ namespace RaceAnalysis.Models
         {
             public string label { get; set; }
             public string type { get; set; }
+            public string role { get; set; }
         }
 
         public class Row

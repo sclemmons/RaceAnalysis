@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Script.Services;
 
 namespace RaceAnalysis.Models
 {
@@ -52,69 +53,91 @@ namespace RaceAnalysis.Models
 
 
                 // Specify the columns for the DataTable.
-                dataTable.AddColumn("Label for this group", "string");
+                dataTable.AddColumn("Stats", "string","domain");
                 foreach (var l in labels)
                 {
-                    dataTable.AddColumn(l, "string");
+                    dataTable.AddColumn(l, "timeofday","data");
                 }
 
 
 
                 // Specify the rows for the DataTable.
                 // Each row is a stat.
-           //     foreach (var stat in Stats)
-                {
+                //     foreach (var stat in Stats)
 
-                    var swim = new List<object>(new[] {
+          
+                
+                    var swim = new object[]{
                             "swim",
-                            Swim.Min.ToString(),
-                            Swim.Median.ToString(),
-                            Swim.Max.ToString(),
-                        }
-
-                    );
+                            new int[] { Swim.Min.Hours, Swim.Min.Minutes,Swim.Min.Seconds },
+                            new int[] { Swim.Median.Hours, Swim.Median.Minutes,Swim.Median.Seconds },
+                            new int[] { Swim.Max.Hours, Swim.Max.Minutes,Swim.Max.Seconds },
+                        };
+                   
                     dataTable.AddRow(swim);
 
 
-                    var bike = new List<object>(new[] {
+                var bike = new object[]{
                             "bike",
-                            Bike.Min.ToString(),
-                            Bike.Median.ToString(),
-                            Bike.Max.ToString(),
-                        }
+                            new int[] { Bike.Min.Hours, Bike.Min.Minutes,Bike.Min.Seconds },
+                            new int[] { Bike.Median.Hours, Bike.Median.Minutes,Bike.Median.Seconds },
+                            new int[] { Bike.Max.Hours, Bike.Max.Minutes,Bike.Max.Seconds },
+                        };
 
-                    );
+                    
                     dataTable.AddRow(bike);
 
 
-                    var run = new List<object>(new[] {
+                var run = new object[]{
                             "run",
-                            Run.Min.ToString(),
-                            Run.Median.ToString(),
-                            Run.Max.ToString(),
+                            new int[] { Run.Min.Hours, Run.Min.Minutes,Run.Min.Seconds },
+                            new int[] { Run.Median.Hours, Run.Median.Minutes,Run.Median.Seconds },
+                            new int[] { Run.Max.Hours, Run.Max.Minutes,Run.Max.Seconds },
 
-                        }
+                        };
 
-                    );
+                    
                     dataTable.AddRow(run);
 
-                    var finish = new List<object>(new[] {
+                var finish = new object[]{
                             "finish",
-                            Finish.Min.ToString(),
-                            Finish.Median.ToString(),
-                            Finish.Max.ToString(),
+                            new int[] { Finish.Min.Hours, Finish.Min.Minutes,Finish.Min.Seconds },
+                            new int[] { Finish.Median.Hours, Finish.Median.Minutes,Finish.Median.Seconds },
+                            new int[] { Finish.Max.Hours, Finish.Max.Minutes,Finish.Max.Seconds },
+                        };
 
-                        }
-
-                    );
+                    
                     dataTable.AddRow(finish);
 
 
-                }
+                
 
                 return dataTable;
             }
 
+        }
+
+    //    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+        public object[] GetChartData()
+        {
+          
+       
+            var chartData = new object[1 + 4];
+            chartData[0] = new object[]{
+                "Blah",
+                "Fastest",
+                "Median",
+                "Slowest"
+            };
+
+           chartData[1] = new object[] {"swim",Swim.Min.Ticks,Swim.Median.Ticks, Swim.Max.Ticks };
+           chartData[2] = new object[] { "bike", Bike.Min.Ticks, Bike.Median.Ticks, Bike.Max.Ticks };
+           chartData[3] = new object[] { "run", Run.Min.Ticks, Run.Median.Ticks, Run.Max.Ticks };
+           chartData[4] = new object[] { "finish", Finish.Min.Ticks, Finish.Median.Ticks, Finish.Max.Ticks };
+
+
+
+            return chartData;
         }
     }
 
