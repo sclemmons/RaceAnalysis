@@ -49,6 +49,7 @@ namespace RaceAnalysis.Models
             {
                 var dataTable = new GoogleVisualizationDataTable();
 
+                //these are the items we are comparing for each discipline
                 string[] labels = { "Fastest", "Median", "Slowest" };
 
 
@@ -59,33 +60,26 @@ namespace RaceAnalysis.Models
                     dataTable.AddColumn(l, "timeofday","data");
                 }
 
-
-
-                // Specify the rows for the DataTable.
-                // Each row is a stat.
-                //     foreach (var stat in Stats)
-
-          
-                
-                    var swim = new object[]{
-                            "swim",
-                            new int[] { Swim.Min.Hours, Swim.Min.Minutes,Swim.Min.Seconds },
-                            new int[] { Swim.Median.Hours, Swim.Median.Minutes,Swim.Median.Seconds },
-                            new int[] { Swim.Max.Hours, Swim.Max.Minutes,Swim.Max.Seconds },
-                        };
+                //create rows, whcih are the values for each column
+                var swim = new object[]{
+                        "swim",
+                        new int[] { Swim.Min.Hours, Swim.Min.Minutes,Swim.Min.Seconds },
+                        new int[] { Swim.Median.Hours, Swim.Median.Minutes,Swim.Median.Seconds },
+                        new int[] { Swim.Max.Hours, Swim.Max.Minutes,Swim.Max.Seconds },
+                    };
                    
-                    dataTable.AddRow(swim);
+                dataTable.AddRow(swim);
 
 
                 var bike = new object[]{
-                            "bike",
-                            new int[] { Bike.Min.Hours, Bike.Min.Minutes,Bike.Min.Seconds },
-                            new int[] { Bike.Median.Hours, Bike.Median.Minutes,Bike.Median.Seconds },
-                            new int[] { Bike.Max.Hours, Bike.Max.Minutes,Bike.Max.Seconds },
-                        };
+                        "bike",
+                        new int[] { Bike.Min.Hours, Bike.Min.Minutes,Bike.Min.Seconds },
+                        new int[] { Bike.Median.Hours, Bike.Median.Minutes,Bike.Median.Seconds },
+                        new int[] { Bike.Max.Hours, Bike.Max.Minutes,Bike.Max.Seconds },
+                    };
 
                     
-                    dataTable.AddRow(bike);
+                dataTable.AddRow(bike);
 
 
                 var run = new object[]{
@@ -97,7 +91,7 @@ namespace RaceAnalysis.Models
                         };
 
                     
-                    dataTable.AddRow(run);
+                dataTable.AddRow(run);
 
                 var finish = new object[]{
                             "finish",
@@ -107,7 +101,7 @@ namespace RaceAnalysis.Models
                         };
 
                     
-                    dataTable.AddRow(finish);
+                dataTable.AddRow(finish);
 
 
                 
@@ -116,29 +110,7 @@ namespace RaceAnalysis.Models
             }
 
         }
-
-    //    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-        public object[] GetChartData()
-        {
-          
-       
-            var chartData = new object[1 + 4];
-            chartData[0] = new object[]{
-                "Blah",
-                "Fastest",
-                "Median",
-                "Slowest"
-            };
-
-           chartData[1] = new object[] {"swim",Swim.Min.Ticks,Swim.Median.Ticks, Swim.Max.Ticks };
-           chartData[2] = new object[] { "bike", Bike.Min.Ticks, Bike.Median.Ticks, Bike.Max.Ticks };
-           chartData[3] = new object[] { "run", Run.Min.Ticks, Run.Median.Ticks, Run.Max.Ticks };
-           chartData[4] = new object[] { "finish", Finish.Min.Ticks, Finish.Median.Ticks, Finish.Max.Ticks };
-
-
-
-            return chartData;
-        }
+ 
     }
 
     public class SwimStats

@@ -19,24 +19,7 @@
                // drawBarChart('@Model.Race.DisplayName', title, subtitle, dataTable);
                 drawColumnChart('@Model.Race.DisplayName', title, dataTable);
             });
-            function drawBarChart(elementId, title, subtitle, dataTable) {
-                var options = {
-                    chart: {
-                        title: title,
-                        subtitle: subtitle
-                    }
-                };
-                var chart = new google.charts.Bar(document.getElementById(elementId));
-                chart.draw(dataTable, options);
-            }
-
-            function drawColumnChart(elementId, title, dataTable) {
-                var options = {
-                    title: title
-                };
-                var chart = new google.visualization.ColumnChart(document.getElementById(elementId));
-                chart.draw(dataTable, options);
-            }
+          
     </script>
 </div>
 

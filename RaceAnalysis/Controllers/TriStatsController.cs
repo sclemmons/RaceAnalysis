@@ -24,16 +24,12 @@ namespace RaceAnalysis.Controllers
         {
 
             var viewmodel = new TriathletesViewModel(); //switch to the Triathletes View
-            viewmodel.Filter = new RaceFilterViewModel(); // PopulateRaceFilter();
+            viewmodel.Filter = new RaceFilterViewModel(); 
             return View(viewmodel);
 
         }
 
-        public void ShowChart()
-        {
-        
-        }
-
+      
         protected override ActionResult DisplayResultsView(List<Triathlete> athletes,RaceFilterViewModel filter)
         {
             var viewmodel = new TriStatsViewModel();
@@ -49,8 +45,7 @@ namespace RaceAnalysis.Controllers
 
             return View("TriStats",viewmodel);
         }
-
-
+     
         protected override ActionResult DisplayResultsView(int page, int[] raceIds, int[] agegroupIds, int[] genderIds)
         {
             var viewModel = new TriStatsViewModel();
@@ -68,7 +63,7 @@ namespace RaceAnalysis.Controllers
 
             return View("TriStats", viewModel);                       
         }
-        private TriStats CalcStats(List<Triathlete> athletes,Race race)
+        protected TriStats CalcStats(List<Triathlete> athletes,Race race)
         {
             TriStats stats = new TriStats(athletes,race);
         

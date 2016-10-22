@@ -1,0 +1,28 @@
+﻿
+@model RaceAnalysis.Models.TriStatsViewModel
+
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<div>
+    <div id='@Model.UniqueId' style="width: 600px; height: 500px;"></div>
+    <script type="text/javascript">
+      
+            google.charts.load('current', { 'packages': ['corechart', 'bar'] });
+
+            google.charts.setOnLoadCallback(function () {
+                var title = '@Model.Stats.Sum(s => s.Athletes.Count)' + ' Athletes';
+                var subtitle = "Duration (HRS)";
+
+                var dataTable = new google.visualization.DataTable(
+                    @Html.Raw(Json.Encode(Model.RaceComparisonChartData))
+                );
+
+               // drawBarChart('SomeUniqueIdForEachChart', title, subtitle, dataTable);
+                drawColumnChart('@Model.UniqueId' , title,subtitle, dataTable);
+            });
+
+    </script>
+</div>
+
+
+

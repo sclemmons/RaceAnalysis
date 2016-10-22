@@ -1,0 +1,52 @@
+﻿@model RaceAnalysis.Models.TriStatsViewModel
+@{
+    ViewBag.Title = "TriStats";
+    Layout = "~/Views/Shared/_AnalysisLayout.cshtml";
+}
+
+<h2>Tri Stats Race Comparison</h2>
+
+@section filter{<div id="myemptydiv"></div>}
+
+
+
+
+@Html.ActionLink("Select Races", "ShowFilterByRace", null,
+                                           new
+                                           {
+                                               races = @String.Join(",", Model.Filter.SelectedRaces.Select(x => x.RaceId.ToString()).ToArray()),
+                                               agegroups = @String.Join(",", Model.Filter.SelectedAgeGroups.Select(x => x.AgeGroupId.ToString()).ToArray()),
+                                               genders = @String.Join(",", Model.Filter.SelectedGenders.Select(x => x.GenderId.ToString()).ToArray())
+                                           },
+
+
+                                           new { @class = "modal-link btn btn-success", title = "Select Races" })
+
+@if (Model.Stats.Count > 0)
+{
+    @Html.ActionLink("Filter by Time", "ShowFilterByDuration", null,
+                                      new
+                                      {
+                                          races = @String.Join(",", Model.Filter.SelectedRaces.Select(x => x.RaceId.ToString()).ToArray()),
+                                          agegroups = @String.Join(",", Model.Filter.SelectedAgeGroups.Select(x => x.AgeGroupId.ToString()).ToArray()),
+                                          genders = @String.Join(",", Model.Filter.SelectedGenders.Select(x => x.GenderId.ToString()).ToArray())
+                                      },
+                                      new { @class = "modal-link btn btn-success", title = "Filter by Time" })
+}
+
+
+
+@section results{
+    @if (Model.Stats.Count > 0)
+    {
+       // foreach (var stat in Model.Stats)
+        {
+            //@Html.Partial("~/Views/Shared/_TriStats.cshtml", stat)
+            @Html.Partial("~/Views/Shared/_StatsComparisonChart.cshtml", Model)
+        }
+    }
+}
+
+
+
+

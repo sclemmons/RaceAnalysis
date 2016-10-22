@@ -38,6 +38,7 @@ namespace RaceAnalysis.Controllers
             return PartialView("~/Views/Shared/_SearchByDuration.cshtml", viewmodel);
         }
 
+       
 
         [HttpPost]
         public ActionResult SearchByTimeThresholds(FormCollection form, string races, string agegroups, string genders)
