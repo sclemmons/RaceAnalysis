@@ -28,16 +28,36 @@ textarea {
 }
 #filter
 {
-   max-width: 200px;
- 
+   display: inline-flex;
    padding-left:5px;
    padding-right:5px;
    margin:10px;
+  // background-color:yellow;
+   //width:100%;
+   overflow:hidden;
+ 
 }
+
+#filter .form-group 
+{
+//background-color:blue;
+float:right; /* this is not working for me*/
+margin-left:110px; /*so I adjusted this*/
+margin-right:10px;
+vertical-align: top;
+border:solid;
+border-color:#808080;
+//border-radius:5px;
+background-color:lightgray;
+padding:5px;
+}
+
+
+
 .col-sm-3 
 {
     padding-right:0px;
-    max-width: 200px; /*this is sort of kludge*/
+    max-width: 200px; /*this is sort of kludge*/ 
 }
 
 #results {

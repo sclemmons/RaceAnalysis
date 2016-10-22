@@ -421,6 +421,7 @@
     <Content Include="Views\Shared\_StatsComparisonChart.cshtml" />
     <Content Include="Views\TriStatsRaceComparer\Compare.cshtml" />
     <Content Include="Views\TriStatsRaceComparer\Index.cshtml" />
+    <Content Include="Views\Shared\_SearchByAthleteName.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,30 @@
+﻿@model RaceAnalysis.Models.TriathletesViewModel
+
+
+@{
+    var controllerName = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
+}
+
+
+
+@using (Html.BeginForm("SearchByAthleteName", controllerName,
+                                                     new
+                                                     {
+                                                         races = @String.Join(",", Model.Filter.SelectedRaces.Select(x => x.RaceId.ToString()).ToArray()),
+                                                         agegroups = @String.Join(",", Model.Filter.SelectedAgeGroups.Select(x => x.AgeGroupId.ToString()).ToArray()),
+                                                         genders = @String.Join(",", Model.Filter.SelectedGenders.Select(x => x.GenderId.ToString()).ToArray())
+                                                     },
+                                                      FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.AntiForgeryToken()
+
+
+        <span>Search by Name:</span>  @Html.TextBox("SearchString")
+       
+
+
+        <input type="submit" value="Search" class="btn btn-default" />
+
+    </div>
+}

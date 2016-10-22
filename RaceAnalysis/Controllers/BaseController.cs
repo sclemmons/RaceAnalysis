@@ -38,7 +38,12 @@ namespace RaceAnalysis.Controllers
             return PartialView("~/Views/Shared/_SearchByDuration.cshtml", viewmodel);
         }
 
-       
+        [HttpPost]
+        public ActionResult SearchByAthleteName(FormCollection form, string races, string agegroups, string genders)
+        {
+            return SearchOpenFieldQuery("name", form["SearchString"], races, agegroups, genders);
+        }
+
 
         [HttpPost]
         public ActionResult SearchByTimeThresholds(FormCollection form, string races, string agegroups, string genders)
