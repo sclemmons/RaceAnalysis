@@ -5,7 +5,7 @@
   }
 
 
-//Chart Functions: 
+  //Chart Functions: 
   function drawBarChart(elementId, title, subtitle, dataTable) {
       var options = {
           chart: {
@@ -17,11 +17,11 @@
       chart.draw(dataTable, options);
   }
 
-  function drawColumnChart(elementId, title,subtitle, dataTable) {
+  function drawColumnChart(elementId, title, hAxis,vAxis, dataTable) {
       var options = {
           title: title,
-          hAxis:{title: "Median Times"},
-          vAxis: { title: subtitle }
+          hAxis: { title: hAxis },
+          vAxis: { title: vAxis }
       }
       var chart = new google.visualization.ColumnChart(document.getElementById(elementId));
       chart.draw(dataTable, options);

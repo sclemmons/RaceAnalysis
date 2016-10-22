@@ -13,16 +13,16 @@ namespace RaceAnalysis.Models
             //to prevent nulls
             Filter = new RaceFilterViewModel();
             Stats = new List<TriStats>();
-            UniqueId = Guid.NewGuid(); //this is overkill for our need, but easy for now.
+            UniqueId = Guid.NewGuid(); 
         }
         public RaceFilterViewModel Filter { get; set; }
         public List<TriStats> Stats { get; set; }
-        public Guid UniqueId { get; set; }
+        public Guid UniqueId { get; set; }//this is overkill for our need, but easy for now.
 
         /// <summary>
         /// create data for a chart that compares each race
         /// </summary>
-        public GoogleVisualizationDataTable RaceComparisonChartData
+        public GoogleVisualizationDataTable RaceComparisonChartDataMedian
         {
             get
             {
@@ -48,10 +48,10 @@ namespace RaceAnalysis.Models
                 dataTable.AddRow(finishRow);
 
                 //our header values: 
-                swimRow.Add("swim median");
-                bikeRow.Add("bike median");
-                runRow.Add("run median");
-                finishRow.Add("finish median");
+                swimRow.Add("swim");
+                bikeRow.Add("bike");
+                runRow.Add("run");
+                finishRow.Add("finish");
 
                 //assign values to each column. 
                 foreach (TriStats stat in Stats)

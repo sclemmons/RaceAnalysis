@@ -11,14 +11,15 @@
 
             google.charts.setOnLoadCallback(function () {
                 var title = '@Model.Stats.Sum(s => s.Athletes.Count)' + ' Athletes';
-                var subtitle = "Duration (HRS)";
+                var vAxis = "Duration (HRS)";
+                var hAxis = "Median Times" 
 
                 var dataTable = new google.visualization.DataTable(
-                    @Html.Raw(Json.Encode(Model.RaceComparisonChartData))
+                    @Html.Raw(Json.Encode(Model.RaceComparisonChartDataMedian))
                 );
 
                // drawBarChart('SomeUniqueIdForEachChart', title, subtitle, dataTable);
-                drawColumnChart('@Model.UniqueId' , title,subtitle, dataTable);
+                drawColumnChart('@Model.UniqueId' , title, hAxis,vAxis, dataTable);
             });
 
     </script>
