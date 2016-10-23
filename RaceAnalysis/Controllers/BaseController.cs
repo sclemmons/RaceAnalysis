@@ -114,7 +114,7 @@ namespace RaceAnalysis.Controllers
                 new int[] { };
 
 
-            return DisplayResultsView(1, raceIds, agegroupIds, genderIds);
+            return DisplayResultsView( 1, raceIds, agegroupIds, genderIds);
 
         }
         //called from the Paging Control

@@ -29,16 +29,21 @@ namespace RaceAnalysis.Controllers
 
         }
 
-      
+      /// <summary>
+      /// DisplayReview() - In this version the group of athletes are given to us. We just need to calulate the stats and return the view
+      /// </summary>
+      /// <param name="athletes"></param>
+      /// <param name="filter"></param>
+      /// <returns></returns>
         protected override ActionResult DisplayResultsView(List<Triathlete> athletes,RaceFilterViewModel filter)
         {
             var viewmodel = new TriStatsViewModel();
             viewmodel.Filter = filter;
 
-            foreach (var race in filter.SelectedRaces)   //it makes more sense to split the races in order to compare them rather than to combine their stats
+            foreach (var race in filter.SelectedRaces)   
             {
                 var subset = athletes.Where(a => a.Race.RaceId == race.RaceId).ToList();
-                var stats = CalcStats(subset,race);
+                var stats = CalcStats(subset,race); //calculate the stats based on each race 
                 viewmodel.Stats.Add(stats);
             }
 
@@ -46,6 +51,14 @@ namespace RaceAnalysis.Controllers
             return View("TriStats",viewmodel);
         }
      
+        /// <summary>
+        /// DisplayResultsView() - In this version we must iterate through each race, get the athletes, and calculate their stats
+        /// </summary>
+        /// <param name="page"></param>
+        /// <param name="raceIds"></param>
+        /// <param name="agegroupIds"></param>
+        /// <param name="genderIds"></param>
+        /// <returns></returns>
         protected override ActionResult DisplayResultsView(int page, int[] raceIds, int[] agegroupIds, int[] genderIds)
         {
             var viewModel = new TriStatsViewModel();

@@ -235,6 +235,7 @@
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\TriAthletesController.cs" />
     <Compile Include="Controllers\TriStatsController.cs" />
+    <Compile Include="Controllers\TriStatsHistogramController.cs" />
     <Compile Include="Controllers\TriStatsRaceComparerController.cs" />
     <Compile Include="DAL\RaceAnalysisDBInitializer.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
@@ -254,6 +255,7 @@
     <Compile Include="Models\RaceConditions.cs" />
     <Compile Include="Models\Gender.cs" />
     <Compile Include="Models\RaceAnalysisDBContext.cs" />
+    <Compile Include="ViewModels\HistogramViewModel.cs" />
     <Compile Include="ViewModels\KeyValueViewModel.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="Models\Race.cs" />
@@ -335,6 +337,7 @@
     <Content Include="Scripts\bootstrap-spinner.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\gviz-api.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
     <Content Include="Scripts\jquery-3.1.1.slim.js" />
@@ -422,6 +425,9 @@
     <Content Include="Views\TriStatsRaceComparer\Compare.cshtml" />
     <Content Include="Views\TriStatsRaceComparer\Index.cshtml" />
     <Content Include="Views\Shared\_SearchByAthleteName.cshtml" />
+    <Content Include="Views\Shared\_HistogramChart.cshtml" />
+    <Content Include="Views\TriStatsHistogram\Index.cshtml" />
+    <Content Include="Views\TriStatsHistogram\Histogram.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

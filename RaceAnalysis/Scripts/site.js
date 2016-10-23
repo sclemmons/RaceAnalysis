@@ -26,4 +26,4 @@
       var chart = new google.visualization.ColumnChart(document.getElementById(elementId));
       chart.draw(dataTable, options);
   }
-
+  

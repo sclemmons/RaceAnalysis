@@ -70,7 +70,6 @@ namespace RaceAnalysis.Models
                    
                 dataTable.AddRow(swim);
 
-
                 var bike = new object[]{
                         "bike",
                         new int[] { Bike.Min.Hours, Bike.Min.Minutes,Bike.Min.Seconds },
@@ -81,7 +80,6 @@ namespace RaceAnalysis.Models
                     
                 dataTable.AddRow(bike);
 
-
                 var run = new object[]{
                             "run",
                             new int[] { Run.Min.Hours, Run.Min.Minutes,Run.Min.Seconds },
@@ -89,7 +87,6 @@ namespace RaceAnalysis.Models
                             new int[] { Run.Max.Hours, Run.Max.Minutes,Run.Max.Seconds },
 
                         };
-
                     
                 dataTable.AddRow(run);
 
@@ -99,18 +96,15 @@ namespace RaceAnalysis.Models
                             new int[] { Finish.Median.Hours, Finish.Median.Minutes,Finish.Median.Seconds },
                             new int[] { Finish.Max.Hours, Finish.Max.Minutes,Finish.Max.Seconds },
                         };
-
                     
                 dataTable.AddRow(finish);
-
-
-                
 
                 return dataTable;
             }
 
         }
- 
+       
+
     }
 
     public class SwimStats

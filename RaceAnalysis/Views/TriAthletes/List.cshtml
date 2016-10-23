@@ -42,6 +42,8 @@
 @section results{
     @if (Model.Triathletes != null)
     {
+        @Html.Partial("~/Views/Shared/_HistogramChart.cshtml", Model)
+
           @Html.Partial("~/Views/Shared/_PagedList.cshtml",Model);
     }
 }
