@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using RaceAnalysis.Helpers
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -32,17 +34,54 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Tri Athletes", "Index", "Triathletes")</li>
-                    <li>@Html.ActionLink("Tri Stats", "Index", "TriStats")</li>
-                    <li>@Html.ActionLink("Compare Races", "Index", "TriStatsRaceComparer")</li>
-                    <li>@Html.ActionLink("Histogram", "Index", "TriStatsHistogram")</li>
-                    <li>@Html.ActionLink("AgeGroups", "Index", "TriStatsAgeGroupsCompare")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
+                    <li class='@Html.IsActive("Home", "Index")'>
+                        @Html.ActionLink("Home", "Index", "Home")
+                    </li>
+                    <li class='@Html.IsActive("Triathletes", "Index")'>
+                        @Html.ActionLink("Triathletes", "Index", "Triathletes")
+                    </li>
+                    9
+                    down vote
+                    accepted
+
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">IM Stats<span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li class='@Html.IsActive("TriStats", "Index")'>
+                                @Html.ActionLink("Tri Stats", "Index", "TriStats")
+                            </li>
+
+                            <li class='@Html.IsActive("TriStatsHistogram", "Index")'>
+                                @Html.ActionLink("Histogram", "Index", "TriStatsHistogram")
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Compare...<span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li class='@Html.IsActive("TriStatsRaceComparer", "Index")'>
+                                @Html.ActionLink("Races", "Index", "TriStatsRaceComparer")
+                            </li>
+                            <li class='@Html.IsActive("TriStatsAgeGroupsCompare", "Index")'>
+                                @Html.ActionLink("Age Groups", "Index", "TriStatsAgeGroupsCompare")
+                            </li>
+                        </ul>
+                     </li>
+
+                            <li class='@Html.IsActive("Home", "About")'>
+                                @Html.ActionLink("About", "About", "Home")
+                            </li>
+
+                            <li class='@Html.IsActive("Home", "Contact")'>
+                                @Html.ActionLink("Contact", "Contact", "Home")
+                            </li>
+                        </ul>
+                  
+
+                        @Html.Partial("_LoginPartial")
+</div>
         </div>
     </div>
     <div class="container body-content">
