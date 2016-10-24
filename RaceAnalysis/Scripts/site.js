@@ -13,7 +13,7 @@
               subtitle: subtitle
           }
       };
-      var chart = new google.charts.Bar(document.getElementById(elementId));
+      var chart = new google.visualization.Bar(document.getElementById(elementId));
       chart.draw(dataTable, options);
   }
 
@@ -22,7 +22,7 @@
           title: title,
           hAxis: { title: hAxis },
           vAxis: { title: vAxis }
-      }
+      };
       var chart = new google.visualization.ColumnChart(document.getElementById(elementId));
       chart.draw(dataTable, options);
   }

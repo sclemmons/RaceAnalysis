@@ -43,7 +43,7 @@ namespace RaceAnalysis.Controllers
             foreach (var race in filter.SelectedRaces)   
             {
                 var subset = athletes.Where(a => a.Race.RaceId == race.RaceId).ToList();
-                var stats = CalcStats(subset,race); //calculate the stats based on each race 
+                var stats = GetStats(subset,race); //calculate the stats based on each race 
                 viewmodel.Stats.Add(stats);
             }
 
@@ -70,18 +70,21 @@ namespace RaceAnalysis.Controllers
             {
              
                 var athletes = GetAthletes(new int[]{ raceId }, agegroupIds, genderIds);
-                var stats = CalcStats(athletes, _DBContext.Races.Single(r => r.RaceId == raceId));
+                var stats = GetStats(athletes, _DBContext.Races.Single(r => r.RaceId == raceId));
                 viewModel.Stats.Add(stats);
             }
 
             return View("TriStats", viewModel);                       
         }
-        protected TriStats CalcStats(List<Triathlete> athletes,Race race)
-        {
-            TriStats stats = new TriStats(athletes,race);
-        
-            TriStatsCalculator calc = new TriStatsCalculator(athletes);
+    
 
+
+      
+        protected TriStats GetStats(List<Triathlete> athletes, Race race)
+        {
+            TriStats stats = new TriStats(athletes, race);
+
+            TriStatsCalculator calc = new TriStatsCalculator(athletes);
 
             //median
             stats.Swim.Median = calc.TimeSpanMedian("Swim");

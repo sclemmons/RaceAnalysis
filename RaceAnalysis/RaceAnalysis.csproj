@@ -234,6 +234,7 @@
     <Compile Include="Controllers\RacesController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\TriAthletesController.cs" />
+    <Compile Include="Controllers\TriStatsAgeGroupsCompareController.cs" />
     <Compile Include="Controllers\TriStatsController.cs" />
     <Compile Include="Controllers\TriStatsHistogramController.cs" />
     <Compile Include="Controllers\TriStatsRaceComparerController.cs" />
@@ -255,6 +256,7 @@
     <Compile Include="Models\RaceConditions.cs" />
     <Compile Include="Models\Gender.cs" />
     <Compile Include="Models\RaceAnalysisDBContext.cs" />
+    <Compile Include="ViewModels\AgeGroupCompareViewModel.cs" />
     <Compile Include="ViewModels\HistogramViewModel.cs" />
     <Compile Include="ViewModels\KeyValueViewModel.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />
@@ -369,7 +371,7 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Layouts\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -410,7 +412,7 @@
     <Content Include="Views\Races\Details.cshtml" />
     <Content Include="Views\Races\Edit.cshtml" />
     <Content Include="Views\Races\Index.cshtml" />
-    <Content Include="Views\Shared\_AnalysisLayout.cshtml" />
+    <Content Include="Views\Layouts\_AnalysisLayout.cshtml" />
     <Content Include="Views\Shared\_RaceConditionsCreate.cshtml" />
     <Content Include="Views\TriAthletes\Search.cshtml" />
     <Content Include="Views\Shared\_Search.cshtml" />
@@ -428,6 +430,9 @@
     <Content Include="Views\Shared\_HistogramChart.cshtml" />
     <Content Include="Views\TriStatsHistogram\Index.cshtml" />
     <Content Include="Views\TriStatsHistogram\Histogram.cshtml" />
+    <Content Include="Views\TriStatsAgeGroupsCompare\Compare.cshtml" />
+    <Content Include="Views\TriStatsAgeGroupsCompare\Index.cshtml" />
+    <Content Include="Views\Shared\_StatsAgeGroupsChart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

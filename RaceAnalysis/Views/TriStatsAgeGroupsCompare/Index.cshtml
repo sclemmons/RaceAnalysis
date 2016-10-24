@@ -1,10 +1,10 @@
-﻿@model RaceAnalysis.Models.HistogramViewModel
+﻿@model RaceAnalysis.Models.TriStatsViewModel
 @{
-    ViewBag.Title = "Histogram";
+    ViewBag.Title = "TriStatsAgeGroupCompare";
     Layout = "~/Views/Layouts/_AnalysisLayout.cshtml";
 }
 
-<h2>Tri Stats Histogram</h2>
+<h2>Tri Stats Age Group Comparison</h2>
 
 @section filter{<div id="myemptydiv"></div>}
 
@@ -22,13 +22,6 @@
 
                                            new { @class = "modal-link btn btn-success", title = "Select Races" })
 
-@section results{
-    @if (Model.Triathletes.Count > 0)
-    {
-        @Html.Partial("~/Views/Shared/_HistogramChart.cshtml", Model)
-        
-    }
-}
 
 
 
