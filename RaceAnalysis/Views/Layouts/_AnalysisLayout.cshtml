@@ -21,6 +21,13 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-9">
+            @RenderSection("Page_Header", required: false)
+            <h2>@PageData["Title"]</h2>
+            <h4>@PageData["Instructions"]</h4>
+        </div> <!--col-->
+    </div> <!--row-->
+    <div class="row">
+        <div class="col-sm-9">
             <div id="filter">
                 @Html.ActionLink("Select Races", "ShowFilterByRace", null,
                new
@@ -33,28 +40,22 @@
                 @RenderSection("filter", required: false)
             </div>
         </div>
-    </div>
-        <div class="row">
-            <div class="col-sm-9">
-               
-                @RenderSection("Page_Header", required: false)
-                                
-                <h2>@PageData["Title"]</h2>
-                <h4>@PageData["Instructions"]</h4>
-
-
-                @RenderBody()
-                <div id="results">
-                    <div id="modal-container" class="modal fade"
-                         tabindex="-1" role="dialog">
-                        <div class="modal-content">
-                        </div>
+    </div> <!--row-->
+  
+    <div class="row">
+        <div class="col-sm-9">
+        <p></p> <p></p>
+            @RenderBody()
+            <div id="results">
+                <div id="modal-container" class="modal fade"
+                     tabindex="-1" role="dialog">
+                    <div class="modal-content">
                     </div>
-                    @RenderSection("results", required: false)
                 </div>
-
-            </div>
-        </div>
-    </div><!--container-->
+                @RenderSection("results", required: false)
+            </div> <!--results-->
+        </div> <!--col-->
+     </div> <!--row-->
+</div><!--container-->
 
 
