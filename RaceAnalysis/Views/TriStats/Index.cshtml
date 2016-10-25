@@ -2,12 +2,13 @@
 @{
     Layout = "~/Views/Layouts/_AnalysisLayout.cshtml";
     PageData["Title"] = "Race Stats";
-    PageData["Instructions"] = "Select one or more races for detailed stats";
+    PageData["Instructions"] = "Select one or more races for detailed stats.";
 
 }
 
 @section Page_Header{}
 @{
+
     var controllerName = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
 }
 
@@ -26,6 +27,21 @@
     }
 
 }
+
+
+
+
+@section scripts {
+
+}
+
+
+
+
+
+
+
+
 
 
 

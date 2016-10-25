@@ -3,6 +3,7 @@
     ViewBag.Title = "_AnalysisLayout";
     Layout = "~/Views/Layouts/_Layout.cshtml";
 }
+@RenderSection("scripts", required: false)
 @section scripts {
     <script type="text/javascript" src="@Url.Content("~/Scripts/modal.js")"></script>
    
@@ -22,8 +23,11 @@
     <div class="row">
         <div class="col-sm-9">
             @RenderSection("Page_Header", required: false)
+            <div class="help-tip">
+                <p>@PageData["Instructions"]</p>
+            </div>
             <h2>@PageData["Title"]</h2>
-            <h4>@PageData["Instructions"]</h4>
+            
         </div> <!--col-->
     </div> <!--row-->
     <div class="row">
