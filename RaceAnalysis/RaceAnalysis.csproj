@@ -257,6 +257,7 @@
     <Compile Include="Models\Gender.cs" />
     <Compile Include="Models\RaceAnalysisDBContext.cs" />
     <Compile Include="ViewModels\AgeGroupCompareViewModel.cs" />
+    <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\HistogramViewModel.cs" />
     <Compile Include="ViewModels\KeyValueViewModel.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />

@@ -4,23 +4,9 @@
     Layout = "~/Views/Layouts/_AnalysisLayout.cshtml";
 }
 
-<h2>Tri Stats Race Comparison</h2>
+<h2>Race Comparison</h2>
 
-@section filter{<div id="myemptydiv"></div>}
-
-
-
-
-@Html.ActionLink("Select Races", "ShowFilterByRace", null,
-                                           new
-                                           {
-                                               races = @String.Join(",", Model.Filter.SelectedRaces.Select(x => x.RaceId.ToString()).ToArray()),
-                                               agegroups = @String.Join(",", Model.Filter.SelectedAgeGroups.Select(x => x.AgeGroupId.ToString()).ToArray()),
-                                               genders = @String.Join(",", Model.Filter.SelectedGenders.Select(x => x.GenderId.ToString()).ToArray())
-                                           },
-
-
-                                           new { @class = "modal-link btn btn-success", title = "Select Races" })
+@section filter{}
 
 
 

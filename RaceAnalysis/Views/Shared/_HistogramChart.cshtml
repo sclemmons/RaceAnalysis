@@ -1,7 +1,7 @@
 ﻿
 @model RaceAnalysis.Models.HistogramViewModel
 
-
+   
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <div>
     <div id='MyUniqueId' style="width: 100%; height: 500px;"></div>
@@ -10,7 +10,7 @@
             google.charts.load('current', { 'packages': ['corechart'] });
 
             google.charts.setOnLoadCallback(function () {
-                var title = 'Count: ' + '@Model.Triathletes.Count' + ',  Median Finish Time: ' + '@Model.FinishMedian';
+                var title = 'Count: ' + '@Model.Triathletes.Count()' + ',  Median Finish Time: ' + '@Model.FinishMedian';
 
                 var data = google.visualization.arrayToDataTable(
                            @Html.Raw(Json.Encode(Model.ChartData))

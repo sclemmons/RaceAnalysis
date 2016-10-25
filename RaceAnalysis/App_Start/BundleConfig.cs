@@ -9,8 +9,7 @@ namespace RaceAnalysis
         public static void RegisterBundles(BundleCollection bundles)
         {
             
-
-            bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
+               bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
               "~/Content/themes/base/ui.core.css",
               "~/Content/themes/base/ui.resizable.css",
               "~/Content/themes/base/ui.selectable.css",
@@ -46,7 +45,7 @@ namespace RaceAnalysis
 
             bundles.Add(new ScriptBundle("~/bundles/site").Include(
                       "~/Scripts/site.js"
-                    ));
+                ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",

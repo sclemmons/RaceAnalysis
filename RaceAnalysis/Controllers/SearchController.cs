@@ -43,7 +43,7 @@ namespace RaceAnalysis.Controllers
             var athletes = response.Documents.ToList();
             var onePageOfAthletes = athletes.ToPagedList(pageNumber: 1, pageSize: 100); //max xx per page
 
-            viewmodel.Triathletes = onePageOfAthletes;
+            viewmodel.Triathletes = (IList<Triathlete> ) onePageOfAthletes;
             viewmodel.Filter = new RaceFilterViewModel();
            
             return View("List", viewmodel);

@@ -42,7 +42,7 @@ textarea {
 {
 //background-color:blue;
 float:right; /* this is not working for me*/
-margin-left:110px; /*so I adjusted this*/
+margin-left:110px; /*so I adjusted the margins*/
 margin-right:10px;
 vertical-align: top;
 border:solid;
@@ -52,7 +52,22 @@ background-color:lightgray;
 padding:5px;
 }
 
-
+#filter .btnRaceFilter /*having to set these speficially for the button on Triathlets/Index is too large without these specific CSS*/
+{
+    margin:0px;
+    padding: 6px;
+    padding-left:12px;
+    padding-right:12px;
+    height:34px;
+    width: 109px;
+    border-spacing:1px;
+  
+}
+    #filter  .btn-duration /*having to set this values primarily to the button on Triathlets/Index is too large without these specific CSS*/ 
+    {
+        background-color:blue;
+        margin-left:120px;
+    }
 
 .col-sm-3 
 {

@@ -18,10 +18,10 @@ namespace RaceAnalysis.Controllers
         protected RaceAnalysisDbContext _DBContext = new RaceAnalysisDbContext();
         public BaseController()
         {
-            
+           
         }
-       
 
+        
         public ActionResult ShowFilterByRace(string races, string agegroups, string genders)
         {
             var viewmodel = new RaceFilterViewModel(_DBContext);
@@ -128,23 +128,19 @@ namespace RaceAnalysis.Controllers
             return DisplayResultsView(page, r, a, g);
         }
 
-        protected abstract ActionResult DisplayResultsView(int page, int[] races, int[] agegroups, int[] genders);
 
 
         #region Protected Methods
+        protected abstract ActionResult DisplayResultsView(int page, int[] races, int[] agegroups, int[] genders);
+
         protected virtual ActionResult DisplayResultsView(List<Triathlete> athletes, RaceFilterViewModel filter)
         {
             var viewmodel = new TriathletesViewModel();
             viewmodel.Filter = filter;
+            viewmodel.Triathletes = athletes.ToPagedList(pageNumber: 1, pageSize: 100); //max xx per page
 
-            var onePageOfAthletes = athletes.ToPagedList(pageNumber: 1, pageSize: 100); //max xx per page
-
-            viewmodel.Triathletes = onePageOfAthletes;
-
-         
             return View("List", viewmodel);
         }
-
 
         protected bool GetTrueOrFalseFromCheckbox(string val)
         {

@@ -1,5 +1,5 @@
 ﻿
-@model RaceAnalysis.Models.TriathletesViewModel
+@model RaceAnalysis.Models.BaseViewModel
 @{
     ViewBag.Title = "Athletes List";
     Layout = "~/Views/Layouts/_AnalysisLayout.cshtml";
@@ -14,19 +14,9 @@
 <p>
 </p>
 
-@section filter{}
-    @Html.ActionLink("Select Races", "ShowFilterByRace",null,
-                          new {
-                              races = @String.Join(",", Model.Filter.SelectedRaces.Select(x => x.RaceId.ToString()).ToArray()),
-                              agegroups = @String.Join(",", Model.Filter.SelectedAgeGroups.Select(x => x.AgeGroupId.ToString()).ToArray()),
-                              genders = @String.Join(",", Model.Filter.SelectedGenders.Select(x => x.GenderId.ToString()).ToArray())
-                          },
-
-
-                          new { @class = "modal-link btn btn-success", title = "Select Race" })
-
-
-        @if (Model.Triathletes.Count > 0)
+@section filter{
+  
+        @if (Model.Triathletes.Any())
         {
             @Html.ActionLink("Filter by Duration", "ShowFilterByDuration", null,
                         new
@@ -35,15 +25,14 @@
                             agegroups = @String.Join(",", Model.Filter.SelectedAgeGroups.Select(x => x.AgeGroupId.ToString()).ToArray()),
                             genders = @String.Join(",", Model.Filter.SelectedGenders.Select(x => x.GenderId.ToString()).ToArray())
                         },
-                        new { @class = "modal-link btn btn-success", title = "Filter by Time" })
+                        new { @class = "modal-link btn btn-duration", title = "Filter by Time" })
         }
-
+}
 
 @section results{
     @if (Model.Triathletes != null)
     {
-        @Html.Partial("~/Views/Shared/_HistogramChart.cshtml", Model)
-
+     
           @Html.Partial("~/Views/Shared/_PagedList.cshtml",Model);
     }
 }

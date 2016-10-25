@@ -5,18 +5,14 @@ using System.Web;
 
 namespace RaceAnalysis.Models
 {
-    public class HistogramViewModel 
+    public class HistogramViewModel : BaseViewModel
     {
         public HistogramViewModel()
         {
-            //to prevent nulls
-            Filter = new RaceFilterViewModel();
            
         }
 
-        public RaceFilterViewModel Filter { get; set; }
-        public List<Triathlete> Triathletes { get; set; }
-        public List<TriStats> Stats { get; set; }
+
         public TimeSpan FinishMedian { get; set; }
 
 

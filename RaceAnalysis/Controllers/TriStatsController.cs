@@ -15,9 +15,9 @@ namespace RaceAnalysis.Controllers
         // GET: TriStatsControllers
         public ActionResult Index()
         {
-            var viewmodel = new TriStatsViewModel();
-            viewmodel.Filter = new RaceFilterViewModel(_DBContext); 
-            return View(viewmodel);
+            var viewModel = new TriStatsViewModel();
+            viewModel.Filter = new RaceFilterViewModel(_DBContext); 
+            return View(viewModel);
         }
        
         public ActionResult List()
@@ -37,18 +37,18 @@ namespace RaceAnalysis.Controllers
       /// <returns></returns>
         protected override ActionResult DisplayResultsView(List<Triathlete> athletes,RaceFilterViewModel filter)
         {
-            var viewmodel = new TriStatsViewModel();
-            viewmodel.Filter = filter;
+            var viewModel = new TriStatsViewModel();
+            viewModel.Filter = filter;
 
             foreach (var race in filter.SelectedRaces)   
             {
                 var subset = athletes.Where(a => a.Race.RaceId == race.RaceId).ToList();
                 var stats = GetStats(subset,race); //calculate the stats based on each race 
-                viewmodel.Stats.Add(stats);
+                viewModel.Stats.Add(stats);
             }
 
 
-            return View("TriStats",viewmodel);
+            return View("~/Views/TriStats/TriStats.cshtml", viewModel);
         }
      
         /// <summary>
@@ -74,7 +74,7 @@ namespace RaceAnalysis.Controllers
                 viewModel.Stats.Add(stats);
             }
 
-            return View("TriStats", viewModel);                       
+            return View("~/Views/TriStats/TriStats.cshtml", viewModel);
         }
     
 

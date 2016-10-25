@@ -17,15 +17,7 @@
 
 
 @section filter{
-    @Html.ActionLink("Select Races", "ShowFilter", null,
-                          new
-                          {
-                              races = @String.Join(",", Model.Filter.SelectedRaces.Select(x => x.RaceId.ToString()).ToArray()),
-                              agegroups = @String.Join(",", Model.Filter.SelectedAgeGroups.Select(x => x.AgeGroupId.ToString()).ToArray()),
-                              genders = @String.Join(",", Model.Filter.SelectedGenders.Select(x => x.GenderId.ToString()).ToArray())
-                           },
-
-                          new { @class = "modal-link btn btn-success", title = "Select Race" })
+ 
 
 }
 @section results{

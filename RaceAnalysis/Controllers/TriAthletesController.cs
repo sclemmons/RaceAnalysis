@@ -95,11 +95,14 @@ namespace RaceAnalysis.Controllers
      
             
             var viewmodel = new TriathletesViewModel();
-            viewmodel.Triathletes = onePageOfAthletes;
+            viewmodel.Triathletes =  onePageOfAthletes;
             viewmodel.Filter = filter;
 
             return View("List", viewmodel);
         }
+
+      
+
 
 
 

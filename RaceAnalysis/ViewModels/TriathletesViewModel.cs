@@ -7,11 +7,9 @@ using System.Collections;
 
 namespace RaceAnalysis.Models
 {
-    public class TriathletesViewModel
+    public class TriathletesViewModel :BaseViewModel
     {
-        public RaceFilterViewModel Filter { get; set; }
-
-        public IPagedList<Triathlete> Triathletes { get; set; }
+      
 
     }
 }

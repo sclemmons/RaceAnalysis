@@ -13,7 +13,6 @@ namespace RaceAnalysis.Controllers
         // GET: TriStatsHistogram
         public ActionResult Index()
         {
-     
             var viewmodel = new HistogramViewModel();
             viewmodel.Filter = new RaceFilterViewModel();
             return View(viewmodel);

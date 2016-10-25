@@ -6,16 +6,15 @@ using System.Web;
 namespace RaceAnalysis.Models
 {
 
-    public class TriStatsViewModel
+    public class TriStatsViewModel :BaseViewModel
     {
         public TriStatsViewModel()
         {
             //to prevent nulls
-            Filter = new RaceFilterViewModel();
             Stats = new List<TriStats>();
             UniqueId = Guid.NewGuid(); 
         }
-        public RaceFilterViewModel Filter { get; set; }
+      
         public List<TriStats> Stats { get; set; }
         public Guid UniqueId { get; set; }//this is overkill for our need, but easy for now.
 
