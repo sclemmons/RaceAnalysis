@@ -1,18 +1,18 @@
 ﻿
 @model RaceAnalysis.Models.BaseViewModel
 @{
-    ViewBag.Title = "Athletes List";
     Layout = "~/Views/Layouts/_AnalysisLayout.cshtml";
+    PageData["Title"] = "Athletes List";
+    PageData["Instructions"] = "Select one or more races to view athletes.";
+
+
 }
+
 
 
 <!-- import the included stylesheet for some (very basic) default styling -->
 <link href="/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
-
-<h2>Athletes List</h2>
-<p>
-</p>
 
 @section filter{
   

@@ -2,13 +2,11 @@
 @model RaceAnalysis.Models.TriathletesViewModel
  
 @{
-    ViewBag.Title = "Triathletes";
     Layout = "~/Views/Layouts/_AnalysisLayout.cshtml";
-}
+    PageData["Title"] = "Athletes List";
+    PageData["Instructions"] = "Select one or more races to view athletes.";
 
-<h2>Athletes List</h2>
-<p>
-</p>
+}
 
 @section filter{
  

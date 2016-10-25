@@ -1,22 +1,12 @@
 ﻿@model RaceAnalysis.Models.KeyValueViewModel
 @{
-    ViewBag.Title = "Athletes List";
     Layout = "~/Views/Layouts/_AnalysisLayout.cshtml";
+    PageData["Title"] = "Search Results";
+    PageData["Instructions"] = "Instructions go here...";
+
 }
 
-
-<!-- import the included stylesheet for some (very basic) default styling -->
-<!--<link href="/Content/PagedList.css" rel="stylesheet" type="text/css" /> -->
-
-
-<h2>Search Results</h2>
-<p>
-</p>
-
-
-@section filter{
-   
-}
+@section filter{}
 @section results{
     @Html.Partial("~/Views/Shared/_SearchResultsKeyValueList.cshtml", Model)
 

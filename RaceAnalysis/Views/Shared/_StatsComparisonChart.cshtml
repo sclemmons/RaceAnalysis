@@ -11,7 +11,7 @@
             google.charts.load('current', { 'packages': ['corechart', 'bar'] });
 
             google.charts.setOnLoadCallback(function () {
-                var title = ' (@Model.Stats.Sum(s => s.Athletes.Count)' + ' Athletes)';
+                var title = '@Model.Stats.Sum(s => s.Athletes.Count)' + ' Athletes';
                 var vAxis = "Duration (HRS)";
                 var hAxis = "Median Times" 
 

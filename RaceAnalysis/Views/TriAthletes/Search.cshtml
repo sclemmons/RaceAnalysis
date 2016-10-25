@@ -1,17 +1,15 @@
 ﻿@model RaceAnalysis.Models.TriathletesViewModel
 @{
-    ViewBag.Title = "Athletes List";
     Layout = "~/Views/Layouts/_AnalysisLayout.cshtml";
+    PageData["Title"] = "Search";
+    PageData["Instructions"] = "Search for an athlete";
+
 }
+
 
 
 <!-- import the included stylesheet for some (very basic) default styling -->
 <link href="/Content/PagedList.css" rel="stylesheet" type="text/css" />
-
-
-<h2>Search</h2>
-<p>
-</p>
 
 
 @section filter{

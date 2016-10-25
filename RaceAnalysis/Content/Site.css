@@ -63,11 +63,12 @@ padding:5px;
     border-spacing:1px;
   
 }
-    #filter  .btn-duration /*having to set this values primarily to the button on Triathlets/Index is too large without these specific CSS*/ 
-    {
-        background-color:blue;
-        margin-left:120px;
-    }
+#filter  .btn-duration /*having to set this values primarily to the button on Triathlets/Index is too large without these specific CSS*/ 
+{
+    background-color:blue;
+    color:white;
+    margin-left:120px;
+}
 
 .col-sm-3 
 {

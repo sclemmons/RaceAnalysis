@@ -1,12 +1,11 @@
 ﻿@model RaceAnalysis.Models.TriStatsViewModel
 @{
-    ViewBag.Title = "TriStats";
     Layout = "~/Views/Layouts/_AnalysisLayout.cshtml";
+    PageData["Title"] = "Race Comparison";
+    PageData["Instructions"] = "Select multiple races to compare.";
 }
 
-<h2>Race Comparison</h2>
-
-@section filter{}
+@section filter{
 
 
 @if (Model.Stats.Count > 0)
@@ -18,10 +17,10 @@
                                           agegroups = @String.Join(",", Model.Filter.SelectedAgeGroups.Select(x => x.AgeGroupId.ToString()).ToArray()),
                                           genders = @String.Join(",", Model.Filter.SelectedGenders.Select(x => x.GenderId.ToString()).ToArray())
                                       },
-                                      new { @class = "modal-link btn btn-success", title = "Filter by Time" })
+                                      new { @class = "modal-link btn btn-duration", title = "Filter by Time" })
 }
 
-
+}
 
 @section results{
     @if (Model.Stats.Count > 0)

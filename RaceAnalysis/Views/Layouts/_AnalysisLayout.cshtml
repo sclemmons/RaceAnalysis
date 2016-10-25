@@ -22,21 +22,27 @@
     <div class="row">
         <div class="col-sm-9">
             <div id="filter">
-                 
                 @Html.ActionLink("Select Races", "ShowFilterByRace", null,
-                          new
-                          {
-                              races = @String.Join(",", Model.Filter.SelectedRaces.Select(x => x.RaceId.ToString()).ToArray()),
-                              agegroups = @String.Join(",", Model.Filter.SelectedAgeGroups.Select(x => x.AgeGroupId.ToString()).ToArray()),
-                              genders = @String.Join(",", Model.Filter.SelectedGenders.Select(x => x.GenderId.ToString()).ToArray())
-                          },
-                          new { @class = "modal-link btn btn-success btnRaceFilter", title = "Select Race Criteria" })
+               new
+               {
+                   races = @String.Join(",", Model.Filter.SelectedRaces.Select(x => x.RaceId.ToString()).ToArray()),
+                   agegroups = @String.Join(",", Model.Filter.SelectedAgeGroups.Select(x => x.AgeGroupId.ToString()).ToArray()),
+                   genders = @String.Join(",", Model.Filter.SelectedGenders.Select(x => x.GenderId.ToString()).ToArray())
+               },
+               new { @class = "modal-link btn btn-success btnRaceFilter", title = "Select Race Criteria" })
                 @RenderSection("filter", required: false)
             </div>
         </div>
     </div>
         <div class="row">
             <div class="col-sm-9">
+               
+                @RenderSection("Page_Header", required: false)
+                                
+                <h2>@PageData["Title"]</h2>
+                <h4>@PageData["Instructions"]</h4>
+
+
                 @RenderBody()
                 <div id="results">
                     <div id="modal-container" class="modal fade"
