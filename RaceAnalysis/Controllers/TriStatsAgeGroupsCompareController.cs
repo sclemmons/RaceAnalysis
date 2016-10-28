@@ -1,9 +1,6 @@
-﻿using RaceAnalysis.Helpers;
-using RaceAnalysis.Models;
-using System;
+﻿using RaceAnalysis.Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace RaceAnalysis.Controllers

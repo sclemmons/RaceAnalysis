@@ -3,8 +3,6 @@ using System.Linq;
 using System.Web.Mvc;
 using RaceAnalysis.Helpers;
 using RaceAnalysis.Models;
-using System.Web.Helpers;
-using System.Collections;
 
 
 namespace RaceAnalysis.Controllers
