@@ -5,6 +5,7 @@ namespace RaceAnalysis.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
     using RaceAnalysis.Models;
+    using System.IO;
 
     internal sealed class Configuration : DbMigrationsConfiguration<RaceAnalysis.Models.RaceAnalysisDbContext>
     {
@@ -12,6 +13,11 @@ namespace RaceAnalysis.Migrations
         {
             AutomaticMigrationsEnabled = true;
             AutomaticMigrationDataLossAllowed = true;
+            // Set the |DataDirectory| path used in connection strings to point to the correct directory 
+            var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string relative = @"..\SharedRaceAnalysis\App_Data\";
+            string absolute = Path.GetFullPath(Path.Combine(baseDirectory, relative));
+            AppDomain.CurrentDomain.SetData("DataDirectory", absolute);
         }
 
         protected override void Seed(RaceAnalysisDbContext context)

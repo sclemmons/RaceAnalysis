@@ -21,4 +21,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\Triathlete.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\TriStats.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)App_Data\" />
+  </ItemGroup>
 </Project>

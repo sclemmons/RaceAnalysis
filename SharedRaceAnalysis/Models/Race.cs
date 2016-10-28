@@ -38,7 +38,8 @@ namespace RaceAnalysis.Models
 
         [ForeignKey("Conditions")]
         public int ConditionsId { get; set; }
-   //     [JsonIgnore]
+        //     [JsonIgnore]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public virtual RaceConditions Conditions { get; set; }
     }
 
