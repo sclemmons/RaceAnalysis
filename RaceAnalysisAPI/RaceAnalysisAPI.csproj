@@ -215,6 +215,7 @@
     <Compile Include="Controllers\GendersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RacesController.cs" />
+    <Compile Include="Controllers\TriathletesController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Dtos\MappingConfiguration.cs" />
     <Compile Include="Dtos\RaceDto.cs" />
