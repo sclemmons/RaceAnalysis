@@ -14,7 +14,7 @@ namespace RaceAnalysis.Data
         {
             if (context.Triathletes.Count(i => i.TriathleteId > 1) == 0)
             {
-                /*****************            
+                    
                             context.Races.RemoveRange(context.Races); //clear out existing rows
                             context.SaveChanges();
                             var races = new List<Race>
@@ -24,11 +24,33 @@ namespace RaceAnalysis.Data
                                 {
                                     RaceId=1,
                                     BaseURL="http://www.ironman.com/triathlon/events/americas/ironman/louisville/results.aspx",
-                                    DisplayName="IM Louisville 10-11-2015",
+                                    DisplayName="IMLOU 2015",
                                     RaceDate = new DateTime(2015,10,11),
                                     ShortName="louisville",
                                     Distance = "140.6",
                                     Conditions = new RaceConditions {SwimGeneral="Wetsuit Legal",BikeGeneral="Rolling Hills",RunGeneral="Flat" }
+
+                                },
+                                 new Race
+                                {
+                                    RaceId=2,
+                                    BaseURL= "http://www.ironman.com/triathlon/events/americas/ironman/louisville/results.aspx", 
+                                    DisplayName ="IMLOU 2016",
+                                    RaceDate = new DateTime(2016,10,9),
+                                    ShortName="louisville",
+                                    Distance = "140.6",
+                                    Conditions = new RaceConditions {SwimGeneral="Wetsuit Legal",BikeGeneral="Rolling Hills, Cool",RunGeneral="Flat" }
+
+                                },
+                                  new Race
+                                {
+                                    RaceId=3,
+                                    BaseURL="http://www.ironman.com/triathlon/events/americas/ironman/florida/results.aspx",
+                                    DisplayName="IMFL 2015",
+                                    RaceDate = new DateTime(2015,11,7),
+                                    ShortName="florida",
+                                    Distance = "140.6",
+                                    Conditions = new RaceConditions {SwimGeneral="Wetsuit Optional",BikeGeneral="Mostly Flat and humid",RunGeneral="Flat and humid" }
 
                                 }
 
@@ -38,8 +60,7 @@ namespace RaceAnalysis.Data
                             races.ForEach(t => context.Races.AddOrUpdate(t));
                             context.SaveChanges();
 
-            ***************************************/
-
+            
 
                 context.Genders.RemoveRange(context.Genders);
                 context.SaveChanges();

@@ -7,6 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaceAnalysis", "RaceAnalysi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaceAnalysis.Tests", "RaceAnalysis.Tests\RaceAnalysis.Tests.csproj", "{8A9F7BE0-7D30-4A69-A52C-6DE80A971225}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1959353A-6804-4D40-B7B2-A1945448B775}"
+	ProjectSection(SolutionItems) = preProject
+		Grant.sql = Grant.sql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

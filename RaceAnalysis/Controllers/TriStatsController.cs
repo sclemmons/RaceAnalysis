@@ -46,8 +46,9 @@ namespace RaceAnalysis.Controllers
                 var stats = GetStats(subset,race); //calculate the stats based on each race 
                 viewModel.Stats.Add(stats);
             }
-
-
+            //TO-DO: Look at this for sharing views:
+            //https://blog.michaelckennedy.net/2012/03/06/managing-shared-views-folder-for-large-mvc-projects/
+            //
             return View("~/Views/TriStats/TriStats.cshtml", viewModel);
         }
      
