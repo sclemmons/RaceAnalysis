@@ -43,6 +43,7 @@ namespace RaceAnalysis.Models
     }
 
 
+
     public class MinDateAttribute : ValidationAttribute
     {
         private const string DateFormat = "MM/dd/yyyy";
@@ -50,7 +51,7 @@ namespace RaceAnalysis.Models
      "'{0}' must be a date greater than {1:d}";
 
         public DateTime MinDate { get; set; }
-       
+
 
         public MinDateAttribute(string minDate)
             : base(DefaultErrorMessage)
@@ -79,4 +80,6 @@ namespace RaceAnalysis.Models
 
 
     }
+
+
 }
