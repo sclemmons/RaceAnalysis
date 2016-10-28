@@ -7,7 +7,7 @@ using HtmlAgilityPack;
 using RestSharp;
 
 
-namespace RaceAnalysis.Helpers
+namespace RaceAnalysis.Rest
 {
     public class IronmanClient : RestClientX
     {

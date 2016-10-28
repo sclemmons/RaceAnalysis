@@ -89,7 +89,7 @@ namespace RaceAnalysis.Controllers
 
 
 
-            List<Triathlete> athletes = GetAthletes(races, agegroups, genders);
+            List<Triathlete> athletes = _DAL.GetAthletes(races, agegroups, genders);
 
             var onePageOfAthletes = athletes.ToPagedList(page, pageSize); //max xx per page
      

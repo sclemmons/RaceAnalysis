@@ -7,7 +7,7 @@ using System.Net.Http;
 using RestSharp;
 using RaceAnalysis.Models;
 
-namespace RaceAnalysis.Helpers
+namespace RaceAnalysis.Rest
 {
     public class RestClientX
     {

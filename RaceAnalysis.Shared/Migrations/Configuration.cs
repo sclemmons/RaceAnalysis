@@ -13,9 +13,11 @@ namespace RaceAnalysis.Migrations
         {
             AutomaticMigrationsEnabled = true;
             AutomaticMigrationDataLossAllowed = true;
+
             // Set the |DataDirectory| path used in connection strings to point to the correct directory 
+            // since this is a common configuration for multiple projects
             var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            string relative = @"..\SharedRaceAnalysis\App_Data\";
+            string relative = @"..\RaceAnalysis.Shared\App_Data\";
             string absolute = Path.GetFullPath(Path.Combine(baseDirectory, relative));
             AppDomain.CurrentDomain.SetData("DataDirectory", absolute);
         }

@@ -28,7 +28,7 @@ namespace RaceAnalysis.Controllers
 
             foreach (int raceId in raceIds)
             {
-                var athletesPerRace = GetAthletes(new int[] { raceId }, agegroupIds, genderIds);
+                var athletesPerRace = _DAL.GetAthletes(new int[] { raceId }, agegroupIds, genderIds);
                                                                 
                 athletes.AddRange(athletesPerRace); //add this group to our list
             }

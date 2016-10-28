@@ -31,7 +31,7 @@ namespace RaceAnalysis.Controllers
             //pulling from selected age groups so that we can doo the same when we draw the chart
             foreach (var ag in viewModel.Filter.SelectedAgeGroups) //collect the stats for each age group
             {
-                var athletesPerAG = GetAthletes(raceIds, new int[] {ag.AgeGroupId}, genderIds);
+                var athletesPerAG = _DAL.GetAthletes(raceIds, new int[] {ag.AgeGroupId}, genderIds);
                 athletes.AddRange(athletesPerAG);
                 viewModel.Stats.Add(GetStats(athletesPerAG, _DBContext.Races.Single(r => r.RaceId == raceId)));
             }

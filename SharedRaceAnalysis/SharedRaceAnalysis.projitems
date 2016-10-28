@@ -8,20 +8,4 @@
   <PropertyGroup Label="Configuration">
     <Import_RootNamespace>SharedRaceAnalysis</Import_RootNamespace>
   </PropertyGroup>
-  <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)DAL\RaceAnalysisDBInitializer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Migrations\Configuration.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\AgeGroup.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Gender.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\GoogleVisualizationDataTable.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Race.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\RaceAnalysisDBContext.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\RaceConditions.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\RequestContext.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Triathlete.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\TriStats.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)App_Data\" />
-  </ItemGroup>
 </Project>

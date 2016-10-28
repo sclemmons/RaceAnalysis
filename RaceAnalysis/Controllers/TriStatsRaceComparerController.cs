@@ -28,7 +28,7 @@ namespace RaceAnalysis.Controllers
        
             foreach (int raceId in raceIds) 
             {
-                var athletesPerRace = GetAthletes(new int[] { raceId }, agegroupIds, genderIds);
+                var athletesPerRace = _DAL.GetAthletes(new int[] { raceId }, agegroupIds, genderIds);
                 athletes.AddRange(athletesPerRace);
                 viewModel.Stats.Add(GetStats(athletesPerRace, _DBContext.Races.Single(r => r.RaceId == raceId)));
             }

@@ -70,7 +70,7 @@ namespace RaceAnalysis.Controllers
             foreach (int raceId in raceIds) //it makes more sense to split the races in order to compare them rather than to combine their stats
             {
              
-                var athletes = GetAthletes(new int[]{ raceId }, agegroupIds, genderIds);
+                var athletes = _DAL.GetAthletes(new int[]{ raceId }, agegroupIds, genderIds);
                 var stats = GetStats(athletes, _DBContext.Races.Single(r => r.RaceId == raceId));
                 viewModel.Stats.Add(stats);
             }
