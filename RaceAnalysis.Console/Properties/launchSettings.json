@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "RaceAnalysis.Console": {
+      "commandName": "Project",
+      "commandLineArgs": "-r17 -g9,10 -ag72 -urlhttp://localhost:52873"
+    }
+  }
+}

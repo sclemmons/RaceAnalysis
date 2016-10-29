@@ -46,6 +46,28 @@ namespace RaceAnalysisAPI.Controllers
         }
 
 
+        // GET: api/Triathletes
+        /// <summary>
+        /// Get count of triathletes for a specific race, agegroups, genders
+        /// http://localhost:52873/api/Triathletes?count=1&raceId=17&agegroupIds=72,76&genderIds=9,10
+        /// </summary>
+        /// <param name="raceId"></param>
+        /// <param name="agegroupIds"></param>
+        /// <param name="genderIds"></param>
+        /// <returns></returns>
+        public int GetTriathletes(int count, int raceId, string agegroupIds, string genderIds)
+        {
+
+            var a = Array.ConvertAll(agegroupIds.Split(','), int.Parse);
+            var g = Array.ConvertAll(genderIds.Split(','), int.Parse);
+
+            List<Triathlete> athletes = _DAL.GetAthletes(new int[] { raceId }, a, g);
+
+
+            return athletes.Count;
+
+        }
+
 
         // PUT: api/Triathletes/5
         [ResponseType(typeof(void))]
