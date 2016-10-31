@@ -58,6 +58,7 @@
             @Html.ActionLink("Edit", "Edit", new { id=item.RaceId }) |
             @Html.ActionLink("Details", "Details", new { id=item.RaceId }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.RaceId })
+            @Html.ActionLink("Trigger Cache Fill", "CacheFill",new {id = item.RaceId})
         </td>
     </tr>
 }

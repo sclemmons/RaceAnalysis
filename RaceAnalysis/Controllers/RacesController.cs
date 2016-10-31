@@ -3,6 +3,12 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using RaceAnalysis.Models;
+using Microsoft.WindowsAzure.Storage.Queue;
+using Microsoft.WindowsAzure.Storage;
+using System.Configuration;
+using System.Threading.Tasks;
+using RaceAnalysis.SharedQueueMessages;
+using Newtonsoft.Json;
 
 namespace RaceAnalysis.Controllers
 {
@@ -10,6 +16,37 @@ namespace RaceAnalysis.Controllers
     {
         private RaceAnalysisDbContext db = new RaceAnalysisDbContext();
 
+        private CloudQueue cacheRequestQueue;
+
+        public RacesController()
+        {
+            InitializeStorage();
+
+        }
+
+        private void InitializeStorage()
+        {
+            // Open storage account using credentials from .cscfg file.
+            var storageAccount = CloudStorageAccount.Parse(ConfigurationManager.ConnectionStrings["AzureWebJobsStorage"].ToString());
+
+            // Get context object for working with blobs, and 
+            // set a default retry policy appropriate for a web user interface.
+            //var blobClient = storageAccount.CreateCloudBlobClient();
+            //blobClient.DefaultRequestOptions.RetryPolicy = new LinearRetry(TimeSpan.FromSeconds(3), 3);
+
+            // Get a reference to the blob container.
+            //imagesBlobContainer = blobClient.GetContainerReference("images");
+
+            // Get context object for working with queues, and 
+            // set a default retry policy appropriate for a web user interface.
+            CloudQueueClient queueClient = storageAccount.CreateCloudQueueClient();
+            //queueClient.DefaultRequestOptions.RetryPolicy = new LinearRetry(TimeSpan.FromSeconds(3), 3);
+
+            // Get a reference to the queue.
+            cacheRequestQueue = queueClient.GetQueueReference("triathletepullrequest");
+            cacheRequestQueue.CreateIfNotExists();
+            
+        }
         // GET: Races
         public ActionResult Index()
         {
@@ -134,6 +171,50 @@ namespace RaceAnalysis.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        public async Task<ActionResult> CacheFill(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Race race = db.Races.Find(id);
+            if (race == null)
+            {
+                return HttpNotFound();
+            }
+
+            await AddQueueMessages(id.Value);
+       
+            return View(race);
+        }
+
+        private async Task AddQueueMessages(int raceId)
+        {
+            var raceIds = new int[]{ raceId }; //for futer growth?
+            var agegroupIds = db.AgeGroups.Select(ag => ag.AgeGroupId).ToArray();
+            var genderIds = db.Genders.Select(g => g.GenderId).ToArray();
+
+            foreach (int id in raceIds)
+            {
+                foreach (int ageId in agegroupIds)
+                {
+                    foreach (int genderId in genderIds) //create a queue message for each AgeGroup, gender
+                    {
+                       var msg =  new FetchTriathletesMessage()
+                        {
+                           RaceId = id,
+                           AgegroupIds = new int[] { ageId },
+                           GenderIds = new int[] { genderId }
+                        };
+                        var queueMessage = new CloudQueueMessage(JsonConvert.SerializeObject(msg));
+                        await cacheRequestQueue.AddMessageAsync(queueMessage);
+                    }
+                }
+            }
+        }
+
+ 
 
         protected override void Dispose(bool disposing)
         {
