@@ -297,10 +297,22 @@ namespace RaceAnalysis.DAL
         {
             if (req.Status == "OK")
             {
-                req.Instruction = RequestInstruction.Normal; // force the request next time
+                req.Instruction = RequestInstruction.Normal; 
                 req.LastRequestedUTC = DateTime.Now.ToUniversalTime();
                 _DBContext.RequestContext.AddOrUpdate(req);
                 _DBContext.SaveChanges();
+            }
+            else //go ahead and save this; it could be that there were no athletes in this age division.
+            {
+                req.Status = String.Format("R:{0}, AG:{1} : {2} ", req.Race.DisplayName, req.AgeGroup.DisplayName, req.Status);
+                req.Instruction = RequestInstruction.Normal;
+                req.LastRequestedUTC = DateTime.Now.ToUniversalTime();
+
+                //add an event in the queue for the admin to look at it? 
+
+                _DBContext.RequestContext.AddOrUpdate(req);
+                _DBContext.SaveChanges();
+
             }
 
         }
