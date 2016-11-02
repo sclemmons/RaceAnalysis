@@ -317,22 +317,23 @@ namespace RaceAnalysis.DAL
 
         }
 
-        private void SaveAthletes(List<Triathlete> athletesToSave)
+        private void SaveAthletes(List<Triathlete> athletes)
         {
-            /***
+        //running into error using AddOrUpdate, so trying to do this iteravely   
            List<Triathlete> athletesToSave = new List<Triathlete>();
-           foreach (var entity in athletesFromSource)
+           foreach (var entity in athletes)
            {
-               var entityinDB = _DBContext.Triathletes.Find(entity.Name, entity.RequestContextId);
+               var entityinDB = _DBContext.Triathletes.Find(entity.TriathleteId);
                if (entityinDB == null)
                    athletesToSave.Add(entity);
            }
-           ***/
+           
 
             // var entityinDB = _DBContext.Triathletes.Where(t => t.Name == "Randall, Wild Bill");
             //  var entinSave = athletesToSave.Where(t => t.Name == "Randall, Wild Bill");
 
-            _DBContext.Triathletes.AddOrUpdate(athletesToSave.ToArray());
+       //     _DBContext.Triathletes.AddOrUpdate(athletesToSave.ToArray());
+
             _DBContext.SaveChanges();
 
         }

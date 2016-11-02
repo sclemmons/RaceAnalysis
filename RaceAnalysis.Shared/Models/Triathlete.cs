@@ -11,10 +11,11 @@ namespace RaceAnalysis.Models
     [ElasticsearchType(IdProperty=nameof(TriathleteId))]
     public class Triathlete
     {
+        [Key, Column(Order = 1)]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int TriathleteId { get; set; }
 
-        [Key, Column(Order = 1)]
+    
         public string Link { get; set; }
     
         public string Name { get; set; }
