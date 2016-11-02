@@ -262,6 +262,7 @@ namespace RaceAnalysis.DAL
 
                     if (athletesPerPage.Count > 0)
                     {
+                        reqContext.SourceCount += athletesPerPage.Count;
                         athletesFromSource.AddRange(athletesPerPage);
                     }
                     else
@@ -275,7 +276,7 @@ namespace RaceAnalysis.DAL
                 }
             }
 
-            reqContext.SourceCount = athletesFromSource.Count;
+         //changed to accumulate   reqContext.SourceCount = athletesFromSource.Count;
 
             SaveRequestContext(reqContext);
             SaveAthletes(athletesFromSource);
