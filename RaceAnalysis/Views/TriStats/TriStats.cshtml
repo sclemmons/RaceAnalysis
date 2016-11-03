@@ -14,9 +14,9 @@
         @Html.ActionLink("Filter by Time", "ShowFilterByDuration", null,
                                       new
                                       {
-                                          races = @String.Join(",", Model.Filter.SelectedRaces.Select(x => x.RaceId.ToString()).ToArray()),
-                                          agegroups = @String.Join(",", Model.Filter.SelectedAgeGroups.Select(x => x.AgeGroupId.ToString()).ToArray()),
-                                          genders = @String.Join(",", Model.Filter.SelectedGenders.Select(x => x.GenderId.ToString()).ToArray())
+                                          races = @String.Join(",", Model.Filter.SelectedRaceIds.Select(x => x.ToString()).ToArray()),
+                                          agegroups = @String.Join(",", Model.Filter.SelectedAgeGroupIds.Select(x => x.ToString()).ToArray()),
+                                          genders = @String.Join(",", Model.Filter.SelectedGenderIds.Select(x => x.ToString()).ToArray())
                                       },
                                       new { @class = "modal-link btn btn-success btn-duration", title = "Filter by Time" })
       }

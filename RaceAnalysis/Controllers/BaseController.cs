@@ -91,27 +91,15 @@ namespace RaceAnalysis.Controllers
         }
 
         //called from the racefilter
-        public ActionResult SelectedRaces(PostedFilterValues postedValues)
+        [HttpPost]
+        public ActionResult SelectedRaces(int[] selectedRaceIds, int[] selectedAgeGroupIds, int[] selectedGenderIds)
         {
+            
             var filter = new RaceFilterViewModel(_DBContext);
-            filter.SaveRaceFilterValues(postedValues);
+            filter.SaveRaceFilterValues(selectedRaceIds,selectedAgeGroupIds,selectedGenderIds);
 
-            int[] raceIds = postedValues.RaceIds != null ?
-                Array.ConvertAll(postedValues.RaceIds, element => Convert.ToInt32(element)) :
-                 new int[] { };
-
-
-            int[] agegroupIds = postedValues.AgeGroupIds != null ?
-                Array.ConvertAll(postedValues.AgeGroupIds, element => Convert.ToInt32(element)) :
-                new int[] { };
-
-
-            int[] genderIds = postedValues.GenderIds != null ?
-                Array.ConvertAll(postedValues.GenderIds, element => Convert.ToInt32(element)) :
-                new int[] { };
-
-
-            return DisplayResultsView( 1, raceIds, agegroupIds, genderIds);
+            return DisplayResultsView( 1, selectedRaceIds, selectedAgeGroupIds, selectedGenderIds);
+            
 
         }
         //called from the Paging Control

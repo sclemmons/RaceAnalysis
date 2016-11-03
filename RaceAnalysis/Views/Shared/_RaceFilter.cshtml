@@ -20,44 +20,50 @@
         $('#submitButton').prop("disabled", "disabled");
     })
 </script>
+<link href="~/Content/css/select2.css" type="text/css" rel="stylesheet" />
+<!-- <script src="~/Scripts/jquery-3.1.1.js"></script> -->
+<script src="~/Scripts/select2.js"></script> 
 
-@using (Html.BeginForm("SelectedRaces", controllerName, FormMethod.Get))
+
+<script type="text/javascript">
+
+    $("#raceSelectId").select2({
+        placeholder: "Select Races..",
+        maximumSelectionLength: 2
+    });
+    $("#agSelectId").select2({
+        placeholder: "Select Age Groups...",
+       
+    });
+    $("#genderSelectId").select2({
+        placeholder: "Select Genders..",
+    });
+
+</script>
+
+
+@using (Html.BeginForm("SelectedRaces", controllerName))
 {
+    <h4>Races</h4>
+    @Html.ListBoxFor(m => m.SelectedRaceIds,
+                new SelectList(Model.AvailableRaces, "RaceId", "DisplayName"),
+                new { @id = "raceSelectId", multiple = "multiple", @style = "width: 300px;" });
 
+    <h4>Age Groups</h4>
+    @Html.ListBoxFor(m => m.SelectedAgeGroupIds,
+                new SelectList(Model.AvailableAgeGroups, "AgeGroupId", "DisplayName"),
+                new { @id = "agSelectId", multiple = "multiple", @style = "width: 300px;" });
 
-        <h4>Races</h4>
-        @Html.CheckBoxListFor(x => x.PostedValues.RaceIds,
-                        x => x.AvailableRaces,
-                        x => x.RaceId,
-                        x => x.DisplayName,
-                        x => x.SelectedRaces,
-                        Position.Horizontal)
-        <hr />
-        <h4>Age Groups</h4>
-        @Html.CheckBoxListFor(x => x.PostedValues.AgeGroupIds,
-                        x => x.AvailableAgeGroups,
-                        x => x.AgeGroupId,
-                        x => x.DisplayName,
-                        x => x.SelectedAgeGroups,
-                        Position.Horizontal)
-
-    <hr />
     <h4>Genders</h4>
-        @Html.CheckBoxListFor(x => x.PostedValues.GenderIds,
-                        x => x.AvailableGenders,
-                        x => x.GenderId,
-                        x => x.DisplayName,
-                        x => x.SelectedGenders,
-                        Position.Horizontal)
+    @Html.ListBoxFor(m => m.SelectedGenderIds,
+                new SelectList(Model.AvailableGenders, "GenderId", "DisplayName"),
+                new { @id = "genderSelectId", multiple = "multiple", @style = "width: 300px;" });
 
 
-
-
-        <button type="submit" id="submitButton" class="btn btn-primary" style="float:right" 
+   <button type="submit" id="submitButton" class="btn btn-primary" style="float:right" 
                   onclick="return DisplayProgressMessage(this, 'One Moment...')">
             Apply</button>
 }
-
 
 
 

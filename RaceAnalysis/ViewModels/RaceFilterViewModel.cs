@@ -20,15 +20,15 @@ namespace RaceAnalysis.Models
             PopulateRaceFilter();
         }
         public IList<Race> AvailableRaces { get; set; }
-        public IList<Race> SelectedRaces { get; set; }
+        public IList<int> SelectedRaceIds { get; set; }
         public PostedFilterValues PostedValues { get; set; }
 
         public IList<AgeGroup> AvailableAgeGroups { get; set; }
-        public IList<AgeGroup> SelectedAgeGroups { get; set; }
+        public IList<int> SelectedAgeGroupIds { get; set; }
 
 
         public IList<Gender> AvailableGenders { get; set; }
-        public IList<Gender> SelectedGenders { get; set; }
+        public IList<int> SelectedGenderIds { get; set; }
 
 
 
@@ -40,52 +40,35 @@ namespace RaceAnalysis.Models
             AvailableAgeGroups = _DBContext.AgeGroups.ToList();
             AvailableGenders = _DBContext.Genders.ToList();
 
-            if (SelectedRaces == null)
-            { SelectedRaces = new List<Race>(); }
+            if (SelectedRaceIds == null)
+            { SelectedRaceIds = new List<int>(); }
 
-            if (SelectedAgeGroups == null)
-            { SelectedAgeGroups = GetDefaultAgeGroups(); }
+            if (SelectedAgeGroupIds == null)
+            { SelectedAgeGroupIds = GetDefaultAgeGroups(); }
 
-            if (SelectedGenders == null)
-                { SelectedGenders = GetDefaultGenders(); }
+            if (SelectedGenderIds == null)
+                { SelectedGenderIds = GetDefaultGenders(); }
 
 
          
         }
-        public void SaveRaceFilterValues(PostedFilterValues postedValues)
-        {
-
-            PostedValues = postedValues;
-
-            SelectedRaces = postedValues.RaceIds == null ? _DBContext.Races.ToList()
-                : _DBContext.Races.Where(r => postedValues.RaceIds.Any(x => r.RaceId.ToString().Equals(x))).ToList();
-
-
-            SelectedAgeGroups = postedValues.AgeGroupIds == null ? _DBContext.AgeGroups.ToList()
-                : _DBContext.AgeGroups.Where(r => postedValues.AgeGroupIds.Any(x => r.AgeGroupId.ToString().Equals(x))).ToList();
-
-
-            SelectedGenders = postedValues.GenderIds == null ? _DBContext.Genders.ToList()
-                : _DBContext.Genders.Where(r => postedValues.GenderIds.Any(x => r.GenderId.ToString().Equals(x))).ToList();
-
-
-        }
+        
         public void SaveRaceFilterValues(int[] raceIds, int[] ageGroupIds, int[] genderIds)
         {
            
             PopulateRaceFilter(); //don't know if I need this..... TODO: look at this
 
-            SelectedRaces = raceIds == null ? _DBContext.Races.ToList()
-             : _DBContext.Races.Where(r => raceIds.Any(x => r.RaceId == x)).ToList();
+            SelectedRaceIds = raceIds == null ? _DBContext.Races.Select(s => s.RaceId).ToList()
+             : _DBContext.Races.Where(r => raceIds.Any(x => r.RaceId == x)).Select(s=>s.RaceId).ToList();
 
 
-            SelectedAgeGroups = ageGroupIds == null ? _DBContext.AgeGroups.ToList()
-                : _DBContext.AgeGroups.Where(r => ageGroupIds.Any(x => r.AgeGroupId == x)).ToList();
+            SelectedAgeGroupIds = ageGroupIds == null ? _DBContext.AgeGroups.Select(s => s.AgeGroupId).ToList()
+                : _DBContext.AgeGroups.Where(r => ageGroupIds.Any(x => r.AgeGroupId == x)).Select(s=>s.AgeGroupId).ToList();
 
 
 
-            SelectedGenders = genderIds == null ? _DBContext.Genders.ToList()
-                : _DBContext.Genders.Where(r => genderIds.Any(x => r.GenderId == x)).ToList();
+            SelectedGenderIds = genderIds == null ? _DBContext.Genders.Select(s=>s.GenderId).ToList()
+                : _DBContext.Genders.Where(r => genderIds.Any(x => r.GenderId == x)).Select(s=>s.GenderId).ToList();
 
 
 
@@ -98,17 +81,17 @@ namespace RaceAnalysis.Models
             SaveRaceFilterValues(r, a, g);
         }
 
-        public List<Gender> GetDefaultGenders()
+        public List<int> GetDefaultGenders()
         {
 
             var query = _DBContext.Genders
                               .Where(t => t.Value == "M"
-                                    || t.Value == "F");
+                                    || t.Value == "F").Select(t =>t.GenderId);
 
             return query.ToList();
 
         }
-        public List<AgeGroup> GetDefaultAgeGroups()
+        public List<int> GetDefaultAgeGroups()
         {
        //for testing purposes i'm only enabling one by default
             var query = _DBContext.AgeGroups
@@ -132,7 +115,7 @@ namespace RaceAnalysis.Models
                         t.Value == "90+Plus" ||
                         t.Value == "PC"
                 ***/        
-                ); 
+                ).Select(t=> t.AgeGroupId); 
 
             return query.ToList();
 
@@ -141,9 +124,9 @@ namespace RaceAnalysis.Models
         public List<int> GetRequestIds(RaceFilterViewModel filter)
         {
 
-            int[] raceIds = filter.SelectedRaces.Select(n => n.RaceId).ToArray();
-            int[] ageGroupIds = filter.SelectedAgeGroups.Select(n => n.AgeGroupId).ToArray();
-            int[] genderIds = filter.SelectedGenders.Select(n => n.GenderId).ToArray();
+            int[] raceIds = filter.SelectedRaceIds.ToArray();
+            int[] ageGroupIds = filter.SelectedAgeGroupIds.ToArray();
+            int[] genderIds = filter.SelectedGenderIds.ToArray();
 
             var query = _DBContext.RequestContext
                              .Where(r => raceIds.Contains(r.RaceId))

@@ -38,10 +38,10 @@ namespace RaceAnalysis.Controllers
             var viewModel = new TriStatsViewModel();
             viewModel.Filter = filter;
 
-            foreach (var race in filter.SelectedRaces)   
+            foreach (var raceId in filter.SelectedRaceIds)   
             {
-                var subset = athletes.Where(a => a.Race.RaceId == race.RaceId).ToList();
-                var stats = GetStats(subset,race); //calculate the stats based on each race 
+                var subset = athletes.Where(a => a.Race.RaceId == raceId).ToList();
+                var stats = GetStats(subset,filter.AvailableRaces.Single(r=>r.RaceId ==raceId)); //calculate the stats based on each race 
                 viewModel.Stats.Add(stats);
             }
             //TO-DO: Look at this for sharing views:

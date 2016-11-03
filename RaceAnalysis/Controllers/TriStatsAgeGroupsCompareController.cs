@@ -22,13 +22,13 @@ namespace RaceAnalysis.Controllers
             var athletes = new List<Triathlete>();
 
             //for now let's only deal with a single race to keep it simple
-            int raceId = viewModel.Filter.SelectedRaces.First().RaceId;
+            int raceId = viewModel.Filter.SelectedRaceIds.First();
 
 
-            //pulling from selected age groups so that we can doo the same when we draw the chart
-            foreach (var ag in viewModel.Filter.SelectedAgeGroups) //collect the stats for each age group
+            //pulling from selected age groups so that we can do the same when we draw the chart
+            foreach (var agId in viewModel.Filter.SelectedAgeGroupIds) //collect the stats for each age group
             {
-                var athletesPerAG = _DAL.GetAthletes(raceIds, new int[] {ag.AgeGroupId}, genderIds);
+                var athletesPerAG = _DAL.GetAthletes(raceIds, new int[] {agId}, genderIds);
                 athletes.AddRange(athletesPerAG);
                 viewModel.Stats.Add(GetStats(athletesPerAG, _DBContext.Races.Single(r => r.RaceId == raceId)));
             }
