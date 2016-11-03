@@ -9,8 +9,10 @@
 }
 
 @section filter{
- 
-@Html.Partial("~/Views/Shared/_SearchByAthleteName.cshtml", Model)
-}
+ @if(0 > 1)
+             {
+         @Html.Partial("~/Views/Shared/_SearchByAthleteName.cshtml", Model)
+                 }
+ }
 
 

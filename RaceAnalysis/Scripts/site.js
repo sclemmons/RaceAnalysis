@@ -1,10 +1,4 @@
-﻿  function DisplayProgressMessage(ctl, msg) {
-      $(ctl).prop("disabled", true);
-      $(ctl).text(msg);
-      return true;
-  }
-
-
+﻿
   //Chart Functions: 
   function drawBarChart(elementId, title, subtitle, dataTable) {
       var options = {

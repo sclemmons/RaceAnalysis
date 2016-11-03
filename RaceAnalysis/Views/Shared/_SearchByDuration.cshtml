@@ -4,6 +4,17 @@
 @{
     var controllerName = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
 }
+<!--this is how I had to do it to work with Chrome.-->
+<script>
+  function DisplayProgressMessage(ctl, msg) {
+      $(ctl).text(msg);
+      return true;
+  }
+
+    $("form").submit(function (event) {
+        $('#submitButton').prop("disabled", "disabled");
+    })
+</script>
 
 
 @using (Html.BeginForm("SearchByTimeThresholds", controllerName,
