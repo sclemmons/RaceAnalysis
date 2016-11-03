@@ -13,22 +13,31 @@ namespace RaceAnalysis.Models
     {
         public RequestContext() { }
 
-        [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int RequestContextId { get; set; }
 
-        [ForeignKey("Race")]
+        
         public int RaceId { get; set; }
+
+        [ForeignKey("RaceId"),Column(Order =1)]
         public virtual Race Race { get; set; }
 
 
-        [ForeignKey("Gender")]
+
+        public int AgeGroupId { get; set; }
+
+
+        [ForeignKey("AgeGroupId"),Column(Order=2)]
+       public virtual AgeGroup AgeGroup { get; set; }
+
+
         public int GenderId { get; set; }
+
+
+        [ForeignKey("GenderId"), Column(Order =3)]
         public virtual Gender Gender { get; set; }
 
-        [ForeignKey("AgeGroup")]
-        public int AgeGroupId { get; set; }
-        public virtual AgeGroup AgeGroup { get; set; }
+
 
         public DateTime? LastRequestedUTC { get; set; }
 

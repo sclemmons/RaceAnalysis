@@ -305,11 +305,12 @@ namespace RaceAnalysis.DAL
             }
             else //go ahead and save this; it could be that there were no athletes in this age division.
             {
-                req.Status = String.Format("R:{0}, AG:{1} : {2} ", req.Race.DisplayName, req.AgeGroup.DisplayName, req.Status);
+                
+                req.Status = String.Format("{0} A:{1} G:{2} : {3} ", req.Race.DisplayName, req.AgeGroup.DisplayName, req.Gender.DisplayName, req.Status);
                 req.Instruction = RequestInstruction.Normal;
                 req.LastRequestedUTC = DateTime.Now.ToUniversalTime();
 
-                //add an event in the queue for the admin to look at it? 
+
 
                 _DBContext.RequestContext.AddOrUpdate(req);
                 _DBContext.SaveChanges();
@@ -333,7 +334,7 @@ namespace RaceAnalysis.DAL
             // var entityinDB = _DBContext.Triathletes.Where(t => t.Name == "Randall, Wild Bill");
             //  var entinSave = athletesToSave.Where(t => t.Name == "Randall, Wild Bill");
 
-       //     _DBContext.Triathletes.AddOrUpdate(athletesToSave.ToArray());
+            _DBContext.Triathletes.AddOrUpdate(athletesToSave.ToArray());
 
             _DBContext.SaveChanges();
 

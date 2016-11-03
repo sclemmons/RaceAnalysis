@@ -104,7 +104,7 @@ namespace RaceAnalysis.Rest
             else if (response.ResponseStatus == ResponseStatus.Aborted)
             {
 
-                reqContext.Status = "Abprted";
+                reqContext.Status = "Aborted";
 
             }
             else if (response.ResponseStatus == ResponseStatus.Error)
