@@ -24,7 +24,7 @@ namespace RaceAnalysis.Controllers
             var viewmodel = new RaceFilterViewModel(_DBContext);
             viewmodel.SaveRaceFilterValues(races,agegroups,genders);
 
-            return PartialView("~/Views/Shared/_RaceFilter.cshtml", viewmodel);
+            return PartialView("~/Views/Shared/_HorizRaceFilter.cshtml", viewmodel);
         }
         public ActionResult ShowFilterByDuration(string races, string agegroups, string genders)
         {

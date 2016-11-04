@@ -502,7 +502,7 @@
     <Content Include="Views\TriAthletes\List.cshtml" />
     <Content Include="Views\TriStats\Index.cshtml" />
     <Content Include="Views\TriStats\List.cshtml" />
-    <Content Include="Views\Shared\_RaceFilter.cshtml" />
+    <Content Include="Views\Shared\_HorizRaceFilter.cshtml" />
     <Content Include="Views\Shared\_TriStats.cshtml" />
     <Content Include="Views\Shared\_PagedList.cshtml" />
     <Content Include="Views\RaceConditions\Create.cshtml" />
