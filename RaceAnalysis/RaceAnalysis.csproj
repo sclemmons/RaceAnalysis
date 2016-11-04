@@ -536,6 +536,7 @@
     <Content Include="Views\TriStatsAgeGroupsCompare\Compare.cshtml" />
     <Content Include="Views\TriStatsAgeGroupsCompare\Index.cshtml" />
     <Content Include="Views\Shared\_StatsAgeGroupsChart.cshtml" />
+    <Content Include="Views\Shared\_VertRaceFilter.cshtml" />
     <None Include="Web.Test.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

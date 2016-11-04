@@ -11,6 +11,7 @@
 @section results{
     @if (Model.Stats.Count > 0)
     {
+        <script type="text/javascript">  $("#results").show(); </script>
         @Html.Partial("~/Views/Shared/_StatsAgeGroupsChart.cshtml", Model)
 
     }

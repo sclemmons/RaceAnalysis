@@ -26,36 +26,6 @@ textarea {
     display: none;
     padding : 5px;
 }
-#filter
-{
-   display: inline-flex;
-   padding-left:5px;
-   padding-right:5px;
-   margin:10px;
-   --background-color:yellow;
-   width:100%;
-   overflow:hidden;
- 
-}
-
-
-#filter .btnRaceFilter /*having to set these speficially for the button on Triathlets/Index is too large without these specific CSS*/
-{
-    margin:0px;
-    padding: 6px;
-    padding-left:12px;
-    padding-right:12px;
-    height:34px;
-    width: 109px;
-    border-spacing:1px;
-  
-}
-#filter  .btn-duration /*having to set this values primarily to the button on Triathlets/Index is too large without these specific CSS*/ 
-{
-    background-color:blue;
-    color:white;
-    margin-left:20px;
-}
 
 #results {
   
@@ -225,12 +195,61 @@ div.error {
 
 }
 
-#myForm div.btn-container{
-    --width:300px;
+#filter, #results, #page-header{
+    margin:10px;
     padding:5px;
-    --background-color:yellow;
+    background-color:white;
+    border-width:1px;
+    border-style:solid;
+    border-color: rgba(0, 0, 0, 0.2);
+    
+}
+#results
+{
+    display:none;
+}
+
+#filter label
+{
+    font-size:small;
+    margin:5px;
+}
+
+
+#myForm div.btn-container{
+    //width:300px;
+    padding:5px;
+    //background-color:yellow;
+    text-align:center;
+   margin:auto;
+   
+}
+#myForm button#submitButton.btn.btn-primary
+{ /*the apply button*/
 }
 
 
 
+body{
+   background-color:whitesmoke;
+}
+.navbar-inverse{
+    background-color:steelblue;
+   color:black;
+}
+.navbar-inverse .navbar-nav li a{
+    color:white;
+}
+.navbar-inverse .navbar-nav li a hover{
+    color:white;
+}
 
+.navbar-inverse .navbar-nav ul li a{
+    background-color:steelblue;
+}
+.navbar-inverse .navbar-nav ul li a hover{
+    background-color: white;
+}
+.dropdown-menu > li > a:hover{
+    background-color:white;
+}

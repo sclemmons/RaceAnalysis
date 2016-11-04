@@ -25,7 +25,8 @@
 @section results{
     @if (Model.Stats.Count > 0)
     {
-       // foreach (var stat in Model.Stats)
+        <script type="text/javascript">  $("#results").show(); </script>
+        // foreach (var stat in Model.Stats)
         {
             //@Html.Partial("~/Views/Shared/_TriStats.cshtml", stat)
             @Html.Partial("~/Views/Shared/_StatsComparisonChart.cshtml", Model)

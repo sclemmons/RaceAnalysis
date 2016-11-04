@@ -11,6 +11,7 @@
 @section results{
     @if (Model.Triathletes.Any())
     {
+        <script type="text/javascript">  $("#results").show(); </script>
         @Html.Partial("~/Views/Shared/_HistogramChart.cshtml", Model)
         
     }
