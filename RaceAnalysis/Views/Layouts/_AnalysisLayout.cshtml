@@ -21,7 +21,7 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-sm-9">
+        <div class="col-sm-12">
             @RenderSection("Page_Header", required: false)
             <div class="help-tip">
                 <p>@PageData["Instructions"]</p>
@@ -31,23 +31,17 @@
         </div> <!--col-->
     </div> <!--row-->
     <div class="row">
-        <div class="col-sm-9">
+        <div class="col-sm-12">
             <div id="filter">
-                @Html.ActionLink("Select Races", "ShowFilterByRace", null,
-               new
-               {
-                   races = @String.Join(",", Model.Filter.SelectedRaceIds.Select(x => x.ToString()).ToArray()),
-                   agegroups = @String.Join(",", Model.Filter.SelectedAgeGroupIds.Select(x => x.ToString()).ToArray()),
-                   genders = @String.Join(",", Model.Filter.SelectedGenderIds.Select(x => x.ToString()).ToArray())
-               },
-               new { @class = "modal-link btn btn-success btnRaceFilter", title = "Select Race Criteria" })
+                @Html.Partial("~/Views/Shared/_RaceFilter.cshtml", Model.Filter)
+            
                 @RenderSection("filter", required: false)
             </div>
         </div>
     </div> <!--row-->
   
     <div class="row">
-        <div class="col-sm-9">
+        <div class="col-sm-12">
         <p></p> <p></p>
             @RenderBody()
             <div id="results">
