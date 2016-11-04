@@ -1,6 +1,4 @@
-﻿@using MvcCheckBoxList.Model
-
-@model RaceAnalysis.Models.RaceFilterViewModel
+﻿@model RaceAnalysis.Models.RaceFilterViewModel
 
 
 
@@ -21,43 +19,78 @@
     })
 </script>
 <link href="~/Content/css/select2.css" type="text/css" rel="stylesheet" />
-<!-- <script src="~/Scripts/jquery-3.1.1.js"></script> -->
 <script src="~/Scripts/select2.js"></script> 
 
 
 <script type="text/javascript">
 
-    $("#raceSelectId").select2({
-        placeholder: "Select Races..",
-        maximumSelectionLength: 2
-    });
-    $("#agSelectId").select2({
-        placeholder: "Select Age Groups...",
+    (function () {
        
-    });
-    $("#genderSelectId").select2({
-        placeholder: "Select Genders..",
-    });
+        var $race_select = $("#raceSelectId").select2({
+            placeholder: "Select Races..",
+            maximumSelectionLength: 2
+        });
+        var $ag_select = $("#agSelectId").select2({
+            placeholder: "Select Age Groups...",
 
+        });
+        var $gen_select = $("#genderSelectId").select2({
+            placeholder: "Select Genders..",
+        });
+
+        $('#myForm').validate({
+            errorElement: "div",
+            errorPlacement: function (error, element) {
+                element.after(error);
+            }
+        });
+        /*
+   * When you change the value the select via select2, it triggers
+   * a 'change' event, but the jquery validation plugin
+   * only re-validates on 'blur'
+   */
+        $race_select.on('change', function () {
+            $(this).trigger('blur');
+        });
+        $ag_select.on('change', function () {
+            $(this).trigger('blur');
+        });
+        $gen_select.on('change', function () {
+            $(this).trigger('blur');
+        });
+               
+        $race_select.rules('add', 'required');
+        $ag_select.rules('add', 'required');
+        $gen_select.rules('add', 'required');
+
+        $('#myForm').validate({
+            ignore: 'input[type=hidden], .select2-input, .select2-focusser'
+        });
+
+       
+    }());
+
+  
 </script>
 
 
-@using (Html.BeginForm("SelectedRaces", controllerName))
+@using (Html.BeginForm("SelectedRaces", controllerName,FormMethod.Post,new { @id = "myForm" }))
+
 {
     <h4>Races</h4>
     @Html.ListBoxFor(m => m.SelectedRaceIds,
                 new SelectList(Model.AvailableRaces, "RaceId", "DisplayName"),
-                new { @id = "raceSelectId", multiple = "multiple", @style = "width: 300px;" });
+                new { @id = "raceSelectId", multiple = "multiple", @style = "width: 300px;" })
 
     <h4>Age Groups</h4>
     @Html.ListBoxFor(m => m.SelectedAgeGroupIds,
                 new SelectList(Model.AvailableAgeGroups, "AgeGroupId", "DisplayName"),
-                new { @id = "agSelectId", multiple = "multiple", @style = "width: 300px;" });
+                new { @id = "agSelectId", multiple = "multiple", @style = "width: 300px;" })
 
     <h4>Genders</h4>
     @Html.ListBoxFor(m => m.SelectedGenderIds,
                 new SelectList(Model.AvailableGenders, "GenderId", "DisplayName"),
-                new { @id = "genderSelectId", multiple = "multiple", @style = "width: 300px;" });
+                new { @id = "genderSelectId", multiple = "multiple", @style = "width: 300px;" })
 
 
    <button type="submit" id="submitButton" class="btn btn-primary" style="float:right" 

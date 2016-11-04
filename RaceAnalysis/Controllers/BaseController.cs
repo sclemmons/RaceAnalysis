@@ -94,7 +94,12 @@ namespace RaceAnalysis.Controllers
         [HttpPost]
         public ActionResult SelectedRaces(int[] selectedRaceIds, int[] selectedAgeGroupIds, int[] selectedGenderIds)
         {
-            
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "Error");
+                return View();
+            }
+
             var filter = new RaceFilterViewModel(_DBContext);
             filter.SaveRaceFilterValues(selectedRaceIds,selectedAgeGroupIds,selectedGenderIds);
 
