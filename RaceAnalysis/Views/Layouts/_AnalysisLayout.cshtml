@@ -31,13 +31,15 @@
         <div class="col-sm-9">
             <div id="page-header">
                 <h3>@PageData["Title"]</h3>
-
                 @RenderSection("Page_Header", required: false)
              <!--   <div class="help-tip"> -->
                     <p>@PageData["Instructions"]</p>
               <!-- </div> -->
                 <p></p> <p></p>
                 @RenderBody()
+            </div>
+            <div id="page_actions">
+                @RenderSection("Page_Actions", required: false)
             </div>
 
             <div id="results">

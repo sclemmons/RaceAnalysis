@@ -195,7 +195,7 @@ div.error {
 
 }
 
-#filter, #results, #page-header{
+#filter, #results, #page-header,#page_actions{
     margin:10px;
     padding:5px;
     background-color:white;

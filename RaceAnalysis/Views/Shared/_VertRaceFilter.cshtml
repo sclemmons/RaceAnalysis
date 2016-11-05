@@ -1,20 +1,11 @@
 ﻿@model RaceAnalysis.Models.RaceFilterViewModel
 
-
-
-
 @{
     var controllerName = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
 }
 
 
-<link href="~/Content/css/select2.css" type="text/css" rel="stylesheet" />
-<link rel="stylesheet" href="~/Content/select2-bootstrap.css">
-<script src="~/Scripts/jquery-3.1.1.js"></script>
-<script src="~/Scripts/select2.js"></script> 
-
-
-@using (Html.BeginForm("SelectedRaces", controllerName, FormMethod.Post, new { @id = "myForm"}))
+@using (Html.BeginForm("SelectedRaces", controllerName, FormMethod.Post, new { @id = "myForm" }))
 
 {
     <div class="form-group">
@@ -39,83 +30,74 @@
     </div>
 
     <div class="btn-container">
-        <button type="submit" id="submitButton" class="btn btn-primary"
-                onclick="return DisplayProgressMessage(this, 'One Moment...')">
-            Apply
-        </button>
+        <button type="submit" id="submitButton" class="btn btn-primary">Apply</button>
     </div>
 
 }
 
+<script type="text/javascript">
 
-        <script type="text/javascript">
+    $(document).ready(function () {
 
-            $(document).ready(function () {
+        var $race_select = $("#raceSelectId").select2({
+            placeholder: "Select Races..",
+            width: '95%',
+            theme: "bootstrap"
+        });
+        var $ag_select = $("#agSelectId").select2({
+            placeholder: "Select Age Groups...",
+            width: '95%',
+            theme: "bootstrap"
+        });
+        var $gen_select = $("#genderSelectId").select2({
+            placeholder: "Select Genders..",
+            width: '95%',
+            theme: "bootstrap"
+        });
 
-                var $race_select = $("#raceSelectId").select2({
-                    placeholder: "Select Races..",
-                    width: '95%',
-                    theme: "bootstrap"
-
-
-                });
-                var $ag_select = $("#agSelectId").select2({
-                    placeholder: "Select Age Groups...",
-                    width: '95%',
-                    theme: "bootstrap"
-
-                });
-                var $gen_select = $("#genderSelectId").select2({
-                    placeholder: "Select Genders..",
-                    width: '95%',
-                    theme: "bootstrap"
-                });
-
-                $('#myForm').validate({
-                    errorElement: "div",
-                    errorPlacement: function (error, element) {
-                        element.after(error);
-                    }
-                });
-                /*
-           * When you change the value the select via select2, it triggers
-           * a 'change' event, but the jquery validation plugin
-           * only re-validates on 'blur'
-           */
-                $race_select.on('change', function () {
-                    $(this).trigger('blur');
-                });
-                $ag_select.on('change', function () {
-                    $(this).trigger('blur');
-                });
-                $gen_select.on('change', function () {
-                    $(this).trigger('blur');
-                });
-
-                $race_select.rules('add', 'required');
-                $ag_select.rules('add', 'required');
-                $gen_select.rules('add', 'required');
-
-                $('#myForm').validate({
-                    ignore: 'input[type=hidden], .select2-input, .select2-focusser'
-                });
-
-
-            }());
-
-
-        </script>
-        <!--this is how I had to do it to work with Chrome.-->
-        <script>
-            function DisplayProgressMessage(ctl, msg) {
-                $(ctl).text(msg);
-                return true;
+        $('#myForm').validate({
+            ignore: 'input[type=hidden], .select2-input, .select2-focusser',
+            errorElement: "div",
+            errorPlacement: function (error, element) {
+                element.after(error);
             }
+        });
+        /*
+    * When you change the value the select via select2, it triggers
+    * a 'change' event, but the jquery validation plugin
+    * only re-validates on 'blur'
+    */
+        $race_select.on('change', function () {
+            $(this).trigger('blur');
+        });
+        $ag_select.on('change', function () {
+            $(this).trigger('blur');
+        });
+        $gen_select.on('change', function () {
+            $(this).trigger('blur');
+        });
 
-            $("form").submit(function (event) {
-                $('#submitButton').prop("disabled", "disabled");
-            })
-        </script>
+        $race_select.rules('add', 'required');
+        $ag_select.rules('add', 'required');
+        $gen_select.rules('add', 'required');
+
+    }());
+
+
+    //in order for this to work with Chrome, disable the submit button on the form submit.-->
+    $("#myForm").submit(function (event) {
+
+        if ($("#myForm").valid() == true) //only disable th button if the form is valid otherwise the user cant submit again
+        {
+            $('#submitButton').text("One Moment...");
+            $('#submitButton').prop("disabled", "disabled");
+        }
+        else {
+            $('#submitButton').text("Apply");
+        }
+
+    })
+</script>
 
 
 
