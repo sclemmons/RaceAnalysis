@@ -1,0 +1,96 @@
+﻿
+/*********************************************
+/**** overrides for bootstrap menu
+******** generated the menu from this handy link...
+*****---http://work.smarchal.com/twbscolor/scss/2674b3354e89f8f9f8e5e2e81
+******************************************************************/
+.navbar-inverse {
+  background-color: #2674b3;
+  border-color: #354e89;
+}
+.navbar-inverse .navbar-brand {
+  //color: #f8f9f8;
+  color:silver;
+}
+.navbar-inverse .navbar-brand:hover,
+.navbar-inverse .navbar-brand:focus {
+  color: #e5e2e8;
+}
+.navbar-inverse .navbar-text {
+  color: #f8f9f8;
+}
+.navbar-inverse .navbar-nav > li > a {
+  color: #f8f9f8;
+}
+.navbar-inverse .navbar-nav > li > a:hover,
+.navbar-inverse .navbar-nav > li > a:focus {
+  color: #e5e2e8;
+}
+.navbar-inverse .navbar-nav > li > .dropdown-menu {
+  background-color: #2674b3;
+}
+.navbar-inverse .navbar-nav > li > .dropdown-menu > li > a {
+  color: #f8f9f8;
+}
+.navbar-inverse .navbar-nav > li > .dropdown-menu > li > a:hover,
+.navbar-inverse .navbar-nav > li > .dropdown-menu > li > a:focus {
+  color: #e5e2e8;
+  background-color: #354e89;
+}
+.navbar-inverse .navbar-nav > li > .dropdown-menu > li > .divider {
+  background-color: #354e89;
+}
+.navbar-inverse .navbar-nav .open .dropdown-menu > .active > a,
+.navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:hover,
+.navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:focus {
+  color: #e5e2e8;
+  background-color: #354e89;
+}
+.navbar-inverse .navbar-nav > .active > a,
+.navbar-inverse .navbar-nav > .active > a:hover,
+.navbar-inverse .navbar-nav > .active > a:focus {
+  color: #e5e2e8;
+  background-color: #354e89;
+}
+.navbar-inverse .navbar-nav > .open > a,
+.navbar-inverse .navbar-nav > .open > a:hover,
+.navbar-inverse .navbar-nav > .open > a:focus {
+  color: #e5e2e8;
+  background-color: #354e89;
+}
+.navbar-inverse .navbar-toggle {
+  border-color: #354e89;
+}
+.navbar-inverse .navbar-toggle:hover,
+.navbar-inverse .navbar-toggle:focus {
+  background-color: #354e89;
+}
+.navbar-inverse .navbar-toggle .icon-bar {
+  background-color: #f8f9f8;
+}
+.navbar-inverse .navbar-collapse,
+.navbar-inverse .navbar-form {
+  border-color: #f8f9f8;
+}
+.navbar-inverse .navbar-link {
+  color: #f8f9f8;
+}
+.navbar-inverse .navbar-link:hover {
+  color: #e5e2e8;
+}
+
+@media (max-width: 767px) {
+  .navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
+    color: #f8f9f8;
+  }
+  .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:hover,
+  .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:focus {
+    color: #e5e2e8;
+  }
+  .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a,
+  .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:hover,
+  .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:focus {
+    color: #e5e2e8;
+    background-color: #354e89;
+  }
+}

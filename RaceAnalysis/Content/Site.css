@@ -1,11 +1,12 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-color:whitesmoke;
 }
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
- //   padding-left: 15px;
+ // padding-left: 15px;
   //  padding-right: 15px;
 }
 
@@ -202,6 +203,7 @@ div.error {
     border-width:1px;
     border-style:solid;
     border-color: rgba(0, 0, 0, 0.2);
+    border-radius:5px;
     
 }
 #results
@@ -228,28 +230,3 @@ div.error {
 { /*the apply button*/
 }
 
-
-
-body{
-   background-color:whitesmoke;
-}
-.navbar-inverse{
-    background-color:steelblue;
-   color:black;
-}
-.navbar-inverse .navbar-nav li a{
-    color:white;
-}
-.navbar-inverse .navbar-nav li a hover{
-    color:white;
-}
-
-.navbar-inverse .navbar-nav ul li a{
-    background-color:steelblue;
-}
-.navbar-inverse .navbar-nav ul li a hover{
-    background-color: white;
-}
-.dropdown-menu > li > a:hover{
-    background-color:white;
-}

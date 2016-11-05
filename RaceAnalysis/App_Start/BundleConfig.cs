@@ -55,7 +55,8 @@ namespace RaceAnalysis
             "~/Content/bootstrap.css",
             "~/Content/css/select2.css",
             "~/Content/select2-bootstrap.css",
-            "~/Content/site.css"
+            "~/Content/site.css",
+            "~/Content/sitemenu.css"
             ));
 
           
