@@ -538,6 +538,7 @@
     <Content Include="Views\Shared\_StatsAgeGroupsChart.cshtml" />
     <Content Include="Views\Shared\_VertRaceFilter.cshtml" />
     <Content Include="Views\Shared\_ActionBar.cshtml" />
+    <Content Include="Views\Shared\_FilterByDuration.cshtml" />
     <None Include="Web.Test.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

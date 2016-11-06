@@ -39,7 +39,7 @@ textarea {
     
 }
 .slider-step{
-    background-color:red;
+  //  background-color:red;
     width: 70%;
   display:block;
   margin-left:auto;
@@ -51,7 +51,7 @@ textarea {
 }
 .ui-slider .ui-slider-range {
     width:70%;
-    background-color:yellow;
+    //background-color:yellow;
 }
 .ui-slider-range .ui-corner-all .ui-widget-header{
 background-color:black;
@@ -196,7 +196,7 @@ div.error {
 
 }
 
-#filter, #results, #page-header,#page-actions{
+#filter, #results, #page-header,#page-actions,#filter-duration{
     margin:10px;
     padding:5px;
     background-color:white;
@@ -209,6 +209,14 @@ div.error {
 #results,#page-actions
 {
     display:none;
+}
+#filter-duration .time-range
+{
+    --background-color:yellow;
+    border-width:1px;
+    border-style:groove;
+    border-radius:5px;
+    padding:5px;
 }
 
 #filter label
@@ -229,4 +237,5 @@ div.error {
 #myForm button#submitButton.btn.btn-primary
 { /*the apply button*/
 }
+
 

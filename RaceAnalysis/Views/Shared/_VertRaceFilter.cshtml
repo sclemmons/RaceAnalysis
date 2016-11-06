@@ -29,6 +29,8 @@
                 new { @id = "genderSelectId", multiple = "multiple", })
     </div>
 
+    @Html.Partial("~/Views/Shared/_FilterByDuration.cshtml");
+
     <div class="btn-container">
         <button type="submit" id="submitButton" class="btn btn-primary">Apply</button>
     </div>
