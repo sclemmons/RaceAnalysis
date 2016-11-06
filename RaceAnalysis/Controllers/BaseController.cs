@@ -90,32 +90,30 @@ namespace RaceAnalysis.Controllers
             return DisplayResultsView(athletes,viewmodel);
         }
 
+        public ActionResult SelectedRaces(string races, string agegroups, string genders)
+        {
+            var parms = ConvertToInt(races, agegroups, genders);
+            return SelectedRaces(parms.Item1, parms.Item2, parms.Item3);
+        }
+
+
         //called from the racefilter
         [HttpPost]
         public ActionResult SelectedRaces(int[] selectedRaceIds, int[] selectedAgeGroupIds, int[] selectedGenderIds)
         {
-            if (!ModelState.IsValid)
-            {
-                ModelState.AddModelError("", "Error");
-                return View();
-            }
-
+       
             var filter = new RaceFilterViewModel(_DBContext);
             filter.SaveRaceFilterValues(selectedRaceIds,selectedAgeGroupIds,selectedGenderIds);
-
             return DisplayResultsView( 1, selectedRaceIds, selectedAgeGroupIds, selectedGenderIds);
-            
 
         }
         //called from the Paging Control
         //this is the best way I found to pass the arrays from view to controller
         public ActionResult DisplayPagedAthletes(int page, string races, string agegroups, string genders)
         {
-            var r = Array.ConvertAll(races.Split(','), int.Parse);
-            var a = Array.ConvertAll(agegroups.Split(','), int.Parse);
-            var g = Array.ConvertAll(genders.Split(','), int.Parse);
+            var parms = ConvertToInt(races, agegroups, genders);
 
-            return DisplayResultsView(page, r, a, g);
+            return DisplayResultsView(page, parms.Item1,parms.Item2,parms.Item3);
         }
 
 
@@ -149,10 +147,18 @@ namespace RaceAnalysis.Controllers
         #endregion //Protected Methods
 
         #region Private Methods
-      
-      
-      
-    
+        private Tuple<int[],int[],int[]> ConvertToInt(string races,string agegroups,string genders)
+        {
+            return Tuple.Create(
+                 Array.ConvertAll(races.Split(','), int.Parse),
+                 Array.ConvertAll(agegroups.Split(','), int.Parse),
+                 Array.ConvertAll(genders.Split(','), int.Parse));
+
+
+        }
+
+
+
 
 
         #endregion//Private Methods

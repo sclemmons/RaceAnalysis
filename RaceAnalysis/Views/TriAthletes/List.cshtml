@@ -16,21 +16,18 @@
 
 @section filter{
   
-        @if (Model.Triathletes.Any())
-        {
-            @Html.ActionLink("Filter by Duration", "ShowFilterByDuration", null,
-                        new
-                        {
-                            races = @String.Join(",", Model.Filter.SelectedRaceIds.Select(x => x.ToString()).ToArray()),
-                            agegroups = @String.Join(",", Model.Filter.SelectedAgeGroupIds.Select(x => x.ToString()).ToArray()),
-                            genders = @String.Join(",", Model.Filter.SelectedGenderIds.Select(x => x.ToString()).ToArray())
-                        },
-                        new { @class = "modal-link btn btn-duration", title = "Filter by Time" })
-        }
-}
+    }
+
+@section page_actions{
+    @if (Model.Triathletes.Any())
+    {
+        <script type="text/javascript">  $("#page-actions").show(); </script>
+        @Html.Partial("~/Views/Shared/_ActionBar.cshtml", Model)
+    }<!--actions-->
+}<!--section-->
 
 @section results{
-    @if (Model.Triathletes != null)
+    @if (Model.Triathletes.Any())
     {
         <script type="text/javascript">  $("#results").show(); </script>
           @Html.Partial("~/Views/Shared/_PagedList.cshtml",Model);

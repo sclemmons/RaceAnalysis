@@ -9,35 +9,35 @@
    
     <script type="text/javascript">
 
-            google.charts.load('current', { 'packages': ['corechart', 'bar'] });
+        google.charts.load('current', { 'packages': ['corechart', 'bar'] });
 
-            google.charts.setOnLoadCallback(function () {
-                var title = '@Model.Filter.SelectedRaces.First().DisplayName, ' + '  ' + '@Model.Stats.Sum(s => s.Athletes.Count)' + ' Athletes Selected';
+        google.charts.setOnLoadCallback(function () {
+            var title = '@Model.Filter.AvailableRaces.Single(r => r.RaceId == Model.Filter.SelectedRaceIds.First()).DisplayName, ' + '  ' + '@Model.Stats.Sum(s => s.Athletes.Count)' + ' Athletes Selected';
 
-                var dataTable = new google.visualization.DataTable(
-                  @Html.Raw(Json.Encode(Model.ChartDataMedian))
-              );
+            var dataTable = new google.visualization.DataTable(
+              @Html.Raw(Json.Encode(Model.ChartDataMedian))
+          );
 
 
 
-                var options = {
-                    title: title,
-                    bar: {
-                        groupWidth: '100',
-                        minValue: 0,
-                    },
-                    hAxis: {
+            var options = {
+                title: title,
+                bar: {
+                    groupWidth: '100',
+                    minValue: 0,
+                },
+                hAxis: {
 
-                        title: 'Median Finish Times',
+                    title: 'Median Finish Times',
 
-                    }
+                }
 
-                };
+            };
 
-               var chart = new google.visualization.BarChart(document.getElementById('@Model.UniqueId'));
-                  chart.draw(dataTable, options);
+            var chart = new google.visualization.BarChart(document.getElementById('@Model.UniqueId'));
+            chart.draw(dataTable, options);
 
-            });
+        });
 
 
     </script>

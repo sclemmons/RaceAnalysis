@@ -502,7 +502,6 @@
     <Content Include="Views\TriAthletes\Index.cshtml" />
     <Content Include="Views\TriAthletes\List.cshtml" />
     <Content Include="Views\TriStats\Index.cshtml" />
-    <Content Include="Views\TriStats\List.cshtml" />
     <Content Include="Views\Shared\_HorizRaceFilter.cshtml" />
     <Content Include="Views\Shared\_TriStats.cshtml" />
     <Content Include="Views\Shared\_PagedList.cshtml" />
@@ -538,6 +537,7 @@
     <Content Include="Views\TriStatsAgeGroupsCompare\Index.cshtml" />
     <Content Include="Views\Shared\_StatsAgeGroupsChart.cshtml" />
     <Content Include="Views\Shared\_VertRaceFilter.cshtml" />
+    <Content Include="Views\Shared\_ActionBar.cshtml" />
     <None Include="Web.Test.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

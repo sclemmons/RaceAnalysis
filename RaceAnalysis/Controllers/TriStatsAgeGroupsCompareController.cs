@@ -30,7 +30,7 @@ namespace RaceAnalysis.Controllers
             {
                 var athletesPerAG = _DAL.GetAthletes(raceIds, new int[] {agId}, genderIds);
                 athletes.AddRange(athletesPerAG);
-                viewModel.Stats.Add(GetStats(athletesPerAG, _DBContext.Races.Single(r => r.RaceId == raceId)));
+                viewModel.Stats.Add(GetStats(athletesPerAG, viewModel.Filter.AvailableRaces.Single(r => r.RaceId == raceId)));
             }
 
             return View("Compare", viewModel);

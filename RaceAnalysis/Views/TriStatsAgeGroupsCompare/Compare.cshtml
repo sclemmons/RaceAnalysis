@@ -8,6 +8,14 @@
 @section filter{}
 
 
+@section page_actions{
+    @if (Model.Stats.Count > 0)
+    {
+        <script type="text/javascript">  $("#page-actions").show(); </script>
+        @Html.Partial("~/Views/Shared/_ActionBar.cshtml", Model)
+    }<!--actions-->
+}<!--section-->
+
 @section results{
     @if (Model.Stats.Count > 0)
     {

@@ -196,7 +196,7 @@ div.error {
 
 }
 
-#filter, #results, #page-header,#page_actions{
+#filter, #results, #page-header,#page-actions{
     margin:10px;
     padding:5px;
     background-color:white;
@@ -206,7 +206,7 @@ div.error {
     border-radius:5px;
     
 }
-#results
+#results,#page-actions
 {
     display:none;
 }
