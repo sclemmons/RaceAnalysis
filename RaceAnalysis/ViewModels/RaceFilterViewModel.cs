@@ -21,7 +21,7 @@ namespace RaceAnalysis.Models
         }
         public IList<Race> AvailableRaces { get; set; }
         public IList<int> SelectedRaceIds { get; set; }
-        public PostedFilterValues PostedValues { get; set; }
+      
 
         public IList<AgeGroup> AvailableAgeGroups { get; set; }
         public IList<int> SelectedAgeGroupIds { get; set; }
@@ -141,11 +141,5 @@ namespace RaceAnalysis.Models
 
 
     }
-    public class PostedFilterValues
-    {
-        public string[] RaceIds { get; set; }
-        public string[] AgeGroupIds { get; set; }
-        public string[] GenderIds { get; set; }
-
-    }
+    
 }
