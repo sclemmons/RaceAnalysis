@@ -58,18 +58,17 @@ namespace RaceAnalysis.Controllers
         /// <param name="agegroupIds"></param>
         /// <param name="genderIds"></param>
         /// <returns></returns>
-        protected override ActionResult DisplayResultsView(int page, int[] raceIds, int[] agegroupIds, int[] genderIds)
+        protected override ActionResult DisplayResultsView(int page, RaceFilterViewModel filter)
         {
             var viewModel = new TriStatsViewModel();
-            viewModel.Filter = new RaceFilterViewModel();
-            viewModel.Filter.SaveRaceFilterValues(raceIds, agegroupIds, genderIds);
+            viewModel.Filter = filter;
            
 
-            foreach (int raceId in raceIds) //it makes more sense to split the races in order to compare them rather than to combine their stats
+            foreach (int raceId in filter.SelectedRaceIds) //it makes more sense to split the races in order to compare them rather than to combine their stats
             {
              
-                var athletes = _DAL.GetAthletes(new int[]{ raceId }, agegroupIds, genderIds);
-                var stats = GetStats(athletes, _DBContext.Races.Single(r => r.RaceId == raceId));
+                var athletes = _DAL.GetAthletes(new int[]{ raceId }, filter.SelectedAgeGroupIds,filter.SelectedGenderIds);
+                var stats = GetStats(athletes, filter.AvailableRaces.Single(r => r.RaceId == raceId));
                 viewModel.Stats.Add(stats);
             }
 

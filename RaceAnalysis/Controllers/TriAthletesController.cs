@@ -67,25 +67,17 @@ namespace RaceAnalysis.Controllers
             *****/
             return View();
         }
-     
-              
-      
 
-        protected override ActionResult DisplayResultsView(int page, int[] races, int[] agegroups,int[] genders)
+
+
+
+        protected override ActionResult DisplayResultsView(int page, RaceFilterViewModel filter)
         {
 
             page = page > 0 ? page : 1;
             int pageSize = 20;
 
-            //Since this action can be called directly from a different view than the race filter, 
-            //specifically from the paging control
-            //we've got to pass the values in and repopulate our filter
-            var filter = new RaceFilterViewModel();
-            filter.SaveRaceFilterValues(races, agegroups, genders);
-
-
-
-            List<Triathlete> athletes = _DAL.GetAthletes(races, agegroups, genders);
+            List<Triathlete> athletes = _DAL.GetAthletes(filter.SelectedRaceIds,filter.SelectedAgeGroupIds,filter.SelectedGenderIds);
 
             var onePageOfAthletes = athletes.ToPagedList(page, pageSize); //max xx per page
      

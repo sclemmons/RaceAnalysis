@@ -18,22 +18,7 @@ namespace RaceAnalysis.Controllers
             _DAL = new TriathletesDAL(_DBContext);
         }
 
-        
-        public ActionResult ShowFilterByRace(string races, string agegroups, string genders)
-        {
-            var viewmodel = new RaceFilterViewModel(_DBContext);
-            viewmodel.SaveRaceFilterValues(races,agegroups,genders);
-
-            return PartialView("~/Views/Shared/_HorizRaceFilter.cshtml", viewmodel);
-        }
-        public ActionResult ShowFilterByDuration(string races, string agegroups, string genders)
-        {
-            var viewmodel = new TriStatsViewModel();
-            viewmodel.Filter = new RaceFilterViewModel(_DBContext);
-            viewmodel.Filter.SaveRaceFilterValues(races, agegroups, genders);
-
-            return PartialView("~/Views/Shared/_SearchByDuration.cshtml", viewmodel);
-        }
+       
 
         [HttpPost]
         public ActionResult SearchByAthleteName(FormCollection form, string races, string agegroups, string genders)
@@ -87,48 +72,42 @@ namespace RaceAnalysis.Controllers
 
             var athletes = search.SearchFieldQuery(field, query);
 
-            return DisplayResultsView(athletes,viewmodel);
+            return DisplayResultsView(athletes, viewmodel);
         }
-        public ActionResult SelectedRaces(SimpleFilterViewModel query)
-        {
-
-            var parms = ConvertToInt(query.Races,query.AgeGroups,query.Genders);
-            return SelectedRaces(parms.Item1, parms.Item2, parms.Item3, "PLACEHOLDER");
-        }
-
-        
 
         //called from the racefilter
         [HttpPost]
-        public ActionResult SelectedRacesNew(AModel model)
+        public ActionResult SelectedRacesNew(AModel queryModel)
         {
             var filter = new RaceFilterViewModel(_DBContext);
-            filter.SaveRaceFilterValues(model);
-            return DisplayResultsView(1, model.selectedRaceIds, model.selectedAgeGroupIds, model.selectedGenderIds);
+            filter.SaveRaceFilterValues(queryModel);
+            return DisplayResultsView(1, filter);
 
         }
-        [HttpPost]
-        public ActionResult SelectedRaces(int[] selectedRaceIds, int[] selectedAgeGroupIds, int[] selectedGenderIds,string swimlowtimevalue )
+
+            
+       public ActionResult SelectedRaces(SimpleFilterViewModel model)
         {
        
-            var filter = new RaceFilterViewModel(_DBContext);
-            filter.SaveRaceFilterValues(selectedRaceIds,selectedAgeGroupIds,selectedGenderIds);
-            return DisplayResultsView( 1, selectedRaceIds, selectedAgeGroupIds, selectedGenderIds);
+           var filter = new RaceFilterViewModel(_DBContext);
+           filter.SaveRaceFilterValues(model);
+          
+           return DisplayResultsView( 1,filter);
 
         }
         //called from the Paging Control
         //this is the best way I found to pass the arrays from view to controller
-        public ActionResult DisplayPagedAthletes(int page, string races, string agegroups, string genders)
+        public ActionResult DisplayPagedAthletes(int page, SimpleFilterViewModel model)
         {
-            var parms = ConvertToInt(races, agegroups, genders);
-
-            return DisplayResultsView(page, parms.Item1,parms.Item2,parms.Item3);
+            var filter = new RaceFilterViewModel(_DBContext);
+            filter.SaveRaceFilterValues(model);
+            return DisplayResultsView(page, filter);
         }
 
 
 
         #region Protected Methods
-        protected abstract ActionResult DisplayResultsView(int page, int[] races, int[] agegroups, int[] genders);
+        protected abstract ActionResult DisplayResultsView(int page, RaceFilterViewModel model);
 
         protected virtual ActionResult DisplayResultsView(List<Triathlete> athletes, RaceFilterViewModel filter)
         {

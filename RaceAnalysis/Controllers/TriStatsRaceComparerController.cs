@@ -16,17 +16,16 @@ namespace RaceAnalysis.Controllers
             return View(viewmodel);
         }
 
-        protected override ActionResult DisplayResultsView(int page, int[] raceIds, int[] agegroupIds, int[] genderIds)
+        protected override ActionResult DisplayResultsView(int page, RaceFilterViewModel filter)
         {
             var viewModel = new TriStatsViewModel();
-            viewModel.Filter = new RaceFilterViewModel();
-            viewModel.Filter.SaveRaceFilterValues(raceIds, agegroupIds, genderIds);
-
+            viewModel.Filter = filter;
+        
             var athletes = new List<Triathlete>();
        
-            foreach (int raceId in raceIds) 
+            foreach (int raceId in filter.SelectedRaceIds) 
             {
-                var athletesPerRace = _DAL.GetAthletes(new int[] { raceId }, agegroupIds, genderIds);
+                var athletesPerRace = _DAL.GetAthletes(new int[] { raceId }, filter.SelectedAgeGroupIds, filter.SelectedGenderIds);
                 athletes.AddRange(athletesPerRace);
                 viewModel.Stats.Add(GetStats(athletesPerRace, _DBContext.Races.Single(r => r.RaceId == raceId)));
             }

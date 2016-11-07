@@ -17,7 +17,7 @@ namespace RaceAnalysis.Controllers
         {
             return View();
         }
-        protected override ActionResult DisplayResultsView(int page, int[] races, int[] agegroups, int[] genders)
+        protected override ActionResult DisplayResultsView(int page, RaceFilterViewModel filter)
         {
             return View();
         }

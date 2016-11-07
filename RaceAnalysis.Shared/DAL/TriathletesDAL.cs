@@ -22,7 +22,7 @@ namespace RaceAnalysis.DAL
          * GetAthletes()
          * Retrieve the athletes with the given request values
          * ****************************************/
-        public List<Triathlete> GetAthletes(int[] raceIds, int[] agegroupIds, int[] genderIds)
+        public List<Triathlete> GetAthletes(IList<int> raceIds, IList<int> agegroupIds, IList<int> genderIds)
         {
 
             List<Triathlete> allAthletes = new List<Triathlete>();

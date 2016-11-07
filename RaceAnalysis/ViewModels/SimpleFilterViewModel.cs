@@ -5,7 +5,36 @@ using System.Web;
 
 namespace RaceAnalysis.Models
 {
-    public class AModel
+
+    public interface ISimpleDurationFilter
+    {
+       
+        string swimlowtimevalue { get; set; }
+        string swimhightimevalue { get; set; }
+
+        string bikelowtimevalue { get; set; }
+        string bikehightimevalue { get; set; }
+
+        string runlowtimevalue { get; set; }
+        string runhightimevalue { get; set; }
+
+        string finishlowtimevalue { get; set; }
+        string finishhightimevalue { get; set; }
+    }
+    public interface ISimpleRaceFilter
+    {
+        string Races { get; set; }
+        string AgeGroups { get; set; }
+        string Genders { get; set; }
+    }
+    public interface IComplexRaceFilter
+    {
+        int[] selectedRaceIds { get; set; }
+        int[] selectedAgeGroupIds { get; set; }
+        int[] selectedGenderIds { get; set; }
+    }
+
+    public class AModel : IComplexRaceFilter, ISimpleDurationFilter
     {
         public int[] selectedRaceIds { get; set; }
         public int[] selectedAgeGroupIds { get; set; }
@@ -26,18 +55,26 @@ namespace RaceAnalysis.Models
 
 
     }
-    public class SimpleFilterViewModel
+    public class SimpleFilterViewModel : ISimpleRaceFilter,ISimpleDurationFilter
     {
         public string Races { get; set; }
         public string AgeGroups { get; set; }
         public string Genders { get; set; }
 
-        public string SwimLow { get; set; }
-        public string SwimHigh { get; set; }
-        public string BikeLow { get; set; }
-        public string BikeHigh { get; set; }
-        public string RunLow { get; set; }
-        public string RunHigh { get; set; }
+        public string swimlowtimevalue { get; set; }
+        public string swimhightimevalue { get; set; }
+
+        public string bikelowtimevalue { get; set; }
+        public string bikehightimevalue { get; set; }
+
+        public string runlowtimevalue { get; set; }
+        public string runhightimevalue { get; set; }
+
+        public string finishlowtimevalue { get; set; }
+        public string finishhightimevalue { get; set; }
+
 
     }
+
+
 }

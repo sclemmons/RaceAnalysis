@@ -14,11 +14,11 @@ namespace RaceAnalysis.Controllers
             return View(viewmodel);
         }
 
-        protected override ActionResult DisplayResultsView(int page, int[] raceIds, int[] agegroupIds, int[] genderIds)
+        protected override ActionResult DisplayResultsView(int page, RaceFilterViewModel filter)
         {
             var viewModel = new AgeGroupCompareViewModel();
-            viewModel.Filter = new RaceFilterViewModel();
-            viewModel.Filter.SaveRaceFilterValues(raceIds, agegroupIds, genderIds);
+            viewModel.Filter = filter;
+            
             var athletes = new List<Triathlete>();
 
             //for now let's only deal with a single race to keep it simple
@@ -28,7 +28,7 @@ namespace RaceAnalysis.Controllers
             //pulling from selected age groups so that we can do the same when we draw the chart
             foreach (var agId in viewModel.Filter.SelectedAgeGroupIds) //collect the stats for each age group
             {
-                var athletesPerAG = _DAL.GetAthletes(raceIds, new int[] {agId}, genderIds);
+                var athletesPerAG = _DAL.GetAthletes(filter.SelectedRaceIds, new int[] {agId}, filter.SelectedGenderIds);
                 athletes.AddRange(athletesPerAG);
                 viewModel.Stats.Add(GetStats(athletesPerAG, viewModel.Filter.AvailableRaces.Single(r => r.RaceId == raceId)));
             }

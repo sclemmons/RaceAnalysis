@@ -70,35 +70,77 @@ namespace RaceAnalysis.Models
         }
         public void SaveRaceFilterValues(AModel model)
         {
-            SaveRaceFilterValues(model.selectedRaceIds, model.selectedAgeGroupIds, model.selectedGenderIds);
+            SaveRaceFilterValues(((IComplexRaceFilter)model));
+            SaveDurationValues(model);
+        }
+        public void SaveRaceFilterValues(SimpleFilterViewModel model)
+        {
+            SaveRaceFilterValues(model.Races, model.AgeGroups, model.Genders);
+            SaveDurationValues(model);
+        }
+        
+        private void SaveDurationValues(ISimpleDurationFilter filter)
+        {
+         
+            if (filter.swimlowtimevalue != null)
+                SwimLow = new TimeSpan(0,Int32.Parse(filter.swimlowtimevalue),0);
+
+            if (filter.swimhightimevalue != null)
+                SwimHigh = new TimeSpan(0, Int32.Parse(filter.swimhightimevalue), 0);
+
+            if (filter.bikelowtimevalue != null)
+                BikeLow = new TimeSpan(0, Int32.Parse(filter.bikelowtimevalue), 0);
+
+            if (filter.bikehightimevalue != null)
+                BikeHigh = new TimeSpan(0, Int32.Parse(filter.bikehightimevalue), 0);
+            
+            if (filter.runlowtimevalue != null)
+                RunLow = new TimeSpan(0, Int32.Parse(filter.runlowtimevalue), 0);
+
+            if (filter.runhightimevalue != null)
+                RunHigh = new TimeSpan(0, Int32.Parse(filter.runhightimevalue), 0);
+
+
+            if (filter.finishlowtimevalue != null)
+                FinishLow = new TimeSpan(0, Int32.Parse(filter.finishlowtimevalue), 0);
+
+            if (filter.finishhightimevalue != null)
+                FinishHigh = new TimeSpan(0, Int32.Parse(filter.finishhightimevalue), 0);
+
         }
 
-        public void SaveRaceFilterValues(int[] raceIds, int[] ageGroupIds, int[] genderIds)
+        private void SaveRaceFilterValues(IComplexRaceFilter filter)
         {
            
-            PopulateRaceFilter(); //don't know if I need this..... TODO: look at this
+            PopulateRaceFilter(); 
 
-            SelectedRaceIds = raceIds == null ? _DBContext.Races.Select(s => s.RaceId).ToList()
-             : _DBContext.Races.Where(r => raceIds.Any(x => r.RaceId == x)).Select(s=>s.RaceId).ToList();
+            //TODO: Look at this. seems overly complex
 
-
-            SelectedAgeGroupIds = ageGroupIds == null ? _DBContext.AgeGroups.Select(s => s.AgeGroupId).ToList()
-                : _DBContext.AgeGroups.Where(r => ageGroupIds.Any(x => r.AgeGroupId == x)).Select(s=>s.AgeGroupId).ToList();
+            SelectedRaceIds = filter.selectedRaceIds == null ? _DBContext.Races.Select(s => s.RaceId).ToList()
+             : _DBContext.Races.Where(r => filter.selectedRaceIds.Any(x => r.RaceId == x)).Select(s=>s.RaceId).ToList();
 
 
-
-            SelectedGenderIds = genderIds == null ? _DBContext.Genders.Select(s=>s.GenderId).ToList()
-                : _DBContext.Genders.Where(r => genderIds.Any(x => r.GenderId == x)).Select(s=>s.GenderId).ToList();
+            SelectedAgeGroupIds = filter.selectedAgeGroupIds == null ? _DBContext.AgeGroups.Select(s => s.AgeGroupId).ToList()
+                : _DBContext.AgeGroups.Where(r => filter.selectedAgeGroupIds.Any(x => r.AgeGroupId == x)).Select(s=>s.AgeGroupId).ToList();
 
 
 
+            SelectedGenderIds = filter.selectedGenderIds == null ? _DBContext.Genders.Select(s=>s.GenderId).ToList()
+                : _DBContext.Genders.Where(r => filter.selectedGenderIds.Any(x => r.GenderId == x)).Select(s=>s.GenderId).ToList();
+
+
+            
         }
-        public void SaveRaceFilterValues(string races,string agegroups, string genders)
+        public void SaveRaceFilterValues(string races, string agegroups, string genders)
         {
-            var r = Array.ConvertAll(races.ZeroIfEmpty().Split(','), int.Parse);
-            var a = Array.ConvertAll(agegroups.ZeroIfEmpty().Split(','), int.Parse);
-            var g = Array.ConvertAll(genders.ZeroIfEmpty().Split(','), int.Parse);
-            SaveRaceFilterValues(r, a, g);
+            SaveRaceFilterValues((IComplexRaceFilter)
+                   new AModel
+                   {
+                       selectedRaceIds = Array.ConvertAll(races.ZeroIfEmpty().Split(','), int.Parse),
+                       selectedAgeGroupIds = Array.ConvertAll(agegroups.ZeroIfEmpty().Split(','), int.Parse),
+                       selectedGenderIds = Array.ConvertAll(genders.ZeroIfEmpty().Split(','), int.Parse)
+                   });
+           
         }
 
         public List<int> GetDefaultGenders()
