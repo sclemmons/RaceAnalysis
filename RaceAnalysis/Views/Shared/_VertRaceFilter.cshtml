@@ -1,11 +1,11 @@
 ﻿@model RaceAnalysis.Models.RaceFilterViewModel
+@using RaceAnalysis.Models
 
 @{
     var controllerName = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
 }
 
-
-@using (Html.BeginForm("SelectedRaces", controllerName, FormMethod.Post, new { @id = "myForm" }))
+@using (Html.BeginForm("SelectedRacesNew", controllerName, FormMethod.Post, new { @id = "myForm" }))
 
 {
     <div class="form-group">
@@ -29,7 +29,7 @@
                 new { @id = "genderSelectId", multiple = "multiple", })
     </div>
 
-    @Html.Partial("~/Views/Shared/_FilterByDuration.cshtml");
+    @Html.Partial("~/Views/Shared/_FilterByDuration.cshtml",Model);
 
     <div class="btn-container">
         <button type="submit" id="submitButton" class="btn btn-primary">Apply</button>

@@ -1,6 +1,5 @@
 ﻿@model BaseViewModel
-
-@using RaceAnalysis.Models;
+@using RaceAnalysis.Models
 
 @{ 
     var queryViewModel = new SimpleFilterViewModel
@@ -8,7 +7,7 @@
         Races = @String.Join(",", Model.Filter.SelectedRaceIds.Select(x => x.ToString()).ToArray()),
         AgeGroups = @String.Join(",", Model.Filter.SelectedAgeGroupIds.Select(x => x.ToString()).ToArray()),
         Genders = @String.Join(",", Model.Filter.SelectedGenderIds.Select(x => x.ToString()).ToArray())
-
+       
     };
 }
 @Html.ActionLink("Detailed Stats", "SelectedRaces", "TriStats",

@@ -31,9 +31,17 @@ namespace RaceAnalysis.Models
         public IList<int> SelectedGenderIds { get; set; }
 
 
+        public TimeSpan SwimLow { get; set; }
+        public TimeSpan SwimHigh { get; set; }
+        public TimeSpan BikeLow { get; set; }
+        public TimeSpan BikeHigh { get; set; }
+        public TimeSpan RunLow { get; set; }
+        public TimeSpan RunHigh { get; set; }
+        public TimeSpan FinishLow { get; set; }
+        public TimeSpan FinishHigh { get; set; }
+        
 
-
-        private  void PopulateRaceFilter()
+        private void PopulateRaceFilter()
         {
            
             AvailableRaces = _DBContext.Races.ToList();
@@ -49,10 +57,22 @@ namespace RaceAnalysis.Models
             if (SelectedGenderIds == null)
                 { SelectedGenderIds = GetDefaultGenders(); }
 
+            SwimLow = new TimeSpan(0, 0, 0);
+            SwimHigh = new TimeSpan(3, 0, 0);
+            BikeLow = new TimeSpan(3, 0, 0);
+            BikeHigh = new TimeSpan(10, 0, 0);
+            RunLow = new TimeSpan(2, 0, 0);
+            RunHigh = new TimeSpan(7, 0, 0);
+            FinishLow = new TimeSpan(8, 0, 0);
+            FinishHigh = new TimeSpan(17, 0, 0);
 
-         
+
         }
-        
+        public void SaveRaceFilterValues(AModel model)
+        {
+            SaveRaceFilterValues(model.selectedRaceIds, model.selectedAgeGroupIds, model.selectedGenderIds);
+        }
+
         public void SaveRaceFilterValues(int[] raceIds, int[] ageGroupIds, int[] genderIds)
         {
            

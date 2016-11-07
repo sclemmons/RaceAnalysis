@@ -93,14 +93,22 @@ namespace RaceAnalysis.Controllers
         {
 
             var parms = ConvertToInt(query.Races,query.AgeGroups,query.Genders);
-            return SelectedRaces(parms.Item1, parms.Item2, parms.Item3);
+            return SelectedRaces(parms.Item1, parms.Item2, parms.Item3, "PLACEHOLDER");
         }
 
         
 
         //called from the racefilter
         [HttpPost]
-        public ActionResult SelectedRaces(int[] selectedRaceIds, int[] selectedAgeGroupIds, int[] selectedGenderIds)
+        public ActionResult SelectedRacesNew(AModel model)
+        {
+            var filter = new RaceFilterViewModel(_DBContext);
+            filter.SaveRaceFilterValues(model);
+            return DisplayResultsView(1, model.selectedRaceIds, model.selectedAgeGroupIds, model.selectedGenderIds);
+
+        }
+        [HttpPost]
+        public ActionResult SelectedRaces(int[] selectedRaceIds, int[] selectedAgeGroupIds, int[] selectedGenderIds,string swimlowtimevalue )
         {
        
             var filter = new RaceFilterViewModel(_DBContext);
