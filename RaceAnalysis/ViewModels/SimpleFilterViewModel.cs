@@ -34,7 +34,10 @@ namespace RaceAnalysis.Models
         int[] selectedGenderIds { get; set; }
     }
 
-    public class AModel : IComplexRaceFilter, ISimpleDurationFilter
+    /// <summary>
+    /// FilterViewModel - this model can be used in an HTTP Post
+    /// </summary>
+    public class FilterViewModel : IComplexRaceFilter, ISimpleDurationFilter
     {
         public int[] selectedRaceIds { get; set; }
         public int[] selectedAgeGroupIds { get; set; }
@@ -55,6 +58,10 @@ namespace RaceAnalysis.Models
 
 
     }
+
+    /// <summary>
+    /// SimpleFilterViewModel - all properties are strings so it can be used with an HTTP GET
+    /// </summary>
     public class SimpleFilterViewModel : ISimpleRaceFilter,ISimpleDurationFilter
     {
         public string Races { get; set; }

@@ -68,7 +68,7 @@ namespace RaceAnalysis.Models
 
 
         }
-        public void SaveRaceFilterValues(AModel model)
+        public void SaveRaceFilterValues(FilterViewModel model)
         {
             SaveRaceFilterValues(((IComplexRaceFilter)model));
             SaveDurationValues(model);
@@ -134,7 +134,7 @@ namespace RaceAnalysis.Models
         public void SaveRaceFilterValues(string races, string agegroups, string genders)
         {
             SaveRaceFilterValues((IComplexRaceFilter)
-                   new AModel
+                   new FilterViewModel
                    {
                        selectedRaceIds = Array.ConvertAll(races.ZeroIfEmpty().Split(','), int.Parse),
                        selectedAgeGroupIds = Array.ConvertAll(agegroups.ZeroIfEmpty().Split(','), int.Parse),

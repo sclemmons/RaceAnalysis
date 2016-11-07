@@ -77,7 +77,7 @@ namespace RaceAnalysis.Controllers
 
         //called from the racefilter
         [HttpPost]
-        public ActionResult SelectedRacesNew(AModel queryModel)
+        public ActionResult ApplyRaceFilter(FilterViewModel queryModel)
         {
             var filter = new RaceFilterViewModel(_DBContext);
             filter.SaveRaceFilterValues(queryModel);
@@ -85,18 +85,16 @@ namespace RaceAnalysis.Controllers
 
         }
 
-            
+        //called from actions links in the Action Bar
        public ActionResult SelectedRaces(SimpleFilterViewModel model)
         {
-       
            var filter = new RaceFilterViewModel(_DBContext);
            filter.SaveRaceFilterValues(model);
-          
-           return DisplayResultsView( 1,filter);
+           return DisplayResultsView(1,filter);
 
         }
+
         //called from the Paging Control
-        //this is the best way I found to pass the arrays from view to controller
         public ActionResult DisplayPagedAthletes(int page, SimpleFilterViewModel model)
         {
             var filter = new RaceFilterViewModel(_DBContext);

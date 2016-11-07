@@ -5,7 +5,7 @@
     var controllerName = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
 }
 
-@using (Html.BeginForm("SelectedRacesNew", controllerName, FormMethod.Post, new { @id = "myForm" }))
+@using (Html.BeginForm("ApplyRaceFilter", controllerName, FormMethod.Post, new { @id = "myForm" }))
 
 {
     <div class="form-group">
