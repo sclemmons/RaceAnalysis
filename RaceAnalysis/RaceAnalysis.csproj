@@ -307,6 +307,7 @@
     <Compile Include="ViewModels\KeyValueViewModel.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="ViewModels\RaceFilterViewModel.cs" />
+    <Compile Include="ViewModels\SimpleFilterViewModel.cs" />
     <Compile Include="ViewModels\TriathletesViewModel.cs" />
     <Compile Include="ViewModels\TriStatsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

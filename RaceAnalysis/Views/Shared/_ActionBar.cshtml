@@ -1,40 +1,26 @@
-﻿@model RaceAnalysis.Models.BaseViewModel
+﻿@model BaseViewModel
 
+@using RaceAnalysis.Models;
+
+@{ 
+    var queryViewModel = new SimpleFilterViewModel
+    {
+        Races = @String.Join(",", Model.Filter.SelectedRaceIds.Select(x => x.ToString()).ToArray()),
+        AgeGroups = @String.Join(",", Model.Filter.SelectedAgeGroupIds.Select(x => x.ToString()).ToArray()),
+        Genders = @String.Join(",", Model.Filter.SelectedGenderIds.Select(x => x.ToString()).ToArray())
+
+    };
+}
 @Html.ActionLink("Detailed Stats", "SelectedRaces", "TriStats",
-                  new
-                  {
-                      races = @String.Join(",", Model.Filter.SelectedRaceIds.Select(x => x.ToString()).ToArray()),
-                      agegroups = @String.Join(",", Model.Filter.SelectedAgeGroupIds.Select(x => x.ToString()).ToArray()),
-                      genders = @String.Join(",", Model.Filter.SelectedGenderIds.Select(x => x.ToString()).ToArray())
-                  }, new { @class = "btn btn-success btn-duration", title = "Display detailed stats" })
+                 queryViewModel, new { @class = "btn btn-success btn-duration", title = "Display detailed stats" })
 
 @Html.ActionLink("Histogram", "SelectedRaces", "TriStatsHistogram",
-                  new
-                  {
-                      races = @String.Join(",", Model.Filter.SelectedRaceIds.Select(x => x.ToString()).ToArray()),
-                      agegroups = @String.Join(",", Model.Filter.SelectedAgeGroupIds.Select(x => x.ToString()).ToArray()),
-                      genders = @String.Join(",", Model.Filter.SelectedGenderIds.Select(x => x.ToString()).ToArray())
-                  }, new { @class = "btn btn-success btn-duration", title = "Display histogram" })
+                 queryViewModel, new { @class = "btn btn-success btn-duration", title = "Display histogram" })
 
 @Html.ActionLink("Athletes", "SelectedRaces", "TriAthletes",
-                  new
-                  {
-                      races = @String.Join(",", Model.Filter.SelectedRaceIds.Select(x => x.ToString()).ToArray()),
-                      agegroups = @String.Join(",", Model.Filter.SelectedAgeGroupIds.Select(x => x.ToString()).ToArray()),
-                      genders = @String.Join(",", Model.Filter.SelectedGenderIds.Select(x => x.ToString()).ToArray())
-                  }, new { @class = "btn btn-success btn-duration", title = "Display selected athletes" })
+                 queryViewModel, new { @class = "btn btn-success btn-duration", title = "Display selected athletes" })
 
 @Html.ActionLink("Compare Age Groups", "SelectedRaces", "TriStatsAgeGroupsCompare",
-                  new
-                  {
-                      races = @String.Join(",", Model.Filter.SelectedRaceIds.Select(x => x.ToString()).ToArray()),
-                      agegroups = @String.Join(",", Model.Filter.SelectedAgeGroupIds.Select(x => x.ToString()).ToArray()),
-                      genders = @String.Join(",", Model.Filter.SelectedGenderIds.Select(x => x.ToString()).ToArray())
-                  }, new { @class = "btn btn-success btn-duration", title = "Compare selected age groups" })
+                  queryViewModel, new { @class = "btn btn-success btn-duration", title = "Compare selected age groups" })
 @Html.ActionLink("Compare Races", "SelectedRaces", "TriStatsRaceComparer",
-                  new
-                  {
-                      races = @String.Join(",", Model.Filter.SelectedRaceIds.Select(x => x.ToString()).ToArray()),
-                      agegroups = @String.Join(",", Model.Filter.SelectedAgeGroupIds.Select(x => x.ToString()).ToArray()),
-                      genders = @String.Join(",", Model.Filter.SelectedGenderIds.Select(x => x.ToString()).ToArray())
-                  }, new { @class = "btn btn-success btn-duration", title = "Compare selected races" })
+                  queryViewModel, new { @class = "btn btn-success btn-duration", title = "Compare selected races" })

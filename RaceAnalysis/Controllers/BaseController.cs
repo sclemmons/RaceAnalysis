@@ -89,13 +89,14 @@ namespace RaceAnalysis.Controllers
 
             return DisplayResultsView(athletes,viewmodel);
         }
-
-        public ActionResult SelectedRaces(string races, string agegroups, string genders)
+        public ActionResult SelectedRaces(SimpleFilterViewModel query)
         {
-            var parms = ConvertToInt(races, agegroups, genders);
+
+            var parms = ConvertToInt(query.Races,query.AgeGroups,query.Genders);
             return SelectedRaces(parms.Item1, parms.Item2, parms.Item3);
         }
 
+        
 
         //called from the racefilter
         [HttpPost]
