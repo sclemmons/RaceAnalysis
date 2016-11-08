@@ -23,15 +23,23 @@
     };
 }
 @Html.ActionLink("Detailed Stats", "SelectedRaces", "TriStats",
-                 queryViewModel, new { @class = "btn btn-success btn-duration", title = "Display detailed stats" })
+                 queryViewModel, new {@id="action-stats", @class = "btn btn-success btn-duration", title = "Display detailed stats" })
 
 @Html.ActionLink("Histogram", "SelectedRaces", "TriStatsHistogram",
-                 queryViewModel, new { @class = "btn btn-success btn-duration", title = "Display histogram" })
+                 queryViewModel, new {@id="action-histogram", @class = "btn btn-success btn-duration", title = "Display histogram" })
 
 @Html.ActionLink("Athletes", "SelectedRaces", "TriAthletes",
-                 queryViewModel, new { @class = "btn btn-success btn-duration", title = "Display selected athletes" })
+                 queryViewModel, new { @id="action-athletes" ,@class = "btn btn-success btn-duration", title = "Display selected athletes" })
 
 @Html.ActionLink("Compare Age Groups", "SelectedRaces", "TriStatsAgeGroupsCompare",
-                  queryViewModel, new { @class = "btn btn-success btn-duration", title = "Compare selected age groups" })
+                  queryViewModel, new {@id="action-compareages", @class = "btn btn-success btn-duration", title = "Compare selected age groups" })
+
 @Html.ActionLink("Compare Races", "SelectedRaces", "TriStatsRaceComparer",
-                  queryViewModel, new { @class = "btn btn-success btn-duration", title = "Compare selected races" })
+                  queryViewModel, new {@id="action-compareraces", @class = "btn btn-success btn-duration", title = "Compare selected races" })
+
+
+   
+<script>
+    $('#@ViewBag.Action').addClass("disabled");
+</script>
+    
