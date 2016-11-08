@@ -8,7 +8,7 @@ namespace RaceAnalysis.Models
 
     public interface ISimpleDurationFilter
     {
-       
+
         string swimlowtimevalue { get; set; }
         string swimhightimevalue { get; set; }
 
@@ -27,6 +27,7 @@ namespace RaceAnalysis.Models
         string AgeGroups { get; set; }
         string Genders { get; set; }
     }
+
     public interface IComplexRaceFilter
     {
         int[] selectedRaceIds { get; set; }

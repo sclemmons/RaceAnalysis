@@ -1,12 +1,16 @@
 ﻿using RaceAnalysis.Models;
+using RaceAnalysis.Service;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using RaceAnalysis.Service.Interfaces;
 
 namespace RaceAnalysis.Controllers
 {
     public class TriStatsAgeGroupsCompareController : TriStatsController
     {
+        public TriStatsAgeGroupsCompareController(IRaceService service) : base(service) { }
+
         public ActionResult Compare()
         {
             var viewmodel = new AgeGroupCompareViewModel();
@@ -28,7 +32,7 @@ namespace RaceAnalysis.Controllers
             //pulling from selected age groups so that we can do the same when we draw the chart
             foreach (var agId in viewModel.Filter.SelectedAgeGroupIds) //collect the stats for each age group
             {
-                var athletesPerAG = _DAL.GetAthletes(filter.SelectedRaceIds, new int[] {agId}, filter.SelectedGenderIds);
+                var athletesPerAG = _RaceService.GetAthletes(filter.SelectedRaceIds, new int[] {agId}, filter.SelectedGenderIds);
                 athletes.AddRange(athletesPerAG);
                 viewModel.Stats.Add(GetStats(athletesPerAG, viewModel.Filter.AvailableRaces.Single(r => r.RaceId == raceId)));
             }

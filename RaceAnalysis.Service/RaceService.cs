@@ -1,22 +1,21 @@
-﻿using RaceAnalysis.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Dynamic;
+using RaceAnalysis.Models;
 using Castle.DynamicLinqQueryBuilder;
 using System.Data.Entity.Migrations;
-using RestSharp;
 using RaceAnalysis.Rest;
+using RestSharp;
+using RaceAnalysis.Service.Interfaces;
 
-namespace RaceAnalysis.DAL
+namespace RaceAnalysis.Service
 {
-    public class TriathletesDAL
+    public class RaceService : IRaceService
     {
-        private RaceAnalysisDbContext _DBContext;
-        public TriathletesDAL(RaceAnalysisDbContext db)
+        private RaceAnalysisDbContext _DBContext = new RaceAnalysisDbContext();
+        public RaceService()
         {
-            _DBContext = db;
-            
+     
         }
         /***************************************
          * GetAthletes()
@@ -42,7 +41,7 @@ namespace RaceAnalysis.DAL
                                 reqContext = CreateRequestContext(raceId, ageId, genderId);
                             else
                             { //we need to remove any athletes that might be there under that context to avoid dupes
-                               // DeleteAthletes(reqContext.RequestContextId);
+                              // DeleteAthletes(reqContext.RequestContextId);
                             }
 
                             //get from source 
@@ -276,7 +275,7 @@ namespace RaceAnalysis.DAL
                 }
             }
 
-         //changed to accumulate   reqContext.SourceCount = athletesFromSource.Count;
+            //changed to accumulate   reqContext.SourceCount = athletesFromSource.Count;
 
             SaveRequestContext(reqContext);
             SaveAthletes(athletesFromSource);
@@ -298,14 +297,14 @@ namespace RaceAnalysis.DAL
         {
             if (req.Status == "OK")
             {
-                req.Instruction = RequestInstruction.Normal; 
+                req.Instruction = RequestInstruction.Normal;
                 req.LastRequestedUTC = DateTime.Now.ToUniversalTime();
                 _DBContext.RequestContext.AddOrUpdate(req);
                 _DBContext.SaveChanges();
             }
             else //go ahead and save this; it could be that there were no athletes in this age division.
             {
-                
+
                 req.Status = String.Format("{0} A:{1} G:{2} : {3} ", req.Race.DisplayName, req.AgeGroup.DisplayName, req.Gender.DisplayName, req.Status);
                 req.Instruction = RequestInstruction.Normal;
                 req.LastRequestedUTC = DateTime.Now.ToUniversalTime();
@@ -321,15 +320,15 @@ namespace RaceAnalysis.DAL
 
         private void SaveAthletes(List<Triathlete> athletes)
         {
-        //running into error using AddOrUpdate, so trying to do this iteravely   
-           List<Triathlete> athletesToSave = new List<Triathlete>();
-           foreach (var entity in athletes)
-           {
-               var entityinDB = _DBContext.Triathletes.Find(entity.TriathleteId);
-               if (entityinDB == null)
-                   athletesToSave.Add(entity);
-           }
-           
+            //running into error using AddOrUpdate, so trying to do this iteravely   
+            List<Triathlete> athletesToSave = new List<Triathlete>();
+            foreach (var entity in athletes)
+            {
+                var entityinDB = _DBContext.Triathletes.Find(entity.TriathleteId);
+                if (entityinDB == null)
+                    athletesToSave.Add(entity);
+            }
+
 
             // var entityinDB = _DBContext.Triathletes.Where(t => t.Name == "Randall, Wild Bill");
             //  var entinSave = athletesToSave.Where(t => t.Name == "Randall, Wild Bill");
@@ -396,3 +395,5 @@ namespace RaceAnalysis.DAL
 
     }
 }
+
+

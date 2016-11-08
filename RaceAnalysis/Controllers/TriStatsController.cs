@@ -3,13 +3,16 @@ using System.Linq;
 using System.Web.Mvc;
 using RaceAnalysis.Helpers;
 using RaceAnalysis.Models;
-
+using RaceAnalysis.Service.Interfaces;
 
 namespace RaceAnalysis.Controllers
 {
     public class TriStatsController : BaseController
     {
-      
+        public TriStatsController(IRaceService service) : base(service) { }
+
+
+        
         // GET: TriStatsControllers
         public ActionResult Index()
         {
@@ -67,7 +70,7 @@ namespace RaceAnalysis.Controllers
             foreach (int raceId in filter.SelectedRaceIds) //it makes more sense to split the races in order to compare them rather than to combine their stats
             {
              
-                var athletes = _DAL.GetAthletes(new int[]{ raceId }, filter.SelectedAgeGroupIds,filter.SelectedGenderIds);
+                var athletes = _RaceService.GetAthletes(new int[]{ raceId }, filter.SelectedAgeGroupIds,filter.SelectedGenderIds);
                 var stats = GetStats(athletes, filter.AvailableRaces.Single(r => r.RaceId == raceId));
                 viewModel.Stats.Add(stats);
             }

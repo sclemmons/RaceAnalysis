@@ -2,11 +2,15 @@
 using System.Web.Mvc;
 using RaceAnalysis.Models;
 using RaceAnalysis.Helpers;
+using RaceAnalysis.Service.Interfaces;
 
 namespace RaceAnalysis.Controllers
 {
     public class TriStatsHistogramController : BaseController
     {
+        public TriStatsHistogramController(IRaceService service) : base(service) { }
+
+
         // GET: TriStatsHistogram
         public ActionResult Index()
         {
@@ -24,7 +28,7 @@ namespace RaceAnalysis.Controllers
 
             foreach (int raceId in filter.SelectedRaceIds)
             {
-                var athletesPerRace = _DAL.GetAthletes(new int[] { raceId }, filter.SelectedAgeGroupIds, filter.SelectedGenderIds);
+                var athletesPerRace = _RaceService.GetAthletes(new int[] { raceId }, filter.SelectedAgeGroupIds, filter.SelectedGenderIds);
 
                 athletes.AddRange(athletesPerRace); //add this group to our list
             }

@@ -3,21 +3,21 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using RaceAnalysis.Helpers;
 using RaceAnalysis.Models;
-using RaceAnalysis.DAL;
 using X.PagedList;
+using RaceAnalysis.Service.Interfaces;
 
 namespace RaceAnalysis.Controllers
 {
     public abstract class BaseController : Controller
     {
         protected RaceAnalysisDbContext _DBContext = new RaceAnalysisDbContext();
-        protected TriathletesDAL _DAL; 
+        protected IRaceService _RaceService;
 
-        public BaseController()
+        public BaseController(IRaceService service)
         {
-            _DAL = new TriathletesDAL(_DBContext);
+            _RaceService = service;
+          
         }
-
        
 
         [HttpPost]

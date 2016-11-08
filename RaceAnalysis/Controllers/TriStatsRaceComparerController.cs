@@ -1,13 +1,16 @@
 ﻿using RaceAnalysis.Models;
+using RaceAnalysis.Service;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using RaceAnalysis.Service.Interfaces;
 
 namespace RaceAnalysis.Controllers
 {
     public class TriStatsRaceComparerController : TriStatsController
     {
-        // GET: TriStatsRaceComparer
+        public TriStatsRaceComparerController(IRaceService service) : base(service) { }
+
 
         public ActionResult Compare()
         {
@@ -25,9 +28,9 @@ namespace RaceAnalysis.Controllers
        
             foreach (int raceId in filter.SelectedRaceIds) 
             {
-                var athletesPerRace = _DAL.GetAthletes(new int[] { raceId }, filter.SelectedAgeGroupIds, filter.SelectedGenderIds);
+                var athletesPerRace = _RaceService.GetAthletes(new int[] { raceId }, filter.SelectedAgeGroupIds, filter.SelectedGenderIds);
                 athletes.AddRange(athletesPerRace);
-                viewModel.Stats.Add(GetStats(athletesPerRace, _DBContext.Races.Single(r => r.RaceId == raceId)));
+                viewModel.Stats.Add(GetStats(athletesPerRace, filter.AvailableRaces.Single(r => r.RaceId == raceId)));
             }
        
             return View("Compare", viewModel);

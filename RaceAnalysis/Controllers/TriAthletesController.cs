@@ -3,13 +3,14 @@ using System.Web.Mvc;
 using RaceAnalysis.Helpers;
 using RaceAnalysis.Models;
 using X.PagedList;
-
-
+using RaceAnalysis.Service.Interfaces;
 
 namespace RaceAnalysis.Controllers
 {
     public class TriathletesController : BaseController
     {
+
+        public TriathletesController(IRaceService service) : base(service) { }
 
         public ActionResult Index()
         {
@@ -77,7 +78,7 @@ namespace RaceAnalysis.Controllers
             page = page > 0 ? page : 1;
             int pageSize = 20;
 
-            List<Triathlete> athletes = _DAL.GetAthletes(filter.SelectedRaceIds,filter.SelectedAgeGroupIds,filter.SelectedGenderIds);
+            List<Triathlete> athletes = _RaceService.GetAthletes(filter.SelectedRaceIds,filter.SelectedAgeGroupIds,filter.SelectedGenderIds);
 
             var onePageOfAthletes = athletes.ToPagedList(page, pageSize); //max xx per page
      

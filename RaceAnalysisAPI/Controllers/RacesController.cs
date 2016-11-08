@@ -13,6 +13,7 @@ using RaceAnalysis.Models;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using RaceAnalysisAPI.Dtos;
+using RaceAnalysis.Service.Interfaces;
 
 namespace RaceAnalysisAPI.Controllers
 {
@@ -20,9 +21,11 @@ namespace RaceAnalysisAPI.Controllers
     {
         private RaceAnalysisDbContext db = new RaceAnalysisDbContext();
         internal static Action<Exception> OnException { get; set; }
+        protected IRaceService _RaceService;
 
-        public RacesController()
+        public RacesController(IRaceService service)
         {
+            _RaceService = service;
             Mapper.Initialize(MappingConfiguration.Configure);
             
         }

@@ -10,18 +10,18 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using RaceAnalysis.Models;
-using RaceAnalysis.DAL;
+using RaceAnalysis.Service.Interfaces;
 
 namespace RaceAnalysisAPI.Controllers
 {
     public class TriathletesController : ApiController
     {
         private RaceAnalysisDbContext _DBContext = new RaceAnalysisDbContext();
-        private TriathletesDAL _DAL;
+        protected IRaceService _RaceService;
 
-        public TriathletesController()
+        public TriathletesController(IRaceService service)
         {
-             _DAL = new TriathletesDAL(_DBContext);
+            _RaceService = service;
         }
 
 
@@ -40,7 +40,7 @@ namespace RaceAnalysisAPI.Controllers
             var a = Array.ConvertAll(agegroupIds.Split(','), int.Parse);
             var g = Array.ConvertAll(genderIds.Split(','), int.Parse);
 
-            List<Triathlete> athletes = _DAL.GetAthletes(new int[] { raceId }, a, g);
+            List<Triathlete> athletes = _RaceService.GetAthletes(new int[] { raceId }, a, g);
 
             return athletes.AsQueryable();
         }
@@ -61,7 +61,7 @@ namespace RaceAnalysisAPI.Controllers
             var a = Array.ConvertAll(agegroupIds.Split(','), int.Parse);
             var g = Array.ConvertAll(genderIds.Split(','), int.Parse);
 
-            List<Triathlete> athletes = _DAL.GetAthletes(new int[] { raceId }, a, g);
+            List<Triathlete> athletes = _RaceService.GetAthletes(new int[] { raceId }, a, g);
 
 
             return athletes.Count;

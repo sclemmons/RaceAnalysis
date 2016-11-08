@@ -5,8 +5,11 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using RaceAnalysis.App_Start;
 
-namespace RaceAnalysis
+    
+    
+ namespace RaceAnalysis
 {
     public class MvcApplication : System.Web.HttpApplication
     {

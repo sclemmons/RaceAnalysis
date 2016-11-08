@@ -24,6 +24,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaceAnalysis.WebJobCacheFil
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SharedQueueMessages", "SharedQueueMessages\SharedQueueMessages.shproj", "{BDAEF501-E198-4214-B883-26B1669A604E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaceAnalysis.Service", "RaceAnalysis.Service\RaceAnalysis.Service.csproj", "{45F8C32C-81D3-45E7-A298-C6767BCA7EA0}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		SharedQueueMessages\SharedQueueMessages.projitems*{90d32306-80fb-43d9-9179-9942ffc10577}*SharedItemsImports = 4
@@ -63,6 +65,10 @@ Global
 		{90D32306-80FB-43D9-9179-9942FFC10577}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90D32306-80FB-43D9-9179-9942FFC10577}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{90D32306-80FB-43D9-9179-9942FFC10577}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45F8C32C-81D3-45E7-A298-C6767BCA7EA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45F8C32C-81D3-45E7-A298-C6767BCA7EA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45F8C32C-81D3-45E7-A298-C6767BCA7EA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45F8C32C-81D3-45E7-A298-C6767BCA7EA0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
