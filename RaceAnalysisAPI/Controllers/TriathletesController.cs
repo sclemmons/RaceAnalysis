@@ -11,6 +11,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using RaceAnalysis.Models;
 using RaceAnalysis.Service.Interfaces;
+using RaceAnalysis.ServiceSupport;
 
 namespace RaceAnalysisAPI.Controllers
 {
@@ -40,7 +41,16 @@ namespace RaceAnalysisAPI.Controllers
             var a = Array.ConvertAll(agegroupIds.Split(','), int.Parse);
             var g = Array.ConvertAll(genderIds.Split(','), int.Parse);
 
-            List<Triathlete> athletes = _RaceService.GetAthletes(new int[] { raceId }, a, g);
+          
+            List<Triathlete> athletes = _RaceService.GetAthletes(
+              new BasicRaceCriteria
+              {
+                  SelectedRaceIds = new int[] { raceId },
+                  SelectedAgeGroupIds = a,
+                  SelectedGenderIds = g
+              }
+
+            );
 
             return athletes.AsQueryable();
         }
@@ -48,7 +58,8 @@ namespace RaceAnalysisAPI.Controllers
 
         // GET: api/Triathletes
         /// <summary>
-        /// Get count of triathletes for a specific race, agegroups, genders
+        /// Get triathletes for a specific race, agegroups, genders and return count
+        /// Purpose is to populate the cache
         /// http://localhost:52873/api/Triathletes?count=1&raceId=17&agegroupIds=72,76&genderIds=9,10
         /// </summary>
         /// <param name="raceId"></param>
@@ -61,7 +72,16 @@ namespace RaceAnalysisAPI.Controllers
             var a = Array.ConvertAll(agegroupIds.Split(','), int.Parse);
             var g = Array.ConvertAll(genderIds.Split(','), int.Parse);
 
-            List<Triathlete> athletes = _RaceService.GetAthletes(new int[] { raceId }, a, g);
+
+            List<Triathlete> athletes = _RaceService.GetAthletes(
+                new BasicRaceCriteria
+                {
+                    SelectedRaceIds = new int[] { raceId },
+                    SelectedAgeGroupIds = a,
+                    SelectedGenderIds = g
+                }
+                
+            );
 
 
             return athletes.Count;

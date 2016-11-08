@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using RaceAnalysis.Service.Interfaces;
+using RaceAnalysis.ServiceSupport;
 
 namespace RaceAnalysis.Controllers
 {
@@ -28,7 +29,15 @@ namespace RaceAnalysis.Controllers
        
             foreach (int raceId in filter.SelectedRaceIds) 
             {
-                var athletesPerRace = _RaceService.GetAthletes(new int[] { raceId }, filter.SelectedAgeGroupIds, filter.SelectedGenderIds);
+                var athletesPerRace = _RaceService.GetAthletes(
+                     new BasicRaceCriteria
+                     {
+                         SelectedRaceIds = new int[] { raceId },
+                         SelectedAgeGroupIds = filter.SelectedAgeGroupIds,
+                         SelectedGenderIds = filter.SelectedGenderIds
+                     }, 
+                     filter
+                 );
                 athletes.AddRange(athletesPerRace);
                 viewModel.Stats.Add(GetStats(athletesPerRace, filter.AvailableRaces.Single(r => r.RaceId == raceId)));
             }

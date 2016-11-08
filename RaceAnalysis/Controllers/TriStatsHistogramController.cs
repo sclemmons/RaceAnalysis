@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using RaceAnalysis.Models;
 using RaceAnalysis.Helpers;
 using RaceAnalysis.Service.Interfaces;
+using RaceAnalysis.ServiceSupport;
 
 namespace RaceAnalysis.Controllers
 {
@@ -28,7 +29,15 @@ namespace RaceAnalysis.Controllers
 
             foreach (int raceId in filter.SelectedRaceIds)
             {
-                var athletesPerRace = _RaceService.GetAthletes(new int[] { raceId }, filter.SelectedAgeGroupIds, filter.SelectedGenderIds);
+                var athletesPerRace = _RaceService.GetAthletes(
+                       new BasicRaceCriteria
+                       {
+                           SelectedRaceIds = new int[] { raceId },
+                           SelectedAgeGroupIds = filter.SelectedAgeGroupIds,
+                           SelectedGenderIds = filter.SelectedGenderIds
+                       },
+                       filter
+                    );
 
                 athletes.AddRange(athletesPerRace); //add this group to our list
             }

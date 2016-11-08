@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using RaceAnalysis.Service.Interfaces;
+using RaceAnalysis.ServiceSupport;
+
 
 namespace RaceAnalysis.Controllers
 {
@@ -32,7 +34,15 @@ namespace RaceAnalysis.Controllers
             //pulling from selected age groups so that we can do the same when we draw the chart
             foreach (var agId in viewModel.Filter.SelectedAgeGroupIds) //collect the stats for each age group
             {
-                var athletesPerAG = _RaceService.GetAthletes(filter.SelectedRaceIds, new int[] {agId}, filter.SelectedGenderIds);
+                var athletesPerAG = _RaceService.GetAthletes(
+                    new BasicRaceCriteria
+                    {
+                        SelectedRaceIds = filter.SelectedRaceIds,
+                        SelectedAgeGroupIds = new int[] { agId },
+                        SelectedGenderIds = filter.SelectedGenderIds
+                    },
+                    filter
+                  );
                 athletes.AddRange(athletesPerAG);
                 viewModel.Stats.Add(GetStats(athletesPerAG, viewModel.Filter.AvailableRaces.Single(r => r.RaceId == raceId)));
             }

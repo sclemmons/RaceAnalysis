@@ -72,20 +72,20 @@ namespace RaceAnalysis.Controllers
 
 
 
-        protected override ActionResult DisplayResultsView(int page, RaceFilterViewModel filter)
+        protected override ActionResult DisplayResultsView(int page, RaceFilterViewModel criteria)
         {
 
             page = page > 0 ? page : 1;
             int pageSize = 20;
 
-            List<Triathlete> athletes = _RaceService.GetAthletes(filter.SelectedRaceIds,filter.SelectedAgeGroupIds,filter.SelectedGenderIds);
+            List<Triathlete> athletes = _RaceService.GetAthletes(criteria,criteria);
 
             var onePageOfAthletes = athletes.ToPagedList(page, pageSize); //max xx per page
      
             
             var viewmodel = new TriathletesViewModel();
             viewmodel.Triathletes =  onePageOfAthletes;
-            viewmodel.Filter = filter;
+            viewmodel.Filter = criteria;
 
             return View("List", viewmodel);
         }

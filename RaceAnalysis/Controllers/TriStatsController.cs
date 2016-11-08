@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using RaceAnalysis.Helpers;
 using RaceAnalysis.Models;
 using RaceAnalysis.Service.Interfaces;
+using RaceAnalysis.ServiceSupport;
 
 namespace RaceAnalysis.Controllers
 {
@@ -70,7 +71,15 @@ namespace RaceAnalysis.Controllers
             foreach (int raceId in filter.SelectedRaceIds) //it makes more sense to split the races in order to compare them rather than to combine their stats
             {
              
-                var athletes = _RaceService.GetAthletes(new int[]{ raceId }, filter.SelectedAgeGroupIds,filter.SelectedGenderIds);
+                var athletes = _RaceService.GetAthletes(
+                      new BasicRaceCriteria
+                      {
+                          SelectedRaceIds = new int[] { raceId },
+                          SelectedAgeGroupIds = filter.SelectedAgeGroupIds,
+                          SelectedGenderIds = filter.SelectedGenderIds
+                      }, 
+                      filter
+                );
                 var stats = GetStats(athletes, filter.AvailableRaces.Single(r => r.RaceId == raceId));
                 viewModel.Stats.Add(stats);
             }

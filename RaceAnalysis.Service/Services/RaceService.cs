@@ -7,6 +7,7 @@ using System.Data.Entity.Migrations;
 using RaceAnalysis.Rest;
 using RestSharp;
 using RaceAnalysis.Service.Interfaces;
+using RaceAnalysis.ServiceSupport;
 
 namespace RaceAnalysis.Service
 {
@@ -17,21 +18,23 @@ namespace RaceAnalysis.Service
         {
      
         }
-        /***************************************
-         * GetAthletes()
-         * Retrieve the athletes with the given request values
-         * ****************************************/
-        public List<Triathlete> GetAthletes(IList<int> raceIds, IList<int> agegroupIds, IList<int> genderIds)
+
+        /// <summary>
+        /// get athletes given the criteria
+        /// </summary>
+        /// <param name="criteria"></param>
+        /// <returns></returns>
+        public List<Triathlete> GetAthletes(IRaceCriteria criteria)
         {
 
             List<Triathlete> allAthletes = new List<Triathlete>();
 
             //create a requestContext for each combination. 
-            foreach (int raceId in raceIds)
+            foreach (int raceId in criteria.SelectedRaceIds)
             {
-                foreach (int ageId in agegroupIds)
+                foreach (int ageId in criteria.SelectedAgeGroupIds)
                 {
-                    foreach (int genderId in genderIds)
+                    foreach (int genderId in criteria.SelectedGenderIds)
                     {
                         RequestContext reqContext = GetRequestContextFromCache(raceId, ageId, genderId);
                         List<Triathlete> athletesInReqContext = new List<Triathlete>();
@@ -62,6 +65,21 @@ namespace RaceAnalysis.Service
             }
 
             return allAthletes;
+        }
+
+
+        /***************************************
+         * GetAthletes()
+         * Retrieve the athletes with the given request values
+         * ****************************************/
+        public List<Triathlete> GetAthletes(IRaceCriteria criteria,IDurationFilter filter)
+        {
+            var allAthletes = GetAthletes(criteria);
+
+            //filter these athletes
+            //in the future we may inject the Provider, but for now create it ...
+             return  new BasicFilterProvider(allAthletes, filter).GetAthletes();
+        
         }
 
 
@@ -102,8 +120,8 @@ namespace RaceAnalysis.Service
 
         }
 
-        #region Private Methods
-
+#region Private Methods
+        
         private RequestContext CreateRequestContext(int raceId, int agegroupId, int genderId)
         {
             RequestContext req = new RequestContext();
@@ -391,7 +409,7 @@ namespace RaceAnalysis.Service
         ****************/
 
 
-        #endregion //Private
+#endregion //Private
 
     }
 }

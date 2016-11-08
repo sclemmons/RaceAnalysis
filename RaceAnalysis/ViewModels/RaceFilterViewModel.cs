@@ -2,11 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using RaceAnalysis.Service.Interfaces;
 
 namespace RaceAnalysis.Models
 {
-    public class RaceFilterViewModel
+    public class RaceFilterViewModel : IRaceCriteria,IDurationFilter
     {
         private RaceAnalysisDbContext _DBContext;
         public RaceFilterViewModel()
