@@ -1,6 +1,6 @@
 ﻿@model RaceAnalysis.Models.BaseViewModel
 @{
-    ViewBag.Title = "_AnalysisLayout";
+  
     Layout = "~/Views/Layouts/_Layout.cshtml";
 }
 @RenderSection("scripts", required: false)
@@ -30,7 +30,7 @@
       
         <div class="col-sm-9">
             <div id="page-header">
-                <h3>@PageData["Title"]</h3>
+                <h3>@ViewBag.Title</h3>
                 @RenderSection("Page_Header", required: false)
              <!--   <div class="help-tip"> -->
                     <p>@PageData["Instructions"]</p>
