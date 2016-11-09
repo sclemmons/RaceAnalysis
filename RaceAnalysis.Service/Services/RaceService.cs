@@ -13,10 +13,10 @@ namespace RaceAnalysis.Service
 {
     public class RaceService : IRaceService
     {
-        private RaceAnalysisDbContext _DBContext = new RaceAnalysisDbContext();
-        public RaceService()
+        private RaceAnalysisDbContext _DBContext;
+        public RaceService(RaceAnalysisDbContext db)
         {
-     
+            _DBContext = db;
         }
 
         /// <summary>
@@ -409,7 +409,7 @@ namespace RaceAnalysis.Service
         ****************/
 
 
-#endregion //Private
+        #endregion //Private
 
     }
 }

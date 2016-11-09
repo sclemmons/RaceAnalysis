@@ -16,7 +16,7 @@ namespace RaceAnalysis.Controllers
         {
                     
             var viewmodel = new TriathletesViewModel();
-            viewmodel.Filter = new RaceFilterViewModel(_DBContext);
+            viewmodel.Filter = new RaceFilterViewModel();
             return View(viewmodel);
         }
 

@@ -18,7 +18,7 @@ namespace RaceAnalysis.Controllers
         public ActionResult Index()
         {
             var viewModel = new TriStatsViewModel();
-            viewModel.Filter = new RaceFilterViewModel(_DBContext); 
+            viewModel.Filter = new RaceFilterViewModel(); 
             return View(viewModel);
         }
        
@@ -41,11 +41,12 @@ namespace RaceAnalysis.Controllers
         {
             var viewModel = new TriStatsViewModel();
             viewModel.Filter = filter;
-
+            
             foreach (var raceId in filter.SelectedRaceIds)   
             {
                 var subset = athletes.Where(a => a.Race.RaceId == raceId).ToList();
-                var stats = GetStats(subset,filter.AvailableRaces.Single(r=>r.RaceId ==raceId)); //calculate the stats based on each race 
+                var stats = GetStats(subset,filter.
+                                AvailableRaces.Single(r=>r.RaceId ==raceId)); //calculate the stats based on each race 
                 viewModel.Stats.Add(stats);
             }
             //TO-DO: Look at this for sharing views:

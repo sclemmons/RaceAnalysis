@@ -5,6 +5,7 @@ using RaceAnalysis.Helpers;
 using RaceAnalysis.Models;
 using X.PagedList;
 using RaceAnalysis.Service.Interfaces;
+using System.Linq;
 
 namespace RaceAnalysis.Controllers
 {
@@ -30,7 +31,7 @@ namespace RaceAnalysis.Controllers
         [HttpPost]
         public ActionResult SearchByTimeThresholds(FormCollection form, string races, string agegroups, string genders)
         {
-            var viewmodel = new RaceFilterViewModel(_DBContext);
+            var viewmodel = new RaceFilterViewModel();
             viewmodel.SaveRaceFilterValues(races, agegroups, genders);
 
             var swimMinsLow = Convert.ToInt16(form["swim-lowtime-value"].ZeroIfEmpty());
@@ -60,12 +61,13 @@ namespace RaceAnalysis.Controllers
 
             ElasticSearchFacade search = new ElasticSearchFacade(_DBContext);
 
-            var athletes = search.SearchByDuration(swimLow, swimHigh, bikeLow, bikeHigh, runLow, runHigh, finishLow,finishHigh,viewmodel);
+            var requestIds = GetRequestIds(viewmodel);
+            var athletes = search.SearchByDuration(swimLow, swimHigh, bikeLow, bikeHigh, runLow, runHigh, finishLow,finishHigh,requestIds);
             return DisplayResultsView(athletes,viewmodel);
         }
         private ActionResult SearchOpenFieldQuery(string field, string query, string races, string agegroups, string genders)
         {
-            var viewmodel = new RaceFilterViewModel(_DBContext);
+            var viewmodel = new RaceFilterViewModel();
             viewmodel.SaveRaceFilterValues(races, agegroups, genders);
 
             ElasticSearchFacade search = new ElasticSearchFacade(_DBContext);
@@ -79,7 +81,7 @@ namespace RaceAnalysis.Controllers
         [HttpPost]
         public ActionResult ApplyRaceFilter(FilterViewModel queryModel)
         {
-            var filter = new RaceFilterViewModel(_DBContext);
+            var filter = new RaceFilterViewModel();
             filter.SaveRaceFilterValues(queryModel);
             return DisplayResultsView(1, filter);
 
@@ -88,7 +90,7 @@ namespace RaceAnalysis.Controllers
         //called from actions links in the Action Bar
        public ActionResult SelectedRaces(SimpleFilterViewModel model)
         {
-           var filter = new RaceFilterViewModel(_DBContext);
+           var filter = new RaceFilterViewModel();
            filter.SaveRaceFilterValues(model);
            return DisplayResultsView(1,filter);
 
@@ -97,7 +99,7 @@ namespace RaceAnalysis.Controllers
         //called from the Paging Control
         public ActionResult DisplayPagedAthletes(int page, SimpleFilterViewModel model)
         {
-            var filter = new RaceFilterViewModel(_DBContext);
+            var filter = new RaceFilterViewModel();
             filter.SaveRaceFilterValues(model);
             return DisplayResultsView(page, filter);
         }
@@ -143,11 +145,43 @@ namespace RaceAnalysis.Controllers
 
         }
 
+        /// <summary>
+        /// Get the request context Ids for this filter
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <returns></returns>
+        private List<int> GetRequestIds(RaceFilterViewModel filter)
+        {
 
+            int[] raceIds = filter.SelectedRaceIds.ToArray();
+            int[] ageGroupIds = filter.SelectedAgeGroupIds.ToArray();
+            int[] genderIds = filter.SelectedGenderIds.ToArray();
+
+            
+            var query = _DBContext.RequestContext
+                             .Where(r => raceIds.Contains(r.RaceId))
+                             .Where(r => ageGroupIds.Contains(r.AgeGroupId))
+                             .Where(r => genderIds.Contains(r.GenderId))
+                             .Select(r => r.RequestContextId);
+
+
+            return query.ToList();
+
+        }
 
 
 
         #endregion//Private Methods
 
+        
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _DBContext.Dispose();
+            }
+            base.Dispose(disposing);
+        } 
     }
+   
 }

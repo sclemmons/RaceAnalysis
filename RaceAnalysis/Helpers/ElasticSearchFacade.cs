@@ -64,13 +64,12 @@ namespace RaceAnalysis.Helpers
                                                     TimeSpan bikeL, TimeSpan bikeH,
                                                       TimeSpan runL, TimeSpan runH,
                                                         TimeSpan finishL,TimeSpan finishH,
-                                                            RaceFilterViewModel filter)
+                                                            List<int> requestIds)
         {
 
-            var reqIds = filter.GetRequestIds(filter);
             QueryContainer orQuery = null;
 
-            foreach (var id in reqIds)
+            foreach (var id in requestIds)
             {
                 orQuery |= new TermQuery
                 {
