@@ -32,13 +32,13 @@ namespace RaceAnalysis.Controllers
 
 
             //pulling from selected age groups so that we can do the same when we draw the chart
-            foreach (var agId in viewModel.Filter.SelectedAgeGroupIds) //collect the stats for each age group
+            foreach (var agId in AgeGroup.Expand(viewModel.Filter.SelectedAgeGroupIds)) //collect the stats for each age group
             {
                 var athletesPerAG = _RaceService.GetAthletes(
                     new BasicRaceCriteria
                     {
                         SelectedRaceIds = filter.SelectedRaceIds,
-                        SelectedAgeGroupIds = AgeGroup.Expand(new int[] { agId }),
+                        SelectedAgeGroupIds = new int[] { agId },
                         SelectedGenderIds = filter.SelectedGenderIds
                     },
                     filter

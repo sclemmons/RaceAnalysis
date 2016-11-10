@@ -23,7 +23,7 @@ namespace RaceAnalysis.Models
                 dataTable.AddColumn("AgeGroups", "string", "domain"); //our header column
 
                 var ageGroups = new List<AgeGroup>();  //we are going to compare aggroups, so build out the  list and our columns
-                foreach (var id in Filter.SelectedAgeGroupIds )
+                foreach (var id in AgeGroup.Expand(Filter.SelectedAgeGroupIds ))
                 {
                     var ag = Filter.AvailableAgeGroups.First(a => a.AgeGroupId == id);
                     ageGroups.Add(ag);
