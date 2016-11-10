@@ -19,6 +19,13 @@ namespace RaceAnalysis.Controllers
             _RaceService = service;
           
         }
+        public ActionResult ResetDurations()
+        {
+            var model = new RaceFilterViewModel();
+           // model.FinishHigh = new TimeSpan(10, 0, 0);
+            
+            return PartialView("~/Views/Shared/_FilterByDuration.cshtml",model);
+        }
        
 
         [HttpPost]

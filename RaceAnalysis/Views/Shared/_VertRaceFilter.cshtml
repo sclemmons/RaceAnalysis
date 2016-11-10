@@ -29,11 +29,17 @@
                 new { @id = "genderSelectId", multiple = "multiple", })
     </div>
 
-    @Html.Partial("~/Views/Shared/_FilterByDuration.cshtml",Model);
-
+    <div id="duration-filter-container">
+        @Html.Partial("~/Views/Shared/_FilterByDuration.cshtml", Model);
+    </div>
     <div class="btn-container">
         <button type="submit" id="submitButton" class="btn btn-primary">Apply</button>
     </div>
+
+    <div class="btn-container">
+        <button id="clearButton" class="btn btn-link">Rest</button>
+    </div>
+
 
 }
 
@@ -99,6 +105,22 @@
         }
 
     })
+
+    $("#clearButton").click(function(){
+
+        $("#raceSelectId").val(null).trigger("change");
+        $("#agSelectId").val(null).trigger("change");
+        $("#genderSelectId").val(null).trigger("change");
+
+      
+        $('#duration-filter-container').load(  '@Url.Action("ResetDurations", "TriStats")');
+
+     
+      });
+
+
+
+
 </script>
 
 
