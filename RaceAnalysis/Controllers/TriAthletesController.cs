@@ -4,6 +4,7 @@ using RaceAnalysis.Helpers;
 using RaceAnalysis.Models;
 using X.PagedList;
 using RaceAnalysis.Service.Interfaces;
+using RaceAnalysis.ServiceSupport;
 
 namespace RaceAnalysis.Controllers
 {
@@ -72,20 +73,27 @@ namespace RaceAnalysis.Controllers
 
 
 
-        protected override ActionResult DisplayResultsView(int page, RaceFilterViewModel criteria)
+        protected override ActionResult DisplayResultsView(int page, RaceFilterViewModel filter)
         {
 
             page = page > 0 ? page : 1;
             int pageSize = 20;
 
-            List<Triathlete> athletes = _RaceService.GetAthletes(criteria,criteria);
+            List<Triathlete> athletes = _RaceService.GetAthletes(
+                    new BasicRaceCriteria
+                    {
+                        SelectedRaceIds = filter.SelectedRaceIds,
+                        SelectedAgeGroupIds = AgeGroup.Expand(filter.SelectedAgeGroupIds),
+                        SelectedGenderIds = filter.SelectedGenderIds
+                    },
+                    filter);
 
             var onePageOfAthletes = athletes.ToPagedList(page, pageSize); //max xx per page
      
             
             var viewmodel = new TriathletesViewModel();
             viewmodel.Triathletes =  onePageOfAthletes;
-            viewmodel.Filter = criteria;
+            viewmodel.Filter = filter;
 
             return View("List", viewmodel);
         }

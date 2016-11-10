@@ -38,7 +38,7 @@ namespace RaceAnalysis.Controllers
                     new BasicRaceCriteria
                     {
                         SelectedRaceIds = filter.SelectedRaceIds,
-                        SelectedAgeGroupIds = new int[] { agId },
+                        SelectedAgeGroupIds = AgeGroup.Expand(new int[] { agId }),
                         SelectedGenderIds = filter.SelectedGenderIds
                     },
                     filter

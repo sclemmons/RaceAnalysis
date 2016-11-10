@@ -44,7 +44,7 @@ namespace RaceAnalysis.Models
                 //if I like this choice but going with it for now. Other option is to populate the stats using
                 //available races from the dbContext. 
                 AvailableRaces = db.Races.Include("Conditions").ToList();
-                AvailableAgeGroups = db.AgeGroups.ToList();
+                AvailableAgeGroups = GetAvailableAgeGroups(db);
                 AvailableGenders = db.Genders.ToList();
             }
             if (SelectedRaceIds == null)
@@ -112,6 +112,10 @@ namespace RaceAnalysis.Models
         {
            
             PopulateRaceFilter();
+            SelectedRaceIds = filter.selectedRaceIds;
+            SelectedAgeGroupIds = filter.selectedAgeGroupIds;
+            SelectedGenderIds = filter.selectedGenderIds;
+            /*****
             using (var db = new RaceAnalysisDbContext())
             {
                 //TODO: Look at this. seems overly complex
@@ -119,6 +123,7 @@ namespace RaceAnalysis.Models
                 SelectedRaceIds = filter.selectedRaceIds == null ? db.Races.Select(s => s.RaceId).ToList()
                  : db.Races.Where(r => filter.selectedRaceIds.Any(x => r.RaceId == x)).Select(s => s.RaceId).ToList();
 
+             
 
                 SelectedAgeGroupIds = filter.selectedAgeGroupIds == null ? db.AgeGroups.Select(s => s.AgeGroupId).ToList()
                     : db.AgeGroups.Where(r => filter.selectedAgeGroupIds.Any(x => r.AgeGroupId == x)).Select(s => s.AgeGroupId).ToList();
@@ -129,6 +134,7 @@ namespace RaceAnalysis.Models
                     : db.Genders.Where(r => filter.selectedGenderIds.Any(x => r.GenderId == x)).Select(s => s.GenderId).ToList();
 
             }
+            ****/
             
         }
         public void SaveRaceFilterValues(string races, string agegroups, string genders)
@@ -154,36 +160,22 @@ namespace RaceAnalysis.Models
                 return query.ToList();
             }
         }
+
+        private List<AgeGroup> GetAvailableAgeGroups(RaceAnalysisDbContext db)
+        {
+            var ag = db.AgeGroups.ToList();
+            ag.Insert(0,
+                    new AgeGroup
+                    {
+                        DisplayName = "All Age-Groupers",
+                        AgeGroupId = 0,
+                        Value = "All"
+                    });
+            return ag;
+        }
         private List<int> GetDefaultAgeGroups()
         {
-            using (var db = new RaceAnalysisDbContext())
-            {
-                //for testing purposes i'm only enabling one by default
-                var query = db.AgeGroups
-                    .Where(t =>
-                            /*
-                                    t.Value == "18-24" ||
-                                    t.Value == "25-29" ||
-                                    t.Value == "30-34" ||
-                                    t.Value == "40-44" ||
-                                    t.Value == "45-49" ||
-                             */
-                            t.Value == "50-54"
-                    /*****          
-                              t.Value == "55-59" ||
-                              t.Value == "60-64" ||
-                              t.Value == "65-69" ||
-                              t.Value == "70-74" ||
-                              t.Value == "75-79" ||
-                              t.Value == "80-84" ||
-                              t.Value == "85-89" ||
-                              t.Value == "90+Plus" ||
-                              t.Value == "PC"
-                      ***/
-                    ).Select(t => t.AgeGroupId);
-
-                return query.ToList();
-            }
+            return new int[] { 0 }.ToList(); //all age-groupers
         }
 
 
