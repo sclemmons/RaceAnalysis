@@ -11,7 +11,29 @@ namespace RaceAnalysis.Helpers
     public class TriStatsCalculator
     {
         private List<Triathlete> _Triathletes;
-        
+
+
+        public TimeSpan TimeSpanHistogram(string timeSpanProperty)
+        {
+            var query = _Triathletes.AsQueryable()
+            .Where(timeSpanProperty + ".TotalSeconds > TimeSpan(0, 0, 0).TotalSeconds")
+                .Select(timeSpanProperty);
+
+            var list = query.Cast<dynamic>().ToList();
+
+            double seconds = 0;
+            if (list.Count > 0)
+            {
+                var bins =
+                    list.Histogram(20, t => 
+                        {
+                            return Convert.ToInt32(t.TotalSeconds);
+                        });
+            }
+            TimeSpan ts = new TimeSpan(0, 0, Convert.ToInt32(seconds));
+
+            return ts;
+        }
         public TriStatsCalculator(List<Triathlete> athletes)
         {
             _Triathletes = athletes;

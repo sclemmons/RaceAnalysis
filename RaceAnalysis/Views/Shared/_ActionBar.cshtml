@@ -22,11 +22,14 @@
 
     };
 }
-@Html.ActionLink("Detailed Stats", "SelectedRaces", "TriStats",
-                 queryViewModel, new {@id="action-stats", @class = "btn btn-success btn-duration", title = "Display detailed stats" })
 
-@Html.ActionLink("Histogram", "SelectedRaces", "TriStatsHistogram",
-                 queryViewModel, new {@id="action-histogram", @class = "btn btn-success btn-duration", title = "Display histogram" })
+
+@Html.ActionLink("Summary", "SelectedRaces", "TriStatsHistogram",
+                 queryViewModel, new { @id = "action-summary", @class = "btn btn-success btn-duration", title = "Display histogram" })
+
+
+@Html.ActionLink("Details", "SelectedRaces", "TriStats",
+                 queryViewModel, new {@id="action-stats", @class = "btn btn-success btn-duration", title = "Display detailed stats" })
 
 @Html.ActionLink("Athletes", "SelectedRaces", "TriAthletes",
                  queryViewModel, new { @id="action-athletes" ,@class = "btn btn-success btn-duration", title = "Display selected athletes" })

@@ -43,7 +43,14 @@ namespace RaceAnalysis.Controllers
             }
 
             var calculator = new TriStatsCalculator(athletes);
+
+            viewModel.SwimMedian = calculator.TimeSpanMedian("Swim");
+            viewModel.BikeMedian = calculator.TimeSpanMedian("Bike");
+            viewModel.RunMedian = calculator.TimeSpanMedian("Run");
             viewModel.FinishMedian = calculator.TimeSpanMedian("Finish");
+
+          //  var test = calculator.TimeSpanHistogram("Finish");
+          //  var test2 = calculator.TimeSpanHistogram("Bike");
 
 
             viewModel.Triathletes = athletes;
