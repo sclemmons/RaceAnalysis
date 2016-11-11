@@ -312,7 +312,7 @@
     <Compile Include="Controllers\TriAthletesController.cs" />
     <Compile Include="Controllers\TriStatsAgeGroupsCompareController.cs" />
     <Compile Include="Controllers\TriStatsController.cs" />
-    <Compile Include="Controllers\TriStatsHistogramController.cs" />
+    <Compile Include="Controllers\TriStatsSummaryController.cs" />
     <Compile Include="Controllers\TriStatsRaceComparerController.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="Global.asax.cs">
@@ -554,8 +554,8 @@
     <Content Include="Views\TriStatsRaceComparer\Index.cshtml" />
     <Content Include="Views\Shared\_SearchByAthleteName.cshtml" />
     <Content Include="Views\Shared\_HistogramChart.cshtml" />
-    <Content Include="Views\TriStatsHistogram\Index.cshtml" />
-    <Content Include="Views\TriStatsHistogram\Histogram.cshtml" />
+    <Content Include="Views\TriStatsSummary\Index.cshtml" />
+    <Content Include="Views\TriStatsSummary\Histogram.cshtml" />
     <Content Include="Views\TriStatsAgeGroupsCompare\Compare.cshtml" />
     <Content Include="Views\TriStatsAgeGroupsCompare\Index.cshtml" />
     <Content Include="Views\Shared\_StatsAgeGroupsChart.cshtml" />

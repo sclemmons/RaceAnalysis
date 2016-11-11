@@ -43,8 +43,8 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Race Stats<span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
-                            <li class='@Html.IsActive("TriStatsHistogram", "Index")'>
-                                @Html.ActionLink("Summary", "Index", "TriStatsHistogram")
+                            <li class='@Html.IsActive("TriStatsSummary", "Index")'>
+                                @Html.ActionLink("Summary", "Index", "TriStatsSummary")
                             </li>
                             <li class='@Html.IsActive("TriStats", "Index")'>
                                 @Html.ActionLink("Detail", "Index", "TriStats")
@@ -82,7 +82,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - Race Analysis by Scott Clemmons</p>
+            <p>&copy; @DateTime.Now.Year - Race Analysis by TriTone Software</p>
         </footer>
     </div>
     
