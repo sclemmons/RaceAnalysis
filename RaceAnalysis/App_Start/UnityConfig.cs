@@ -3,6 +3,10 @@ using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.Configuration;
 using RaceAnalysis.Service.Interfaces;
 using RaceAnalysis.Service;
+using Microsoft.AspNet.Identity;
+using RaceAnalysis.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System.Data.Entity;
 
 namespace RaceAnalysis.App_Start
 {
@@ -37,8 +41,14 @@ namespace RaceAnalysis.App_Start
             // NOTE: To load from web.config uncomment the line below. Make sure to add a Microsoft.Practices.Unity.Configuration to the using statements.
             // container.LoadConfiguration();
 
-            // TODO: Register your types here
-             container.RegisterType<IRaceService, RaceService>();
+           
+
+            container.RegisterType<DbContext, RaceAnalysisDbContext>(new HierarchicalLifetimeManager());
+            container.RegisterType<UserManager<ApplicationUser>>(new HierarchicalLifetimeManager());
+            container.RegisterType<IUserStore<ApplicationUser>, UserStore<ApplicationUser>>(new HierarchicalLifetimeManager());
+            container.RegisterType<RaceAnalysis.Controllers.AccountController>(new InjectionConstructor());
+
+            container.RegisterType<IRaceService, RaceService>();
         }
     }
 }
