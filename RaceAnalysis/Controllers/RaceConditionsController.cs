@@ -6,6 +6,7 @@ using RaceAnalysis.Models;
 
 namespace RaceAnalysis.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class RaceConditionsController : Controller
     {
         private RaceAnalysisDbContext db = new RaceAnalysisDbContext();

@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 
 namespace RaceAnalysis.Controllers
 {
+    [Authorize (Roles ="Admin")]
     public class RacesController : Controller
     {
         private RaceAnalysisDbContext db = new RaceAnalysisDbContext();
