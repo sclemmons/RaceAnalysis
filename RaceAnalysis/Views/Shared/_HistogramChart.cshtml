@@ -29,7 +29,7 @@
 
         function drawFinishChart()
         {
-            var title = ' Median Finish Time: ' + '@Model.FinishMedian';
+            var title = 'Median Finish Time: ' + '@Model.FinishMedian';
             var data = google.visualization.arrayToDataTable(
                        @Html.Raw(Json.Encode(Model.FinishData))
                    );
@@ -51,7 +51,7 @@
 
         function drawSwimChart()
         {
-            var title = '@Model.Triathletes.Count()' + ' Athletes,' + ' Median Swim Time: ' + '@Model.SwimMedian';
+            var title = 'Median Swim Time: ' + '@Model.SwimMedian';
             var data = google.visualization.arrayToDataTable(
                        @Html.Raw(Json.Encode(Model.SwimData))
                    );
@@ -72,7 +72,7 @@
         }
         function drawBikeChart()
         {
-            var title = '@Model.Triathletes.Count()' + ' Athletes,' + ' Median Bike Time: ' + '@Model.BikeMedian';
+            var title = 'Median Bike Time: ' + '@Model.BikeMedian';
             var data = google.visualization.arrayToDataTable(
                        @Html.Raw(Json.Encode(Model.BikeData))
                    );
@@ -93,7 +93,7 @@
         }
         function drawRunChart()
         {
-            var title = '@Model.Triathletes.Count()' + ' Athletes,' + ' Median Run Time: ' + '@Model.RunMedian';
+            var title = 'Median Run Time: ' + '@Model.RunMedian';
             var data = google.visualization.arrayToDataTable(
                        @Html.Raw(Json.Encode(Model.RunData))
                    );

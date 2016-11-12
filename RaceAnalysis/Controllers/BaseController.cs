@@ -121,7 +121,7 @@ namespace RaceAnalysis.Controllers
             var viewmodel = new TriathletesViewModel();
             viewmodel.Filter = filter;
             viewmodel.Triathletes = athletes.ToPagedList(pageNumber: 1, pageSize: 100); //max xx per page
-
+            viewmodel.TotalCount = athletes.Count();
             return View("List", viewmodel);
         }
 

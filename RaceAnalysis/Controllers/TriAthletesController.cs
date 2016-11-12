@@ -92,6 +92,7 @@ namespace RaceAnalysis.Controllers
      
             
             var viewmodel = new TriathletesViewModel();
+            viewmodel.TotalCount = athletes.Count;
             viewmodel.Triathletes =  onePageOfAthletes;
             viewmodel.Filter = filter;
 
