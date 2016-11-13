@@ -8,7 +8,17 @@
     
 
     <script type="text/javascript">
-      
+        $("#pager-container").on('click', 'a', function () {
+            $.ajax({
+                url: this.href + '&' + getSelectedIds(),
+                type: 'GET',
+                cache: false,
+                success: function (result) {
+                    $('.table-responsive').html(result);
+                }
+            });
+            return false;
+        });
         function getSelectedIds() {
             var selectedIds = "";
             $('input[type=checkbox]').each(function (index, element) {
@@ -18,8 +28,8 @@
             });
             if (selectedIds.endsWith(","))
                 selectedIds = selectedIds.slice(0, -1);
-            this.href = "BLAH";
-            this.href += "&selectedAthletes=" + selectedIds;
+            
+            return  "selectedAthletes=" + selectedIds;
         }
         function DisplayProgressMessage(ctl, msg) {
             $(ctl).text(msg);
