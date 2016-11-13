@@ -1,0 +1,15 @@
+﻿@model RaceAnalysis.Models.TriathletesCompareViewModel
+
+@{
+    Layout = "~/Views/Layouts/_Layout.cshtml";
+
+    ViewBag.Title = "Athletes List";
+    PageData["Instructions"] = "Select one or more races to view athletes.";
+    ViewBag.Action = "action-athletes";
+}
+
+
+
+        <script type="text/javascript">  $("#results").show(); </script>
+        @Html.Partial("~/Views/Shared/_CompareAthletesChart.cshtml", Model);
+

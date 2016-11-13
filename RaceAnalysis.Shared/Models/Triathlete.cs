@@ -50,6 +50,8 @@ namespace RaceAnalysis.Models
             get { return RequestContext.Race; }
         }
      
+        [NotMapped]
+        public bool IsSelected { get; set; }
 
     }
 

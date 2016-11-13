@@ -10,6 +10,6 @@ namespace RaceAnalysis.Models
     public class TriathletesViewModel :BaseViewModel
     {
         public int TotalCount { get; set; }
-
+        
     }
 }

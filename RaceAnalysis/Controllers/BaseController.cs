@@ -90,7 +90,7 @@ namespace RaceAnalysis.Controllers
         {
             var filter = new RaceFilterViewModel();
             filter.SaveRaceFilterValues(queryModel);
-            return DisplayResultsView(1, filter);
+            return DisplayResultsView(filter);
 
         }
 
@@ -99,22 +99,16 @@ namespace RaceAnalysis.Controllers
         {
            var filter = new RaceFilterViewModel();
            filter.SaveRaceFilterValues(model);
-           return DisplayResultsView(1,filter);
+           return DisplayResultsView(filter);
 
         }
 
-        //called from the Paging Control
-        public ActionResult DisplayPagedAthletes(int page, SimpleFilterViewModel model)
-        {
-            var filter = new RaceFilterViewModel();
-            filter.SaveRaceFilterValues(model);
-            return DisplayResultsView(page, filter);
-        }
+        
 
 
 
         #region Protected Methods
-        protected abstract ActionResult DisplayResultsView(int page, RaceFilterViewModel model);
+        protected abstract ActionResult DisplayResultsView(RaceFilterViewModel model);
 
         protected virtual ActionResult DisplayResultsView(List<Triathlete> athletes, RaceFilterViewModel filter)
         {

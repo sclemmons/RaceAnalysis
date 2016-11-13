@@ -63,7 +63,7 @@ namespace RaceAnalysis.Controllers
         /// <param name="agegroupIds"></param>
         /// <param name="genderIds"></param>
         /// <returns></returns>
-        protected override ActionResult DisplayResultsView(int page, RaceFilterViewModel filter)
+        protected override ActionResult DisplayResultsView(RaceFilterViewModel filter)
         {
             var viewModel = new TriStatsViewModel();
             viewModel.Filter = filter;

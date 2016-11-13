@@ -81,7 +81,7 @@ namespace RaceAnalysis.Models
         public string finishlowtimevalue { get; set; }
         public string finishhightimevalue { get; set; }
 
-
+        public string selectedAthletes { get; set; }
     }
 
 

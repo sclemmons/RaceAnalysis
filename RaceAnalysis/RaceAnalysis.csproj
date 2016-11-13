@@ -314,6 +314,7 @@
     <Compile Include="Controllers\RaceConditionsController.cs" />
     <Compile Include="Controllers\RacesController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="Controllers\TriathletesCompareController.cs" />
     <Compile Include="Controllers\TriAthletesController.cs" />
     <Compile Include="Controllers\TriStatsAgeGroupsCompareController.cs" />
     <Compile Include="Controllers\TriStatsController.cs" />
@@ -334,6 +335,7 @@
     <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="ViewModels\RaceFilterViewModel.cs" />
     <Compile Include="ViewModels\SimpleFilterViewModel.cs" />
+    <Compile Include="ViewModels\TriathletesCompareViewModel.cs" />
     <Compile Include="ViewModels\TriathletesViewModel.cs" />
     <Compile Include="ViewModels\TriStatsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -566,6 +568,10 @@
     <Content Include="Views\Shared\_VertRaceFilter.cshtml" />
     <Content Include="Views\Shared\_ActionBar.cshtml" />
     <Content Include="Views\Shared\_FilterByDuration.cshtml" />
+    <Content Include="Views\Shared\_TriathletesCompare.cshtml" />
+    <Content Include="Views\Shared\_CompareAthletesChart.cshtml" />
+    <Content Include="Views\TriathletesCompare\Compare.cshtml" />
+    <Content Include="Views\Shared\_OnePageOfAthletes.cshtml" />
     <None Include="Web.Test.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

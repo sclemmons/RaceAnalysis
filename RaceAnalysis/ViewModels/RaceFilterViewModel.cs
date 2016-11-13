@@ -6,16 +6,16 @@ using RaceAnalysis.Service.Interfaces;
 
 namespace RaceAnalysis.Models
 {
-    public class RaceFilterViewModel : IRaceCriteria,IDurationFilter
+    public class RaceFilterViewModel : IRaceCriteria, IDurationFilter
     {
-      
+
         public RaceFilterViewModel()
         {
             PopulateRaceFilter();
         }
         public IList<Race> AvailableRaces { get; set; }
         public IList<int> SelectedRaceIds { get; set; }
-      
+
 
         public IList<AgeGroup> AvailableAgeGroups { get; set; }
         public IList<int> SelectedAgeGroupIds { get; set; }
@@ -33,7 +33,9 @@ namespace RaceAnalysis.Models
         public TimeSpan RunHigh { get; set; }
         public TimeSpan FinishLow { get; set; }
         public TimeSpan FinishHigh { get; set; }
-        
+
+        public IList<int> SelectedAthleteIds { get; set; }
+
 
         private void PopulateRaceFilter()
         {
@@ -54,7 +56,7 @@ namespace RaceAnalysis.Models
             { SelectedAgeGroupIds = GetDefaultAgeGroups(); }
 
             if (SelectedGenderIds == null)
-                { SelectedGenderIds = GetDefaultGenders(); }
+            { SelectedGenderIds = GetDefaultGenders(); }
 
             SwimLow = new TimeSpan(0, 0, 0);
             SwimHigh = new TimeSpan(3, 0, 0);
@@ -64,6 +66,9 @@ namespace RaceAnalysis.Models
             RunHigh = new TimeSpan(7, 0, 0);
             FinishLow = new TimeSpan(8, 0, 0);
             FinishHigh = new TimeSpan(17, 0, 0);
+
+            if (SelectedAthleteIds == null)
+            { SelectedAthleteIds = new List<int>(); }
 
 
         }
@@ -76,13 +81,19 @@ namespace RaceAnalysis.Models
         {
             SaveRaceFilterValues(model.Races, model.AgeGroups, model.Genders);
             SaveDurationValues(model);
+            SaveSelectedAthletes(model);
         }
-        
+
+        private void SaveSelectedAthletes(SimpleFilterViewModel model)
+        {
+            if(model.selectedAthletes != null)
+                SelectedAthleteIds = Array.ConvertAll(model.selectedAthletes.Split(','), int.Parse);
+        }
         private void SaveDurationValues(ISimpleDurationFilter filter)
         {
-         
+
             if (filter.swimlowtimevalue != null)
-                SwimLow = new TimeSpan(0,Int32.Parse(filter.swimlowtimevalue),0);
+                SwimLow = new TimeSpan(0, Int32.Parse(filter.swimlowtimevalue), 0);
 
             if (filter.swimhightimevalue != null)
                 SwimHigh = new TimeSpan(0, Int32.Parse(filter.swimhightimevalue), 0);
@@ -92,7 +103,7 @@ namespace RaceAnalysis.Models
 
             if (filter.bikehightimevalue != null)
                 BikeHigh = new TimeSpan(0, Int32.Parse(filter.bikehightimevalue), 0);
-            
+
             if (filter.runlowtimevalue != null)
                 RunLow = new TimeSpan(0, Int32.Parse(filter.runlowtimevalue), 0);
 
@@ -110,7 +121,7 @@ namespace RaceAnalysis.Models
 
         private void SaveRaceFilterValues(IComplexRaceFilter filter)
         {
-           
+
             PopulateRaceFilter();
             SelectedRaceIds = filter.selectedRaceIds;
             SelectedAgeGroupIds = filter.selectedAgeGroupIds;
@@ -135,7 +146,7 @@ namespace RaceAnalysis.Models
 
             }
             ****/
-            
+
         }
         public void SaveRaceFilterValues(string races, string agegroups, string genders)
         {
@@ -146,7 +157,7 @@ namespace RaceAnalysis.Models
                        selectedAgeGroupIds = Array.ConvertAll(agegroups.ZeroIfEmpty().Split(','), int.Parse),
                        selectedGenderIds = Array.ConvertAll(genders.ZeroIfEmpty().Split(','), int.Parse)
                    });
-           
+
         }
 
         private List<int> GetDefaultGenders()
@@ -180,5 +191,5 @@ namespace RaceAnalysis.Models
 
 
     }
-    
+
 }

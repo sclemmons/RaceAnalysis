@@ -21,7 +21,7 @@ namespace RaceAnalysis.Controllers
         {
             return View();
         }
-        protected override ActionResult DisplayResultsView(int page, RaceFilterViewModel filter)
+        protected override ActionResult DisplayResultsView(RaceFilterViewModel filter)
         {
             return View();
         }

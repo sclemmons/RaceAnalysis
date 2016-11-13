@@ -20,7 +20,7 @@ namespace RaceAnalysis.Controllers
             return View(viewmodel);
         }
 
-        protected override ActionResult DisplayResultsView(int page, RaceFilterViewModel filter)
+        protected override ActionResult DisplayResultsView(RaceFilterViewModel filter)
         {
             var viewModel = new HistogramViewModel();
             viewModel.Filter = filter;
