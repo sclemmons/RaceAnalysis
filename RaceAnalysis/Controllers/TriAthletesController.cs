@@ -51,11 +51,31 @@ namespace RaceAnalysis.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         //
-        public ActionResult DisplayPagedAthletes(int page, SimpleFilterViewModel model)
+        public PartialViewResult DisplayPagedAthletes(int page, SimpleFilterViewModel model)
         {
             var filter = new RaceFilterViewModel();
             filter.SaveRaceFilterValues(model);
-            return DisplayPagedResults(page, filter);
+            page = page > 0 ? page : 1;
+            int pageSize = 20;
+
+            List<Triathlete> athletes = _RaceService.GetAthletes(
+                    new BasicRaceCriteria
+                    {
+                        SelectedRaceIds = filter.SelectedRaceIds,
+                        SelectedAgeGroupIds = AgeGroup.Expand(filter.SelectedAgeGroupIds),
+                        SelectedGenderIds = filter.SelectedGenderIds
+                    },
+                    filter);
+
+            var onePageOfAthletes = athletes.ToPagedList(page, pageSize); //max xx per page
+
+
+            var viewmodel = new TriathletesViewModel();
+            viewmodel.TotalCount = athletes.Count;
+            viewmodel.Triathletes = onePageOfAthletes;
+            viewmodel.Filter = filter;
+
+            return PartialView("~/Views/Shared/_OnePageOfAthletes.cshtml", viewmodel);
         }
 
         [HttpPost]
@@ -108,7 +128,7 @@ namespace RaceAnalysis.Controllers
             viewmodel.Triathletes = onePageOfAthletes;
             viewmodel.Filter = filter;
 
-            return PartialView("~/Views/Shared/_OnePageOfAthletes.cshtml", viewmodel);
+            return PartialView("~/Views/Shared/_TriathletesCompare.cshtml", viewmodel);
         }
 
 
