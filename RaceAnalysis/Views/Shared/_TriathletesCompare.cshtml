@@ -1,10 +1,36 @@
 ﻿@model RaceAnalysis.Models.TriathletesViewModel
 
+@using RaceAnalysis.Models;
+
+@{
+    var queryViewModel = new SimpleFilterViewModel
+    {
+        Races = @String.Join(",", Model.Filter.SelectedRaceIds.Select(x => x.ToString()).ToArray()),
+        AgeGroups = @String.Join(",", Model.Filter.SelectedAgeGroupIds.Select(x => x.ToString()).ToArray()),
+        Genders = @String.Join(",", Model.Filter.SelectedGenderIds.Select(x => x.ToString()).ToArray()),
+
+        swimlowtimevalue = Model.Filter.SwimLow.TotalMinutes.ToString(),
+        swimhightimevalue = Model.Filter.SwimHigh.TotalMinutes.ToString(),
+
+        bikelowtimevalue = Model.Filter.BikeLow.TotalMinutes.ToString(),
+        bikehightimevalue = Model.Filter.BikeHigh.TotalMinutes.ToString(),
+
+        runlowtimevalue = Model.Filter.RunLow.TotalMinutes.ToString(),
+        runhightimevalue = Model.Filter.RunHigh.TotalMinutes.ToString(),
+
+        finishlowtimevalue = Model.Filter.FinishLow.TotalMinutes.ToString(),
+        finishhightimevalue = Model.Filter.FinishHigh.TotalMinutes.ToString()
+
+    };
+}
 
 <h3>@Model.TotalCount   Athletes</h3>
 
-@Html.Partial("~/Views/Shared/_OnePageOfAthletes.cshtml", Model)
+@Html.ActionLink("Compare Athletes", "CompareAthletes", "TriathletesCompare",
+                 queryViewModel, new { @id = "action-compare-athletes", @class = "btn btn-success btn-duration", title = "Display histogram" })
 
+
+@Html.Partial("~/Views/Shared/_OnePageOfAthletes.cshtml", Model)
 
 
 

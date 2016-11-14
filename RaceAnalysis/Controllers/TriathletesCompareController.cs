@@ -19,19 +19,15 @@ namespace RaceAnalysis.Controllers
             return View();
         }
 
-        [HttpPost]
-        public ActionResult SelectedAthletes(bool[] IsSelected,int[] TriathleteId)
+        public ActionResult CompareAthletes(SimpleFilterViewModel selections)
         {
-          List<int> selectedIds = new List<int>();
-            for(int i=0; i < IsSelected.Length;i++)
-            {
-                if (IsSelected[i] == true)
-                    selectedIds.Add(TriathleteId[i]);
-            }
+            var filter = new RaceFilterViewModel();
+            filter.SaveRaceFilterValues(selections);
+
 
             var model = new TriathletesCompareViewModel();
             model.Triathletes = _DBContext.Triathletes
-                    .Where(t => selectedIds.Contains(t.TriathleteId));
+                    .Where(t => filter.SelectedAthleteIds.Contains(t.TriathleteId));
 
             return View("~/Views/TriathletesCompare/Compare.cshtml",model);
         }

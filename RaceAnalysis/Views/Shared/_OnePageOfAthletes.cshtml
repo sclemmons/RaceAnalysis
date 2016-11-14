@@ -142,29 +142,39 @@
             }
 
             $("#pager-container").on('click', 'a', function () {
-
+                return handleSelectionsOnClick(this);
+            });
+            $("#action-compare-athletes").off('click');//remove previous handler
+            $("#action-compare-athletes").click(function () {
+          
+                return handleSelectionsOnClick(this);
+            });
+            function handleSelectionsOnClick(control)
+            {
+                var savedIds = @Html.Raw(Json.Encode(Model.Filter.SelectedAthleteIds));
+         
                 if(savedIds.length > 0)
+                {
                     savedIds = filterSavedIds(savedIds);
-
+                }
                 var selectedIds = getSelectedIds();
                 
                 if(savedIds.length > 0 || selectedIds.length > 0)
                 {
-                    this.href += "&selectedAthletes=";
+                    control.href += "&selectedAthletes=";
                     if(savedIds.length > 0)
                     {
-                        this.href += savedIds;
+                        control.href += savedIds;
                         if(selectedIds.length > 0)
-                            this.href += "," + selectedIds;
+                            control.href += "," + selectedIds;
                     }else
                     {
-                        this.href += selectedIds;
+                        control.href += selectedIds;
                     }
                 }
                 return true;
-            });
 
-
+            }
             function getSelectedIds() {
                 var Ids = "";
                 $('input[type=checkbox]').each(function (index, element) {
@@ -186,7 +196,7 @@
                     var i = strIds.indexOf(element.id);
                     if (i >= 0)
                     {
-                      //  alert("found!");
+                      
                         //this element was in our our savedids. We can discard it because it is either in our selectList
                         //or has been unselected by user.
                         strIds.splice(i,1);
