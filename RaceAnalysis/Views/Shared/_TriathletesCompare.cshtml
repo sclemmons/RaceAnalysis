@@ -24,19 +24,14 @@
     };
 }
 
-<h3>@Model.TotalCount   Athletes</h3>
 
-@Html.ActionLink("Compare Athletes", "CompareAthletes", "TriathletesCompare",
-                 queryViewModel, new { @id = "action-compare-athletes", @class = "btn btn-success btn-duration", title = "Display histogram" })
+<div id="results-header">
 
+    <h3>@Model.TotalCount   Athletes</h3>
+    @Html.ActionLink("Compare Athletes", "Compare", "Triathletes",
+                 queryViewModel, new { @id = "action-compare-athletes", @class = "btn btn-default", title = "Display Comparison" })
+
+
+</div>
 
 @Html.Partial("~/Views/Shared/_OnePageOfAthletes.cshtml", Model)
-
-
-
-
-
-
-
-
-

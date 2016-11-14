@@ -210,6 +210,30 @@ div.error {
 {
     display:none;
 }
+
+div#results-header
+{
+ // background-color:yellow;
+  text-align:right;
+    
+}
+div#results-header h3{
+    max-width:400px;
+    text-align:left;
+    //background-color:blue;
+}
+div#results-header .btn{
+      // background-color:aqua;
+      margin-right:50px;
+      
+}
+div#athlete-list{
+    //background-color:chartreuse;
+    
+}
+
+
+
 #filter-duration .time-range
 {
     --background-color:yellow;
@@ -241,4 +265,3 @@ div.error {
 .jumbotron p.normal{
     font-size:14px;
 }
-

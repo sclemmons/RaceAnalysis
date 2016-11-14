@@ -5,6 +5,7 @@ using RaceAnalysis.Models;
 using X.PagedList;
 using RaceAnalysis.Service.Interfaces;
 using RaceAnalysis.ServiceSupport;
+using System.Linq;
 
 namespace RaceAnalysis.Controllers
 {
@@ -29,6 +30,21 @@ namespace RaceAnalysis.Controllers
             return View(viewmodel);
 
         }
+        public ActionResult Compare(SimpleFilterViewModel selections)
+        {
+            var filter = new RaceFilterViewModel();
+            filter.SaveRaceFilterValues(selections);
+
+
+            var viewmodel = new TriathletesCompareViewModel();
+            viewmodel.Filter = filter;
+
+            viewmodel.Triathletes = _DBContext.Triathletes
+                    .Where(t => filter.SelectedAthleteIds.Contains(t.TriathleteId));
+
+            return View("~/Views/Triathletes/Compare.cshtml", viewmodel);
+        }
+
         public ActionResult Search()
         {
 
