@@ -1,45 +1,13 @@
 ﻿@model RaceAnalysis.Models.TriathletesViewModel
 
 
-    <h3>@Model.TotalCount   Athletes</h3>
+<h3>@Model.TotalCount   Athletes</h3>
 
-@Html.Partial("~/Views/Shared/_OnePageOfAthletes.cshtml", Model);
+@Html.Partial("~/Views/Shared/_OnePageOfAthletes.cshtml", Model)
 
-    
 
-    <script type="text/javascript">
-        $("#pager-container").on('click', 'a', function () {
-            $.ajax({
-                url: this.href + '&' + getSelectedIds(),
-                type: 'GET',
-                cache: false,
-                success: function (result) {
-                    $('.table-responsive').html(result);
-                }
-            });
-            return false;
-        });
-        function getSelectedIds() {
-            var selectedIds = "";
-            $('input[type=checkbox]').each(function (index, element) {
-                if (this.checked) {
-                    selectedIds += this.id + ",";
-                }
-            });
-            if (selectedIds.endsWith(","))
-                selectedIds = selectedIds.slice(0, -1);
-            
-            return  "selectedAthletes=" + selectedIds;
-        }
-        function DisplayProgressMessage(ctl, msg) {
-            $(ctl).text(msg);
-            return true;
-        }
 
-        $("form").submit(function (event) {
-            $('#submitButton').prop("disabled", "disabled");
-        })
-    </script>
+
 
 
 
