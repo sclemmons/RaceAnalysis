@@ -1,15 +1,26 @@
 ﻿@model RaceAnalysis.Models.TriathletesCompareViewModel
 
 @{
-    Layout = "~/Views/Layouts/_Layout.cshtml";
-
-    ViewBag.Title = "Athletes List";
+    Layout = "~/Views/Layouts/_AnalysisLayout.cshtml";
+    ViewBag.Title = "Athletes Comparison";
     PageData["Instructions"] = "Select one or more races to view athletes.";
-    ViewBag.Action = "action-athletes";
+    ViewBag.Action = "action-compare-athletes";
 }
 
+@section page_actions{
+    @if (Model.Triathletes.Any())
+    {
+        <script type="text/javascript">  $("#page-actions").show(); </script>
+        @Html.Partial("~/Views/Shared/_ActionBar.cshtml", Model)
+    }<!--actions-->
+}<!--section-->
 
+@section results{
+    @if (Model.Triathletes.Any())
+    {
+       <h3>@Model.Triathletes.Count()   Athletes</h3>
+       @Html.Partial("~/Views/Shared/_CompareAthletesChart.cshtml", Model);
+       <script type="text/javascript">  $("#results").show(); </script>
 
-        <script type="text/javascript">  $("#results").show(); </script>
-        @Html.Partial("~/Views/Shared/_CompareAthletesChart.cshtml", Model);
-
+    }
+ }
