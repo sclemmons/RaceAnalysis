@@ -27,8 +27,7 @@
                             {"finishlowtimevalue", Model.Filter.FinishLow.TotalMinutes.ToString() },
                             {"finishhightimevalue", Model.Filter.FinishHigh.TotalMinutes.ToString() },
 
-                            { "selectedAthletes",  @String.Join(",",Model.Filter.SelectedAthleteIds.Select(x =>x.ToString()).ToArray()) },
-
+        
                             }),
                             PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(
                                 new AjaxOptions()
@@ -128,10 +127,10 @@
 <script type="text/javascript">
         $(document).ready(function () {
           
-            var selectedIds = @Html.Raw(Json.Encode(Model.Filter.SelectedAthleteIds));
-            if(selectedIds.length > 0)
+            var savedIds = @Html.Raw(Json.Encode(Model.Filter.SelectedAthleteIds));
+            if(savedIds.length > 0)
             {
-                var strIds = selectedIds.map(String);
+                var strIds = savedIds.map(String);
 
                 $('input[type=checkbox]').each(function (index, element) {
                     var i = strIds.indexOf(element.id);
@@ -144,17 +143,22 @@
 
             $("#pager-container").on('click', 'a', function () {
 
-                var ids = getSelectedIds();
-                if(ids.length > 0)
+                if(savedIds.length > 0)
+                    savedIds = filterSavedIds(savedIds);
+
+                var selectedIds = getSelectedIds();
+                
+                if(savedIds.length > 0 || selectedIds.length > 0)
                 {
-                    if(this.href.toLowerCase().search("selectedathletes=") > 0)
+                    this.href += "&selectedAthletes=";
+                    if(savedIds.length > 0)
                     {
-                   /*Warning: This is flimsy code! It assumes that this param is at the end of the querystring*/
-                        this.href += "," + ids; //just append it
-                    }
-                    else
+                        this.href += savedIds;
+                        if(selectedIds.length > 0)
+                            this.href += "," + selectedIds;
+                    }else
                     {
-                        this.href += "&selectedAthletes=" + ids;
+                        this.href += selectedIds;
                     }
                 }
                 return true;
@@ -172,6 +176,24 @@
                     Ids = Ids.slice(0, -1);
 
                 return Ids;
+            }
+
+            function filterSavedIds(savedIds){
+               
+                var strIds = savedIds.map(String);//converting for comparison 
+
+                $('input[type=checkbox]').each(function (index, element) {
+                    var i = strIds.indexOf(element.id);
+                    if (i >= 0)
+                    {
+                      //  alert("found!");
+                        //this element was in our our savedids. We can discard it because it is either in our selectList
+                        //or has been unselected by user.
+                        strIds.splice(i,1);
+                    }
+                   
+                });
+                return strIds;
             }
             
            
