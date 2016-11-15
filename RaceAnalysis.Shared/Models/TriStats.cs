@@ -29,7 +29,9 @@ namespace RaceAnalysis.Models
             Race = race;
         }
 
-        public Race Race { get; set; }  //each set of stats is associated with a single race 
+
+
+        public Race Race { get; set; }  //each set of stats is associated with a single race, unless empty which means the athletes came from multiple races
         public List<Triathlete> Athletes{get;set;} //and a group of triathletes
      
 

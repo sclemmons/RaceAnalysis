@@ -10,7 +10,11 @@ namespace RaceAnalysis.Helpers
 {
     public class TriStatsCalculator
     {
-        private List<Triathlete> _Triathletes;
+        protected List<Triathlete> _Triathletes;
+        public TriStatsCalculator(List<Triathlete> athletes)
+        {
+            _Triathletes = athletes;
+        }
 
 
         public TimeSpan TimeSpanHistogram(string timeSpanProperty)
@@ -33,10 +37,6 @@ namespace RaceAnalysis.Helpers
             TimeSpan ts = new TimeSpan(0, 0, Convert.ToInt32(seconds));
 
             return ts;
-        }
-        public TriStatsCalculator(List<Triathlete> athletes)
-        {
-            _Triathletes = athletes;
         }
         
         public TimeSpan TimeSpanMedian(string timeSpanProperty)
@@ -177,6 +177,6 @@ namespace RaceAnalysis.Helpers
         }
 
 
-
+        
     }
 }

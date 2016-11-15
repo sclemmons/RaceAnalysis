@@ -163,6 +163,10 @@
       <HintPath>..\packages\WindowsAzure.Storage.7.2.1\lib\net40\Microsoft.WindowsAzure.Storage.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="MoreLinq, Version=2.0.20029.0, Culture=neutral, PublicKeyToken=384d532d7e88985d, processorArchitecture=MSIL">
+      <HintPath>..\packages\morelinq.2.0.0-beta06\lib\net35\MoreLinq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Nest, Version=2.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
       <HintPath>..\packages\NEST.2.4.6\lib\net46\Nest.dll</HintPath>
       <Private>True</Private>
@@ -326,6 +330,7 @@
     <Compile Include="Helpers\ElasticSearchFacade.cs" />
     <Compile Include="Helpers\Extensions.cs" />
     <Compile Include="Helpers\TriStatsCalculator.cs" />
+    <Compile Include="Helpers\TriStatsCalculatorExtended.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="ViewModels\AgeGroupCompareViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
@@ -573,6 +578,7 @@
     <Content Include="Views\Shared\_CompareAthletesChart.cshtml" />
     <Content Include="Views\TriAthletes\Compare.cshtml" />
     <Content Include="Views\Shared\_OnePageOfAthletes.cshtml" />
+    <Content Include="Views\Shared\_CompareAthletesDetail.cshtml" />
     <None Include="Web.Test.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

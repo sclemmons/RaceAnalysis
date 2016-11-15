@@ -1,0 +1,30 @@
+﻿@model RaceAnalysis.Models.TriathletesCompareViewModel
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <tbody>
+            <tr>
+                <td>
+                    Congratulations to <b>@Model.Stats.FastestFinisher.Name</b> (@Model.Stats.FastestFinisher.Race.DisplayName), finishing with a time of <b>@Model.Stats.FastestFinisher.Finish.ToString()!</b>
+                </td>
+            </tr>
+          
+            <tr>
+                <td>
+                    <b>@Model.Stats.FastestSwimmer.Name</b> (@Model.Stats.FastestSwimmer.Race.DisplayName) was the fastest swimmer at <b>@Model.Stats.FastestSwimmer.Swim.ToString()</b>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>@Model.Stats.FastestBiker.Name</b> (@Model.Stats.FastestBiker.Race.DisplayName) was the fastest biker at <b>@Model.Stats.FastestBiker.Bike.ToString()</b>
+                </td>
+            </tr>
+           
+            <tr>
+                <td>
+                  The fastest runner was <b>@Model.Stats.FastestRunner.Name</b> (@Model.Stats.FastestRunner.Race.DisplayName) at <b>@Model.Stats.FastestRunner.Run.ToString()</b></td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>

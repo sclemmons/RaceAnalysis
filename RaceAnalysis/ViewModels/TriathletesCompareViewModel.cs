@@ -10,8 +10,10 @@ namespace RaceAnalysis.Models
 
         public TriathletesCompareViewModel()
         {
-
+          
         }
+        public TriStatsExtended Stats { get; set; }
+
         public GoogleVisualizationDataTable ChartData
         {
             get

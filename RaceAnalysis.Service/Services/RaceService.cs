@@ -64,7 +64,7 @@ namespace RaceAnalysis.Service
                 }
             }
 
-            return allAthletes;
+            return allAthletes.OrderBy(t => t.Finish).ToList();
         }
 
 

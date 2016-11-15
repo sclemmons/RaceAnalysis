@@ -20,6 +20,9 @@
     {
        <h3>@Model.Triathletes.Count()   Athletes</h3>
        @Html.Partial("~/Views/Shared/_CompareAthletesChart.cshtml", Model);
+       @Html.Partial("~/Views/Shared/_CompareAthletesDetail.cshtml", Model);
+
+
        <script type="text/javascript">  $("#results").show(); </script>
 
     }
