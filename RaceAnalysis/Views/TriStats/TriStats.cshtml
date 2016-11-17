@@ -6,6 +6,11 @@
     ViewBag.Action = "action-stats";
 }
 
+@section scripts {
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+}
+
 
 
 @section page_actions{
@@ -28,6 +33,9 @@
                 @Html.Partial("~/Views/Shared/_RaceConditions.cshtml", stat)
                 @Html.Partial("~/Views/Shared/_TriStats.cshtml",stat)
                 @Html.Partial("~/Views/Shared/_StatsChart.cshtml",stat)
+                @Html.Partial("~/Views/Shared/_BoxPlotChart.cshtml", stat)
+
+
         }
     }
 }

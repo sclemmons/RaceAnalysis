@@ -145,6 +145,36 @@ namespace RaceAnalysis.Controllers
             stats.OverallRank.Max = calc.IntMax("OverallRank");
             stats.Points.Max = calc.IntMax("Points");
 
+            
+            //standard deviation
+            stats.Swim.StandDev = calc.TimeSpanStandardDeviation("Swim");
+            stats.Bike.StandDev = calc.TimeSpanStandardDeviation("Bike");
+            stats.Run.StandDev = calc.TimeSpanStandardDeviation("Run");
+            stats.Finish.StandDev = calc.TimeSpanStandardDeviation("Finish");
+
+
+            stats.Swim.NormalSlowest = calc.NormalMoreThanMedian(stats.Swim.Average, stats.Swim.StandDev);
+            stats.Swim.NormalFastest = calc.NormalLessThanMedian(stats.Swim.Average, stats.Swim.StandDev);
+
+            stats.Bike.NormalSlowest = calc.NormalMoreThanMedian(stats.Bike.Average, stats.Bike.StandDev);
+            stats.Bike.NormalFastest = calc.NormalLessThanMedian(stats.Bike.Average, stats.Bike.StandDev);
+
+
+            stats.Run.NormalSlowest = calc.NormalMoreThanMedian(stats.Run.Average, stats.Run.StandDev);
+            stats.Run.NormalFastest = calc.NormalLessThanMedian(stats.Run.Average, stats.Run.StandDev);
+            
+
+            stats.Finish.NormalSlowest = calc.NormalMoreThanMedian(stats.Finish.Average, stats.Finish.StandDev);
+            stats.Finish.NormalFastest = calc.NormalLessThanMedian(stats.Finish.Average, stats.Finish.StandDev);
+
+
+       
+            stats.Swim.Data = athletes.OrderBy(a => a.Swim).Select(a => a.Swim.ToString("hh\\:mm\\:ss")).ToArray();
+            stats.Bike.Data = athletes.OrderBy(a => a.Bike).Select(a => a.Bike.ToString("hh\\:mm\\:ss")).ToArray();
+            stats.Run.Data = athletes.OrderBy(a => a.Run).Select(a => a.Run.ToString("hh\\:mm\\:ss")).ToArray();
+            stats.Finish.Data = athletes.OrderBy(a => a.Finish).Select(a => a.Finish.ToString("hh\\:mm\\:ss")).ToArray();
+
+
             return stats;
         }
     }

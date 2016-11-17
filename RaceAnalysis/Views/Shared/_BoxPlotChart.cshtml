@@ -1,0 +1,91 @@
+﻿@model RaceAnalysis.Models.TriStats
+
+
+ <script type="text/javascript" src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+<div>
+  @{  
+      string box_swim = Model.Race.RaceId + "_box_plot_swim";
+      string box_bike = Model.Race.RaceId + "_box_plot_bike";
+      string box_run = Model.Race.RaceId + "_box_plot_run";
+      string box_finish = Model.Race.RaceId + "_box_plot_finish";
+
+    }
+    <div id= '@box_swim' style="width: 100%; height: 300px;"></div>
+    <div id='@box_bike'  style="width: 100%; height: 300px;"></div>
+    <div id='@box_run' style="width: 100%; height: 300px;"></div>
+    <div id='@box_finish' style="width: 100%; height: 300px;"></div>
+
+
+    <script>
+        axis_template = {
+            nticks: 20
+        };
+
+        var swim = {
+            x: @Html.Raw(Json.Encode(Model.Swim.Data)),
+            type: 'box',
+            name: 'Swim',
+            marker:{
+                color: 'rgb(255,153,0)'
+            }
+          
+        };
+        var swim_layout = {
+            xaxis : axis_template,
+            title: 'Swim'
+        };
+        data_swim = [swim];
+        Plotly.newPlot('@box_swim', data_swim, swim_layout);
+
+        var bike_layout = {
+            xaxis : axis_template,
+            title: 'Bike',
+            marker:{
+                color: 'rgb(255,0,0)'
+            }
+        };
+        var bike = {
+            x: @Html.Raw(Json.Encode(Model.Bike.Data)),
+            type: 'box',
+            name: 'Bike',
+            marker:{
+                color: 'rgb(0,255,0)'
+            }
+        };
+        Plotly.newPlot('@box_bike', [bike], bike_layout);
+
+        var run = {
+            x: @Html.Raw(Json.Encode(Model.Run.Data)),
+            type: 'box',
+            name: 'Run'
+        };
+        var run_layout = {
+            xaxis : axis_template,
+            title: 'Run',
+            marker:{
+                color: 'rgb(255,255,255)'
+            }
+        };
+
+        Plotly.newPlot('@box_run', [run], run_layout);
+
+
+
+        var finish = {
+            x: @Html.Raw(Json.Encode(Model.Finish.Data)),
+            type: 'box',
+            name: 'Finish',
+            marker:{
+                color: 'rgb(196,173,216)'
+            }
+        };
+        var finish_layout = {
+            xaxis : axis_template,
+            title: 'Finish'
+        };
+        Plotly.newPlot('@box_finish', [finish], finish_layout);
+
+
+    </script>
+</div>

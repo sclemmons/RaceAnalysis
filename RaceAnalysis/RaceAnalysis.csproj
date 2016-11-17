@@ -579,6 +579,7 @@
     <Content Include="Views\TriAthletes\Compare.cshtml" />
     <Content Include="Views\Shared\_OnePageOfAthletes.cshtml" />
     <Content Include="Views\Shared\_CompareAthletesDetail.cshtml" />
+    <Content Include="Views\Shared\_BoxPlotChart.cshtml" />
     <None Include="Web.Test.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

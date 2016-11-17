@@ -66,7 +66,44 @@
                         <td>@Html.DisplayFor(s => Model.OverallRank.Average)</td>
                         <td>@Html.DisplayFor(s => Model.Points.Average)</td>
                     </tr>
+
+                    <tr>
+                        <td>Standard Dev:</td>
+                        <td>@Html.DisplayFor(s => Model.Swim.StandDev) </td>
+                        <td>@Html.DisplayFor(s => Model.Bike.StandDev) </td>
+                        <td>@Html.DisplayFor(s => Model.Run.StandDev)</td>
+                        <td>@Html.DisplayFor(s => Model.Finish.StandDev)</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>First Quartile</td>
+                        <td>@Html.DisplayFor(s => Model.Swim.NormalFastest) </td>
+                        <td>@Html.DisplayFor(s => Model.Bike.NormalFastest) </td>
+                        <td>@Html.DisplayFor(s => Model.Run.NormalFastest)</td>
+                        <td>@Html.DisplayFor(s => Model.Finish.NormalFastest)</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Third Quartile:</td>
+                        <td>@Html.DisplayFor(s => Model.Swim.NormalSlowest) </td>
+                        <td>@Html.DisplayFor(s => Model.Bike.NormalSlowest) </td>
+                        <td>@Html.DisplayFor(s => Model.Run.NormalSlowest)</td>
+                        <td>@Html.DisplayFor(s => Model.Finish.NormalSlowest)</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+
                 </tbody>
+        
 
 
             </table>

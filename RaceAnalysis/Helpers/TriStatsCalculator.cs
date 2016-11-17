@@ -39,10 +39,40 @@ namespace RaceAnalysis.Helpers
             return ts;
         }
         
+        public TimeSpan NormalMoreThanMedian(TimeSpan avg, TimeSpan stdDev)
+        {
+            return avg + stdDev; 
+        }
+
+        public TimeSpan NormalLessThanMedian(TimeSpan avg, TimeSpan stdDev)
+        {
+            return avg - stdDev;
+        }
+
+        public TimeSpan TimeSpanStandardDeviation(string timeSpanProperty)
+        {
+            var query = _Triathletes.AsQueryable()
+            .Where(timeSpanProperty + ".TotalSeconds > TimeSpan(0, 0, 0).TotalSeconds")
+                .Select(timeSpanProperty);
+
+            var list = query.Cast<dynamic>().ToList();
+
+            double seconds = 0;
+            if (list.Count > 0)
+            {
+                seconds = list.StandardDeviation(t =>
+                {
+                    return Convert.ToInt32(t.TotalSeconds);
+                });
+            }
+            TimeSpan ts = new TimeSpan(0, 0, Convert.ToInt32(seconds));
+
+            return ts;
+
+        }
+
         public TimeSpan TimeSpanMedian(string timeSpanProperty)
         {
-
-
             var query = _Triathletes.AsQueryable()
             .Where(timeSpanProperty + ".TotalSeconds > TimeSpan(0, 0, 0).TotalSeconds")
                 .Select(timeSpanProperty);
