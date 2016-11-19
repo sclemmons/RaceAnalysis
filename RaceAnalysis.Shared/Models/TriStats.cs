@@ -116,8 +116,9 @@ namespace RaceAnalysis.Models
         public TimeSpan Min { get; set; }
         public TimeSpan Max { get; set; }
         public TimeSpan StandDev { get; set; }
-        public TimeSpan NormalFastest { get; set; } //std dev -1
-        public TimeSpan NormalSlowest { get; set; } //std dev +1
+
+        public Tuple<List<Triathlete>,List<Triathlete>> FastestHalf { get; set; }
+        public Tuple<List<Triathlete>, List<Triathlete>> SlowestHalf { get; set; }
 
         public String[] Data { get; set; }
         
@@ -129,8 +130,10 @@ namespace RaceAnalysis.Models
         public TimeSpan Min { get; set; }
         public TimeSpan Max { get; set; }
         public TimeSpan StandDev { get; set; }
-        public TimeSpan NormalFastest { get; set; } //std dev -1
-        public TimeSpan NormalSlowest { get; set; } //std dev +1
+
+        public Tuple<List<Triathlete>, List<Triathlete>> FastestHalf { get; set; }
+        public Tuple<List<Triathlete>, List<Triathlete>> SlowestHalf { get; set; }
+
         public String[] Data { get; set; }
 
     }
@@ -141,8 +144,9 @@ namespace RaceAnalysis.Models
         public TimeSpan Min { get; set; }
         public TimeSpan Max { get; set; }
         public TimeSpan StandDev { get; set; }
-        public TimeSpan NormalFastest { get; set; } //std dev -1
-        public TimeSpan NormalSlowest { get; set; } //std dev +1
+
+        public Tuple<List<Triathlete>, List<Triathlete>> FastestHalf { get; set; }
+        public Tuple<List<Triathlete>, List<Triathlete>> SlowestHalf { get; set; }
         public String[] Data { get; set; }
 
     }
@@ -153,8 +157,8 @@ namespace RaceAnalysis.Models
         public TimeSpan Min { get; set; }
         public TimeSpan Max { get; set; }
         public TimeSpan StandDev { get; set; }
-        public TimeSpan NormalFastest { get; set; } //std dev -1
-        public TimeSpan NormalSlowest { get; set; } //std dev +1
+        public Tuple<List<Triathlete>, List<Triathlete>> FastestHalf { get; set; }
+        public Tuple<List<Triathlete>, List<Triathlete>> SlowestHalf { get; set; }
         public String[] Data { get; set; }
 
     }

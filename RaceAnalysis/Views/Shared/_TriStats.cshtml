@@ -4,7 +4,6 @@
 
    <p/>
     <div>
-       
         <div class="table-responsive">
             <table class="table table-striped">
                 <thead>
@@ -78,34 +77,52 @@
                         <td></td>
                         <td></td>
                     </tr>
-                    <tr>
-                        <td>First Quartile</td>
-                        <td>@Html.DisplayFor(s => Model.Swim.NormalFastest) </td>
-                        <td>@Html.DisplayFor(s => Model.Bike.NormalFastest) </td>
-                        <td>@Html.DisplayFor(s => Model.Run.NormalFastest)</td>
-                        <td>@Html.DisplayFor(s => Model.Finish.NormalFastest)</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Third Quartile:</td>
-                        <td>@Html.DisplayFor(s => Model.Swim.NormalSlowest) </td>
-                        <td>@Html.DisplayFor(s => Model.Bike.NormalSlowest) </td>
-                        <td>@Html.DisplayFor(s => Model.Run.NormalSlowest)</td>
-                        <td>@Html.DisplayFor(s => Model.Finish.NormalSlowest)</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
+               </tbody>
+            </table>
 
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Q1</th>
+                        <th>Q2</th>
+                        <th>Q3</th>
+                        <th>Q4</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Swim:</td>
+                        <td>@(new TimeSpan(Model.Swim.FastestHalf.Item1.Min(t => t.Swim.Ticks))) </td>
+                        <td>@(new TimeSpan(Model.Swim.FastestHalf.Item1.Max(t => t.Swim.Ticks))) </td>
+                        <td>@(new TimeSpan(Model.Swim.SlowestHalf.Item1.Min(t => t.Swim.Ticks))) </td>
+                        <td>@(new TimeSpan(Model.Swim.SlowestHalf.Item1.Max(t => t.Swim.Ticks))) </td>
+                    </tr>
+                    <tr>
+                        <td>Bike:</td>
+                        <td>@(new TimeSpan(Model.Bike.FastestHalf.Item1.Min(t => t.Bike.Ticks))) </td>
+                        <td>@(new TimeSpan(Model.Bike.FastestHalf.Item1.Max(t => t.Bike.Ticks))) </td>
+                        <td>@(new TimeSpan(Model.Bike.SlowestHalf.Item1.Min(t => t.Bike.Ticks))) </td>
+                        <td>@(new TimeSpan(Model.Bike.SlowestHalf.Item1.Max(t => t.Bike.Ticks))) </td>
+
+                    </tr>
+                    <tr>
+                        <td>Run:</td>
+                        <td>@(new TimeSpan(Model.Run.FastestHalf.Item1.Min(t => t.Run.Ticks))) </td>
+                        <td>@(new TimeSpan(Model.Run.FastestHalf.Item1.Max(t => t.Run.Ticks))) </td>
+                        <td>@(new TimeSpan(Model.Run.SlowestHalf.Item1.Min(t => t.Run.Ticks))) </td>
+                        <td>@(new TimeSpan(Model.Run.SlowestHalf.Item1.Max(t => t.Run.Ticks))) </td>
+
+                    </tr>
+                    <tr>
+                        <td>Finish:</td>
+                        <td>@(new TimeSpan(Model.Finish.FastestHalf.Item1.Min(t => t.Finish.Ticks))) </td>
+                        <td>@(new TimeSpan(Model.Finish.FastestHalf.Item1.Max(t => t.Finish.Ticks))) </td>
+                        <td>@(new TimeSpan(Model.Finish.SlowestHalf.Item1.Min(t => t.Finish.Ticks))) </td>
+                        <td>@(new TimeSpan(Model.Finish.SlowestHalf.Item1.Max(t => t.Finish.Ticks))) </td>
+                    </tr>
 
                 </tbody>
-        
-
-
             </table>
         </div> <!--responsive-->
      </div> <!--container-->

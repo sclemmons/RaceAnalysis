@@ -152,23 +152,24 @@ namespace RaceAnalysis.Controllers
             stats.Run.StandDev = calc.TimeSpanStandardDeviation("Run");
             stats.Finish.StandDev = calc.TimeSpanStandardDeviation("Finish");
 
+            var swimSplit = TriStatsCalculator.Split(athletes, "Swim");
+            stats.Swim.FastestHalf = TriStatsCalculator.Split(swimSplit.Item1, "Swim");
+            stats.Swim.SlowestHalf = TriStatsCalculator.Split(swimSplit.Item2, "Swim");
 
-            stats.Swim.NormalSlowest = calc.NormalMoreThanMedian(stats.Swim.Average, stats.Swim.StandDev);
-            stats.Swim.NormalFastest = calc.NormalLessThanMedian(stats.Swim.Average, stats.Swim.StandDev);
+            var bikeSplit = TriStatsCalculator.Split(athletes, "Bike");
+            stats.Bike.FastestHalf = TriStatsCalculator.Split(bikeSplit.Item1, "Bike");
+            stats.Bike.SlowestHalf = TriStatsCalculator.Split(bikeSplit.Item2, "Bike");
 
-            stats.Bike.NormalSlowest = calc.NormalMoreThanMedian(stats.Bike.Average, stats.Bike.StandDev);
-            stats.Bike.NormalFastest = calc.NormalLessThanMedian(stats.Bike.Average, stats.Bike.StandDev);
+            var runSplit = TriStatsCalculator.Split(athletes, "Run");
+            stats.Run.FastestHalf = TriStatsCalculator.Split(runSplit.Item1, "Run");
+            stats.Run.SlowestHalf = TriStatsCalculator.Split(runSplit.Item2, "Run");
 
-
-            stats.Run.NormalSlowest = calc.NormalMoreThanMedian(stats.Run.Average, stats.Run.StandDev);
-            stats.Run.NormalFastest = calc.NormalLessThanMedian(stats.Run.Average, stats.Run.StandDev);
-            
-
-            stats.Finish.NormalSlowest = calc.NormalMoreThanMedian(stats.Finish.Average, stats.Finish.StandDev);
-            stats.Finish.NormalFastest = calc.NormalLessThanMedian(stats.Finish.Average, stats.Finish.StandDev);
+            var finishSplit = TriStatsCalculator.Split(athletes, "Finish");
+            stats.Finish.FastestHalf = TriStatsCalculator.Split(finishSplit.Item1, "Finish");
+            stats.Finish.SlowestHalf = TriStatsCalculator.Split(finishSplit.Item2, "Finish");
 
 
-       
+
             stats.Swim.Data = athletes.OrderBy(a => a.Swim).Select(a => a.Swim.ToString("hh\\:mm\\:ss")).ToArray();
             stats.Bike.Data = athletes.OrderBy(a => a.Bike).Select(a => a.Bike.ToString("hh\\:mm\\:ss")).ToArray();
             stats.Run.Data = athletes.OrderBy(a => a.Run).Select(a => a.Run.ToString("hh\\:mm\\:ss")).ToArray();

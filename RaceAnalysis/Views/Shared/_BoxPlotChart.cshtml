@@ -27,13 +27,23 @@
             type: 'box',
             name: 'Swim',
             marker:{
-                color: 'rgb(255,153,0)'
+                color: 'rgb(255,204,0)'
             }
           
         };
         var swim_layout = {
             xaxis : axis_template,
-            title: 'Swim'
+            title: 'Swim Box plot',
+            annotations: [
+                {
+                    text: 'this is an annotation!',
+                    x: 2,
+                    xref: '3',
+                    y: 0 ,
+                    yref: 'paper'
+
+                }
+            ]
         };
         data_swim = [swim];
         Plotly.newPlot('@box_swim', data_swim, swim_layout);
@@ -50,7 +60,7 @@
             type: 'box',
             name: 'Bike',
             marker:{
-                color: 'rgb(0,255,0)'
+                color: 'rgb(92,184,92)'
             }
         };
         Plotly.newPlot('@box_bike', [bike], bike_layout);

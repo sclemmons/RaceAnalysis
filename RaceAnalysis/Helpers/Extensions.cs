@@ -34,5 +34,16 @@ namespace RaceAnalysis.Helpers
 
             return returnActive ? "active" : "";
         }
+
+        public static TimeSpan RoundToNearest(this TimeSpan a, TimeSpan roundTo)
+        {
+            long ticks = (long)(Math.Round(a.Ticks / (double)roundTo.Ticks) * roundTo.Ticks);
+            return new TimeSpan(ticks);
+        }
+
     }
+
+
+
+
 }
