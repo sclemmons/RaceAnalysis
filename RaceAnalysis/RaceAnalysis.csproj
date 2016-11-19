@@ -313,6 +313,7 @@
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CompareBikeRunController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RaceConditionsController.cs" />
@@ -580,6 +581,8 @@
     <Content Include="Views\Shared\_OnePageOfAthletes.cshtml" />
     <Content Include="Views\Shared\_CompareAthletesDetail.cshtml" />
     <Content Include="Views\Shared\_BoxPlotChart.cshtml" />
+    <Content Include="Views\CompareBikeRun\Compare.cshtml" />
+    <Content Include="Views\Shared\_BikeRunScatterChart.cshtml" />
     <None Include="Web.Test.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

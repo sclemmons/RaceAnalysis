@@ -1,0 +1,27 @@
+﻿@model RaceAnalysis.Models.BaseViewModel
+@{
+    Layout = "~/Views/Layouts/_AnalysisLayout.cshtml";
+    ViewBag.Title = "Compare Bike And Run";
+    PageData["Instructions"] = "...............";
+    ViewBag.Action = "action-comparebikerun";
+}
+
+@section filter{}
+
+
+@section page_actions{
+    @if (Model.Triathletes.Any())
+    {
+        <script type="text/javascript">  $("#page-actions").show(); </script>
+        @Html.Partial("~/Views/Shared/_ActionBar.cshtml", Model)
+    }<!--actions-->
+}<!--section-->
+
+@section results{
+    @if (Model.Triathletes.Any())
+    {
+        <script type="text/javascript">  $("#results").show(); </script>
+        @Html.Partial("~/Views/Shared/_BikeRunScatterChart.cshtml", Model)
+
+    }
+}

@@ -40,6 +40,8 @@
 @Html.ActionLink("Compare Races", "SelectedRaces", "TriStatsRaceComparer",
                   queryViewModel, new {@id="action-compareraces", @class = "btn btn-success btn-duration", title = "Compare selected races" })
 
+@Html.ActionLink("Bike and Run", "SelectedRaces", "CompareBikeRun",
+                  queryViewModel, new { @id = "action-comparebikerun", @class = "btn btn-success btn-duration", title = "Compare bike and run" })
 
    
 <script>

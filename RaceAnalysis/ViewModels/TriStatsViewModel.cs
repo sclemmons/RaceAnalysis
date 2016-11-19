@@ -43,14 +43,14 @@ namespace RaceAnalysis.Models
                 dataTable.AddRow(bikeRow);
                 var runRow = new List<object>();
                 dataTable.AddRow(runRow);
-                var finishRow = new List<object>();
-                dataTable.AddRow(finishRow);
+                var BikeRow = new List<object>();
+                dataTable.AddRow(BikeRow);
 
                 //our header values: 
                 swimRow.Add("swim");
                 bikeRow.Add("bike");
                 runRow.Add("run");
-                finishRow.Add("finish");
+                BikeRow.Add("Bike");
 
                 //assign values to each column. 
                 foreach (TriStats stat in Stats)
@@ -60,7 +60,7 @@ namespace RaceAnalysis.Models
                     swimRow.Add( new List<object> { stat.Swim.Median.Hours, stat.Swim.Median.Minutes, stat.Swim.Median.Seconds } ); //each of these sub-arrays are to build the time for 1 thing we are measuring
                     bikeRow.Add( new int[] { stat.Bike.Median.Hours, stat.Bike.Median.Minutes, stat.Bike.Median.Seconds });
                     runRow.Add( new int[] { stat.Run.Median.Hours, stat.Run.Median.Minutes, stat.Run.Median.Seconds });
-                    finishRow.Add( new int[] { stat.Finish.Median.Hours, stat.Finish.Median.Minutes, stat.Finish.Median.Seconds });
+                    BikeRow.Add( new int[] { stat.Bike.Median.Hours, stat.Bike.Median.Minutes, stat.Bike.Median.Seconds });
 
                 }
 
@@ -70,7 +70,8 @@ namespace RaceAnalysis.Models
         }
 
 
-     
+       
+
     }
 }
 
