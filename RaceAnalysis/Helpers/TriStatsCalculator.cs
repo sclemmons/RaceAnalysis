@@ -50,51 +50,7 @@ namespace RaceAnalysis.Helpers
 
                return median - stdDev;
         }
-
-        
-        public TimeSpan TopQuarter(TimeSpan median, TimeSpan stdDev)
-        {
-          var medSeconds = _Triathletes.Median(t =>
-                {
-                    return Convert.ToInt32(t.Swim.TotalSeconds);
-                });
-           var topHalfAthletes = _Triathletes.Where(t => t.Swim.TotalSeconds <= medSeconds).ToList();
-           var bottomHalfAthletes = _Triathletes.Where(t => t.Swim.TotalSeconds > medSeconds).ToList();
-
-
-            var topHalfMedSeconds = topHalfAthletes.Median( t =>
-           {
-                return Convert.ToInt32(t.Swim.TotalSeconds);
-            });
-
-            var bottomHalfMedSeconds = bottomHalfAthletes.Median(t =>
-            {
-                return Convert.ToInt32(t.Swim.TotalSeconds);
-            });
-
-            var Qtr1Athletes = _Triathletes.Where(t => t.Swim.TotalSeconds <= topHalfMedSeconds).ToList();
-            var Qtr2Athletes = _Triathletes.Where(t => t.Swim.TotalSeconds > topHalfMedSeconds
-                                    && t.Swim.TotalSeconds < medSeconds).ToList();
-            var Qtr3Athletes = _Triathletes.Where(t => t.Swim.TotalSeconds > medSeconds
-                                 && t.Swim.TotalSeconds <= bottomHalfMedSeconds).ToList();
-
-            var Qtr4Athletes = _Triathletes.Where(t => t.Swim.TotalSeconds > bottomHalfMedSeconds).ToList();
-
-            var qtr1Min = new TimeSpan(Qtr1Athletes.Min(t => t.Swim.Ticks));
-            var qtr1Max = new TimeSpan(Qtr1Athletes.Max(t => t.Swim.Ticks));
-            var qtr2Min = new TimeSpan(Qtr2Athletes.Min(t => t.Swim.Ticks));
-            var qtr2Max = new TimeSpan(Qtr2Athletes.Max(t => t.Swim.Ticks));
-            var qtr3Min = new TimeSpan(Qtr3Athletes.Min(t => t.Swim.Ticks));
-            var qtr3Max = new TimeSpan(Qtr3Athletes.Max(t => t.Swim.Ticks));
-            var qtr4Min = new TimeSpan(Qtr4Athletes.Min(t => t.Swim.Ticks));
-            var qtr4Max = new TimeSpan(Qtr4Athletes.Max(t => t.Swim.Ticks));
-            
-
-
-            return new TimeSpan(0);
-
-        }
-
+             
         public static Tuple<List<Triathlete>,List<Triathlete>> Split(List<Triathlete> athletes, string timeSpanProperty)
         {
             var q0 = athletes.AsQueryable()

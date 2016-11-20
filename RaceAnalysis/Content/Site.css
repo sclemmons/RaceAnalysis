@@ -265,3 +265,35 @@ div#athlete-list{
 .jumbotron p.normal{
     font-size:14px;
 }
+
+
+
+.chartWithMarkerOverlay {
+    position: relative;
+    width: 900px;
+    
+}
+.overlay-text {
+    background-color:yellow;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 50px;   /* chartArea top  */
+    left: 200px; /* chartArea left */
+}
+.overlay-marker-bike {
+    background: red;
+    width: 1px;
+    position:absolute;
+    height: 1px;
+    border-style:dotted;
+    border-width:1px;
+}
+.overlay-marker-run {
+    background: red;
+    width: 1px;
+    position:absolute;
+    height: 1px;
+    border-style:dotted;
+    border-width:1px;
+}

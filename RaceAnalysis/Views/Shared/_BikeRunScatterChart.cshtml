@@ -1,36 +1,117 @@
-﻿@model RaceAnalysis.Models.TriathletesViewModel
+﻿@model RaceAnalysis.Models.CompareBikeRunViewModel
 
-<div id="chart_div" style="width: 900px; height: 500px;"></div>
+<div class="chartWithMarkerOverlay" id="chart_with_overlay">
+    <div id="chart_div" style="width: 900px; height: 500px;"></div>
 
+    <div class="overlay-text">
+        <div style="font-family:'Arial Black'; font-size: 12px;">88</div>
+     </div>
+
+    <div class="overlay-marker-bike">
+    </div>
+
+    <div class="overlay-marker-run">
+    </div>
+</div>
+@{
+    var BikeTitle = "Bike, Median Time: " + Model.BikeMedian.ToString();
+    var RunTitle = "Run, Median Time: " + Model.RunMedian.ToString();
+}
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
-      function drawChart() {
-          var data = google.visualization.arrayToDataTable(
-                      @Html.Raw(Json.Encode(Model.BikeAndRunData))
-                  );
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable(
+                        @Html.Raw(Json.Encode(Model.BikeAndRunData))
+                    );
 
-        var options = {
-          title: 'Bike Run Correlation',
-          hAxis: {title: 'Bike'},
-          vAxis: { title: 'Run' },
-          legend: 'none',
+            var options = {
+                title: 'Bike-Run Correlation with Trend Lines and quadrants',
+                hAxis: { title: '@BikeTitle'},
+                vAxis: { title: '@RunTitle'},
+                legend: 'none',
+                crosshair: {trigger: 'both'},
+                trendlines: {
+                    0: {
+                        type: 'linear',
+                        color: 'green',
+                        lineWidth: 3,
+                        opacity: 0.3,
+                        showR2: true,
+                        visibleInLegend: true
+                    }
+                }
+            };
 
-          trendlines: {
-              0: {
-                  type: 'linear',
-                  color: 'green',
-                  lineWidth: 3,
-                  opacity: 0.3,
-                  showR2: true,
-                  visibleInLegend: true
-              }
-          }
-        };
+            function placeMarker(data) {
+                var cli = this.getChartLayoutInterface();
+                var chartArea = cli.getChartAreaBoundingBox();
 
-        var chart = new google.visualization.ScatterChart(document.getElementById('chart_div'));
+                @{
+                      //    var midpoint = Html.Raw(Json.Encode(Model.MidPoint));
+                          var bikeMed = Html.Raw(Json.Encode(Model.BikeMid));
+                          var runMed = Html.Raw(Json.Encode(Model.RunMid));
 
-        chart.draw(data, options);
-      }
+                  }
+
+
+
+                            //there are two columns, [bike,run]
+                            //each row is a value
+                var bikeCol = 0;
+                var runCol = 1;
+                var rowCount = data.getNumberOfRows();
+                for ( row = 0; row < rowCount; row++)
+                {
+                    var value = data.getValue(row, bikeCol);
+
+                    if(arraysEqual(value, @bikeMed) ){
+                      //  alert('found bike midpoint at row: ' + row);
+                        for (runRow= 0;runRow < rowCount;runRow++)
+                        {
+                            var val = data.getValue(runRow,runCol);
+                            if(arraysEqual(val,@runMed))
+                            {
+                        //        alert('found run midpoint at row: ' + runRow)
+                            }
+                        }
+
+                    }
+
+                }
+
+                var rows = data.getFilteredRows(
+                    [ {column: 0, value: @bikeMed},{column:1, value: @runMed} ] );
+                //we could use this value into DataView.setRows() to change the visualization
+                //OR setFormattedlValue
+
+
+                var bikeX = cli.getXLocation(@bikeMed);
+                var runY = cli.getYLocation(@runMed);
+
+
+                document.querySelector('.overlay-marker-bike').style.top = chartArea.top + "px" ;
+                document.querySelector('.overlay-marker-bike').style.left = Math.floor(bikeX) + "px";
+                document.querySelector('.overlay-marker-bike').style.height = chartArea.height + "px";
+
+
+                document.querySelector('.overlay-marker-run').style.top =  Math.floor(runY) + "px";
+                document.querySelector('.overlay-marker-run').style.left = chartArea.left + "px";
+                document.querySelector('.overlay-marker-run').style.width = chartArea.width + "px";
+
+
+            };
+            function arraysEqual(a1,a2) {
+                /* WARNING: arrays must not contain {objects} or behavior may be undefined */
+                return JSON.stringify(a1)==JSON.stringify(a2);
+            }
+
+
+            var chart = new google.visualization.ScatterChart(document.getElementById('chart_div'));
+            google.visualization.events.addListener(chart, 'ready',
+                  placeMarker.bind(chart, data));
+
+            chart.draw(data, options);
+        }
     </script>

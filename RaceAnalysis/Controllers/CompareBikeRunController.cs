@@ -1,4 +1,5 @@
-﻿using RaceAnalysis.Models;
+﻿using RaceAnalysis.Helpers;
+using RaceAnalysis.Models;
 using RaceAnalysis.Service.Interfaces;
 using RaceAnalysis.ServiceSupport;
 using System;
@@ -18,11 +19,11 @@ namespace RaceAnalysis.Controllers
 
         protected override ActionResult DisplayResultsView(RaceFilterViewModel filter)
         {
-            var viewModel = new TriathletesViewModel();
+            var viewModel = new CompareBikeRunViewModel();
             viewModel.Filter = filter;
 
             var allAthletes = new List<Triathlete>();
-            foreach (int raceId in filter.SelectedRaceIds) 
+            foreach (int raceId in filter.SelectedRaceIds)
             {
 
                 var athletes = _RaceService.GetAthletes(
@@ -37,7 +38,14 @@ namespace RaceAnalysis.Controllers
                 allAthletes.AddRange(athletes);
             }
 
+            var calc = new TriStatsCalculator(allAthletes);
+            
+            viewModel.BikeMedian = calc.TimeSpanMedian("Bike");
+            viewModel.RunMedian = calc.TimeSpanMedian("Run");
+            
             viewModel.Triathletes = allAthletes;
+         
+
             return View("Compare", viewModel);
         }
     }
