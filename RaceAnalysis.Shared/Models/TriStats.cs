@@ -44,6 +44,7 @@ namespace RaceAnalysis.Models
        public GenderRankingStats     GenderRank { get; set; }
        public OverallRankingStats    OverallRank { get; set; }
        public PointsStats            Points { get; set; }
+       public int DNFCount          { get; set; }
 
        public GoogleVisualizationDataTable ChartData
         {

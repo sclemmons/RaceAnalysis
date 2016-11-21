@@ -8,9 +8,9 @@ using RaceAnalysis.ServiceSupport;
 
 namespace RaceAnalysis.Controllers
 {
-    public class TriStatsRaceComparerController : TriStatsController
+    public class CompareRacesController : TriStatsController
     {
-        public TriStatsRaceComparerController(IRaceService service) : base(service) { }
+        public CompareRacesController(IRaceService service) : base(service) { }
 
 
         public ActionResult Compare()
@@ -35,13 +35,13 @@ namespace RaceAnalysis.Controllers
                          SelectedRaceIds = new int[] { raceId },
                          SelectedAgeGroupIds = AgeGroup.Expand(filter.SelectedAgeGroupIds),
                          SelectedGenderIds = filter.SelectedGenderIds
-                     }, 
-                     filter
+                     },
+                     new BasicDurationFilter() { } //bypass the user's duration filter so we can get all athletes, including DNFs
                  );
                 athletes.AddRange(athletesPerRace);
                 viewModel.Stats.Add(GetStats(athletesPerRace, filter.AvailableRaces.Single(r => r.RaceId == raceId)));
             }
-       
+            viewModel.Triathletes = athletes;
             return View("Compare", viewModel);
         }
     }

@@ -12,6 +12,7 @@ namespace RaceAnalysis.Models
         public BaseViewModel()
         {
             Filter = new RaceFilterViewModel();
+            Triathletes = new List<Triathlete>();
 
         }
         public Dictionary<string, BaseViewModel> Container { get; set; } //container for other ViewModels 

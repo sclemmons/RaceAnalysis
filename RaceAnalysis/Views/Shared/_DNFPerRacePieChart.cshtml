@@ -1,0 +1,24 @@
+﻿@model RaceAnalysis.Models.TriStatsViewModel
+
+<div id="dnf-race-piechart"></div>
+
+<script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawDNFChart);
+      function drawDNFChart() {
+
+       var data = google.visualization.arrayToDataTable(
+                        @Html.Raw(Json.Encode(Model.RaceComparisonChartDNF))
+                    );
+
+        var options = {
+          title: 'DNF and DNS Per Race',
+          pieSliceText: 'value'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('dnf-race-piechart'));
+
+        chart.draw(data, options);
+      }
+</script>
+

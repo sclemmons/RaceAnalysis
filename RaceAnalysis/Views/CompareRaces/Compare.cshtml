@@ -1,11 +1,13 @@
 ﻿@model RaceAnalysis.Models.TriStatsViewModel
 @{
     Layout = "~/Views/Layouts/_AnalysisLayout.cshtml";
-    ViewBag.Title = "Race Comparison";
-    PageData["Instructions"] = "Select multiple races to compare.";
+    ViewBag.Title = "Compare Races";
+    PageData["Instructions"] = "This view compares race results side-by-side. The duration filter is ignored so we can include the DNFs.";
     ViewBag.Action = "action-compareraces";
 }
-
+@section scripts{
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+}
 @section filter{}
 
 
@@ -22,11 +24,8 @@
     @if (Model.Stats.Count > 0)
     {
         <script type="text/javascript">  $("#results").show(); </script>
-        // foreach (var stat in Model.Stats)
-        {
-            //@Html.Partial("~/Views/Shared/_TriStats.cshtml", stat)
-            @Html.Partial("~/Views/Shared/_StatsComparisonChart.cshtml", Model)
-        }
+        @Html.Partial("~/Views/Shared/_RaceComparisonChart.cshtml", Model)
+        @Html.Partial("~/Views/Shared/_DNFPerRacePieChart.cshtml", Model)
     }
 }
 

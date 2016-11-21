@@ -274,7 +274,7 @@ div#athlete-list{
     width: 100%;
     
 }
-div#chart-div, div#bike-run-piechart{
+div#chart-div, div#bike-run-piechart,div#dnf-race-piechart, div#race-compare-median-div, div#race-compare-fastest-div{
     width:100%;
     height: 500px;
     

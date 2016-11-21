@@ -31,17 +31,18 @@
 @Html.ActionLink("Details", "SelectedRaces", "TriStats",
                  queryViewModel, new {@id="action-stats", @class = "btn btn-success btn-duration", title = "Display detailed stats" })
 
+@Html.ActionLink("Bike and Run", "SelectedRaces", "CompareBikeRun",
+                  queryViewModel, new { @id = "action-comparebikerun", @class = "btn btn-success btn-duration", title = "Compare bike and run" })
+
 @Html.ActionLink("Athletes", "SelectedRaces", "TriAthletes",
                  queryViewModel, new { @id="action-athletes" ,@class = "btn btn-success btn-duration", title = "Display selected athletes" })
 
 @Html.ActionLink("Compare Age Groups", "SelectedRaces", "TriStatsAgeGroupsCompare",
                   queryViewModel, new {@id="action-compareages", @class = "btn btn-success btn-duration", title = "Compare selected age groups" })
 
-@Html.ActionLink("Compare Races", "SelectedRaces", "TriStatsRaceComparer",
+@Html.ActionLink("Compare Races", "SelectedRaces", "CompareRaces",
                   queryViewModel, new {@id="action-compareraces", @class = "btn btn-success btn-duration", title = "Compare selected races" })
 
-@Html.ActionLink("Bike and Run", "SelectedRaces", "CompareBikeRun",
-                  queryViewModel, new { @id = "action-comparebikerun", @class = "btn btn-success btn-duration", title = "Compare bike and run" })
 
    
 <script>

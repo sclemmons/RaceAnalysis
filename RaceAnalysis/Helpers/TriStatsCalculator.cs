@@ -17,7 +17,11 @@ namespace RaceAnalysis.Helpers
             _Triathletes = athletes;
         }
 
+        public int NumberDNFs()
+        {
+            return _Triathletes.Count(t => t.Finish.TotalSeconds == 0);
 
+        }
         public TimeSpan TimeSpanHistogram(string timeSpanProperty)
         {
             var query = _Triathletes.AsQueryable()

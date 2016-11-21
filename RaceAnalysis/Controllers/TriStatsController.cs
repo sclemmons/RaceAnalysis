@@ -175,6 +175,7 @@ namespace RaceAnalysis.Controllers
             stats.Run.Data = athletes.OrderBy(a => a.Run).Select(a => a.Run.ToString("hh\\:mm\\:ss")).ToArray();
             stats.Finish.Data = athletes.OrderBy(a => a.Finish).Select(a => a.Finish.ToString("hh\\:mm\\:ss")).ToArray();
 
+            stats.DNFCount = calc.NumberDNFs();
 
             return stats;
         }

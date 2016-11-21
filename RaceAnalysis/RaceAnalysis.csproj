@@ -319,7 +319,7 @@
     <Compile Include="Controllers\TriStatsAgeGroupsCompareController.cs" />
     <Compile Include="Controllers\TriStatsController.cs" />
     <Compile Include="Controllers\TriStatsSummaryController.cs" />
-    <Compile Include="Controllers\TriStatsRaceComparerController.cs" />
+    <Compile Include="Controllers\CompareRacesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -558,9 +558,9 @@
     <Content Include="Views\Shared\_StatsChart.cshtml" />
     <Content Include="Views\Shared\_RaceConditions.cshtml" />
     <Content Include="tsconfig.json" />
-    <Content Include="Views\Shared\_StatsComparisonChart.cshtml" />
-    <Content Include="Views\TriStatsRaceComparer\Compare.cshtml" />
-    <Content Include="Views\TriStatsRaceComparer\Index.cshtml" />
+    <Content Include="Views\Shared\_RaceComparisonChart.cshtml" />
+    <Content Include="Views\CompareRaces\Compare.cshtml" />
+    <Content Include="Views\CompareRaces\Index.cshtml" />
     <Content Include="Views\Shared\_SearchByAthleteName.cshtml" />
     <Content Include="Views\Shared\_HistogramChart.cshtml" />
     <Content Include="Views\TriStatsSummary\Index.cshtml" />
@@ -580,6 +580,7 @@
     <Content Include="Views\CompareBikeRun\Compare.cshtml" />
     <Content Include="Views\Shared\_BikeRunScatterChart.cshtml" />
     <Content Include="Views\Shared\_BikeRunPieChart.cshtml" />
+    <Content Include="Views\Shared\_DNFPerRacePieChart.cshtml" />
     <None Include="Web.Test.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>
