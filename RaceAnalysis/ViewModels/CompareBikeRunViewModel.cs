@@ -8,23 +8,24 @@ namespace RaceAnalysis.Models
 {
     public class CompareBikeRunViewModel : TriathletesViewModel
     {
+        public CompareBikeRunViewModel()
+        {
+            FastBikeFastRun = new List<Triathlete>();
+            SlowBikeFastRun = new List<Triathlete>();
+            SlowBikeSlowRun = new List<Triathlete>();
+            FastBikeSlowRun = new List<Triathlete>();
+        }
+        public List<Triathlete> FastBikeFastRun { get; set; }
+        public List<Triathlete> SlowBikeFastRun { get; set; }
+        public List<Triathlete> SlowBikeSlowRun { get; set; }
+        public List<Triathlete> FastBikeSlowRun { get; set; }
+
 
         public TimeSpan BikeMedian { get; set; }
         public TimeSpan RunMedian { get; set; }
 
         //just a convenient property so we can access it from view 
-       
-        public object[] MidPoint
-        {
-            get {
-                return new object[] {
-                    new int[] { BikeMedian.Hours,BikeMedian.Minutes,BikeMedian.Seconds},
-                    new int[] {RunMedian.Hours,RunMedian.Minutes,RunMedian.Seconds}
-                };
-            }
-        }
-
-        public int[] BikeMid
+       public int[] BikeMid
         {
             get
             {
@@ -58,8 +59,7 @@ namespace RaceAnalysis.Models
                     });
 
                 }
-                //add our midpoint so that we can find it in the view and highlight it
-                list.Add(MidPoint);
+             
                  
                 return list;
             }

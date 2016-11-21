@@ -44,9 +44,44 @@ namespace RaceAnalysis.Controllers
             viewModel.RunMedian = calc.TimeSpanMedian("Run");
             
             viewModel.Triathletes = allAthletes;
-         
+            viewModel.TotalCount = allAthletes.Count();
+            PartitionAthletes(viewModel);
 
             return View("Compare", viewModel);
         }
+
+        private void PartitionAthletes(CompareBikeRunViewModel viewModel)
+        {
+            foreach(var athlete in viewModel.Triathletes)
+            {
+                if(athlete.Bike <= viewModel.BikeMedian)
+                {
+                    if(athlete.Run <= viewModel.RunMedian)
+                    {
+                        viewModel.FastBikeFastRun.Add(athlete);
+                    }
+                    else
+                    {
+                        viewModel.FastBikeSlowRun.Add(athlete);
+                    }
+
+                }
+                else
+                {
+                    if(athlete.Run <= viewModel.RunMedian)
+                    {
+                        viewModel.SlowBikeFastRun.Add(athlete);
+                    }
+                    else
+                    {
+                        viewModel.SlowBikeSlowRun.Add(athlete);
+                    }
+
+                }
+            }
+
+        }
     }
+
+    
 }

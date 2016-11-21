@@ -1,22 +1,64 @@
 ﻿@model RaceAnalysis.Models.CompareBikeRunViewModel
 
-<div class="chartWithMarkerOverlay" id="chart_with_overlay">
-    <div id="chart_div" style="width: 900px; height: 500px;"></div>
 
-    <div class="overlay-text">
-        <div style="font-family:'Arial Black'; font-size: 12px;">88</div>
+<div id="results-header">
+    <h3>@Model.TotalCount Athletes</h3>
+</div>
+
+<div class="chartWithMarkerOverlay" id="chart_with_overlay">
+    <div id="chart-div"></div>
+
+    <div class="overlay-text-Q1" data-toggle="tooltip" 
+         title="Fast Bike, Fast Run">
+        <div style="font-family:'Arial Black'; font-size: 12px;">1</div>
      </div>
+    <div class="overlay-text-Q2" data-toggle="tooltip" 
+         title="Slower Bike, Faster Run">
+        <div style="font-family:'Arial Black'; font-size: 12px;">2</div>
+    </div>
+    <div class="overlay-text-Q3" data-toggle="tooltip" 
+         title="Slower Bike, Slower Run">
+        <div style="font-family:'Arial Black'; font-size: 12px;">3</div>
+    </div>
+    <div class="overlay-text-Q4" data-toggle="tooltip" 
+         title="Fast Bike, Slower Run">
+        <div style="font-family:'Arial Black'; font-size: 12px;">4</div>
+    </div>
+    <div class="overlay-text-run-median" data-toggle="tooltip"
+         title="Run Median Line">
+        <div>Run-Median: @Model.RunMedian.ToString()</div>
+    </div>
+    <div class="overlay-text-bike-median" data-toggle="tooltip"
+         title="Bike Median Line">
+        <div>Bike-Median: @Model.BikeMedian.ToString()</div>
+    </div>
 
     <div class="overlay-marker-bike">
     </div>
-
     <div class="overlay-marker-run">
     </div>
 </div>
-@{
-    var BikeTitle = "Bike, Median Time: " + Model.BikeMedian.ToString();
-    var RunTitle = "Run, Median Time: " + Model.RunMedian.ToString();
-}
+
+<div id="chart-key">
+    <h4>Key:</h4>
+    <span>1 : Fast Bike, Fast Run</span>
+    <span><b>(@Model.FastBikeFastRun.Count()</b> athletes)</span>
+    <p>This group had the fastest bike and run pace.</p>
+   
+
+    <span>2: Slower Bike, Faster Run </span>
+    <span><b>(@Model.SlowBikeFastRun.Count()</b> athletes)</span>
+    <p>This group was conservative on the bike and had an above-averate run.</p>
+    
+    <span>3: Slower Bike, Slower Run </span>
+    <span><b>(@Model.SlowBikeSlowRun.Count()</b> athletes)</span>
+    <p>This group performed slower on the bike and the run.</p>
+
+    <span>4: Faster Bike, Slower Run </span>
+    <span><b>(@Model.FastBikeSlowRun.Count()</b> athletes)</span>
+    <p>This group was more agressive on the bike but performed slower on the run.</p>
+
+</div>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
         google.charts.load('current', {'packages':['corechart']});
@@ -27,9 +69,9 @@
                     );
 
             var options = {
-                title: 'Bike-Run Correlation with Trend Lines and quadrants',
-                hAxis: { title: '@BikeTitle'},
-                vAxis: { title: '@RunTitle'},
+                title: '',
+                hAxis: { title: 'Bike'},
+                vAxis: { title: 'Run'},
                 legend: 'none',
                 crosshair: {trigger: 'both'},
                 trendlines: {
@@ -49,44 +91,11 @@
                 var chartArea = cli.getChartAreaBoundingBox();
 
                 @{
-                      //    var midpoint = Html.Raw(Json.Encode(Model.MidPoint));
                           var bikeMed = Html.Raw(Json.Encode(Model.BikeMid));
                           var runMed = Html.Raw(Json.Encode(Model.RunMid));
 
-                  }
-
-
-
-                            //there are two columns, [bike,run]
-                            //each row is a value
-                var bikeCol = 0;
-                var runCol = 1;
-                var rowCount = data.getNumberOfRows();
-                for ( row = 0; row < rowCount; row++)
-                {
-                    var value = data.getValue(row, bikeCol);
-
-                    if(arraysEqual(value, @bikeMed) ){
-                      //  alert('found bike midpoint at row: ' + row);
-                        for (runRow= 0;runRow < rowCount;runRow++)
-                        {
-                            var val = data.getValue(runRow,runCol);
-                            if(arraysEqual(val,@runMed))
-                            {
-                        //        alert('found run midpoint at row: ' + runRow)
-                            }
-                        }
-
-                    }
-
-                }
-
-                var rows = data.getFilteredRows(
-                    [ {column: 0, value: @bikeMed},{column:1, value: @runMed} ] );
-                //we could use this value into DataView.setRows() to change the visualization
-                //OR setFormattedlValue
-
-
+                 }
+                
                 var bikeX = cli.getXLocation(@bikeMed);
                 var runY = cli.getYLocation(@runMed);
 
@@ -101,6 +110,27 @@
                 document.querySelector('.overlay-marker-run').style.width = chartArea.width + "px";
 
 
+                document.querySelector('.overlay-text-Q1').style.top = chartArea.top + chartArea.height-20 + "px";
+                document.querySelector('.overlay-text-Q1').style.left = chartArea.left + "px";
+                           
+                document.querySelector('.overlay-text-Q2').style.top = chartArea.top + chartArea.height - 20 + "px";
+                document.querySelector('.overlay-text-Q2').style.left = chartArea.left+ chartArea.width -20+ "px";
+
+                document.querySelector('.overlay-text-Q3').style.top = chartArea.top + "px";
+                document.querySelector('.overlay-text-Q3').style.left = chartArea.left + chartArea.width - 20 + "px";
+
+                document.querySelector('.overlay-text-Q4').style.top = chartArea.top + "px";
+                document.querySelector('.overlay-text-Q4').style.left = chartArea.left + "px";
+
+                document.querySelector('.overlay-text-run-median').style.top = Math.floor(runY) -20 + "px";
+                document.querySelector('.overlay-text-run-median').style.left = chartArea.left + chartArea.width +"px";
+
+                              
+                document.querySelector('.overlay-text-bike-median').style.top = chartArea.top - 40 + "px";
+                document.querySelector('.overlay-text-bike-median').style.left = Math.floor(bikeX) -40 + "px";;
+
+
+
             };
             function arraysEqual(a1,a2) {
                 /* WARNING: arrays must not contain {objects} or behavior may be undefined */
@@ -108,10 +138,13 @@
             }
 
 
-            var chart = new google.visualization.ScatterChart(document.getElementById('chart_div'));
-            google.visualization.events.addListener(chart, 'ready',
-                  placeMarker.bind(chart, data));
+            var chart = new google.visualization.ScatterChart(document.getElementById('chart-div'));
+            google.visualization.events.addListener(chart, 'ready',placeMarker.bind(chart, data));
 
             chart.draw(data, options);
         }
+
+        $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip();
+        });
     </script>
