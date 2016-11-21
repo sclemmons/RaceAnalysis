@@ -52,8 +52,7 @@ namespace RaceAnalysis.Models
                 runRow.Add("run");
                 finishRow.Add("finish");
 
-                //assign values to each column. 
-                foreach (TriStats stat in Stats)
+                foreach (TriStats stat in Stats.OrderBy(s => s.Finish.Median))
                 {
 //                    raceCol++;  //each stat and each column represents a different race in this chart
 
@@ -100,8 +99,9 @@ namespace RaceAnalysis.Models
                 runRow.Add("run");
                 finishRow.Add("finish");
 
+                
                 //assign values to each column. 
-                foreach (TriStats stat in Stats)
+                foreach (TriStats stat in Stats.OrderBy(s => s.Finish.Min))
                 {
                    //each stat and each column represents a different race in this chart
 

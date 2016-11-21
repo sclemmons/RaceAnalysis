@@ -2,11 +2,11 @@
 @model RaceAnalysis.Models.TriStatsViewModel
 
 <div>
-    <h3>@Model.Triathletes.Count()   Athletes</h3><span>(Includes DNF and DNS)</span>
+    <h3>@Model.Triathletes.Count()   Athletes</h3><span>(Includes DNF and DNS athletes)</span>
     <div id='race-compare-median-div'></div>
     <div id='race-compare-fastest-div'></div>
     <script type="text/javascript">
-        google.charts.load('current', { 'packages': ['corechart', 'bar'] });
+        google.charts.load('current', { 'packages': ['corechart'] });
 
         google.charts.setOnLoadCallback(function () {
             drawMedianChart();
@@ -17,28 +17,48 @@
 
         function drawMedianChart()
         {
-            var title = 'Median result times';
-                var vAxis = "Duration (HRS)";
-                var hAxis = "By Activity"
+            var data = new google.visualization.DataTable(
+                @Html.Raw(Json.Encode(Model.RaceComparisonChartDataMedian))
+            );
 
-                var dataTable = new google.visualization.DataTable(
-                    @Html.Raw(Json.Encode(Model.RaceComparisonChartDataMedian))
-                );
+            var options = {
+                title:  'Comparison of Median times',
+                
+                hAxis:
+                    {
+                        title: 'Duration (HRS)'
+                    },
+                vAxis: {
+                        title: 'By Activity'
+                }
+            };
 
-                drawColumnChart('race-compare-median-div' , title, hAxis,vAxis, dataTable);
+            var chart = new google.visualization.BarChart(document.getElementById('race-compare-median-div'));
+            chart.draw(data,options)
+            
         };
 
         function drawFastestChart()
         {
-            var title = 'Fastest result times';
-            var vAxis = "Duration (HRS)";
-            var hAxis = "By Activity"
-
-            var dataTable = new google.visualization.DataTable(
+          
+            var data = new google.visualization.DataTable(
                 @Html.Raw(Json.Encode(Model.RaceComparisonChartDataFastest))
             );
+            var options = {
 
-            drawColumnChart('race-compare-fastest-div' , title, hAxis,vAxis, dataTable);
+                title: 'Comparison of fastest times',
+                hAxis:
+                    {
+                        title: 'Duration (HRS)'
+                    },
+                vAxis: {
+                    title: 'By Activity'
+                }
+            };
+         
+
+            var chart = new google.visualization.BarChart(document.getElementById('race-compare-fastest-div'));
+            chart.draw(data, options)
         };
 
     </script>
