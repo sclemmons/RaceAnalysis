@@ -6,8 +6,10 @@ using RaceAnalysis.Models;
 using RaceAnalysis.Service.Interfaces;
 using RaceAnalysis.ServiceSupport;
 
+  
 namespace RaceAnalysis.Controllers
 {
+
     public class TriStatsController : BaseController
     {
         public TriStatsController(IRaceService service) : base(service) { }

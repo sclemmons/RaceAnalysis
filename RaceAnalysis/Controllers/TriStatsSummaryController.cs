@@ -7,12 +7,15 @@ using RaceAnalysis.ServiceSupport;
 
 namespace RaceAnalysis.Controllers
 {
+
+
     public class TriStatsSummaryController : BaseController
     {
         public TriStatsSummaryController(IRaceService service) : base(service) { }
 
 
         // GET: Summary
+        [Route("analyze")]
         public ActionResult Index()
         {
             var viewmodel = new HistogramViewModel();

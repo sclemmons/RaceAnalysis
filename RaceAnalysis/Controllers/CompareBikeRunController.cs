@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace RaceAnalysis.Controllers
 {
+
     public class CompareBikeRunController : TriStatsController
     {
         public CompareBikeRunController(IRaceService service) : base(service) { }

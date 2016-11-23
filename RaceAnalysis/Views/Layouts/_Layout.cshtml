@@ -35,41 +35,23 @@
                     <li class='@Html.IsActive("Home", "Index")'>
                         @Html.ActionLink("Home", "Index", "Home")
                     </li>
-                    <li class='@Html.IsActive("Triathletes", "Index")'>
-                        @Html.ActionLink("Triathletes", "Index", "Triathletes")
+                    <li class='@Html.IsActive("TriStatsSummary", "Index")'>
+                        @Html.ActionLink("Analyze", "Index", "TriStatsSummary")
                     </li>
-                    
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Race Stats<span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li class='@Html.IsActive("TriStatsSummary", "Index")'>
-                                @Html.ActionLink("Summary", "Index", "TriStatsSummary")
-                            </li>
-                            <li class='@Html.IsActive("TriStats", "Index")'>
-                                @Html.ActionLink("Detail", "Index", "TriStats")
-                            </li>
-                        </ul>
+                    <li class='@Html.IsActive("Hypotheticals", "Index")'>
+                        @Html.ActionLink("How would I do?", "Index", "Hypotheticals")
                     </li>
 
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Compare...<span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li class='@Html.IsActive("TriStatsRaceComparer", "Index")'>
-                                @Html.ActionLink("Races", "Index", "TriStatsRaceComparer")
-                            </li>
-                            <li class='@Html.IsActive("TriStatsAgeGroupsCompare", "Index")'>
-                                @Html.ActionLink("Age Groups", "Index", "TriStatsAgeGroupsCompare")
-                            </li>
-                        </ul>
-                     </li>
+                    <li class='@Html.IsActive("Discover", "Index")'>
+                        @Html.ActionLink("Discover", "Index", "Discover")
+                    </li>
+                    <li class='@Html.IsActive("Home", "About")'>
+                        @Html.ActionLink("About", "About", "Home")
+                    </li>
 
-                            <li class='@Html.IsActive("Home", "About")'>
-                                @Html.ActionLink("About", "About", "Home")
-                            </li>
-
-                            <li class='@Html.IsActive("Home", "Contact")'>
-                                @Html.ActionLink("Contact", "Contact", "Home")
-                            </li>
+                    <li class='@Html.IsActive("Home", "Contact")'>
+                        @Html.ActionLink("Contact", "Contact", "Home")
+                    </li>
                         </ul>
                   
 

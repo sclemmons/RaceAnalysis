@@ -95,7 +95,7 @@ namespace RaceAnalysis.Controllers
         }
 
         //called from actions links in the Action Bar
-       public ActionResult SelectedRaces(SimpleFilterViewModel model)
+         public ActionResult SelectedRaces(SimpleFilterViewModel model)
         {
            var filter = new RaceFilterViewModel();
            filter.SaveRaceFilterValues(model);

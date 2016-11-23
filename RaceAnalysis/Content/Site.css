@@ -213,14 +213,16 @@ div.error {
 
 #filter, #results, #page-header,#page-actions,#filter-duration{
     margin:10px;
+    margin-left:0px;
+    margin-right:0px;
     padding:5px;
     background-color:white;
     border-width:1px;
     border-style:solid;
     border-color: rgba(0, 0, 0, 0.2);
     border-radius:5px;
-    
 }
+
 
 #results,#page-actions
 {
