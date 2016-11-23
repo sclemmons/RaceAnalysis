@@ -44,17 +44,11 @@ namespace RaceAnalysis.Helpers
             return ts;
         }
         
-        public TimeSpan SigmaPlusOne(TimeSpan median, TimeSpan stdDev)
+        public static Tuple<TimeSpan,TimeSpan> SigmaOne(TimeSpan median, TimeSpan stdDev)
         { //SigmaPlusOne and SigmaMinusOne together represent 68.27% of the population 
-            return median + stdDev; 
+            return Tuple.Create(median - stdDev, median + stdDev);
         }
-
-        public TimeSpan SigmaMinusOne(TimeSpan median, TimeSpan stdDev)
-        {//SigmaPlusOne and SigmaMinusOne together represent 68.27% of the population 
-
-               return median - stdDev;
-        }
-             
+                   
         public static Tuple<List<Triathlete>,List<Triathlete>> Split(List<Triathlete> athletes, string timeSpanProperty)
         {
             var q0 = athletes.AsQueryable()

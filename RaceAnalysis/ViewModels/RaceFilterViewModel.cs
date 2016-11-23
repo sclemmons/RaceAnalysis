@@ -24,6 +24,8 @@ namespace RaceAnalysis.Models
         public IList<Gender> AvailableGenders { get; set; }
         public IList<int> SelectedGenderIds { get; set; }
 
+        public string SkillLevel { get; set; } //TO-DO: remove this and other properties into separate classes/interfaces
+
 
         public TimeSpan SwimLow { get; set; }
         public TimeSpan SwimHigh { get; set; }
@@ -82,6 +84,13 @@ namespace RaceAnalysis.Models
             SaveRaceFilterValues(model.Races, model.AgeGroups, model.Genders);
             SaveDurationValues(model);
             SaveSelectedAthletes(model);
+            SaveSelectedSkillLevel(model);
+            
+        }
+
+        private void SaveSelectedSkillLevel(SimpleFilterViewModel model)
+        {
+            SkillLevel = model.skilllevel;
         }
 
         private void SaveSelectedAthletes(SimpleFilterViewModel model)

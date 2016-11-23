@@ -356,7 +356,6 @@ div#chart-key{
     font-style:italic;
 }
 .overlay-text-bike-median {
-   
     width: 100px;
     height: 20px;
     position: absolute;
@@ -364,5 +363,42 @@ div#chart-key{
     left: -1000px; /* chartArea left */
     text-align:center;
     font-style:italic;
+   
 }
 
+.hypothetical{
+    width:50%;
+    margin-top:10px;
+    padding:5px;
+    background-color:white;
+    border-width:1px;
+    border-style:solid;
+    border-color: rgba(0, 0, 0, 0.2);
+    border-radius:5px;
+    
+}
+div#box_estfinish{
+    position: relative;
+    width: 100%;
+    height:250px;
+ 
+}
+
+div#overlay-marker-estfinish {
+    background-color:azure;
+    width: 200px;
+    height: 24px;
+    position: absolute;
+     top: 75px;   /* chartArea top  */
+    left: 0px; /* chartArea left */
+    text-align:center;
+    border: 2px;
+    font-weight:bold;
+}
+div#finish_range{
+    font-style: italic;
+     font-weight:bold;
+    font-size: 14px;
+    background-color:azure;
+    padding:10px;
+}

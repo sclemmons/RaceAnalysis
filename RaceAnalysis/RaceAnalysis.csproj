@@ -311,6 +311,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CompareBikeRunController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\HypotheticalsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RaceConditionsController.cs" />
     <Compile Include="Controllers\RacesController.cs" />
@@ -332,6 +333,7 @@
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\CompareBikeRunViewModel.cs" />
     <Compile Include="ViewModels\HistogramViewModel.cs" />
+    <Compile Include="ViewModels\HypotheticalsViewModel.cs" />
     <Compile Include="ViewModels\KeyValueViewModel.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="ViewModels\RaceFilterViewModel.cs" />
@@ -534,7 +536,6 @@
     <Content Include="Views\TriAthletes\Index.cshtml" />
     <Content Include="Views\TriAthletes\List.cshtml" />
     <Content Include="Views\TriStats\Index.cshtml" />
-    <Content Include="Views\Shared\_HorizRaceFilter.cshtml" />
     <Content Include="Views\Shared\_TriStats.cshtml" />
     <Content Include="Views\Shared\_PagedList.cshtml" />
     <Content Include="Views\RaceConditions\Create.cshtml" />
@@ -581,6 +582,9 @@
     <Content Include="Views\Shared\_BikeRunScatterChart.cshtml" />
     <Content Include="Views\Shared\_BikeRunPieChart.cshtml" />
     <Content Include="Views\Shared\_DNFPerRacePieChart.cshtml" />
+    <Content Include="Views\Hypotheticals\Hypotheticals.cshtml" />
+    <Content Include="Views\Hypotheticals\Index.cshtml" />
+    <Content Include="Views\Hypotheticals\_EstFinishResults.cshtml" />
     <None Include="Web.Test.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

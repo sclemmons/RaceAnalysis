@@ -1,0 +1,105 @@
+﻿@model RaceAnalysis.Models.HypotheticalsViewModel
+
+<div>
+    @{
+        string finish_range = "Approximately ";
+        switch (@Model.SelectedSkillLevel)
+        {
+            case "1":
+                finish_range +=
+                    new TimeSpan(Model.Stats[0].Finish.FastestHalf.Item1.Min(t => t.Finish.Ticks)) + " - " +
+                    new TimeSpan(Model.Stats[0].Finish.FastestHalf.Item1.Max(t => t.Finish.Ticks));
+                break;
+            case "2":
+                finish_range +=
+              new TimeSpan(Model.Stats[0].Finish.FastestHalf.Item2.Min(t => t.Finish.Ticks)) + " - " +
+              new TimeSpan(Model.Stats[0].Finish.FastestHalf.Item2.Max(t => t.Finish.Ticks));
+                break;
+            case "3":
+                finish_range +=
+               new TimeSpan(Model.Stats[0].Finish.SlowestHalf.Item1.Min(t => t.Finish.Ticks)) + " - " +
+               new TimeSpan(Model.Stats[0].Finish.SlowestHalf.Item1.Max(t => t.Finish.Ticks));
+                break;
+            case "4":
+            default:
+                finish_range +=
+              new TimeSpan(Model.Stats[0].Finish.SlowestHalf.Item2.Min(t => t.Finish.Ticks)) + " - " +
+              new TimeSpan(Model.Stats[0].Finish.SlowestHalf.Item2.Max(t => t.Finish.Ticks));
+                break;
+        }
+
+
+
+
+    }
+
+    <div id="finish_range">
+        @finish_range
+    </div>
+
+    <div id='box_estfinish' >
+           <div id="overlay-marker-estfinish">--- Approximate Range ---</div>
+    </div>
+         
+
+    <script>
+        axis_template = {
+            nticks: 20,
+        };
+       
+        var finish = {
+            x: @Html.Raw(Json.Encode(Model.Stats[0].Finish.Data)),
+            
+            type: 'box',
+            name: 'Results',
+            marker:{
+                color: 'rgb(196,173,216)'
+            },
+          
+        };
+        var finish_layout = {
+            xaxis : axis_template,
+            //title: 'Finish',
+        };
+        Plotly.newPlot('box_estfinish', [finish], finish_layout,{showLink: false, displaylogo: false});
+
+
+
+        $(function(){
+            var containerWidth = parseInt( $('#box_estfinish').css("width"));
+            var overlayWidth =   parseInt( $('#overlay-marker-estfinish').css("width"));
+           // var overlayCenter = parseInt(overlayWidth)/2;
+            var fudge = 125; //a guess right now from where the axis starts
+            var fudge2 = 100;
+            var qtr;
+            switch(@Model.SelectedSkillLevel)
+            {
+                case 1:
+                    qtr= 0 + fudge;
+                    break;
+                case 2:
+                    qtr= containerWidth/4 + fudge2;
+                    break;
+                case 3:
+                    qtr= containerWidth/2;
+                    break;
+                case 4:
+                    qtr= containerWidth - fudge - overlayWidth;
+                    break;
+                default: 
+                    qtr= containerWidth - fudge - overlayWidth;
+                    break;
+            }
+           
+            $('#overlay-marker-estfinish').css('left', qtr + "px");
+
+            $( window ).on("resize", function() {
+                 $('#overlay-marker-estfinish').css('left', qtr + "px");
+
+                
+            });
+
+        });
+    </script>
+</div>
+

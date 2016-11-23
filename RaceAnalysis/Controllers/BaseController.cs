@@ -130,7 +130,165 @@ namespace RaceAnalysis.Controllers
         }
 
 
-   
+        /// <summary>
+        /// Get Stats for athletes associated with single race
+        /// </summary>
+        /// <param name="athletes"></param>
+        /// <param name="race"></param>
+        /// <returns></returns>
+        protected TriStats GetStats(List<Triathlete> athletes, Race race)
+        {
+            TriStats stats = new TriStats(athletes, race);
+
+            TriStatsCalculator calc = new TriStatsCalculator(athletes);
+
+            //median
+            stats.Swim.Median = calc.TimeSpanMedian("Swim");
+            stats.Bike.Median = calc.TimeSpanMedian("Bike");
+            stats.Run.Median = calc.TimeSpanMedian("Run");
+            stats.Finish.Median = calc.TimeSpanMedian("Finish");
+
+
+            stats.DivRank.Median = calc.IntMedian("DivRank");
+            stats.GenderRank.Median = calc.IntMedian("GenderRank");
+            stats.OverallRank.Median = calc.IntMedian("OverallRank");
+            stats.Points.Median = calc.IntMedian("Points");
+
+            //avg
+            stats.Swim.Average = calc.TimeSpanAverage("Swim");
+            stats.Bike.Average = calc.TimeSpanAverage("Bike");
+            stats.Run.Average = calc.TimeSpanAverage("Run");
+            stats.Finish.Average = calc.TimeSpanAverage("Finish");
+
+
+            stats.DivRank.Average = calc.IntAverage("DivRank");
+            stats.GenderRank.Average = calc.IntAverage("GenderRank");
+            stats.OverallRank.Average = calc.IntAverage("OverallRank");
+            stats.Points.Average = calc.IntAverage("Points");
+
+            //min
+            stats.Swim.Min = calc.TimeSpanMin("Swim");
+            stats.Bike.Min = calc.TimeSpanMin("Bike");
+            stats.Run.Min = calc.TimeSpanMin("Run");
+            stats.Finish.Min = calc.TimeSpanMin("Finish");
+
+
+            stats.DivRank.Min = calc.IntMin("DivRank");
+            stats.GenderRank.Min = calc.IntMin("GenderRank");
+            stats.OverallRank.Min = calc.IntMin("OverallRank");
+            stats.Points.Min = calc.IntMin("Points");
+
+            //max
+            stats.Swim.Max = calc.TimeSpanMax("Swim");
+            stats.Bike.Max = calc.TimeSpanMax("Bike");
+            stats.Run.Max = calc.TimeSpanMax("Run");
+            stats.Finish.Max = calc.TimeSpanMax("Finish");
+
+
+            stats.DivRank.Max = calc.IntMax("DivRank");
+            stats.GenderRank.Max = calc.IntMax("GenderRank");
+            stats.OverallRank.Max = calc.IntMax("OverallRank");
+            stats.Points.Max = calc.IntMax("Points");
+
+
+            //standard deviation
+            stats.Swim.StandDev = calc.TimeSpanStandardDeviation("Swim");
+            stats.Bike.StandDev = calc.TimeSpanStandardDeviation("Bike");
+            stats.Run.StandDev = calc.TimeSpanStandardDeviation("Run");
+            stats.Finish.StandDev = calc.TimeSpanStandardDeviation("Finish");
+
+            
+            var swimSplit = TriStatsCalculator.Split(athletes, "Swim");
+            stats.Swim.FastestHalf = TriStatsCalculator.Split(swimSplit.Item1, "Swim");
+            stats.Swim.SlowestHalf = TriStatsCalculator.Split(swimSplit.Item2, "Swim");
+
+            var bikeSplit = TriStatsCalculator.Split(athletes, "Bike");
+            stats.Bike.FastestHalf = TriStatsCalculator.Split(bikeSplit.Item1, "Bike");
+            stats.Bike.SlowestHalf = TriStatsCalculator.Split(bikeSplit.Item2, "Bike");
+
+            var runSplit = TriStatsCalculator.Split(athletes, "Run");
+            stats.Run.FastestHalf = TriStatsCalculator.Split(runSplit.Item1, "Run");
+            stats.Run.SlowestHalf = TriStatsCalculator.Split(runSplit.Item2, "Run");
+
+            var finishSplit = TriStatsCalculator.Split(athletes, "Finish");
+            stats.Finish.FastestHalf = TriStatsCalculator.Split(finishSplit.Item1, "Finish");
+            stats.Finish.SlowestHalf = TriStatsCalculator.Split(finishSplit.Item2, "Finish");
+
+
+
+            stats.Swim.Data = athletes.OrderBy(a => a.Swim).Select(a => a.Swim.ToString("hh\\:mm\\:ss")).ToArray();
+            stats.Bike.Data = athletes.OrderBy(a => a.Bike).Select(a => a.Bike.ToString("hh\\:mm\\:ss")).ToArray();
+            stats.Run.Data = athletes.OrderBy(a => a.Run).Select(a => a.Run.ToString("hh\\:mm\\:ss")).ToArray();
+            stats.Finish.Data = athletes.OrderBy(a => a.Finish).Select(a => a.Finish.ToString("hh\\:mm\\:ss")).ToArray();
+
+            stats.DNFCount = calc.NumberDNFs();
+
+            return stats;
+        }
+
+
+        /// <summary>
+        /// GetStats for athletes, independent of a race
+        /// </summary>
+        /// <param name="athletes"></param>
+        /// <returns></returns>
+        protected TriStatsExtended GetStats(IEnumerable<Triathlete> athletes)
+        {
+            var stats = new TriStatsExtended(athletes);
+            stats.Athletes = athletes.ToList();
+
+            var calc = new TriStatsCalculatorExtended(stats.Athletes);
+
+            //median
+            stats.Swim.Median = calc.TimeSpanMedian("Swim");
+            stats.Bike.Median = calc.TimeSpanMedian("Bike");
+            stats.Run.Median = calc.TimeSpanMedian("Run");
+            stats.Finish.Median = calc.TimeSpanMedian("Finish");
+
+
+            stats.DivRank.Median = calc.IntMedian("DivRank");
+            stats.GenderRank.Median = calc.IntMedian("GenderRank");
+            stats.OverallRank.Median = calc.IntMedian("OverallRank");
+            stats.Points.Median = calc.IntMedian("Points");
+
+            //avg
+            stats.Swim.Average = calc.TimeSpanAverage("Swim");
+            stats.Bike.Average = calc.TimeSpanAverage("Bike");
+            stats.Run.Average = calc.TimeSpanAverage("Run");
+            stats.Finish.Average = calc.TimeSpanAverage("Finish");
+
+
+            stats.DivRank.Average = calc.IntAverage("DivRank");
+            stats.GenderRank.Average = calc.IntAverage("GenderRank");
+            stats.OverallRank.Average = calc.IntAverage("OverallRank");
+            stats.Points.Average = calc.IntAverage("Points");
+
+            //min
+            stats.Swim.Min = calc.TimeSpanMin("Swim");
+            stats.Bike.Min = calc.TimeSpanMin("Bike");
+            stats.Run.Min = calc.TimeSpanMin("Run");
+            stats.Finish.Min = calc.TimeSpanMin("Finish");
+
+
+            stats.DivRank.Min = calc.IntMin("DivRank");
+            stats.GenderRank.Min = calc.IntMin("GenderRank");
+            stats.OverallRank.Min = calc.IntMin("OverallRank");
+            stats.Points.Min = calc.IntMin("Points");
+
+            //max
+            stats.Swim.Max = calc.TimeSpanMax("Swim");
+            stats.Bike.Max = calc.TimeSpanMax("Bike");
+            stats.Run.Max = calc.TimeSpanMax("Run");
+            stats.Finish.Max = calc.TimeSpanMax("Finish");
+
+
+            stats.DivRank.Max = calc.IntMax("DivRank");
+            stats.GenderRank.Max = calc.IntMax("GenderRank");
+            stats.OverallRank.Max = calc.IntMax("OverallRank");
+            stats.Points.Max = calc.IntMax("Points");
+
+            return stats;
+        }
 
 
         #endregion //Protected Methods

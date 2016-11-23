@@ -158,6 +158,8 @@ namespace RaceAnalysis.Models
         public TimeSpan Min { get; set; }
         public TimeSpan Max { get; set; }
         public TimeSpan StandDev { get; set; }
+
+        //note: by returning the list of athletes we will be able to display them in each group
         public Tuple<List<Triathlete>, List<Triathlete>> FastestHalf { get; set; }
         public Tuple<List<Triathlete>, List<Triathlete>> SlowestHalf { get; set; }
         public String[] Data { get; set; }
