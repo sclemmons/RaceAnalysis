@@ -5,22 +5,25 @@
 *****---http://work.smarchal.com/twbscolor/scss/2674b3354e89f8f9f8e5e2e81
 ******************************************************************/
 .navbar-inverse {
-  background-color: #2674b3;
-  border-color: #354e89;
+  border:none;
+  background-color: rgba(255,255,255,0.5);
 }
 .navbar-inverse .navbar-brand {
-  //color: #f8f9f8;
-  color:silver;
+ color:silver;
+ //color:black;
 }
 .navbar-inverse .navbar-brand:hover,
 .navbar-inverse .navbar-brand:focus {
   color: #e5e2e8;
+  
 }
 .navbar-inverse .navbar-text {
   color: #f8f9f8;
 }
 .navbar-inverse .navbar-nav > li > a {
   color: #f8f9f8;
+  color:black;
+
 }
 .navbar-inverse .navbar-nav > li > a:hover,
 .navbar-inverse .navbar-nav > li > a:focus {
@@ -59,7 +62,8 @@
   background-color: #354e89;
 }
 .navbar-inverse .navbar-toggle {
-  border-color: #354e89;
+ //border-color: #354e89;
+ border:none;
 }
 .navbar-inverse .navbar-toggle:hover,
 .navbar-inverse .navbar-toggle:focus {
@@ -70,7 +74,8 @@
 }
 .navbar-inverse .navbar-collapse,
 .navbar-inverse .navbar-form {
-  border-color: #f8f9f8;
+ //border-color: #f8f9f8;
+ border:none;
 }
 .navbar-inverse .navbar-link {
   color: #f8f9f8;

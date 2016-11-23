@@ -1,8 +1,12 @@
-﻿body {
+﻿
+
+body {
     padding-top: 50px;
     padding-bottom: 20px;
     background-color:whitesmoke;
+       background-image: url(../Content/images/header-bg.jpg);
 }
+
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
@@ -28,16 +32,27 @@ textarea {
     padding : 5px;
 }
 
+div.container.body-content{
+    //background-color:yellow;
+    
+}
+
+/***** home page*****/
+.home-header {
+    width: 100%;
+ 
+    background-position: 50% 30%;
+    background-size: cover;
+    position: relative;
+    overflow: hidden;
+}
+
+
 #results {
   
 }
 
-.body-content{
-     
-   // background-color:aqua;
-   // float: right;
-    
-}
+
 .slider-step{
   //  background-color:red;
     width: 70%;
