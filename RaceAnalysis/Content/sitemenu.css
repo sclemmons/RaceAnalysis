@@ -6,11 +6,19 @@
 ******************************************************************/
 .navbar-inverse {
   border:none;
-  background-color: rgba(255,255,255,0.5);
+  background-color: rgba(255,255,255,0.3);
 }
 .navbar-inverse .navbar-brand {
  color:silver;
- //color:black;
+ color:black;/*depends on the color we wind up with*/
+   background-image: url(../Content/images/tristats-piechart.png);
+   background-repeat:no-repeat;
+   background-position:top;
+   height:70px;
+   width:70px;
+   
+}
+
 }
 .navbar-inverse .navbar-brand:hover,
 .navbar-inverse .navbar-brand:focus {
@@ -22,7 +30,9 @@
 }
 .navbar-inverse .navbar-nav > li > a {
   color: #f8f9f8;
-  color:black;
+  color:darkblue;
+  font-style:oblique;
+  font-weight:bold;
 
 }
 .navbar-inverse .navbar-nav > li > a:hover,
@@ -82,6 +92,10 @@
 }
 .navbar-inverse .navbar-link:hover {
   color: #e5e2e8;
+}
+.navbar-toggle{
+    opacity:.5;
+    background-color:darkblue;
 }
 
 @media (max-width: 767px) {

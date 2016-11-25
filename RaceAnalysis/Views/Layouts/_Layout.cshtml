@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Tri Stats</title>
+    <title>@ViewBag.Title</title>
     @Styles.Render("~/bundles/css")
     @Styles.Render("~/bundles/themes/css")
     @Scripts.Render("~/bundles/modernizr")
@@ -28,13 +28,11 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("TriStats", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink(".", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li class='@Html.IsActive("Home", "Index")'>
-                        @Html.ActionLink("Home", "Index", "Home")
-                    </li>
+                <ul class="nav navbar-nav navbar-right">
+                 
                     <li class='@Html.IsActive("TriStatsSummary", "Index")'>
                         @Html.ActionLink("Analyze", "Index", "TriStatsSummary")
                     </li>
@@ -42,8 +40,8 @@
                         @Html.ActionLink("How would I do?", "Index", "Hypotheticals")
                     </li>
 
-                    <li class='@Html.IsActive("Discover", "Index")'>
-                        @Html.ActionLink("Discover", "Index", "Discover")
+                    <li class='@Html.IsActive("Search", "Index")'>
+                        @Html.ActionLink("Search", "Index", "Search")
                     </li>
                     <li class='@Html.IsActive("Home", "About")'>
                         @Html.ActionLink("About", "About", "Home")
@@ -55,7 +53,7 @@
                         </ul>
                   
 
-                        @Html.Partial("_LoginPartial")
+                       <!--Html.Partial("_LoginPartial")-->
 </div>
         </div>
     </div>

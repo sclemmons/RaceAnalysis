@@ -4,7 +4,9 @@ body {
     padding-top: 50px;
     padding-bottom: 20px;
     background-color:whitesmoke;
-       background-image: url(../Content/images/header-bg.jpg);
+       background-image: url(../Content/images/shutterstock2.jpg);
+       background-size:cover;
+       background-repeat:no-repeat;
 }
 
 
@@ -13,6 +15,7 @@ body {
  // padding-left: 15px;
   //  padding-right: 15px;
 }
+
 
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
@@ -45,6 +48,36 @@ div.container.body-content{
     background-size: cover;
     position: relative;
     overflow: hidden;
+    
+}
+.home-header h2{
+    margin-top:40px;
+    color:darkblue;
+    font-style:italic;
+}
+
+.home-about{
+        color:black;
+}
+
+.feature-callout{
+  
+    width:50%;
+    margin: 0 auto; /*center inside the outter div*/ 
+    margin-top:10px;
+    padding:5px;
+    border-width:1px;
+    border-style:groove;
+    border-color: rgba(0, 0, 0, 0.2);
+    border-color: whitesmoke;
+    border-radius:5px;
+    text-align:center;
+    background-color:azure;
+    opacity: .6;
+    //color: rgba(51,51,51,1);
+    color:darkblue;
+    font-weight:bold;
+  
 }
 
 
