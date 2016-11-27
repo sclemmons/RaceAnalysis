@@ -19,7 +19,12 @@
    
 }
 
+.navbar-header span{
+    margin:10px;
+    font-size:32px;
+    color:darkblue;
 }
+
 .navbar-inverse .navbar-brand:hover,
 .navbar-inverse .navbar-brand:focus {
   color: #e5e2e8;

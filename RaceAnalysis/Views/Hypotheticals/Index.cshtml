@@ -8,28 +8,37 @@
 <script type="text/javascript" src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 }
 
-<form id="myForm">
-    <div id="Criteria">
 
-        I am interested in this race:
-        @Html.ListBoxFor(m => m.Filter.SelectedRaceIds,
+    <form id="myForm">
+        <div class="criteria">
+         
+            <div class="form-group">
+                <span class="title">I am interested in this race:</span>
+                @Html.ListBoxFor(m => m.Filter.SelectedRaceIds,
                       new SelectList(Model.Filter.AvailableRaces, "RaceId", "DisplayName"),
-                      new { @id = "raceSelectId" })
+                      new { @id = "raceSelectId", @class="selection" })
+                </div>
 
-        I am a @Html.ListBoxFor(m => m.Filter.SelectedGenderIds,
+            <span class="title">I am a</span> 
+
+            @Html.ListBoxFor(m => m.Filter.SelectedGenderIds,
                 new SelectList(Model.Filter.AvailableGenders, "GenderId", "DisplayName"),
-                new { @id = "genderSelectId" }), in this age group: @Html.ListBoxFor(m => m.Filter.SelectedAgeGroupIds,
+                new { @id = "genderSelectId" }) 
+            
+            <span class="title">in this age group: </span>@Html.ListBoxFor(m => m.Filter.SelectedAgeGroupIds,
                 new SelectList(Model.Filter.AvailableAgeGroups, "AgeGroupId", "DisplayName"),
                 new { @id = "agSelectId" })
 
+            <span class="title">In most races I do this well:</span>
                 @Html.ListBoxFor(m => m.SelectedSkillLevel,
                 new SelectList(Model.AvailableSkillLevels, "Value", "DisplayName"),
                 new { @id = "skillLevelId" })
 
-            </div>
- </form>
-<div class="hypothetical">
-    @Ajax.ActionLink("What is my expected finish time?",
+</div>
+
+        </form>
+        <div class="hypothetical">
+            @Ajax.ActionLink("What is my expected finish time?",
                         "FinishTime", "Hypotheticals",
                         null,
                         new AjaxOptions
@@ -40,27 +49,61 @@
                             OnBegin = "beginPost"
                         },
                         htmlAttributes: new { id = "ExpectedFinishTime" })
+        </div>
+
+        <div id="ExpectedFinishTimeResults"></div>
+
+<div class="hypothetical">
+    @Ajax.ActionLink("If I bike this fast how would I compare with other athletes?",
+                        "FinishTime", "Hypotheticals",
+                        null,
+                        new AjaxOptions
+                        {
+                            UpdateTargetId = "ExpectedFinishTimeResults",
+                            InsertionMode = InsertionMode.Replace,
+                            HttpMethod = "GET",
+                            OnBegin = "beginPost"
+                        },
+                        htmlAttributes: new { id = "ExpectedFinishTime" })
+
 </div>
- 
-<div id="ExpectedFinishTimeResults"></div>
 
 
-     
 
-    <div class="hypothetical">
-        If I biked[Select Bike Duration], how would I do?  Action: [Find Out..]
-    </div>
+        <div class="hypothetical">
+            @Ajax.ActionLink("If I swam this fast how would I compare with other athletes?",
+                        "FinishTime", "Hypotheticals",
+                        null,
+                        new AjaxOptions
+                        {
+                            UpdateTargetId = "ExpectedFinishTimeResults",
+                            InsertionMode = InsertionMode.Replace,
+                            HttpMethod = "GET",
+                            OnBegin = "beginPost"
+                        },
+                        htmlAttributes: new { id = "ExpectedFinishTime" })
+           
+        </div>
 
         Results:
         X% of athletes that had a bike time of[XXX]:
         Ran: [XXX Time]
         Finished: [XXXX Time]
 
-    <div class="hypothetical">
-        If I swam[Select Swim Duration], how would I fare against other athletes?
-        [Box model with annotation]
-    </div>
+       <div class="hypothetical">
+    @Ajax.ActionLink("If I biked this fast how fast should my run be?",
+                        "FinishTime", "Hypotheticals",
+                        null,
+                        new AjaxOptions
+                        {
+                            UpdateTargetId = "ExpectedFinishTimeResults",
+                            InsertionMode = InsertionMode.Replace,
+                            HttpMethod = "GET",
+                            OnBegin = "beginPost"
+                        },
+                        htmlAttributes: new { id = "ExpectedFinishTime" })
 
+</div>
 
 
     <script type="text/javascript">

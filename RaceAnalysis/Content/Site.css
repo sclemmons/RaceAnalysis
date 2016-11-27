@@ -8,6 +8,10 @@ body {
        background-size:cover;
        background-repeat:no-repeat;
 }
+body.analysis{
+    background-image:none;
+    background-color:whitesmoke;
+}
 
 
 /* Set padding to keep content from hitting the edges */
@@ -30,16 +34,21 @@ select,
 textarea {
     max-width: 280px;
 }
-.container .content {
+/***.container.content {
     display: none;
     padding : 5px;
-}
+}****/
 
 div.container.body-content{
     //background-color:yellow;
-    
+    margin-top:30px;
+ 
 }
-
+div.container-analysis {
+        margin-top: 30px;
+        //background-color: white;
+        //background-color:rgba(255,225,251,.8);
+}
 /***** home page*****/
 .home-header {
     width: 100%;
@@ -51,7 +60,7 @@ div.container.body-content{
     
 }
 .home-header h2{
-    margin-top:40px;
+    margin-top:10px;
     color:darkblue;
     font-style:italic;
 }
@@ -64,6 +73,7 @@ div.container.body-content{
   
     width:50%;
     margin: 0 auto; /*center inside the outter div*/ 
+    margin-left:10px;
     margin-top:10px;
     padding:5px;
     border-width:1px;
@@ -73,8 +83,7 @@ div.container.body-content{
     border-radius:5px;
     text-align:center;
     background-color:azure;
-    opacity: .6;
-    //color: rgba(51,51,51,1);
+    opacity: .8;
     color:darkblue;
     font-weight:bold;
   
@@ -262,6 +271,19 @@ div.error {
     display:none;
 }
 
+#page-actions
+{
+    border-bottom:none;
+    margin-bottom:0px;
+    padding-bottom:0px;
+}
+#results{
+    border-top:none;
+    margin-top:0px;
+
+}
+
+
 div#results-header
 {
  // background-color:yellow;
@@ -416,7 +438,24 @@ div#chart-key{
    
 }
 
-.hypothetical{
+/**********************Hypotheticals ******/
+div.criteria {
+    
+}
+div.criteria span.title{
+    
+    padding-bottom:10px;
+    //background-color:yellow;
+    color:darkslateblue;
+    font-size:24px;
+    //max-width: 100px;
+    
+}
+div.criteria .form-group{
+    width: 400px;
+}
+
+.hypothetical {
     width:50%;
     margin-top:10px;
     padding:5px;
@@ -431,6 +470,7 @@ div#box_estfinish{
     position: relative;
     width: 100%;
     height:250px;
+
  
 }
 
@@ -446,6 +486,7 @@ div#overlay-marker-estfinish {
     font-weight:bold;
 }
 div#finish_range{
+    margin-top:10px;
     font-style: italic;
      font-weight:bold;
     font-size: 14px;

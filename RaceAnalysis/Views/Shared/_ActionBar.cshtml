@@ -1,5 +1,6 @@
 ﻿@model BaseViewModel
 @using RaceAnalysis.Models;
+@using RaceAnalysis.Helpers
 
 @{ 
     var queryViewModel = new SimpleFilterViewModel
@@ -24,28 +25,38 @@
 }
 
 
-@Html.ActionLink("Summary", "SelectedRaces", "TriStatsSummary",
-                 queryViewModel, new { @id = "action-summary", @class = "btn btn-success btn-duration", title = "Display histogram" })
+<ul class="nav nav-tabs">
+    <li class='@Html.IsActive("TriStatsSummary", "SelectedRaces")'>
+        @Html.ActionLink("Summary", "SelectedRaces", "TriStatsSummary",
+                 queryViewModel, new { @id = "action-summary", title = "Display histogram" })
+    </li>
 
+    <li class='@Html.IsActive("TriStats", "SelectedRaces")'>
+        @Html.ActionLink("Details", "SelectedRaces", "TriStats",
+                 queryViewModel, new { @id = "action-stats",title = "Display detailed stats" })
+    </li>
+    <li class='@Html.IsActive("CompareBikeRun", "SelectedRaces")'>
+        @Html.ActionLink("Bike and Run", "SelectedRaces", "CompareBikeRun",
+                  queryViewModel, new { @id = "action-comparebikerun", title = "Compare bike and run" })
+    </li>
+    <li class='@Html.IsActive("TriAthletes", "SelectedRaces")'>
+        @Html.ActionLink("Athletes", "SelectedRaces", "TriAthletes",
+                 queryViewModel, new { @id = "action-athletes", title = "Display selected athletes" })
+    </li>
+    <li class='@Html.IsActive("TriStatsAgeGroupsCompare", "SelectedRaces")'>
+        @Html.ActionLink("Compare Age Groups", "SelectedRaces", "TriStatsAgeGroupsCompare",
+                  queryViewModel, new { @id = "action-compareages", title = "Compare selected age groups" })
+    </li>
+    <li class='@Html.IsActive("CompareRaces", "SelectedRaces")'>
+        @Html.ActionLink("Compare Races", "SelectedRaces", "CompareRaces",
+                  queryViewModel, new { @id = "action-compareraces", title = "Compare selected races" })
 
-@Html.ActionLink("Details", "SelectedRaces", "TriStats",
-                 queryViewModel, new {@id="action-stats", @class = "btn btn-success btn-duration", title = "Display detailed stats" })
+    </li>
+</ul>
 
-@Html.ActionLink("Bike and Run", "SelectedRaces", "CompareBikeRun",
-                  queryViewModel, new { @id = "action-comparebikerun", @class = "btn btn-success btn-duration", title = "Compare bike and run" })
+    <script>
+        $(document).ready(function () {
+            $('#@ViewBag.Action').parent("li").addClass("active");
+        });
+    </script>
 
-@Html.ActionLink("Athletes", "SelectedRaces", "TriAthletes",
-                 queryViewModel, new { @id="action-athletes" ,@class = "btn btn-success btn-duration", title = "Display selected athletes" })
-
-@Html.ActionLink("Compare Age Groups", "SelectedRaces", "TriStatsAgeGroupsCompare",
-                  queryViewModel, new {@id="action-compareages", @class = "btn btn-success btn-duration", title = "Compare selected age groups" })
-
-@Html.ActionLink("Compare Races", "SelectedRaces", "CompareRaces",
-                  queryViewModel, new {@id="action-compareraces", @class = "btn btn-success btn-duration", title = "Compare selected races" })
-
-
-   
-<script>
-    $('#@ViewBag.Action').addClass("disabled");
-</script>
-    
