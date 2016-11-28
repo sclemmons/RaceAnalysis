@@ -1,0 +1,17 @@
+﻿@model RaceAnalysis.Models.BaseViewModel
+@{
+    ViewBag.BodyClass = "homepage";
+    Layout = "~/Views/Layouts/_Layout.cshtml";
+}
+
+@RenderSection("scripts", required: false)
+@section scripts {
+
+    <style type="text/css">
+        .navbar-inverse {
+             background-color: rgba(255,255,255,0.3);
+        }
+    </style>
+}
+
+@RenderBody()

@@ -4,13 +4,21 @@ body {
     padding-top: 50px;
     padding-bottom: 20px;
     background-color:whitesmoke;
-       background-image: url(../Content/images/shutterstock2.jpg);
-       background-size:cover;
-       background-repeat:no-repeat;
+      
 }
 body.analysis{
     background-image:none;
     background-color:whitesmoke;
+}
+body.fullpage{
+    background-image:none;
+    background-color:whitesmoke;
+}
+body.homepage{
+    background-image: url(../Content/images/shutterstock2.jpg);
+    background-size:cover;
+    background-repeat:no-repeat;
+    
 }
 
 
@@ -451,8 +459,8 @@ div.criteria span.title{
     //max-width: 100px;
     
 }
-div.criteria .form-group{
-    width: 400px;
+div.criteria {
+    width: 300px;
 }
 
 .hypothetical {
@@ -475,7 +483,8 @@ div#box_estfinish{
 }
 
 div#overlay-marker-estfinish {
-    background-color:azure;
+    background-color:darkturquoise;
+    border-radius:2px;
     width: 200px;
     height: 24px;
     position: absolute;

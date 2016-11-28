@@ -20,6 +20,11 @@ namespace RaceAnalysis.Controllers
         {
             var viewModel = new HypotheticalsViewModel();
             viewModel.Filter = new RaceFilterViewModel();
+            //for this view, leave out the default selections
+            viewModel.Filter.SelectedAgeGroupIds = new List<int>();
+            viewModel.Filter.SelectedGenderIds = new List<int>();
+
+
             return View(viewModel);
         }
       

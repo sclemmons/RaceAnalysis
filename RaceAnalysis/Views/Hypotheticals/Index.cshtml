@@ -1,7 +1,7 @@
 ﻿@model RaceAnalysis.Models.HypotheticalsViewModel
 
 @{
-    Layout = "~/Views/Layouts/_Layout.cshtml";
+    Layout = "~/Views/Layouts/_FullPageLayout.cshtml";
 }
 
 @section scripts {
@@ -9,36 +9,37 @@
 }
 
 
-    <form id="myForm">
-        <div class="criteria">
-         
-            <div class="form-group">
-                <span class="title">I am interested in this race:</span>
-                @Html.ListBoxFor(m => m.Filter.SelectedRaceIds,
+<form id="myForm">
+    <div class="criteria">
+   
+            <span class="title">I am interested in this race:</span>
+            @Html.ListBoxFor(m => m.Filter.SelectedRaceIds,
                       new SelectList(Model.Filter.AvailableRaces, "RaceId", "DisplayName"),
-                      new { @id = "raceSelectId", @class="selection" })
-                </div>
+                      new { @id = "raceSelectId", @class = "selection" })
+   
+    </div>
 
-            <span class="title">I am a</span> 
-
-            @Html.ListBoxFor(m => m.Filter.SelectedGenderIds,
+    <div class="criteria">
+        <span class="title">I am a</span>
+        @Html.ListBoxFor(m => m.Filter.SelectedGenderIds,
                 new SelectList(Model.Filter.AvailableGenders, "GenderId", "DisplayName"),
-                new { @id = "genderSelectId" }) 
-            
-            <span class="title">in this age group: </span>@Html.ListBoxFor(m => m.Filter.SelectedAgeGroupIds,
+                new { @id = "genderSelectId", @class = "selection" })
+    </div>
+    <div class="criteria">
+        <span class="title">in this age group: </span>@Html.ListBoxFor(m => m.Filter.SelectedAgeGroupIds,
                 new SelectList(Model.Filter.AvailableAgeGroups, "AgeGroupId", "DisplayName"),
-                new { @id = "agSelectId" })
-
-            <span class="title">In most races I do this well:</span>
-                @Html.ListBoxFor(m => m.SelectedSkillLevel,
+                new { @id = "agSelectId", @class = "selection" })
+    </div>
+    <div class="criteria">
+        <span class="title">In most races I do this well:</span>
+        @Html.ListBoxFor(m => m.SelectedSkillLevel,
                 new SelectList(Model.AvailableSkillLevels, "Value", "DisplayName"),
-                new { @id = "skillLevelId" })
+                new { @id = "skillLevelId", @class = "selection" })
+    </div>
 
-</div>
 
-        </form>
-        <div class="hypothetical">
-            @Ajax.ActionLink("What is my expected finish time?",
+    <div class="hypothetical">
+        @Ajax.ActionLink("What is my expected finish time?",
                         "FinishTime", "Hypotheticals",
                         null,
                         new AjaxOptions
@@ -49,49 +50,12 @@
                             OnBegin = "beginPost"
                         },
                         htmlAttributes: new { id = "ExpectedFinishTime" })
-        </div>
+    </div>
 
-        <div id="ExpectedFinishTimeResults"></div>
+    <div id="ExpectedFinishTimeResults"></div>
 
-<div class="hypothetical">
-    @Ajax.ActionLink("If I bike this fast how would I compare with other athletes?",
-                        "FinishTime", "Hypotheticals",
-                        null,
-                        new AjaxOptions
-                        {
-                            UpdateTargetId = "ExpectedFinishTimeResults",
-                            InsertionMode = InsertionMode.Replace,
-                            HttpMethod = "GET",
-                            OnBegin = "beginPost"
-                        },
-                        htmlAttributes: new { id = "ExpectedFinishTime" })
-
-</div>
-
-
-
-        <div class="hypothetical">
-            @Ajax.ActionLink("If I swam this fast how would I compare with other athletes?",
-                        "FinishTime", "Hypotheticals",
-                        null,
-                        new AjaxOptions
-                        {
-                            UpdateTargetId = "ExpectedFinishTimeResults",
-                            InsertionMode = InsertionMode.Replace,
-                            HttpMethod = "GET",
-                            OnBegin = "beginPost"
-                        },
-                        htmlAttributes: new { id = "ExpectedFinishTime" })
-           
-        </div>
-
-        Results:
-        X% of athletes that had a bike time of[XXX]:
-        Ran: [XXX Time]
-        Finished: [XXXX Time]
-
-       <div class="hypothetical">
-    @Ajax.ActionLink("If I biked this fast how fast should my run be?",
+    <div class="hypothetical">
+        @Ajax.ActionLink("If I bike this fast how would I compare with other athletes?",
                         "FinishTime", "Hypotheticals",
                         null,
                         new AjaxOptions
@@ -103,8 +67,41 @@
                         },
                         htmlAttributes: new { id = "ExpectedFinishTime" })
 
-</div>
+    </div>
 
+
+
+    <div class="hypothetical">
+        @Ajax.ActionLink("If I swam this fast how would I compare with other athletes?",
+                        "FinishTime", "Hypotheticals",
+                        null,
+                        new AjaxOptions
+                        {
+                            UpdateTargetId = "ExpectedFinishTimeResults",
+                            InsertionMode = InsertionMode.Replace,
+                            HttpMethod = "GET",
+                            OnBegin = "beginPost"
+                        },
+                        htmlAttributes: new { id = "ExpectedFinishTime" })
+
+    </div>
+
+    <div class="hypothetical">
+        @Ajax.ActionLink("If I biked this fast how fast should my run be?",
+                        "FinishTime", "Hypotheticals",
+                        null,
+                        new AjaxOptions
+                        {
+                            UpdateTargetId = "ExpectedFinishTimeResults",
+                            InsertionMode = InsertionMode.Replace,
+                            HttpMethod = "GET",
+                            OnBegin = "beginPost"
+                        },
+                        htmlAttributes: new { id = "ExpectedFinishTime" })
+
+    </div>
+
+</form>
 
     <script type="text/javascript">
 
