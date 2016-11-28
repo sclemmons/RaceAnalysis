@@ -12,26 +12,22 @@
 <form id="myForm">
     <div class="criteria">
    
-            <span class="title">I am interested in this race:</span>
+    <span class="title">I am interested in this race:</span>
             @Html.ListBoxFor(m => m.Filter.SelectedRaceIds,
                       new SelectList(Model.Filter.AvailableRaces, "RaceId", "DisplayName"),
                       new { @id = "raceSelectId", @class = "selection" })
    
-    </div>
-
-    <div class="criteria">
-        <span class="title">I am a</span>
+    
+    <span class="title">I am a</span>
         @Html.ListBoxFor(m => m.Filter.SelectedGenderIds,
                 new SelectList(Model.Filter.AvailableGenders, "GenderId", "DisplayName"),
                 new { @id = "genderSelectId", @class = "selection" })
-    </div>
-    <div class="criteria">
-        <span class="title">in this age group: </span>@Html.ListBoxFor(m => m.Filter.SelectedAgeGroupIds,
+
+    <span class="title">in this age group: </span>@Html.ListBoxFor(m => m.Filter.SelectedAgeGroupIds,
                 new SelectList(Model.Filter.AvailableAgeGroups, "AgeGroupId", "DisplayName"),
                 new { @id = "agSelectId", @class = "selection" })
-    </div>
-    <div class="criteria">
-        <span class="title">In most races I do this well:</span>
+
+     <span class="title">In most races I do this well:</span>
         @Html.ListBoxFor(m => m.SelectedSkillLevel,
                 new SelectList(Model.AvailableSkillLevels, "Value", "DisplayName"),
                 new { @id = "skillLevelId", @class = "selection" })
@@ -127,7 +123,7 @@
         });
 
         var $skill_select = $("#skillLevelId").select2({
-            placeholder: "Skill level...",
+            placeholder: "My Skill Level...",
             width: '95%',
             theme: "bootstrap",
             maximumSelectionLength: 1

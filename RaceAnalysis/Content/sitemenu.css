@@ -16,6 +16,7 @@
    background-position:top;
    height:70px;
    width:70px;
+  text-indent: -9999px; /* hides the link text */
    
 }
 

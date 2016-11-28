@@ -352,6 +352,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\images\header-bg.jpg" />
+    <Content Include="Content\images\shutterstock2.jpg" />
     <Content Include="Content\images\tristats-piechart.png" />
     <Content Include="Content\select2.css" />
     <Content Include="Content\select2.min.css" />
@@ -589,14 +590,13 @@
     <Content Include="Views\Hypotheticals\_EstFinishResults.cshtml" />
     <Content Include="Views\Layouts\_FullPageLayout.cshtml" />
     <Content Include="Views\Layouts\_HomePageLayout.cshtml" />
+    <Content Include="Views\Search\Index.cshtml" />
     <None Include="Web.Test.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Search\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config">
       <SubType>Designer</SubType>
