@@ -12,7 +12,8 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/site")
-    @Scripts.Render("~/bundles/select2")
+    @Scripts.Render("~/bundles/select")
+
 
     @RenderSection("scripts", required: false)
 
@@ -28,13 +29,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-           
+
                @Html.ActionLink(".  text-indent: -9999px; /* hides the link text */", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
                <span>tri&bull;stats</span>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                 
+
                     <li class='@Html.IsActive("TriStatsSummary", "Index")'>
                         @Html.ActionLink("Analyze", "Index", "TriStatsSummary")
                     </li>
@@ -53,7 +54,7 @@
                         @Html.ActionLink("Contact", "Contact", "Home")
                     </li>
                         </ul>
-                  
+
 
                        <!--Html.Partial("_LoginPartial")-->
 </div>
@@ -66,6 +67,6 @@
             <p>&copy; @DateTime.Now.Year - TriStats by TriTone Software</p>
         </footer>
     </div>
-    
-    </body> 
+
+    </body>
 </html>

@@ -48,19 +48,23 @@ namespace RaceAnalysis
                       "~/Scripts/site.js"
                 ));
 
-            bundles.Add(new ScriptBundle("~/bundles/select2").Include(
-                      "~/Scripts/select2.js"
+            bundles.Add(new ScriptBundle("~/bundles/select").Include(
+                      "~/Scripts/select2.js",
+                      "~/Scripts/jquery.sumoselect.min.js" 
                 ));
 
             bundles.Add(new StyleBundle("~/bundles/css").Include(
             "~/Content/bootstrap.css",
             "~/Content/select2.css",
             "~/Content/select2-bootstrap.css",
+            "~/Content/sumoselect.css",
             "~/Content/site.css",
             "~/Content/sitemenu.css"
             ));
 
-          
+    
+    
+
 
         }
     }

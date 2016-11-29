@@ -281,6 +281,13 @@ div.error {
 
 }
 
+div.SumoSelect{
+    max-width:100%;
+}
+.SumoSelect .select-all{
+ height:inherit;
+}
+
 #filter, #results, #page-header,#page-actions,#filter-duration, div.criteria,div.hypothetical{
     margin:10px;
     margin-left:0px;
