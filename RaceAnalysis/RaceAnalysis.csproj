@@ -352,6 +352,8 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\images\header-bg.jpg" />
+    <Content Include="Content\images\ImageLayer.png" />
+    <Content Include="Content\images\ImageLayerYellow.png" />
     <Content Include="Content\images\shutterstock2.jpg" />
     <Content Include="Content\images\tristats-piechart.png" />
     <Content Include="Content\select2.css" />
