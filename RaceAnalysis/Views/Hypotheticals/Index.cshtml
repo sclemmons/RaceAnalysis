@@ -27,7 +27,7 @@
                 new SelectList(Model.Filter.AvailableAgeGroups, "AgeGroupId", "DisplayName"),
                 new { @id = "agSelectId", @class = "selection" })
 
-     <span class="title">In most races I do this well:</span>
+     <span class="title">In most races I am:</span>
         @Html.ListBoxFor(m => m.SelectedSkillLevel,
                 new SelectList(Model.AvailableSkillLevels, "Value", "DisplayName"),
                 new { @id = "skillLevelId", @class = "selection" })

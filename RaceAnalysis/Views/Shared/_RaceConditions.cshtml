@@ -1,13 +1,27 @@
 ﻿@model RaceAnalysis.Models.TriStats
 
-<div>
-    <div>Race: @Html.DisplayFor(r => Model.Race.DisplayName)</div>
-    <div>Count: @Html.DisplayFor(a => Model.Athletes.Count)</div>
-    @if (Model.Race.Conditions != null)
-            {
-        <div>Swim Conditions: @Html.DisplayFor(r => Model.Race.Conditions.SwimGeneral)</div>
-                <div>Bike Conditions: @Html.DisplayFor(r => Model.Race.Conditions.BikeGeneral)</div>
-                <div>Run Conditions:  @Html.DisplayFor(r => Model.Race.Conditions.RunGeneral)</div>
-    }
+<div class="panel-group" id="accordian">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+              <h4 class="panel-title">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                    <span class="glyphicon glyphicon-plus"></span>
+                    Race Conditions
+                </a>
+              </h4>
+        </div>
+            <div id="collapse1"  class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div>Race: @Html.DisplayFor(r => Model.Race.DisplayName)</div>
+                    <div>Count: @Html.DisplayFor(a => Model.Athletes.Count)</div>
+                    @if (Model.Race.Conditions != null)
+                    {
+                        <div>Swim Conditions: @Html.DisplayFor(r => Model.Race.Conditions.SwimGeneral)</div>
+                        <div>Bike Conditions: @Html.DisplayFor(r => Model.Race.Conditions.BikeGeneral)</div>
+                        <div>Run Conditions:  @Html.DisplayFor(r => Model.Race.Conditions.RunGeneral)</div>
+                    }
+                </div>
+            </div>
+        </div>
 </div>
 
