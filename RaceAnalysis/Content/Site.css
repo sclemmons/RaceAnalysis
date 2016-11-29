@@ -9,10 +9,16 @@ body {
 body.analysis{
     background-image:none;
     background-color:whitesmoke;
+     background-image: url(../Content/images/imagelayer.png);
+    background-repeat:no-repeat;
+    background-size:cover;
 }
 body.fullpage{
     background-image:none;
     background-color:whitesmoke;
+    background-image: url(../Content/images/imagelayeryellow.png);
+    background-repeat:no-repeat;
+    background-size:cover;
 }
 body.homepage{
     background-image: url(../Content/images/shutterstock2.jpg);
@@ -275,7 +281,7 @@ div.error {
 
 }
 
-#filter, #results, #page-header,#page-actions,#filter-duration{
+#filter, #results, #page-header,#page-actions,#filter-duration, div.criteria,div.hypothetical{
     margin:10px;
     margin-left:0px;
     margin-right:0px;
@@ -285,8 +291,17 @@ div.error {
     border-style:solid;
     border-color: rgba(0, 0, 0, 0.2);
     border-radius:5px;
+
+     -webkit-box-shadow: 0 8px 6px -6px black;
+	 -moz-box-shadow: 0 8px 6px -6px black;
+	 box-shadow: 0 8px 6px -6px black;
 }
 
+#page-header
+{
+    text-align:center;
+ 
+}
 
 #results,#page-actions
 {
@@ -302,7 +317,6 @@ div.error {
 #results{
     border-top:none;
     margin-top:0px;
-
 }
 
 
@@ -463,7 +477,7 @@ div#chart-key{
 /**********************Hypotheticals ******/
 div.criteria {
      width:50%;
-    //margin: 0 auto; /*center inside the outter div*/ 
+    margin: 0 auto; /*center inside the outter div*/ 
     //margin:10px;
     //margin-left:0px;
     //margin-right:0px;
@@ -485,15 +499,17 @@ div.criteria span.title{
 }
 
 
-.hypothetical {
+div.hypothetical {
     width:50%;
-    margin-top:10px;
+    //margin-top:10px;
+     margin: 20px auto; /*center inside the outter div*/ 
     padding:5px;
     background-color:white;
     border-width:1px;
     border-style:solid;
     border-color: rgba(0, 0, 0, 0.2);
     border-radius:5px;
+    font-size: 18px;
     
 }
 div#box_estfinish{
@@ -510,7 +526,7 @@ div#overlay-marker-estfinish {
     width: 200px;
     height: 24px;
     position: absolute;
-     top: 75px;   /* chartArea top  */
+    top: 90px;   /* chartArea top  */
     left: 0px; /* chartArea left */
     text-align:center;
     border: 2px;
@@ -518,9 +534,10 @@ div#overlay-marker-estfinish {
 }
 div#finish_range{
     margin-top:10px;
-    font-style: italic;
+    //font-style: italic;
      font-weight:bold;
     font-size: 14px;
-    background-color:azure;
+    background-color:cornflowerblue;
+    color:white;
     padding:10px;
 }
