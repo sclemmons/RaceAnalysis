@@ -51,76 +51,65 @@
         var $race_select = $("#raceSelectId").SumoSelect({
             placeholder: "Select Races..",
             search: true,
-            
+            captionFormatAllSelected: 'All {0} races selected'
         });
         var $ag_select = $("#agSelectId").SumoSelect({
             placeholder: "Select Age Groups...",
-           selectAll:true
+            selectAll: true,
+            captionFormatAllSelected: 'All age groups selected'
         });
         var $gen_select = $("#genderSelectId").SumoSelect({
             placeholder: "Select Genders..",
         });
 
-        /****
+
         $('#myForm').validate({
-            ignore: 'input[type=hidden], .select2-input, .select2-focusser',
-            errorElement: "div",
-            errorPlacement: function (error, element) {
-                element.after(error);
+            rules: {
+                SelectedRaceIds: {
+                    required: true
+                },
+                SelectedAgeGroupIds: {
+                    required: true
+                },
+                SelectedGenderIds: {
+                    required: true
+                }
             }
-        });***/
-        /*
-    * When you change the value the select via select2, it triggers
-    * a 'change' event, but the jquery validation plugin
-    * only re-validates on 'blur'
-    */
-        /****
-        $race_select.on('change', function () {
-            $(this).trigger('blur');
-        });
-        $ag_select.on('change', function () {
-            $(this).trigger('blur');
-        });
-        $gen_select.on('change', function () {
-            $(this).trigger('blur');
         });
 
-        $race_select.rules('add', 'required');
-        $ag_select.rules('add', 'required');
-        $gen_select.rules('add', 'required');
-        ****/
-    }());
+        //in order for this to work with Chrome, disable the submit button on the form submit.-->
+        $("#myForm").submit(function (event) {
 
+            if ($("#myForm").valid() == true) //only disable th button if the form is valid otherwise the user cant submit again
+            {
+                $('#submitButton').text("One Moment...");
+                $('#submitButton').prop("disabled", "disabled");
+            }
+            else {
+                $('#submitButton').text("Apply");
+            }
 
-    //in order for this to work with Chrome, disable the submit button on the form submit.-->
-    $("#myForm").submit(function (event) {
+        });
 
-        if ($("#myForm").valid() == true) //only disable th button if the form is valid otherwise the user cant submit again
-        {
-            $('#submitButton').text("One Moment...");
-            $('#submitButton').prop("disabled", "disabled");
-        }
-        else {
-            $('#submitButton').text("Apply");
-        }
+        $("#resetButton").click(function () {
+       
+            for (var i = 0; i < $('#raceSelectId')[0].options.length; i++) {
+                $('#raceSelectId')[0].sumo.unSelectItem(i);
+            }
 
-    })
+            for (var i = 0; i < $('#agSelectId')[0].options.length; i++) {
+                $('#agSelectId')[0].sumo.unSelectItem(i);
+            }
 
-    $("#resetButton").click(function(){
+            for (var i = 0; i < $('#genderSelectId')[0].options.length; i++) {
+                $('#genderSelectId')[0].sumo.unSelectItem(i);
+            }
+            //return false;
+            $('#duration-filter-container').load('@Url.Action("ResetDurations", "TriStats")');
 
-        $("#raceSelectId").val(null).trigger("change");
-        $("#agSelectId").val(null).trigger("change");
-        $("#genderSelectId").val(null).trigger("change");
+        });
 
-
-        $('#duration-filter-container').load(  '@Url.Action("ResetDurations", "TriStats")');
-
-
-      })
-
-
-
-
+    });
 </script>
 
 

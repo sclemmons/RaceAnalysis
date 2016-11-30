@@ -36,6 +36,9 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
 
+                    <li class='@Html.IsActive("Home", "Index")'>
+                        @Html.ActionLink("Home", "Index", "Home")
+                    </li>
                     <li class='@Html.IsActive("TriStatsSummary", "Index")'>
                         @Html.ActionLink("Analyze", "Index", "TriStatsSummary")
                     </li>

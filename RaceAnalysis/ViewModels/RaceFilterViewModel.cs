@@ -184,13 +184,6 @@ namespace RaceAnalysis.Models
         private List<AgeGroup> GetAvailableAgeGroups(RaceAnalysisDbContext db)
         {
             var ag = db.AgeGroups.ToList();
-            ag.Insert(0,
-                    new AgeGroup
-                    {
-                        DisplayName = "All Age-Groupers",
-                        AgeGroupId = 0,
-                        Value = "All"
-                    });
             return ag;
         }
         private List<int> GetDefaultAgeGroups()
