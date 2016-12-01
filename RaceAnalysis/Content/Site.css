@@ -283,6 +283,7 @@ div.error {
 
 div.SumoSelect{
     max-width:100%;
+    width:100%;
 }
 .SumoSelect .select-all{
  height:inherit;
@@ -544,7 +545,7 @@ div#finish_range{
     //font-style: italic;
      font-weight:bold;
     font-size: 14px;
-    background-color:cornflowerblue;
+    background-color:darkturquoise;
     color:white;
     padding:10px;
 }

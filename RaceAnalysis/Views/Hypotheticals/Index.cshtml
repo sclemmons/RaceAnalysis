@@ -2,6 +2,10 @@
 
 @{
     Layout = "~/Views/Layouts/_FullPageLayout.cshtml";
+    var SelectedRaceId = Model.Filter.SelectedRaceIds.SingleOrDefault();
+    var SelectedGenderId = Model.Filter.SelectedGenderIds.SingleOrDefault();
+    var SelectedAgeGroupId = Model.Filter.SelectedAgeGroupIds.SingleOrDefault();
+
 }
 
 @section scripts {
@@ -13,27 +17,24 @@
     <div class="criteria">
    
     <span class="title">I am interested in this race:</span>
-            @Html.ListBoxFor(m => m.Filter.SelectedRaceIds,
-                      new SelectList(Model.Filter.AvailableRaces, "RaceId", "DisplayName"),
-                      new { @id = "raceSelectId", @class = "selection" })
-   
+        @Html.DropDownListFor(m => SelectedRaceId,
+                    new SelectList(Model.Filter.AvailableRaces, "RaceId", "DisplayName"),"Select Race...",
+                    new { @id = "raceSelectId", @class = "selection" })
     
     <span class="title">I am a</span>
-        @Html.ListBoxFor(m => m.Filter.SelectedGenderIds,
-                new SelectList(Model.Filter.AvailableGenders, "GenderId", "DisplayName"),
+        @Html.DropDownListFor(m => SelectedGenderId,
+                new SelectList(Model.Filter.AvailableGenders, "GenderId", "DisplayName"), "Select Gender...",
                 new { @id = "genderSelectId", @class = "selection" })
 
-    <span class="title">in this age group: </span>@Html.ListBoxFor(m => m.Filter.SelectedAgeGroupIds,
-                new SelectList(Model.Filter.AvailableAgeGroups, "AgeGroupId", "DisplayName"),
+    <span class="title">in this age group: </span>@Html.DropDownListFor(m => SelectedAgeGroupId,
+                new SelectList(Model.Filter.AvailableAgeGroups, "AgeGroupId", "DisplayName"),"Select Age Group...",
                 new { @id = "agSelectId", @class = "selection" })
 
      <span class="title">In most races I am:</span>
-        @Html.ListBoxFor(m => m.SelectedSkillLevel,
+        @Html.DropDownListFor(m => m.SelectedSkillLevel,
                 new SelectList(Model.AvailableSkillLevels, "Value", "DisplayName"),
                 new { @id = "skillLevelId", @class = "selection" })
     </div>
-
-
 
 
     <div class="hypothetical">
@@ -103,104 +104,75 @@
 
 </form>
 
-    <script type="text/javascript">
+<script type="text/javascript">
 
     $(document).ready(function () {
 
-        var $race_select = $("#raceSelectId").select2({
-            placeholder: "Select Races...",
-            width: '95%',
-            theme: "bootstrap",
-            maximumSelectionLength: 1
+        var $race_select = $("#raceSelectId").SumoSelect({
+            placeholder: "Select Race..",
+            search: true,
+            captionFormat: '{0} Races Selected',
+            captionFormatAllSelected: 'All {0} races selected'
         });
-        var $ag_select = $("#agSelectId").select2({
+        var $ag_select = $("#agSelectId").SumoSelect({
             placeholder: "My Age Group...",
-            width: '95%',
-            theme: "bootstrap",
-            maximumSelectionLength: 1
+            captionFormat: '{0} Age Groups Selected',
+            captionFormatAllSelected: 'All age groups selected'
         });
-        var $gen_select = $("#genderSelectId").select2({
-            placeholder: "My Gender...",
-            width: '95%',
-            theme: "bootstrap",
-            maximumSelectionLength: 1
+        var $gen_select = $("#genderSelectId").SumoSelect({
+            placeholder: "My Gender..",
         });
-
-        var $skill_select = $("#skillLevelId").select2({
+        var $skill_select = $("#skillLevelId").SumoSelect({
             placeholder: "My Skill Level...",
-            width: '95%',
-            theme: "bootstrap",
             maximumSelectionLength: 1
         });
-
-
-
         $('#myForm').validate({
-            ignore: 'input[type=hidden], .select2-input, .select2-focusser',
-            errorElement: "div",
-            errorPlacement: function (error, element) {
-                element.after(error);
+            rules: {
+                SelectedRaceIds: {
+                    required: true
+                },
+                SelectedAgeGroupIds: {
+                    required: true
+                },
+                SelectedGenderIds: {
+                    required: true
+                },
+                SelectedSkillLevel: {
+                    required: true
+                }
             }
         });
-        /*
-    * When you change the value the select via select2, it triggers
-    * a 'change' event, but the jquery validation plugin
-    * only re-validates on 'blur'
-    */
-        $race_select.on('change', function () {
-            $(this).trigger('blur');
-        });
-        $ag_select.on('change', function () {
-            $(this).trigger('blur');
-        });
-        $gen_select.on('change', function () {
-            $(this).trigger('blur');
-        });
-        $skill_select.on('change', function () {
-            $(this).trigger('blur');
-        });
+    });
+        function beginPost(xhr, request) {
+            var requester = $(this);
+            //if (!validateForm(requester))/*TBD, validation  is not working*/
+            // return false;
 
-        $race_select.rules('add', 'required');
-        $ag_select.rules('add', 'required');
-        $gen_select.rules('add', 'required');
-        $skill_select.rules('add', 'required');
+            var race = $("#raceSelectId").val();
+            var ag = $("#agSelectId").val();
+            var gender = $("#genderSelectId").val();
+            var skill = $("#skillLevelId").val();
 
-    }());
+            if (race.length == 0 || ag.length == 0 || gender.length == 0 || skill.length == 0)//poor man's validation
+                return false;
 
-    function beginPost(xhr, request) {
-        var requester = $(this);
-        //if (!validateForm(requester))/*TBD, validation  is not working*/
-           // return false;
-
-        var race = $("#raceSelectId").val();
-        var ag = $("#agSelectId").val();
-        var gender = $("#genderSelectId").val();
-        var skill = $("#skillLevelId").val();
-            
-        if (race.length == 0 || ag.length == 0 || gender.length == 0 || skill.length == 0)//poor man's validation
-            return false;
-
-        var requestParams = request.url.split('?');
-        request.url = requestParams[0] + "?races=" + race + "&agegroups=" + ag + "&genders=" + gender + "&skilllevel=" + skill;
-    }
-    function validateForm(requester)
-    {
-        var _form = requester.closest("form");
-        var validator = $('#myForm').validate({
-            ignore: 'input[type=hidden], .select2-input, .select2-focusser',
-            errorElement: "div",
-            errorPlacement: function (error, element) {
-                element.after(error);
-            }
-        });
-        //var validator = $("#myForm").validate(); // obtain validator
-        var anyError = false;
-     
-
-        if (anyError)
-            return false; // exit if any error found    
-
-    }
-
- </script>
+            var requestParams = request.url.split('?');
+            request.url = requestParams[0] + "?races=" + race + "&agegroups=" + ag + "&genders=" + gender + "&skilllevel=" + skill;
+        }
+        function validateForm(requester) {
+            var _form = requester.closest("form");
+            var validator = $('#myForm').validate({
+                ignore: 'input[type=hidden], .select2-input, .select2-focusser',
+                errorElement: "div",
+                errorPlacement: function (error, element) {
+                    element.after(error);
+                }
+            });
+            //var validator = $("#myForm").validate(); // obtain validator
+            var anyError = false;
+            if (anyError)
+                return false; // exit if any error found    
+        }
+   
+</script>
 
