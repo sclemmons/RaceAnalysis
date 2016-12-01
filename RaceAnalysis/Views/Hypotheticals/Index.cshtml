@@ -162,7 +162,7 @@
         function validateForm(requester) {
             var _form = requester.closest("form");
             var validator = $('#myForm').validate({
-                ignore: 'input[type=hidden], .select2-input, .select2-focusser',
+                ignore: 'input[type=hidden]',
                 errorElement: "div",
                 errorPlacement: function (error, element) {
                     element.after(error);
