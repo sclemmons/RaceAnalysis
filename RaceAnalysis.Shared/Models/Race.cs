@@ -28,7 +28,7 @@ namespace RaceAnalysis.Models
         [Display(Name = "Race Date")]
         [MinDate("01/01/2006")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)] /*date format needs to be like this to conform to standard. However the display should render like we want it*/
         public DateTime RaceDate { get; set; }
 
         [Display(Name = "Short Name")]
