@@ -149,10 +149,10 @@ namespace RaceAnalysis.Controllers
             stats.Finish.Median = calc.TimeSpanMedian("Finish");
 
 
-            stats.DivRank.Median = calc.IntMedian("DivRank");
-            stats.GenderRank.Median = calc.IntMedian("GenderRank");
-            stats.OverallRank.Median = calc.IntMedian("OverallRank");
-            stats.Points.Median = calc.IntMedian("Points");
+            stats.DivRank.Median = Math.Floor(calc.IntMedian("DivRank"));
+            stats.GenderRank.Median = Math.Floor(calc.IntMedian("GenderRank"));
+            stats.OverallRank.Median = Math.Floor(calc.IntMedian("OverallRank"));
+            stats.Points.Median = Math.Floor(calc.IntMedian("Points"));
 
             //avg
             stats.Swim.Average = calc.TimeSpanAverage("Swim");
@@ -161,10 +161,10 @@ namespace RaceAnalysis.Controllers
             stats.Finish.Average = calc.TimeSpanAverage("Finish");
 
 
-            stats.DivRank.Average = calc.IntAverage("DivRank");
-            stats.GenderRank.Average = calc.IntAverage("GenderRank");
-            stats.OverallRank.Average = calc.IntAverage("OverallRank");
-            stats.Points.Average = calc.IntAverage("Points");
+            stats.DivRank.Average = Math.Floor(calc.IntAverage("DivRank"));
+            stats.GenderRank.Average = Math.Floor(calc.IntAverage("GenderRank"));
+            stats.OverallRank.Average = Math.Floor(calc.IntAverage("OverallRank"));
+            stats.Points.Average = Math.Floor(calc.IntAverage("Points"));
 
             //min
             stats.Swim.Min = calc.TimeSpanMin("Swim");
