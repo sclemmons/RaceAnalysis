@@ -34,6 +34,8 @@ namespace RaceAnalysis.Models
         public DbSet<AgeGroup> AgeGroups { get; set; }
         public DbSet<RequestContext> RequestContext { get; set; }
 
+        public DbSet<AppFeature> AppFeatures { get; set; }
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

@@ -12,12 +12,84 @@ namespace RaceAnalysis.Data
     {
         public static void Seed(RaceAnalysisDbContext context)
         {
+           
+
             if (context.Triathletes.Count(i => i.TriathleteId > 1) == 0)
             {
-                    
-                            context.Races.RemoveRange(context.Races); //clear out existing rows
-                            context.SaveChanges();
-                            var races = new List<Race>
+                SeedRaces(context);
+
+                SeedGenders(context);
+
+                SeedAgeGroups(context);
+
+                /*** only do for testing if absolutely necessary**********
+                //SeedRequestContexts(context);
+                //SeedTriathletes(context);
+                ************************************/
+                SeedAppFeatures(context);
+                
+
+            }
+
+        }//seed
+
+        private static void SeedTriathletes(RaceAnalysisDbContext context)
+        {
+            if (context.Triathletes.Count(i => i.TriathleteId > 1) == 0)
+            {
+                var athletes = new List<Triathlete>
+                    {
+                        new Triathlete
+                        {
+                            RequestContextId= context.RequestContext.First().RequestContextId,
+                            Link="",
+                            Name="Scott",
+                            Country="USA",
+                            DivRank=1,
+                            GenderRank=1,
+                            OverallRank=1,
+                            Swim= new TimeSpan(1,30,0),
+                            Bike= new TimeSpan(4,30,0),
+                            Run= new TimeSpan(3,30,0),
+                            Finish= new TimeSpan(1,30,0),
+                            Points = 100
+
+
+                        }
+                    };
+
+
+                athletes.ForEach(t => context.Triathletes.AddOrUpdate(t));
+                context.SaveChanges();
+            }
+        }
+
+        private static void SeedRequestContexts(RaceAnalysisDbContext context)
+        {
+            context.RequestContext.RemoveRange(context.RequestContext);
+            context.SaveChanges();
+
+            var contextkeys = new List<RequestContext>
+                {
+                    new RequestContext
+                    {
+
+                        RaceId= context.Races.Single(i => i.DisplayName == "IM Louisville 10-11-2015").RaceId,
+                        GenderId=context.Genders.Single(i => i.DisplayName == "Male").GenderId,
+                        AgeGroupId= context.AgeGroups.Single(i => i.DisplayName == "50-54").AgeGroupId
+                    }
+
+                };
+            contextkeys
+                .ForEach(t => context.RequestContext.AddOrUpdate(t));
+            context.SaveChanges();
+        }
+
+        private static void SeedRaces(RaceAnalysisDbContext context)
+        {
+            context.Races.RemoveRange(context.Races); //clear out existing rows
+            context.SaveChanges();
+            var races = new List<Race>
                             {
 
                                 new Race
@@ -34,7 +106,7 @@ namespace RaceAnalysis.Data
                                  new Race
                                 {
                                     RaceId=2,
-                                    BaseURL= "http://www.ironman.com/triathlon/events/americas/ironman/louisville/results.aspx", 
+                                    BaseURL= "http://www.ironman.com/triathlon/events/americas/ironman/louisville/results.aspx",
                                     DisplayName ="IMLOU 2016",
                                     RaceDate = new DateTime(2016,10,9),
                                     ShortName="louisville",
@@ -57,14 +129,15 @@ namespace RaceAnalysis.Data
 
                             };
 
-                            races.ForEach(t => context.Races.AddOrUpdate(t));
-                            context.SaveChanges();
+            races.ForEach(t => context.Races.AddOrUpdate(t));
+            context.SaveChanges();
+        }
 
-            
-
-                context.Genders.RemoveRange(context.Genders);
-                context.SaveChanges();
-                var genders = new List<Gender>
+        private static void SeedGenders(RaceAnalysisDbContext context)
+        {
+            context.Genders.RemoveRange(context.Genders);
+            context.SaveChanges();
+            var genders = new List<Gender>
                 {
                     new Gender
                     {
@@ -79,11 +152,14 @@ namespace RaceAnalysis.Data
                         Value = "F"
                     }
                 };
-                genders.ForEach(t => context.Genders.AddOrUpdate(t));
-                context.SaveChanges();
+            genders.ForEach(t => context.Genders.AddOrUpdate(t));
+            context.SaveChanges();
+        }
 
-                context.AgeGroups.RemoveRange(context.AgeGroups);
-                context.SaveChanges();
+        private static void SeedAgeGroups(RaceAnalysisDbContext context)
+        {
+            context.AgeGroups.RemoveRange(context.AgeGroups);
+            context.SaveChanges();
 
             var agegroups = new List<AgeGroup>
             {
@@ -172,62 +248,154 @@ namespace RaceAnalysis.Data
                 },
 
              };
-             agegroups.ForEach(t => context.AgeGroups.AddOrUpdate(t));
-             context.SaveChanges();
+            agegroups.ForEach(t => context.AgeGroups.AddOrUpdate(t));
+            context.SaveChanges();
+        }
 
-                /***
-                context.RequestContext.RemoveRange(context.RequestContext);
-                context.SaveChanges();
 
-                var contextkeys = new List<RequestContext>
+        private static void SeedAppFeatures(RaceAnalysisDbContext context)
+        {
+            context.AppFeatures.RemoveRange(context.AppFeatures);
+            context.SaveChanges();
+            var features = new List<AppFeature>
                 {
-                    new RequestContext
+                //////////////////////////////////////////////////////////
+                //Admin 
+                //////////////////////////////////////////////////////////
+                    new AppFeature
                     {
+                        Category = FeatureCategories.Admin,
+                        Name = "Add Race Data",
+                        Description = "Allow admin to add race and populate cache",
+                        State = FeatureState.Done
+                    },
+                    new AppFeature
+                    {
+                        Category = FeatureCategories.Admin,
+                        Name = "Registration",
+                        Description = "Allow users to register",
+                        State = FeatureState.Done
+                    },
+                    new AppFeature
+                    {
+                        Category = FeatureCategories.Admin,
+                        Name = "Login",
+                        Description = "Allow users to login",
+                        State = FeatureState.Done
+                    },
+                   
+                    ////////////////////////////////////////////////////////////
+                    // Content Contribution
+                    ////////////////////////////////////////////////////////////
+                    new AppFeature
+                    {
+                        Category = FeatureCategories.ContentContrib,
+                        Name = "Content Contribution",
+                        Description = "Allow users to signup for content contribution",
+                        State = FeatureState.NotStarted
+                    },
+                    new AppFeature
+                    {
+                        Category = FeatureCategories.ContentContrib,
+                        Name = "Add Race Conditions",
+                        Description = "Allow users to add race conditions ",
+                        State = FeatureState.NotStarted
+                    },
+                     new AppFeature
+                    {
+                        Category = FeatureCategories.ContentContrib,
+                        Name = "Add Race Analysis",
+                        Description = "Allow users to add race analysis ",
+                        State = FeatureState.NotStarted
+                    },
+                    //////////////////////////////////////////////////
+                    //Flex Tool
+                    //////////////////////////////////////////////////
+                    new AppFeature
+                    {
+                       Category=FeatureCategories.FlexTool,
+                       Name = "Filter",
+                       Description = "Allow user to filter results based on Age Group, Gender, Duration of Splits",
+                       State = FeatureState.Done
+                    },
 
-                        RaceId= races.Single(i => i.DisplayName == "IM Louisville 10-11-2015").RaceId,
-                        GenderId=genders.Single(i => i.DisplayName == "Male").GenderId,
-                        AgeGroupId= agegroups.Single(i => i.DisplayName == "50-54").AgeGroupId
-                    }
+                    new AppFeature
+                    {
+                       Category=FeatureCategories.FlexTool,
+                       Name = "Details",
+                       Description = "Allow user to view detailed result stats for a race",
+                       State = FeatureState.Done
+                    },
+                    new AppFeature
+                    {
+                       Category=FeatureCategories.FlexTool,
+                       Name = "Compare Races",
+                       Description = "Allow user to compare race result stats",
+                       State = FeatureState.Done
+                    },
+
+                    new AppFeature
+                    {
+                        Category = FeatureCategories.FlexTool,
+                        Name = "Compare Athletes",
+                        Description = "Allow user to select athletes and view comparison",
+                        State = FeatureState.Testing
+                    },
+
+                    new AppFeature
+                    {
+                        Category = FeatureCategories.FlexTool,
+                        Name = "Link Stats to Athletes",
+                        Description = "Allow user to select stats and view the athletes in that context",
+                        State = FeatureState.NotStarted
+                    },
+                     new AppFeature
+                    {
+                        Category = FeatureCategories.FlexTool,
+                        Name = "Race Conditions",
+                        Description = "Expand race conditions",
+                        State = FeatureState.InProgress
+                    },
+
+
+                    ////////////////////////////////////////////////////////////////////
+                    //hypotheticals
+                    ////////////////////////////////////////////////////////////////////
+                    new AppFeature
+                    {
+                        Category = FeatureCategories.Hypotheticals,
+                        Name = "Est Finish Time",
+                        Description = "Estimate range a user would finish base on their information",
+                        State =FeatureState.Done
+                    },
+                    //////////////////////////////////////////////////////////////////
+                    //search
+                    ////////////////////////////////////////////////////////////////////
+                    new AppFeature
+                    {
+                        Category = FeatureCategories.Search,
+                        Name = "Search for races based on conditions",
+                        Description = "Search for races based on user's input : hilly,flat,cold, etc",
+                        State =FeatureState.NotStarted
+                    },
+
+
+                    //////////////////////////////////////////////////////////////////
+                    //performance
+                    ////////////////////////////////////////////////////////////////////
+                    new AppFeature
+                    {
+                        Category = FeatureCategories.Performance,
+                        Name = "Improve Performance",
+                        Description = "Improve Performance by adding a caching layer",
+                        State =FeatureState.NotStarted
+                    },
+
+
 
                 };
-                contextkeys
-                    .ForEach(t => context.RequestContext.AddOrUpdate(t));
-                context.SaveChanges();
-                ***************************************/
-
-                //only add one for testing if none exists....
-                /********************************
-                if (context.Triathletes.Count(i => i.TriathleteId > 1) == 0)
-                {
-                    var athletes = new List<Triathlete>
-                    {
-                        new Triathlete
-                        {
-                            RequestContextId= context.RequestContext.First().RequestContextId,
-                            Link="",
-                            DisplayName="Scott",
-                            Country="USA",
-                            DivRank=1,
-                            GenderRank=1,
-                            OverallRank=1,
-                            Swim= new TimeSpan(1,30,0),
-                            Bike= new TimeSpan(4,30,0),
-                            Run= new TimeSpan(3,30,0),
-                            Finish= new TimeSpan(1,30,0),
-                            Points = 100
-
-
-                        }
-                    };
-
-
-                    athletes.ForEach(t => context.Triathletes.AddOrUpdate(t));
-                    context.SaveChanges();
-                }
-                ******************/
-            }
-
-        }//seed
-
+            features.ForEach(t => context.AppFeatures.AddOrUpdate(t));
+            context.SaveChanges();
+        }
     } //class
 }//namespace
