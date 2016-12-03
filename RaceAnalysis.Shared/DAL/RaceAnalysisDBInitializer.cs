@@ -12,8 +12,7 @@ namespace RaceAnalysis.Data
     {
         public static void Seed(RaceAnalysisDbContext context)
         {
-           
-
+  
             if (context.Triathletes.Count(i => i.TriathleteId > 1) == 0)
             {
                 SeedRaces(context);
@@ -267,21 +266,21 @@ namespace RaceAnalysis.Data
                         Category = FeatureCategories.Admin,
                         Name = "Add Race Data",
                         Description = "Allow admin to add race and populate cache",
-                        State = FeatureState.Done
+                        Status = FeatureStatus.Done
                     },
                     new AppFeature
                     {
                         Category = FeatureCategories.Admin,
                         Name = "Registration",
                         Description = "Allow users to register",
-                        State = FeatureState.Done
+                        Status = FeatureStatus.Done
                     },
                     new AppFeature
                     {
                         Category = FeatureCategories.Admin,
                         Name = "Login",
                         Description = "Allow users to login",
-                        State = FeatureState.Done
+                        Status = FeatureStatus.Done
                     },
                    
                     ////////////////////////////////////////////////////////////
@@ -292,21 +291,21 @@ namespace RaceAnalysis.Data
                         Category = FeatureCategories.ContentContrib,
                         Name = "Content Contribution",
                         Description = "Allow users to signup for content contribution",
-                        State = FeatureState.NotStarted
+                        Status = FeatureStatus.NotStarted
                     },
                     new AppFeature
                     {
                         Category = FeatureCategories.ContentContrib,
                         Name = "Add Race Conditions",
                         Description = "Allow users to add race conditions ",
-                        State = FeatureState.NotStarted
+                        Status = FeatureStatus.NotStarted
                     },
                      new AppFeature
                     {
                         Category = FeatureCategories.ContentContrib,
                         Name = "Add Race Analysis",
                         Description = "Allow users to add race analysis ",
-                        State = FeatureState.NotStarted
+                        Status = FeatureStatus.NotStarted
                     },
                     //////////////////////////////////////////////////
                     //Flex Tool
@@ -316,7 +315,7 @@ namespace RaceAnalysis.Data
                        Category=FeatureCategories.FlexTool,
                        Name = "Filter",
                        Description = "Allow user to filter results based on Age Group, Gender, Duration of Splits",
-                       State = FeatureState.Done
+                       Status = FeatureStatus.Done
                     },
 
                     new AppFeature
@@ -324,14 +323,14 @@ namespace RaceAnalysis.Data
                        Category=FeatureCategories.FlexTool,
                        Name = "Details",
                        Description = "Allow user to view detailed result stats for a race",
-                       State = FeatureState.Done
+                       Status = FeatureStatus.Done
                     },
                     new AppFeature
                     {
                        Category=FeatureCategories.FlexTool,
                        Name = "Compare Races",
                        Description = "Allow user to compare race result stats",
-                       State = FeatureState.Done
+                       Status = FeatureStatus.Done
                     },
 
                     new AppFeature
@@ -339,7 +338,7 @@ namespace RaceAnalysis.Data
                         Category = FeatureCategories.FlexTool,
                         Name = "Compare Athletes",
                         Description = "Allow user to select athletes and view comparison",
-                        State = FeatureState.Testing
+                        Status = FeatureStatus.Testing
                     },
 
                     new AppFeature
@@ -347,14 +346,14 @@ namespace RaceAnalysis.Data
                         Category = FeatureCategories.FlexTool,
                         Name = "Link Stats to Athletes",
                         Description = "Allow user to select stats and view the athletes in that context",
-                        State = FeatureState.NotStarted
+                        Status = FeatureStatus.NotStarted
                     },
                      new AppFeature
                     {
                         Category = FeatureCategories.FlexTool,
                         Name = "Race Conditions",
                         Description = "Expand race conditions",
-                        State = FeatureState.InProgress
+                        Status = FeatureStatus.InProgress
                     },
 
 
@@ -366,7 +365,7 @@ namespace RaceAnalysis.Data
                         Category = FeatureCategories.Hypotheticals,
                         Name = "Est Finish Time",
                         Description = "Estimate range a user would finish base on their information",
-                        State =FeatureState.Done
+                        Status =FeatureStatus.Done
                     },
                     //////////////////////////////////////////////////////////////////
                     //search
@@ -376,7 +375,7 @@ namespace RaceAnalysis.Data
                         Category = FeatureCategories.Search,
                         Name = "Search for races based on conditions",
                         Description = "Search for races based on user's input : hilly,flat,cold, etc",
-                        State =FeatureState.NotStarted
+                        Status =FeatureStatus.NotStarted
                     },
 
 
@@ -388,7 +387,7 @@ namespace RaceAnalysis.Data
                         Category = FeatureCategories.Performance,
                         Name = "Improve Performance",
                         Description = "Improve Performance by adding a caching layer",
-                        State =FeatureState.NotStarted
+                        Status =FeatureStatus.NotStarted
                     },
 
 

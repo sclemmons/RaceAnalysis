@@ -1,58 +1,141 @@
 ﻿@model IEnumerable<RaceAnalysis.Models.AppFeature>
+@using RaceAnalysis.Models;
+@using RaceAnalysis.Helpers;
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "AppFeatures";
     Layout = "~/Views/Layouts/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<link rel="stylesheet" type="text/css" href="~/Content/jquery.upvote.css" />
+<link rel="stylesheet" type="text/css" href="~/Content/font-awesome.min.css" />
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Category)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.State)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.VoteCount)
-        </th>
-        <th></th>
-    </tr>
+<script type="text/javascript" src="~/Scripts/jquery.upvote.js"></script> 
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Category)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.State)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.VoteCount)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.AppFeatureId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.AppFeatureId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.AppFeatureId })
-        </td>
-    </tr>
+<h2>Application Features</h2>
+
+<div id="app_features">
+    <table class="table table-striped table-responsive">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VoteCount)
+            </th>
+            <th></th>
+        </tr>
+
+        @{var previousCat = FeatureCategories.None;  var isNewCat = false; }
+        @foreach (var item in Model)
+        {
+            if (item.Category != previousCat) //empty row
+            { isNewCat = true; } else { isNewCat = false; }
+
+            if (isNewCat)
+            {
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            }
+            previousCat = item.Category;
+            <tr>
+                <td>
+                    @if (isNewCat) {<b>@Html.DisplayNameFor(item.Category)</b>}
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                   @{ 
+                       string classname = "";
+                       string color = "";
+                       string tooltip = "";
+                       switch (item.Status)
+                       {
+                           case FeatureStatus.Done:
+                               classname = "fa fa-bar-chart";
+                               color = "green";
+                               tooltip= "Done!";
+                               break;
+
+                           case FeatureStatus.InProgress:
+                               classname = "fa fa-bar-chart";
+                               color = "orange";
+                               tooltip = "In-Progress";
+                               break;
+                           case FeatureStatus.NotStarted:
+                               classname = "fa fa-bar-chart";
+                               tooltip = "Planning";
+                               break;
+                           case FeatureStatus.Testing:
+                               classname = "fa fa-bar-chart";
+                               color = "blue";
+                               tooltip = "Testing";
+                               break;
+
+
+                       }
+                     }
+                    <i class="@classname" style="font-size:36px;color:@color" data-toggle="tooltip" title=@tooltip></i>
+
+                </td>
+                <td>
+                    <div class="upvote" id="@item.AppFeatureId">
+                        <a class="upvote"></a>
+                        <span class="count">@item.VoteCount</span>
+                    </div>
+                </td>
+            </tr>
 }
 
-</table>
+    </table>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+        $('[data-toggle="tooltip"]').hover(function () {
+            $('.tooltip-inner').css('font-size', '14px');
+        });
+
+
+         var callback = function (data) {
+            $.ajax({
+                url: '@Url.Action("UpVote","AppFeatures")',
+                type: 'post',
+                data: { id: data.id, up: data.upvoted },
+                success: function() { /* alert('Success'); */},
+                error: function () { alert('Sorry, an error occurred.');}
+                });
+        };
+     
+        $('div.upvote').each(function () {
+            $(this).upvote({
+                id: parseInt($(this)[0].id),
+                count: parseInt( $(this).find('span.count')[0].innerText),
+                upvoted: 0,
+                callback: callback
+            });
+        });
+
+
+
+    });
+</script>

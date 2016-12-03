@@ -300,7 +300,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppFeaturesController.cs" />
+    <Compile Include="Controllers\AppFeaturesController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -356,9 +356,16 @@
     <Content Include="Content\images\ImageLayer.png" />
     <Content Include="Content\images\ImageLayerYellow.png" />
     <Content Include="Content\images\shutterstock2.jpg" />
+    <Content Include="Content\images\sprites-meta-stackoverflow.png" />
+    <Content Include="Content\images\sprites-programmers.png" />
+    <Content Include="Content\images\sprites-serverfault.png" />
+    <Content Include="Content\images\sprites-stackoverflow.png" />
+    <Content Include="Content\images\sprites-superuser.png" />
+    <Content Include="Content\images\sprites-unix.png" />
     <Content Include="Content\images\tristats-piechart.png" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\jquery.upvote.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\sitemenu.css" />
     <Content Include="Content\sumoselect.css" />
@@ -435,6 +442,7 @@
     <Content Include="Scripts\jquery.sumoselect.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\jquery.upvote.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -545,6 +553,7 @@
     <Content Include="Views\AppFeatures\Delete.cshtml" />
     <Content Include="Views\AppFeatures\Details.cshtml" />
     <Content Include="Views\AppFeatures\Edit.cshtml" />
+    <Content Include="Views\AppFeatures\Admin.cshtml" />
     <Content Include="Views\AppFeatures\Index.cshtml" />
     <None Include="Web.Test.config">
       <DependentUpon>Web.config</DependentUpon>

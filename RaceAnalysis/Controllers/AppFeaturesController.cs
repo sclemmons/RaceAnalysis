@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using RaceAnalysis.Models;
+using System.Threading.Tasks;
 
 namespace RaceAnalysis
 {
@@ -18,6 +19,26 @@ namespace RaceAnalysis
         public ActionResult Index()
         {
             return View(db.AppFeatures.ToList());
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> UpVote(int id, bool up)
+        {
+         
+            AppFeature appFeature = db.AppFeatures.Find(id);
+            if(appFeature == null)
+                return Json(new { status = "Error" });
+           
+            if (up)
+                ++appFeature.VoteCount;
+            else
+                --appFeature.VoteCount;
+
+                
+            db.Entry(appFeature).State = EntityState.Modified;
+            await db.SaveChangesAsync();
+
+            return Json(new { status = "Success" });
         }
 
         // GET: AppFeatures/Details/5
