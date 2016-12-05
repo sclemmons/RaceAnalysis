@@ -289,7 +289,7 @@ div.SumoSelect{
  height:inherit;
 }
 
-#filter, #results, #page-header,#page-actions,#filter-duration, div.criteria,div.hypothetical{
+#filter, #results, #page-header,#page-actions,#filter-duration, div.criteria,div.hypothetical,div.email-form{
     margin:10px;
     margin-left:0px;
     margin-right:0px;
@@ -483,12 +483,9 @@ div#chart-key{
 }
 
 /**********************Hypotheticals ******/
-div.criteria {
+div.criteria,div.email-form {
      width:50%;
     margin: 0 auto; /*center inside the outter div*/ 
-    //margin:10px;
-    //margin-left:0px;
-    //margin-right:0px;
     padding:5px;
     background-color:white;
     border-width:1px;
@@ -552,5 +549,12 @@ div#finish_range{
 
 div#app_features{
     margin-top:20px;
+}
+
+div.email-form {
+     margin-bottom:10px;
+    color:darkslateblue;
+    font-size:18px;
+    
 }
 

@@ -5,6 +5,7 @@
 *****---http://work.smarchal.com/twbscolor/scss/2674b3354e89f8f9f8e5e2e81
 ******************************************************************/
 .navbar-inverse {
+   margin-top:10px;
   border:none;
   background-color: rgba(245,245,245,1);
   background-color: rgba(255,255,255,1);
@@ -48,7 +49,7 @@
   color: #e5e2e8;
 }
 .navbar-inverse .navbar-nav > li > .dropdown-menu {
-  background-color: #2674b3;
+  background-color:lightskyblue;
 }
 .navbar-inverse .navbar-nav > li > .dropdown-menu > li > a {
   color: #f8f9f8;
@@ -71,13 +72,19 @@
 .navbar-inverse .navbar-nav > .active > a:hover,
 .navbar-inverse .navbar-nav > .active > a:focus {
   color: #e5e2e8;
-  background-color: #354e89;
+  background-color:deepskyblue;
+  padding-top:10px;
+  padding-bottom:10px;
+    border-color: whitesmoke;
+    border-radius:4px;
+
 }
 .navbar-inverse .navbar-nav > .open > a,
 .navbar-inverse .navbar-nav > .open > a:hover,
 .navbar-inverse .navbar-nav > .open > a:focus {
   color: #e5e2e8;
-  background-color: #354e89;
+ background-color:lightskyblue;
+ 
 }
 .navbar-inverse .navbar-toggle {
  //border-color: #354e89;
@@ -86,6 +93,7 @@
 .navbar-inverse .navbar-toggle:hover,
 .navbar-inverse .navbar-toggle:focus {
   background-color: #354e89;
+  
 }
 .navbar-inverse .navbar-toggle .icon-bar {
   background-color: #f8f9f8;
@@ -100,6 +108,8 @@
 }
 .navbar-inverse .navbar-link:hover {
   color: #e5e2e8;
+ 
+
 }
 .navbar-toggle{
     opacity:.5;

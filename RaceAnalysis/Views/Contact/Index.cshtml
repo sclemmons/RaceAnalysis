@@ -2,7 +2,9 @@
 
 @{
     ViewBag.Title = "Contact Us";
+    ViewBag.BodyClass = "fullpage";
     Layout = "~/Views/Layouts/_Layout.cshtml";
+
 
     //The AjaxOptions determine the behavior of the AJAX call
     //(e.g. what method on the server is called, what html element to update upon completion, etc.)
@@ -28,9 +30,9 @@
 <div id="message-area"></div>
 
 <!-- The form-area contains the contact form that will be submitted via AJAX-->
-<div id="form-area">
+<div class="email-form">
     @using (Ajax.BeginForm(ajaxOptions))
-            {
+    {
         @Html.AntiForgeryToken()
         <div class="form-group">
             @Html.LabelFor(m => m.Name)
@@ -47,7 +49,7 @@
             @Html.TextAreaFor(m => m.Message, new { @class = "form-control" })
             @Html.ValidationMessageFor(m => m.Message)
         </div>
-        <input type="submit" value="Send" />
+        <button type="submit" id="submitButton" class="btn btn-primary">Send</button>
     }
 </div>
 
@@ -55,7 +57,7 @@
 <script type="text/javascript">
     function HideForm() {
         //When the form is submitted, we hide the form
-        $("#form-area").hide();
+        $(".email-form").hide();
     }
     function ShowFailure() {
         //In the case that the AJAX call fails to communicate with the server
