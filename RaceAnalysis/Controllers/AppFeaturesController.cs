@@ -41,6 +41,13 @@ namespace RaceAnalysis
             return Json(new { status = "Success" });
         }
 
+        [Authorize(Roles = "Admin")]
+        public ActionResult Admin()
+        {
+            return View(db.AppFeatures.ToList());
+        }
+
+        [Authorize(Roles = "Admin")]
         // GET: AppFeatures/Details/5
         public ActionResult Details(int? id)
         {
@@ -56,6 +63,7 @@ namespace RaceAnalysis
             return View(appFeature);
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: AppFeatures/Create
         public ActionResult Create()
         {
@@ -67,6 +75,7 @@ namespace RaceAnalysis
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create([Bind(Include = "AppFeatureId,Category,Name,Description,State,VoteCount")] AppFeature appFeature)
         {
             if (ModelState.IsValid)
@@ -80,6 +89,7 @@ namespace RaceAnalysis
         }
 
         // GET: AppFeatures/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -99,6 +109,7 @@ namespace RaceAnalysis
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit([Bind(Include = "AppFeatureId,Category,Name,Description,State,VoteCount")] AppFeature appFeature)
         {
             if (ModelState.IsValid)
@@ -111,6 +122,7 @@ namespace RaceAnalysis
         }
 
         // GET: AppFeatures/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -128,6 +140,7 @@ namespace RaceAnalysis
         // POST: AppFeatures/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirmed(int id)
         {
             AppFeature appFeature = db.AppFeatures.Find(id);
