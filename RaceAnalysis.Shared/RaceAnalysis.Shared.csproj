@@ -119,6 +119,7 @@
     <Compile Include="Interfaces\IRaceService.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AppFeature.cs" />
+    <Compile Include="Models\ContactForm.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\TriStatsExtended.cs" />
     <Compile Include="ServiceSupport\BasicDurationFilter.cs" />

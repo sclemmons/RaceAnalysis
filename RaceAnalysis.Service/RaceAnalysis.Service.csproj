@@ -97,6 +97,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Services\EmailService.cs" />
     <Compile Include="Services\RaceService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rest Clients\IronmanClient.cs" />

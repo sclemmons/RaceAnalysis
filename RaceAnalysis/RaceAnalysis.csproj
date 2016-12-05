@@ -311,6 +311,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CompareBikeRunController.cs" />
+    <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HypotheticalsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -555,6 +556,8 @@
     <Content Include="Views\AppFeatures\Edit.cshtml" />
     <Content Include="Views\AppFeatures\Admin.cshtml" />
     <Content Include="Views\AppFeatures\Index.cshtml" />
+    <Content Include="Views\Contact\Index.cshtml" />
+    <Content Include="Views\Shared\_SubmitMessage.cshtml" />
     <None Include="Web.Test.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

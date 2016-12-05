@@ -41,13 +41,11 @@ namespace RaceAnalysis.App_Start
             // NOTE: To load from web.config uncomment the line below. Make sure to add a Microsoft.Practices.Unity.Configuration to the using statements.
             // container.LoadConfiguration();
 
-           
-
             container.RegisterType<DbContext, RaceAnalysisDbContext>(new HierarchicalLifetimeManager());
             container.RegisterType<UserManager<ApplicationUser>>(new HierarchicalLifetimeManager());
             container.RegisterType<IUserStore<ApplicationUser>, UserStore<ApplicationUser>>(new HierarchicalLifetimeManager());
             container.RegisterType<RaceAnalysis.Controllers.AccountController>(new InjectionConstructor());
-
+            container.RegisterType<IIdentityMessageService,EmailService>();
             container.RegisterType<IRaceService, RaceService>();
         }
     }
