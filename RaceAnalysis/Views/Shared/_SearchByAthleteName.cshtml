@@ -7,14 +7,7 @@
 
 
 
-@using (Html.BeginForm("SearchByAthleteName", controllerName,
-                                                     new
-                                                     {
-                                                         races = @String.Join(",", Model.Filter.SelectedRaceIds.Select(x => x.ToString()).ToArray()),
-                                                         agegroups = @String.Join(",", Model.Filter.SelectedAgeGroupIds.Select(x => x.ToString()).ToArray()),
-                                                         genders = @String.Join(",", Model.Filter.SelectedGenderIds.Select(x => x.ToString()).ToArray())
-                                                     },
-                                                      FormMethod.Post))
+@using (Html.BeginForm("SearchByAthleteName", controllerName))
 {
     <div class="form-group">
         @Html.AntiForgeryToken()
@@ -22,8 +15,7 @@
 
         <span>Search by Name:</span>  @Html.TextBox("SearchString")
        
-
-
+        
         <input type="submit" value="Search" class="btn btn-default" />
 
     </div>

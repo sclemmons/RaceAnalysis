@@ -8,7 +8,7 @@ using RaceAnalysis.Models;
 using System.Diagnostics;
 using System.Text;
 
-namespace RaceAnalysis.Helpers
+namespace RaceAnalysis.Service
 {
     public class ElasticSearchFacade
     {
@@ -18,7 +18,7 @@ namespace RaceAnalysis.Helpers
             _DBContext = dbCtx;
         }
 
-        public KeyValueViewModel SearchCountPerCountry()
+        public KeyValueModel SearchCountPerCountry()
         {
             var client = SetupElasticSearch();
             var request = new SearchRequest<Triathlete>
@@ -43,7 +43,7 @@ namespace RaceAnalysis.Helpers
             var response = client.Search<Triathlete>(request);
             var countries = response.Aggs.Terms("countries");
 
-            var model = new KeyValueViewModel();
+            var model = new KeyValueModel();
             model.KeyValuePairs = new List<KeyValuePair<string, string>>();
             foreach (var item in countries.Buckets)
             {

@@ -56,10 +56,11 @@ namespace RaceAnalysis.Controllers
             return View(viewmodel);
 
         }
+
+        
         public ActionResult ReIndex()
         {
-            var search = new ElasticSearchFacade(_DBContext);
-            search.ReIndex();
+            _RaceService.ReIndex();
             return RedirectToAction("Index");
         }
 
@@ -97,33 +98,7 @@ namespace RaceAnalysis.Controllers
             return PartialView("~/Views/Shared/_OnePageOfAthletes.cshtml", viewmodel);
         }
 
-        [HttpPost]
-        public ActionResult Search(FormCollection form)
-        {
-            string searchType = form["SearchType"];
-            string field = form["SearchField"];
-            string queryValue = form["ValueField"];
-            /****
-            if (searchType == "FreeSearch")
-            {
-                return SearchOpenFieldQuery(field, queryValue);
-
-            }
-            else if (searchType == "CountPerCountry")
-            {
-                ElasticSearchFacade search = new ElasticSearchFacade(_DBContext);
-                var model = search.SearchCountPerCountry();
-                return View("SearchResults", model);
-            }
-            else if (searchType == "ThresholdTime")
-            {
-             
-            }
-            *****/
-            return View();
-        }
-
-
+     
         private ActionResult DisplayPagedResults(int page, RaceFilterViewModel filter)
         {
 

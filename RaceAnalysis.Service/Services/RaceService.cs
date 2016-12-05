@@ -72,14 +72,14 @@ namespace RaceAnalysis.Service
          * GetAthletes()
          * Retrieve the athletes with the given request values
          * ****************************************/
-        public List<Triathlete> GetAthletes(IRaceCriteria criteria,IDurationFilter filter)
+        public List<Triathlete> GetAthletes(IRaceCriteria criteria, IDurationFilter filter)
         {
             var allAthletes = GetAthletes(criteria);
 
             //filter these athletes
             //in the future we may inject the Provider, but for now create it ...
-             return  new BasicFilterProvider(allAthletes, filter).GetAthletes();
-        
+            return new BasicFilterProvider(allAthletes, filter).GetAthletes();
+
         }
 
 
@@ -118,6 +118,25 @@ namespace RaceAnalysis.Service
 
             return query.ToList();
 
+        }
+
+        public List<Triathlete> GetAthletesByName(string name)
+        {
+            var search = new ElasticSearchFacade(_DBContext);
+           return  search.SearchFieldQuery("name", name);
+        }
+
+        public List<Race> GetRacesByCondition(string conditions)
+        {
+            var search = new ElasticSearchFacade(_DBContext);
+            //search.SearchFieldQuery("swim", conditions);
+            search.SearchFieldQuery("name", "clemmons");
+            return new List<Race>();
+        }
+        
+        public void ReIndex()
+        {
+            new ElasticSearchFacade(_DBContext).ReIndex();
         }
 
 #region Private Methods

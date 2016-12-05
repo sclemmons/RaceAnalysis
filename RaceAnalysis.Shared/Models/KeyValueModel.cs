@@ -5,12 +5,11 @@ using System.Web;
 
 namespace RaceAnalysis.Models
 {
-    public class KeyValueViewModel
+    public class KeyValueModel
     {
-
-        public List<KeyValuePair<string,string>> KeyValuePairs { get; set; }
+          public List<KeyValuePair<string,string>> KeyValuePairs { get; set; }
     }
-    public class KeyValueViewModel_Save
+    public class KeyValueModel_Save
     {
         private KeyValuePair<string, string> _kvp;
         public KeyValuePair<string, string> KVP

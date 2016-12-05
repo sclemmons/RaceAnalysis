@@ -78,10 +78,6 @@
       <HintPath>..\packages\Castle.DynamicLinqQueryBuilder.1.0.5\lib\Castle.DynamicLinqQueryBuilder.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Elasticsearch.Net, Version=2.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
-      <HintPath>..\packages\Elasticsearch.Net.2.4.6\lib\net46\Elasticsearch.Net.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Elmah, Version=1.2.14706.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
       <Private>True</Private>
@@ -161,10 +157,6 @@
     </Reference>
     <Reference Include="MoreLinq, Version=2.0.20029.0, Culture=neutral, PublicKeyToken=384d532d7e88985d, processorArchitecture=MSIL">
       <HintPath>..\packages\morelinq.2.0.0-beta06\lib\net35\MoreLinq.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Nest, Version=2.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
-      <HintPath>..\packages\NEST.2.4.6\lib\net46\Nest.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -326,7 +318,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\ElasticSearchFacade.cs" />
     <Compile Include="Helpers\Extensions.cs" />
     <Compile Include="Helpers\TriStatsCalculator.cs" />
     <Compile Include="Helpers\TriStatsCalculatorExtended.cs" />
@@ -336,7 +327,6 @@
     <Compile Include="ViewModels\CompareBikeRunViewModel.cs" />
     <Compile Include="ViewModels\HistogramViewModel.cs" />
     <Compile Include="ViewModels\HypotheticalsViewModel.cs" />
-    <Compile Include="ViewModels\KeyValueViewModel.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="ViewModels\RaceFilterViewModel.cs" />
     <Compile Include="ViewModels\SimpleFilterViewModel.cs" />
@@ -515,7 +505,6 @@
     <Content Include="Views\Shared\_Search.cshtml" />
     <Content Include="Views\Shared\_SearchResultsKeyValueList.cshtml" />
     <Content Include="Views\TriAthletes\SearchResults.cshtml" />
-    <Content Include="Views\Shared\_SearchByDuration.cshtml" />
     <Content Include="Views\TriStats\TriStats.cshtml" />
     <Content Include="Views\Shared\_StatsChart.cshtml" />
     <Content Include="Views\Shared\_RaceConditions.cshtml" />
@@ -557,6 +546,8 @@
     <Content Include="Views\AppFeatures\Index.cshtml" />
     <Content Include="Views\Contact\Index.cshtml" />
     <Content Include="Views\Shared\_SubmitMessage.cshtml" />
+    <Content Include="Views\Shared\_SearchByRaceCondition.cshtml" />
+    <Content Include="Views\Shared\_OnePageOfAthletesNoFilter.cshtml" />
     <None Include="Web.Test.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>
