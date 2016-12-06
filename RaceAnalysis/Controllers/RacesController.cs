@@ -9,60 +9,87 @@ using System.Configuration;
 using System.Threading.Tasks;
 using RaceAnalysis.SharedQueueMessages;
 using Newtonsoft.Json;
+using RaceAnalysis.Service.Interfaces;
+using System;
 
 namespace RaceAnalysis.Controllers
 {
-    [Authorize (Roles ="Admin")]
-    public class RacesController : Controller
+    public class RacesController : BaseController
     {
-        private RaceAnalysisDbContext db = new RaceAnalysisDbContext();
-
+      
         private CloudQueue cacheRequestQueue;
 
-        public RacesController()
-        {
-            InitializeStorage();
+        public RacesController(IRaceService service) : base(service) { }
 
-        }
-
-        private void InitializeStorage()
-        {
-            // Open storage account using credentials from .cscfg file.
-            var storageAccount = CloudStorageAccount.Parse(ConfigurationManager.ConnectionStrings["AzureWebJobsStorage"].ToString());
-
-            // Get context object for working with blobs, and 
-            // set a default retry policy appropriate for a web user interface.
-            //var blobClient = storageAccount.CreateCloudBlobClient();
-            //blobClient.DefaultRequestOptions.RetryPolicy = new LinearRetry(TimeSpan.FromSeconds(3), 3);
-
-            // Get a reference to the blob container.
-            //imagesBlobContainer = blobClient.GetContainerReference("images");
-
-            // Get context object for working with queues, and 
-            // set a default retry policy appropriate for a web user interface.
-            CloudQueueClient queueClient = storageAccount.CreateCloudQueueClient();
-            //queueClient.DefaultRequestOptions.RetryPolicy = new LinearRetry(TimeSpan.FromSeconds(3), 3);
-
-            // Get a reference to the queue.
-            cacheRequestQueue = queueClient.GetQueueReference("triathletepullrequest");
-            cacheRequestQueue.CreateIfNotExists();
-            
-        }
         // GET: Races
         public ActionResult Index()
         {
-            var races = db.Races.Include(r => r.Conditions);
+            var races = _DBContext.Races.Include(r => r.Conditions);
             return View(races.ToList());
         }
 
+        public ActionResult Search()
+        {
+            return View();
+        }
+
+        public ActionResult SearchRaces(FormCollection form)
+        {
+
+            if (!String.IsNullOrEmpty(form["SearchBySwimConditions"]))
+            {
+                return SearchBySwimCondition(form["SearchBySwimConditions"]);
+            }
+            else if (!String.IsNullOrEmpty(form["SearchByBikeConditions"]))
+            {
+                return SearchByBikeCondition(form["SearchByBikeConditions"]);
+            }
+            else if (!String.IsNullOrEmpty(form["SearchByRunConditions"]))
+            {
+                return SearchByRunCondition(form["SearchByRunConditions"]);
+            }
+            return HttpNotFound();
+
+        }
+
+        public PartialViewResult SearchBySwimCondition(string searchstring)
+        {
+            var races = _RaceService.GetRacesBySwimCondition(searchstring);
+
+            return PartialView("_SearchResults",races);
+        }
+        public PartialViewResult SearchByBikeCondition(string searchstring)
+        {
+            var races = _RaceService.GetRacesByBikeCondition(searchstring);
+
+            return PartialView("_SearchResults",races);
+        }
+        public PartialViewResult SearchByRunCondition(string searchstring)
+        {
+            var races = _RaceService.GetRacesByRunCondition(searchstring);
+
+            return PartialView("_SearchResults",races);
+        }
+
+
+
+        [Authorize(Roles = "Admin")]
+        public ActionResult Admin()
+        {
+            var races = _DBContext.Races.Include(r => r.Conditions);
+            return View(races.ToList());
+        }
+
+
         // GET: Races/Details/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Race race = db.Races.Find(id);
+            Race race = _DBContext.Races.Find(id);
             if (race == null)
             {
                 return HttpNotFound();
@@ -71,9 +98,10 @@ namespace RaceAnalysis.Controllers
         }
 
         // GET: Races/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
-   //         ViewBag.ConditionsId = new SelectList(db.RaceConditions, "RaceConditionsId", "SwimGeneral");
+   //         ViewBag.ConditionsId = new SelectList(_DBContext.RaceConditions, "RaceConditionsId", "SwimGeneral");
             return View();
         }
 
@@ -82,7 +110,7 @@ namespace RaceAnalysis.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //  public ActionResult Create([Bind(Include = "RaceId,BaseURL,DisplayName,RaceDate,ShortName,Distance,ConditionsId")] Race race)
+        [Authorize(Roles = "Admin")]
         public ActionResult Create(
                 [Bind(Prefix = "Race", Include = "BaseURL,DisplayName,RaceDate,ShortName,Distance")]Race race,
                 [Bind(Prefix = "Conditions", Include = "SwimGeneral,BikeGeneral,RunGeneral")]RaceConditions conditions)
@@ -90,13 +118,13 @@ namespace RaceAnalysis.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.RaceConditions.Add(conditions);
-                db.SaveChanges();
+                _DBContext.RaceConditions.Add(conditions);
+                _DBContext.SaveChanges();
 
                 race.Conditions = conditions;
 
-                db.Races.Add(race);
-                db.SaveChanges();
+                _DBContext.Races.Add(race);
+                _DBContext.SaveChanges();
                 return RedirectToAction("Index");
             }
             else
@@ -111,13 +139,14 @@ namespace RaceAnalysis.Controllers
         }
 
         // GET: Races/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Race race = db.Races.Find(id);
+            Race race = _DBContext.Races.Find(id);
             if (race == null)
             {
                 return HttpNotFound();
@@ -130,31 +159,32 @@ namespace RaceAnalysis.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //  public ActionResult Edit([Bind(Include = "RaceId,BaseURL,DisplayName,RaceDate,ShortName,Distance,ConditionsId,Conditions.SwimGeneral,Conditions.BikeGeneral,Conditions.RunGeneral")] Race race)
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(
                 [Bind(Prefix ="Race", Include = "RaceId,ConditionsId,BaseURL,DisplayName,RaceDate,ShortName,Distance")]Race race,
                 [Bind(Prefix ="Conditions", Include = "RaceConditionsId,SwimGeneral,BikeGeneral,RunGeneral")]RaceConditions conditions)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(race).State = EntityState.Modified;
-                db.SaveChanges();
+                _DBContext.Entry(race).State = EntityState.Modified;
+                _DBContext.SaveChanges();
 
-                db.Entry(conditions).State = EntityState.Modified;
-                db.SaveChanges();
+                _DBContext.Entry(conditions).State = EntityState.Modified;
+                _DBContext.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(race);
         }
 
         // GET: Races/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Race race = db.Races.Find(id);
+            Race race = _DBContext.Races.Find(id);
             if (race == null)
             {
                 return HttpNotFound();
@@ -165,21 +195,26 @@ namespace RaceAnalysis.Controllers
         // POST: Races/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirmed(int id)
         {
-            Race race = db.Races.Find(id);
-            db.Races.Remove(race);
-            db.SaveChanges();
+            Race race = _DBContext.Races.Find(id);
+            _DBContext.Races.Remove(race);
+            _DBContext.SaveChanges();
             return RedirectToAction("Index");
         }
 
+
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> CacheFill(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Race race = db.Races.Find(id);
+
+            InitializeStorage();
+            Race race = _DBContext.Races.Find(id);
             if (race == null)
             {
                 return HttpNotFound();
@@ -193,8 +228,8 @@ namespace RaceAnalysis.Controllers
         private async Task AddQueueMessages(int raceId)
         {
             var raceIds = new int[]{ raceId }; //for futer growth?
-            var agegroupIds = db.AgeGroups.Select(ag => ag.AgeGroupId).ToArray();
-            var genderIds = db.Genders.Select(g => g.GenderId).ToArray();
+            var agegroupIds = _DBContext.AgeGroups.Select(ag => ag.AgeGroupId).ToArray();
+            var genderIds = _DBContext.Genders.Select(g => g.GenderId).ToArray();
 
             foreach (int id in raceIds)
             {
@@ -221,9 +256,41 @@ namespace RaceAnalysis.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _DBContext.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+
+
+
+        private void InitializeStorage()
+        {
+            // Open storage account using credentials from .cscfg file.
+            var storageAccount = CloudStorageAccount.Parse(ConfigurationManager.ConnectionStrings["AzureWebJobsStorage"].ToString());
+
+            // Get context object for working with blobs, and 
+            // set a default retry policy appropriate for a web user interface.
+            //var blobClient = storageAccount.CreateCloudBlobClient();
+            //blobClient.DefaultRequestOptions.RetryPolicy = new LinearRetry(TimeSpan.FromSeconds(3), 3);
+
+            // Get a reference to the blob container.
+            //imagesBlobContainer = blobClient.GetContainerReference("images");
+
+            // Get context object for working with queues, and 
+            // set a default retry policy appropriate for a web user interface.
+            CloudQueueClient queueClient = storageAccount.CreateCloudQueueClient();
+            //queueClient.DefaultRequestOptions.RetryPolicy = new LinearRetry(TimeSpan.FromSeconds(3), 3);
+
+            // Get a reference to the queue.
+            cacheRequestQueue = queueClient.GetQueueReference("triathletepullrequest");
+            cacheRequestQueue.CreateIfNotExists();
+
+        }
+
+        protected override ActionResult DisplayResultsView(RaceFilterViewModel model)
+        {
+            throw new NotImplementedException();
         }
     }
 }

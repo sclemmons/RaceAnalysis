@@ -126,7 +126,7 @@ namespace RaceAnalysis.Service
 
             return athletes;
         }
-        public List<Triathlete> SearchFieldQuery(string field, string queryValue)
+        public List<Triathlete> SearchAthletesFieldQuery(string field, string queryValue)
         {
             var client = SetupElasticSearch();
             var request = new SearchRequest
@@ -146,15 +146,35 @@ namespace RaceAnalysis.Service
 
           
         }
-    
-
-    
-        const string myindex = "mytriindex";
-        /*** The following version demonstrates a few techniques when indexing****/
-        public void ReIndex()
+        public List<Race> SearchRacesFieldQuery(string field, string queryValue)
         {
+            var client = SetupElasticSearch();
+            var request = new SearchRequest
+            {
+                From = 0,
+                Size = 100,
+                Query = new MatchQuery { Field = field, Query = queryValue }
+
+            };
+
+            var response = client.Search<Race>(request);
+
+            var races = response.Documents.ToList();
+
+            return races;
+
+
+        }
+
+
+
+        /*** The following version demonstrates a few techniques when indexing****/
+        public void ReIndexTriathletes()
+        {
+            const string indexName = "mytriindex";//index names must be lower cased
+
             var settings = new ConnectionSettings(new Uri("http://localhost:9200"))
-                        .DefaultIndex(myindex)
+                        .DefaultIndex(indexName)
                         .MapPropertiesFor<Race>(m => m.Ignore(r => r.BaseURL))
                         .MapPropertiesFor<RequestContext>(m => m
                           .Ignore(v => v.Instruction));      //Leaves out this field entire in mapping and _source so it doesn't get serialized
@@ -162,10 +182,10 @@ namespace RaceAnalysis.Service
                                                              //but this does it in a more dynamic manner so we can
                                                              //include the field on specific indexes.
             var client = new ElasticClient(settings);
-            if (client.IndexExists(myindex).Exists)
-                client.DeleteIndex(myindex);
+            if (client.IndexExists(indexName).Exists)
+                client.DeleteIndex(indexName);
 
-            client.CreateIndex(myindex, i => i
+            client.CreateIndex(indexName, i => i
                 .Settings(s => s
                     .NumberOfShards(2)
                     .NumberOfReplicas(0)
@@ -221,6 +241,33 @@ namespace RaceAnalysis.Service
         }
 
 
+
+        public void ReIndexRaces()
+        {
+            const string indexName = "raceindex"; //index names must be lower cased
+            var settings = new ConnectionSettings(new Uri("http://localhost:9200"))
+                        .DefaultIndex(indexName)
+                        .MapPropertiesFor<Race>(m => m.Ignore(r => r.BaseURL));
+            var client = new ElasticClient(settings);
+            if (client.IndexExists(indexName).Exists)
+                client.DeleteIndex(indexName);
+
+           var indexResponse = client.CreateIndex(indexName, i => i
+                .Settings(s => s
+                    .NumberOfShards(2)
+                    .NumberOfReplicas(0)
+            )
+            .Mappings(ms => ms
+                .Map<Race>(m => m.AutoMap())));
+
+
+
+            //bulk index:
+            var res = client.IndexMany<Race>(_DBContext.Races.Include("Conditions"));
+
+        }
+
+
         //This version includes the race information that goes with the triathlete
         //it requires that the Triathlete.Race be available for serialization and all of the nested classes.
         public void ReIndexObsolete()
@@ -251,13 +298,8 @@ namespace RaceAnalysis.Service
 
                 if (count > 10) break;
             }
-
-
            
         }
-
-
-
 
         private ElasticClient SetupElasticSearch()
         {
@@ -265,7 +307,7 @@ namespace RaceAnalysis.Service
             var nodes = new Uri[]
             {
                  new Uri("http://localhost:9200")
-            //    new Uri("http://ipv4.fiddler:9200")  //use fiddler to see messages to & from elasticsearch
+               // new Uri("http://ipv4.fiddler:9200")  //use fiddler to see messages to & from elasticsearch
             };
             var pool = new StaticConnectionPool(nodes);
             var settings = new ConnectionSettings(pool);

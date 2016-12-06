@@ -1,0 +1,35 @@
+﻿@model IEnumerable<RaceAnalysis.Models.Race>
+
+<h2>Search Results</h2>
+
+<div>
+    @Html.ActionLink("Back to Search", "Search")
+</div>
+
+<div>
+    @Html.ActionLink("Compare Races", "Compare", "Races",null,new { @class = "btn btn-default", title = "Display Comparison" })
+
+</div>
+
+
+@Html.Partial("~/Views/Shared/_OnePageOfRaces.cshtml", Model);
+
+
+<script type="text/javascript">
+        $(document).ready(function () {
+
+            function getSelectedIds() {
+                var Ids = "";
+                $('input[type=checkbox]').each(function (index, element) {
+                    if (this.checked) {
+                        Ids += this.id + ",";
+                    }
+                });
+                if (Ids.endsWith(","))
+                    Ids = Ids.slice(0, -1);
+
+                return Ids;
+            }
+
+        });
+</script>

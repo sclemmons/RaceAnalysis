@@ -9,7 +9,7 @@
     {
         LoadingElementId = "loading-area",
         LoadingElementDuration = 1000,
-        Url = Url.Action("Search"),
+        Url = Url.Action("SearchRaces"),
         OnBegin = "HideForm",
         OnFailure = "ShowFailure",
         UpdateTargetId = "results-area"
@@ -23,7 +23,7 @@
 <!-- The loading-area will be where we display a message during the AJAX call.
     This way, the user knows something is happening in the background.-->
 <div id="loading-area" class="load" style="display:none;">
-    <div class='alert alert-info'><strong>Sending...</strong></div>
+    <div class='alert alert-info'><strong>Searching...</strong></div>
 </div>
 
 <!-- The message-area will be where we display a message after the AJAX call
@@ -35,14 +35,20 @@
     @using (Ajax.BeginForm(ajaxOptions))
     {
         @Html.AntiForgeryToken()
+     
         <div class="form-group">
-            <span>Search for athletes by name:</span>
-            @Html.TextBox("SearchByName",null, new { @class = "form-control" })
-       
+            <span>Search for a race based on swim conditions</span>
+            @Html.TextBox("SearchBySwimConditions", null, new { @class = "form-control" })
+
         </div>
         <div class="form-group">
-            <span>Search for a race based on conditions</span>
-            @Html.TextBox("SearchRaceByConditions", null, new { @class = "form-control" })
+            <span>Search for a race based on bike conditions</span>
+            @Html.TextBox("SearchByBikeConditions", null, new { @class = "form-control" })
+
+        </div>
+        <div class="form-group">
+            <span>Search for a race based on run conditions</span>
+            @Html.TextBox("SearchByRunConditions", null, new { @class = "form-control" })
 
         </div>
         <div class="form-group">

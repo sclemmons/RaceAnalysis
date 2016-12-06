@@ -123,20 +123,30 @@ namespace RaceAnalysis.Service
         public List<Triathlete> GetAthletesByName(string name)
         {
             var search = new ElasticSearchFacade(_DBContext);
-           return  search.SearchFieldQuery("name", name);
+           return  search.SearchAthletesFieldQuery("name", name);
         }
 
-        public List<Race> GetRacesByCondition(string conditions)
+        public List<Race> GetRacesBySwimCondition(string conditions)
         {
             var search = new ElasticSearchFacade(_DBContext);
-            //search.SearchFieldQuery("swim", conditions);
-            search.SearchFieldQuery("name", "clemmons");
-            return new List<Race>();
+            return search.SearchRacesFieldQuery("conditions.swimGeneral", conditions);
         }
-        
+        public List<Race> GetRacesByBikeCondition(string conditions)
+        {
+            var search = new ElasticSearchFacade(_DBContext);
+            return search.SearchRacesFieldQuery("conditions.bikeGeneral", conditions);
+        }
+        public List<Race> GetRacesByRunCondition(string conditions)
+        {
+            var search = new ElasticSearchFacade(_DBContext);
+            return search.SearchRacesFieldQuery("conditions.runGeneral", conditions);
+        }
+
         public void ReIndex()
         {
-            new ElasticSearchFacade(_DBContext).ReIndex();
+            var search = new ElasticSearchFacade(_DBContext);
+            search.ReIndexRaces();
+            search.ReIndexTriathletes();
         }
 
 #region Private Methods

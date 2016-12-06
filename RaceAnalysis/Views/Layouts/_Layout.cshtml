@@ -46,15 +46,21 @@
                         @Html.ActionLink("How would I do?", "Index", "Hypotheticals")
                     </li>
 
-                    <li class='@Html.IsActive("Search", "Index")'>
-                        @Html.ActionLink("Search", "Index", "Search")
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Search<span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li class='@Html.IsActive("Races", "Search")'>
+                                @Html.ActionLink("Races", "Search", "Races")
+                            </li>
+                            <li class='@Html.IsActive("TriAthletes", "Search")'>
+                                @Html.ActionLink("Athletes", "Search", "TriAthletes")
+                            </li>
+                        </ul>
                     </li>
-                   
 
-                   
-
-                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">About...<span class="caret"></span></a>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">About<span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                             <li class='@Html.IsActive("AppFeatures", "Index")'>
                                 @Html.ActionLink("Features", "Index", "AppFeatures")

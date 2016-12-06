@@ -6,6 +6,7 @@ using X.PagedList;
 using RaceAnalysis.Service.Interfaces;
 using RaceAnalysis.ServiceSupport;
 using System.Linq;
+using System;
 
 namespace RaceAnalysis.Controllers
 {
@@ -47,22 +48,34 @@ namespace RaceAnalysis.Controllers
             
             return View("~/Views/Triathletes/Compare.cshtml", viewmodel);
         }
-    
+
+        //triathletes/search
         public ActionResult Search()
         {
-
-            var viewmodel = new TriathletesViewModel();
-            viewmodel.Filter = new RaceFilterViewModel();
-            return View(viewmodel);
-
+            return View();
         }
-
-        
-        public ActionResult ReIndex()
+        public PartialViewResult AthleteSearch(string searchbyname)
         {
-            _RaceService.ReIndex();
-            return RedirectToAction("Index");
+         
+            var viewmodel = new TriathletesViewModel();
+
+            List<Triathlete> athletes;
+            if (!String.IsNullOrEmpty(searchbyname))
+            {
+                athletes = _RaceService.GetAthletesByName(searchbyname);
+
+            }
+            else
+            {
+                athletes = new List<Triathlete>();
+            }
+            viewmodel.Triathletes = athletes;
+            viewmodel.TotalCount = athletes.Count();
+
+            return PartialView("~/Views/Shared/_OnePageOfAthletesNoFilter.cshtml", viewmodel);
         }
+
+
 
         /// <summary>
         /// Called while paging through athletes. We need to return just the partial view of athletes

@@ -1,0 +1,49 @@
+﻿@model IEnumerable<RaceAnalysis.Models.Race>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <tr>
+            <th>Select</th>
+            <th>
+                Name
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RaceDate)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Distance)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Conditions)
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <input id="@item.RaceId" type="checkbox" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DisplayName)
+                </td>
+                <td>
+                    @item.RaceDate.ToShortDateString()
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Distance)
+                </td>
+                <td>
+                    ...
+                </td>
+
+
+
+            </tr>
+        }
+
+    </table>
+
+</div>
+

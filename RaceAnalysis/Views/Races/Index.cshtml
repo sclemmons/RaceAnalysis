@@ -2,66 +2,9 @@
 
 @{
     ViewBag.Title = "Races";
+    ViewBag.BodyClass = "fullpage";
+    Layout = "~/Views/Layouts/_Layout.cshtml";
 }
-
 <h2>Races</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.BaseURL)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DisplayName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RaceDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ShortName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Distance)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Conditions.SwimGeneral)
-        </th>
-
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.BaseURL)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DisplayName)
-        </td>
-        <td>
-            @item.RaceDate.ToShortDateString()
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ShortName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Distance)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Conditions.SwimGeneral)
-        </td>
-
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.RaceId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.RaceId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.RaceId }) |
-  
-            @Html.ActionLink("Trigger Cache Fill", "CacheFill",new {id = item.RaceId})
-        </td>
-    </tr>
-}
-
-</table>
+@Html.Partial("~/Views/Shared/_OnePageOfRaces.cshtml", Model);

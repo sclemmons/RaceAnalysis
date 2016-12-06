@@ -23,7 +23,14 @@ namespace RaceAnalysis.Controllers
             viewModel.Filter = new RaceFilterViewModel(); 
             return View(viewModel);
         }
-       
+
+        [Authorize(Roles = "Admin")]
+        public ActionResult ReIndex()
+        {
+            _RaceService.ReIndex();
+            return RedirectToAction("Index");
+        }
+
         public ActionResult List()
         {
 

@@ -537,7 +537,7 @@
     <Content Include="Views\Hypotheticals\_EstFinishResults.cshtml" />
     <Content Include="Views\Layouts\_FullPageLayout.cshtml" />
     <Content Include="Views\Layouts\_HomePageLayout.cshtml" />
-    <Content Include="Views\Search\Index.cshtml" />
+    <Content Include="Views\Races\Search.cshtml" />
     <Content Include="Views\AppFeatures\Create.cshtml" />
     <Content Include="Views\AppFeatures\Delete.cshtml" />
     <Content Include="Views\AppFeatures\Details.cshtml" />
@@ -548,6 +548,9 @@
     <Content Include="Views\Shared\_SubmitMessage.cshtml" />
     <Content Include="Views\Shared\_SearchByRaceCondition.cshtml" />
     <Content Include="Views\Shared\_OnePageOfAthletesNoFilter.cshtml" />
+    <Content Include="Views\Races\Admin.cshtml" />
+    <Content Include="Views\Shared\_OnePageOfRaces.cshtml" />
+    <Content Include="Views\Races\_SearchResults.cshtml" />
     <None Include="Web.Test.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

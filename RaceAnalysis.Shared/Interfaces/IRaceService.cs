@@ -11,7 +11,9 @@ namespace RaceAnalysis.Service.Interfaces
 
         List<Triathlete> GetAthletes(IRaceCriteria criteria, IDurationFilter filter);
 
-        List<Race> GetRacesByCondition(string conditions);
+        List<Race> GetRacesBySwimCondition(string conditions);
+        List<Race> GetRacesByBikeCondition(string conditions);
+        List<Race> GetRacesByRunCondition(string conditions);
 
         List<Triathlete> GetAthletesByName(string name);
             
