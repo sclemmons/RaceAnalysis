@@ -484,7 +484,7 @@ div.hypothetical {
 div#box-estfinish,div#box-estSwim,div#box-estBike,div#box-estRun{
     position: relative;
     width: 100%;
-    height:250px;
+    height:300px;/*for some reason plotly needs this height or it wont display all of the hover markers*/
 
 }
 
