@@ -10,56 +10,54 @@
     };
 }
 <script src="~/Scripts/jquery.rowselector.min.js"></script>
+<div class="race-list">
+    <h2>Search Results</h2>
 
-<h2>Search Results</h2>
+    <div id="instructions">Click on one or more rows to select races, then select the button to view details.</div>
+    <div>
+        @Html.ActionLink("Back to Search", "Search")
+    </div>
 
-<div id="Instructions">Click on one or more rows to select races, then select the button to view details.</div>
-<div>
-    @Html.ActionLink("Back to Search", "Search")
+
+    <div>
+        @Html.ActionLink("Display Details", "SelectedRaces", "TriStats",
+                 queryViewModel, new { @id = "action-stats", @class = "btn btn-default", title = "Display detailed stats" })
+    </div>
+
+
+    @Html.Partial("~/Views/Shared/_OnePageOfRaces.cshtml", Model);
+
 </div>
+    <script type="text/javascript">
 
-
-<div>
-    @Html.ActionLink("Display Details", "SelectedRaces", "TriStats",
-                 queryViewModel, new { @id = "action-stats", @class="btn btn-default", title = "Display detailed stats" })
-</div>
-
-
-@Html.Partial("~/Views/Shared/_OnePageOfRaces.cshtml", Model);
-
-
-<script type="text/javascript">
-
-    $('#config-form').on('submit', function (evt) {
-        evt.preventDefault();
-    });
-
-    $('#action-stats').on('click', actionSelected);
-    $('#action-stats').attr("disabled", true); //disable until user selects rows
-    
-    function actionSelected(evt)
-    {
-        if ($('#action-stats').attr('disabled') == 'disabled'){
-            return false;
-        }
-
-        var selected = [];
-        $('#race-table').selectedrows().each(function (idx, el) {
-            if (el.id.length > 0) {
-                selected.push(el.id);
-            }
+        $('#config-form').on('submit', function (evt) {
+            evt.preventDefault();
         });
-        if (selected.length > 0) {
-           
-            this.href += "&Races=" + selected.join(', ');
+
+        $('#action-stats').on('click', actionSelected);
+        $('#action-stats').attr("disabled", true); //disable until user selects rows
+
+        function actionSelected(evt) {
+            if ($('#action-stats').attr('disabled') == 'disabled') {
+                return false;
+            }
+
+            var selected = [];
+            $('#race-table').selectedrows().each(function (idx, el) {
+                if (el.id.length > 0) {
+                    selected.push(el.id);
+                }
+            });
+            if (selected.length > 0) {
+
+                this.href += "&Races=" + selected.join(', ');
+            }
+            else {
+                return false;
+            }
+
         }
-        else
-        {
-            return false;
-        }
-    
-    }
-          
+
 
         //$('#action-stats').on('click', actionSelected);
 
@@ -77,17 +75,17 @@
 
 
         $('#race-table').on('clicked.rs.row', function (evt) {
-           
+
             var numrows = $(this).selectedrows().length;
             if (numrows > 0) {
                 $('#action-stats').attr("disabled", false);
             }
             else {
                 $('#action-stats').attr("disabled", true);
-          
+
             }
-        
+
         });
 
-    
-</script>
+
+    </script>
