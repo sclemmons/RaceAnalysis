@@ -54,7 +54,8 @@
   color:darkblue;
   font-style:oblique;
   font-weight:bold;
-
+  right:auto;
+  left:auto;
 }
 .navbar-inverse .navbar-nav > li > .dropdown-menu > li > a {
   //color: #f8f9f8;
