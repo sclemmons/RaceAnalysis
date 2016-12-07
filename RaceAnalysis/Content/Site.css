@@ -346,7 +346,9 @@ div#athlete-list{
 }
 
 
-/**** Bike and Run Scatter Chart*******/
+/******************************************************************************************
+     Bike and Run Scatter Chart
+*******************************************************************************************/
 .chartWithMarkerOverlay {
     position: relative;
     width: 100%;
@@ -367,7 +369,6 @@ div#chart-key{
     border-radius:5px;
 
 }
-
 
 .overlay-marker-bike {
     background: red;
@@ -444,7 +445,9 @@ div#chart-key{
    
 }
 
-/**********************Hypotheticals ******/
+/*****************************************************************************
+    HYPOTHETICALS
+******************************************************************************/
 div.criteria,div.email-form {
      width:50%;
     margin: 0 auto; /*center inside the outter div*/ 
@@ -465,7 +468,6 @@ div.criteria span.title{
     
 }
 
-
 div.hypothetical {
     width:50%;
     //margin-top:10px;
@@ -479,15 +481,14 @@ div.hypothetical {
     font-size: 18px;
     
 }
-div#box_estfinish{
+div#box-estfinish,div#box-estSwim,div#box-estBike,div#box-estRun{
     position: relative;
     width: 100%;
     height:250px;
 
- 
 }
 
-div#overlay-marker-estfinish {
+div#overlay-marker-estfinish,div#overlay-marker-estSwim,div#overlay-marker-estBike,div#overlay-marker-estRun  {
     background-color:darkturquoise;
     border-radius:2px;
     width: 200px;
@@ -499,7 +500,8 @@ div#overlay-marker-estfinish {
     border: 2px;
     font-weight:bold;
 }
-div#finish_range{
+
+div#finish-range, div#Swim-range,div#Bike-range,div#Run-range{
     margin-top:10px;
     //font-style: italic;
      font-weight:bold;
@@ -509,9 +511,20 @@ div#finish_range{
     padding:10px;
 }
 
+
+/**************************************************************************************************
+    APP FEATURES
+    
+***************************************************************************************************/
+
 div#app_features{
     margin-top:20px;
 }
+
+/**************************************************************************************************
+   CONTACT US
+    
+***************************************************************************************************/
 
 div.email-form {
      margin-bottom:10px;
@@ -519,12 +532,17 @@ div.email-form {
     font-size:18px;
     
 }
+
+
+/**************************************************************************************************
+ RACE LIST AND SEARCH RESULTS
+    
+***************************************************************************************************/
 div.race-list #action-stats{
     margin:10px;
     
 }
 
 div.race-list #instructions{
-   
   
 }

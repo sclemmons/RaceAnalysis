@@ -53,7 +53,53 @@
 
     <div id="ExpectedFinishTimeResults"></div>
 
+    <div class="hypothetical">
+        @Ajax.ActionLink("What is my expected swim time?",
+                        "SwimTime", "Hypotheticals",
+                        null,
+                        new AjaxOptions
+                        {
+                            UpdateTargetId = "ExpectedSwimTimeResults",
+                            InsertionMode = InsertionMode.Replace,
+                            HttpMethod = "GET",
+                            OnBegin = "beginPost"
+                        },
+                        htmlAttributes: new { id = "ExpectedSwimTime" })
+    </div>
 
+    <div id="ExpectedSwimTimeResults"></div>
+
+    <div class="hypothetical">
+        @Ajax.ActionLink("What is my expected bike time?",
+                        "BikeTime", "Hypotheticals",
+                        null,
+                        new AjaxOptions
+                        {
+                            UpdateTargetId = "ExpectedBikeTimeResults",
+                            InsertionMode = InsertionMode.Replace,
+                            HttpMethod = "GET",
+                            OnBegin = "beginPost"
+                        },
+                        htmlAttributes: new { id = "ExpectedBikeTime" })
+    </div>
+
+    <div id="ExpectedBikeTimeResults"></div>
+
+    <div class="hypothetical">
+        @Ajax.ActionLink("What is my expected run time?",
+                        "RunTime", "Hypotheticals",
+                        null,
+                        new AjaxOptions
+                        {
+                            UpdateTargetId = "ExpectedRunTimeResults",
+                            InsertionMode = InsertionMode.Replace,
+                            HttpMethod = "GET",
+                            OnBegin = "beginPost"
+                        },
+                        htmlAttributes: new { id = "ExpectedRunTime" })
+    </div>
+
+    <div id="ExpectedRunTimeResults"></div>
 
     <div class="hypothetical">
         @Ajax.ActionLink("If I bike this fast how would I compare with other athletes?",

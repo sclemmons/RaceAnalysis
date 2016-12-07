@@ -39,12 +39,12 @@
 
     }
 
-    <div id="finish_range">
+    <div id="finish-range">
         @finish_range
         @finish_explanation
     </div>
 
-    <div id='box_estfinish' >
+    <div id='box-estfinish' >
            <div id="overlay-marker-estfinish">--- Your Est. Finish Time ---</div>
     </div>
          
@@ -69,12 +69,12 @@
             xaxis : axis_template,
             //title: 'Finish',
         };
-        Plotly.newPlot('box_estfinish', [finish], finish_layout,{showLink: false, displaylogo: false});
+        Plotly.newPlot('box-estfinish', [finish], finish_layout,{showLink: false, displaylogo: false});
 
 
 
         $(function(){
-            var containerWidth = parseInt( $('#box_estfinish').css("width"));
+            var containerWidth = parseInt( $('#box-estfinish').css("width"));
             var overlayWidth =   parseInt( $('#overlay-marker-estfinish').css("width"));
            // var overlayCenter = parseInt(overlayWidth)/2;
             var fudge = 125; //a guess right now from where the axis starts

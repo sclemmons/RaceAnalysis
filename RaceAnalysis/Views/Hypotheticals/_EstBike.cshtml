@@ -1,0 +1,111 @@
+﻿@model RaceAnalysis.Models.HypotheticalsViewModel
+
+<div>
+    @{
+        string Bike_range = " Your approximate Bike time would be in the range:  ";
+        switch (@Model.SelectedSkillLevel)
+        {
+            case "1":
+                Bike_range +=
+                    new TimeSpan(Model.Stats[0].Bike.FastestHalf.Item1.Min(t => t.Bike.Ticks)) + " - " +
+                    new TimeSpan(Model.Stats[0].Bike.FastestHalf.Item1.Max(t => t.Bike.Ticks));
+                break;
+            case "2":
+                Bike_range +=
+              new TimeSpan(Model.Stats[0].Bike.FastestHalf.Item2.Min(t => t.Bike.Ticks)) + " - " +
+              new TimeSpan(Model.Stats[0].Bike.FastestHalf.Item2.Max(t => t.Bike.Ticks));
+                break;
+            case "3":
+                Bike_range +=
+               new TimeSpan(Model.Stats[0].Bike.SlowestHalf.Item1.Min(t => t.Bike.Ticks)) + " - " +
+               new TimeSpan(Model.Stats[0].Bike.SlowestHalf.Item1.Max(t => t.Bike.Ticks));
+                break;
+            case "4":
+            default:
+                Bike_range +=
+              new TimeSpan(Model.Stats[0].Bike.SlowestHalf.Item2.Min(t => t.Bike.Ticks)) + " - " +
+              new TimeSpan(Model.Stats[0].Bike.SlowestHalf.Item2.Max(t => t.Bike.Ticks));
+                break;
+        }
+        Bike_range += ".";
+
+        string Bike_explanation = "The box plot below displays the range of cyclists for your age group."
+           + "The middle line represents the median time for this group of cyclists. "
+           + "Left of the line represents faster than median and right of the line slower. "
+           + "The colored box in the middle represents 50% of cyclists."
+            + "The highlighted area represents an estimated range based on your skill level.";
+
+
+
+    }
+
+    <div id="Bike-range">
+        @Bike_range
+        @Bike_explanation
+    </div>
+
+    <div id='box-estBike' >
+           <div id="overlay-marker-estBike">--- Your Est. Bike Time ---</div>
+    </div>
+         
+
+    <script>
+        axis_template = {
+            nticks: 20,
+        };
+       
+        var Bike = {
+            x: @Html.Raw(Json.Encode(Model.Stats[0].Bike.Data)),
+            
+            type: 'box',
+            name: 'Bike Times',
+            marker:{
+                color: 'rgb(255,0,0)'
+            },
+          
+        };
+        var Bike_layout = {
+            xaxis : axis_template,
+        };
+        Plotly.newPlot('box-estBike', [Bike], Bike_layout,{showLink: false, displaylogo: false});
+
+
+
+        $(function(){
+            var containerWidth = parseInt( $('#box-estBike').css("width"));
+            var overlayWidth =   parseInt( $('#overlay-marker-estBike').css("width"));
+           // var overlayCenter = parseInt(overlayWidth)/2;
+            var fudge = 125; //a guess right now from where the axis starts
+            var fudge2 = 100;
+            var qtr;
+            switch(@Model.SelectedSkillLevel)
+            {
+                case 1:
+                    qtr= 0 + fudge;
+                    break;
+                case 2:
+                    qtr= containerWidth/4 + fudge2;
+                    break;
+                case 3:
+                    qtr= containerWidth/2;
+                    break;
+                case 4:
+                    qtr= containerWidth - fudge - overlayWidth;
+                    break;
+                default: 
+                    qtr= containerWidth - fudge - overlayWidth;
+                    break;
+            }
+           
+            $('#overlay-marker-estBike').css('left', qtr + "px");
+
+            $( window ).on("resize", function() {
+                 $('#overlay-marker-estBike').css('left', qtr + "px");
+
+                
+            });
+
+        });
+    </script>
+</div>
+

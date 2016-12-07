@@ -34,16 +34,6 @@
         var swim_layout = {
             xaxis : axis_template,
             title: 'Swim Box plot',
-            annotations: [
-                {
-                    text: 'Fastest!',
-                    x: 2,
-                    xref: '3',
-                    y: 0 ,
-                    yref: 'paper'
-
-                }
-            ]
         };
         data_swim = [swim];
         Plotly.newPlot('@box_swim', data_swim, swim_layout);

@@ -1,0 +1,111 @@
+﻿@model RaceAnalysis.Models.HypotheticalsViewModel
+
+<div>
+    @{
+        string Swim_range = " Your approximate swim time would be in the range:  ";
+        switch (@Model.SelectedSkillLevel)
+        {
+            case "1":
+                Swim_range +=
+                    new TimeSpan(Model.Stats[0].Swim.FastestHalf.Item1.Min(t => t.Swim.Ticks)) + " - " +
+                    new TimeSpan(Model.Stats[0].Swim.FastestHalf.Item1.Max(t => t.Swim.Ticks));
+                break;
+            case "2":
+                Swim_range +=
+              new TimeSpan(Model.Stats[0].Swim.FastestHalf.Item2.Min(t => t.Swim.Ticks)) + " - " +
+              new TimeSpan(Model.Stats[0].Swim.FastestHalf.Item2.Max(t => t.Swim.Ticks));
+                break;
+            case "3":
+                Swim_range +=
+               new TimeSpan(Model.Stats[0].Swim.SlowestHalf.Item1.Min(t => t.Swim.Ticks)) + " - " +
+               new TimeSpan(Model.Stats[0].Swim.SlowestHalf.Item1.Max(t => t.Swim.Ticks));
+                break;
+            case "4":
+            default:
+                Swim_range +=
+              new TimeSpan(Model.Stats[0].Swim.SlowestHalf.Item2.Min(t => t.Swim.Ticks)) + " - " +
+              new TimeSpan(Model.Stats[0].Swim.SlowestHalf.Item2.Max(t => t.Swim.Ticks));
+                break;
+        }
+        Swim_range += ".";
+
+        string Swim_explanation = "The box plot below displays the range of swimmers for your age group."
+           + "The middle line represents the median time for this group of swimmers. "
+           + "Left of the line represents faster than median and right of the line slower. "
+           + "The colored box in the middle represents 50% of swimmers."
+            + "The highlighted area represents an estimated range based on your skill level.";
+
+
+
+    }
+
+    <div id="Swim-range">
+        @Swim_range
+        @Swim_explanation
+    </div>
+
+    <div id='box-estSwim' >
+           <div id="overlay-marker-estSwim">--- Your Est. Swim Time ---</div>
+    </div>
+         
+
+    <script>
+        axis_template = {
+            nticks: 20,
+        };
+       
+        var Swim = {
+            x: @Html.Raw(Json.Encode(Model.Stats[0].Swim.Data)),
+            
+            type: 'box',
+            name: 'Swim Times',
+            marker:{
+                color: 'rgb(143,187,218)'
+            }
+        };
+        var Swim_layout = {
+            xaxis : axis_template,
+           
+        };
+        Plotly.newPlot('box-estSwim', [Swim], Swim_layout,{showLink: false, displaylogo: false});
+
+
+
+        $(function(){
+            var containerWidth = parseInt( $('#box-estSwim').css("width"));
+            var overlayWidth =   parseInt( $('#overlay-marker-estSwim').css("width"));
+           // var overlayCenter = parseInt(overlayWidth)/2;
+            var fudge = 125; //a guess right now from where the axis starts
+            var fudge2 = 100;
+            var qtr;
+            switch(@Model.SelectedSkillLevel)
+            {
+                case 1:
+                    qtr= 0 + fudge;
+                    break;
+                case 2:
+                    qtr= containerWidth/4 + fudge2;
+                    break;
+                case 3:
+                    qtr= containerWidth/2;
+                    break;
+                case 4:
+                    qtr= containerWidth - fudge - overlayWidth;
+                    break;
+                default: 
+                    qtr= containerWidth - fudge - overlayWidth;
+                    break;
+            }
+           
+            $('#overlay-marker-estSwim').css('left', qtr + "px");
+
+            $( window ).on("resize", function() {
+                 $('#overlay-marker-estSwim').css('left', qtr + "px");
+
+                
+            });
+
+        });
+    </script>
+</div>
+

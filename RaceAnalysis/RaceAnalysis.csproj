@@ -534,9 +534,8 @@
     <Content Include="Views\Shared\_BikeRunScatterChart.cshtml" />
     <Content Include="Views\Shared\_BikeRunPieChart.cshtml" />
     <Content Include="Views\Shared\_DNFPerRacePieChart.cshtml" />
-    <Content Include="Views\Hypotheticals\Hypotheticals.cshtml" />
     <Content Include="Views\Hypotheticals\Index.cshtml" />
-    <Content Include="Views\Hypotheticals\_EstFinishResults.cshtml" />
+    <Content Include="Views\Hypotheticals\_EstFinish.cshtml" />
     <Content Include="Views\Layouts\_FullPageLayout.cshtml" />
     <Content Include="Views\Layouts\_HomePageLayout.cshtml" />
     <Content Include="Views\Races\Search.cshtml" />
@@ -553,6 +552,9 @@
     <Content Include="Views\Races\Admin.cshtml" />
     <Content Include="Views\Shared\_OnePageOfRaces.cshtml" />
     <Content Include="Views\Races\_SearchResults.cshtml" />
+    <Content Include="Views\Hypotheticals\_EstSwim.cshtml" />
+    <Content Include="Views\Hypotheticals\_EstBike.cshtml" />
+    <Content Include="Views\Hypotheticals\_EstRun.cshtml" />
     <None Include="Web.Test.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

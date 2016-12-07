@@ -33,14 +33,36 @@ namespace RaceAnalysis.Controllers
             throw new NotImplementedException();
         }
 
-        public ActionResult FinishTime(SimpleFilterViewModel model)
+        public PartialViewResult FinishTime(SimpleFilterViewModel model)
         {
             var filter = new RaceFilterViewModel();
             filter.SaveRaceFilterValues(model);
-            return DisplayEstimatedFinishTime(filter);
+            var modelView= GetEstimatedTime(filter);
+            return PartialView("_EstFinish", modelView);
+        }
+        public PartialViewResult SwimTime(SimpleFilterViewModel model)
+        {
+            var filter = new RaceFilterViewModel();
+            filter.SaveRaceFilterValues(model);
+            var modelView = GetEstimatedTime(filter);
+            return PartialView("_EstSwim", modelView);
+        }
+        public PartialViewResult BikeTime(SimpleFilterViewModel model)
+        {
+            var filter = new RaceFilterViewModel();
+            filter.SaveRaceFilterValues(model);
+            var modelView = GetEstimatedTime(filter);
+            return PartialView("_EstBike", modelView);
+        }
+        public PartialViewResult RunTime(SimpleFilterViewModel model)
+        {
+            var filter = new RaceFilterViewModel();
+            filter.SaveRaceFilterValues(model);
+            var modelView = GetEstimatedTime(filter);
+            return PartialView("_EstRun", modelView);
         }
 
-        private PartialViewResult DisplayEstimatedFinishTime(RaceFilterViewModel filter)
+        private HypotheticalsViewModel GetEstimatedTime(RaceFilterViewModel filter)
         {
             var modelView = new HypotheticalsViewModel();
             modelView.Filter = filter;
@@ -60,7 +82,7 @@ namespace RaceAnalysis.Controllers
 
             modelView.SelectedSkillLevel = filter.SkillLevel; //TO-DO: fix this up so it removes the redundancy
 
-            return PartialView("_EstFinishResults",modelView);
+            return modelView;
         }
 
     }
