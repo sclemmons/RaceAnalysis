@@ -28,11 +28,6 @@ namespace RaceAnalysis.Controllers
             return View(viewModel);
         }
       
-        protected override ActionResult DisplayResultsView(RaceFilterViewModel model)
-        {
-            throw new NotImplementedException();
-        }
-
         public PartialViewResult FinishTime(SimpleFilterViewModel model)
         {
             var filter = new RaceFilterViewModel();
@@ -62,6 +57,34 @@ namespace RaceAnalysis.Controllers
             return PartialView("_EstRun", modelView);
         }
 
+        public PartialViewResult ShowBikeRange(SimpleFilterViewModel model)
+        {
+            var modelView = new RaceFilterViewModel();
+           
+            return PartialView("_BikeRange", modelView);
+        }
+        /// <summary>
+        /// Given the bike range, provide estimas 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public PartialViewResult GivenBikeTime(SimpleFilterViewModel model)
+        {
+            var filter = new RaceFilterViewModel();
+            filter.SaveRaceFilterValues(model);
+            var modelView = GetEstimatedTime(filter);
+            return PartialView("_GivenBikeRange", modelView);
+        }
+
+        #region Protected Methods
+        protected override ActionResult DisplayResultsView(RaceFilterViewModel model)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+
+
+        #region Private Methods
         private HypotheticalsViewModel GetEstimatedTime(RaceFilterViewModel filter)
         {
             var modelView = new HypotheticalsViewModel();
@@ -84,6 +107,8 @@ namespace RaceAnalysis.Controllers
 
             return modelView;
         }
+
+        #endregion
 
     }
 }

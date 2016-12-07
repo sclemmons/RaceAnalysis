@@ -102,19 +102,20 @@
     <div id="ExpectedRunTimeResults"></div>
 
     <div class="hypothetical">
-        @Ajax.ActionLink("If I bike this fast how would I compare with other athletes?",
-                        "FinishTime", "Hypotheticals",
+
+        @Ajax.ActionLink("select bike range","ShowBikeRange", "Hypotheticals",
                         null,
                         new AjaxOptions
                         {
-                            UpdateTargetId = "ExpectedFinishTimeResults",
+                            UpdateTargetId = "BikeRangeDiv",
                             InsertionMode = InsertionMode.Replace,
-                            HttpMethod = "GET",
-                            OnBegin = "beginPost"
+                            HttpMethod = "GET"
                         },
-                        htmlAttributes: new { id = "ExpectedFinishTime" })
+                        htmlAttributes: new { id = "BikeRangeLink" })
+
 
     </div>
+    <div id="BikeRangeDiv"></div>
 
 
 

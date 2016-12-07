@@ -1,0 +1,149 @@
+﻿@model RaceAnalysis.Models.CompareBikeRunViewModel
+
+
+<div id="results-header">
+    <h3>@Model.TotalCount Athletes</h3>
+</div>
+
+<div class="chartWithMarkerOverlay" id="chart_with_overlay">
+    <div id="chart-div"></div>
+
+    <div class="overlay-text-Q1" data-toggle="tooltip" 
+         title="Fast Bike, Fast Run">
+        <div style="font-family:'Arial Black'; font-size: 12px;">1</div>
+     </div>
+    <div class="overlay-text-Q2" data-toggle="tooltip" 
+         title="Slower Bike, Faster Run">
+        <div style="font-family:'Arial Black'; font-size: 12px;">2</div>
+    </div>
+    <div class="overlay-text-Q3" data-toggle="tooltip" 
+         title="Slower Bike, Slower Run">
+        <div style="font-family:'Arial Black'; font-size: 12px;">3</div>
+    </div>
+    <div class="overlay-text-Q4" data-toggle="tooltip" 
+         title="Fast Bike, Slower Run">
+        <div style="font-family:'Arial Black'; font-size: 12px;">4</div>
+    </div>
+    <div class="overlay-text-run-median" data-toggle="tooltip"
+         title="Run Median Line">
+        <div>Run-Median: @Model.RunMedian.ToString()</div>
+    </div>
+    <div class="overlay-text-bike-median" data-toggle="tooltip"
+         title="Bike Median Line">
+        <div>Bike-Median: @Model.BikeMedian.ToString()</div>
+    </div>
+
+    <div class="overlay-marker-bike">
+    </div>
+    <div class="overlay-marker-run">
+    </div>
+</div>
+
+<div id="chart-key">
+    <h4>Key:</h4>
+    <span>1 : Fast Bike, Fast Run</span>
+    <span><b>(@Model.FastBikeFastRun.Count()</b> athletes)</span>
+    <p>This group had the fastest bike and run pace.</p>
+   
+
+    <span>2: Slower Bike, Faster Run </span>
+    <span><b>(@Model.SlowBikeFastRun.Count()</b> athletes)</span>
+    <p>This group was conservative on the bike and had an above-averate run.</p>
+    
+    <span>3: Slower Bike, Slower Run </span>
+    <span><b>(@Model.SlowBikeSlowRun.Count()</b> athletes)</span>
+    <p>This group performed slower on the bike and the run.</p>
+
+    <span>4: Faster Bike, Slower Run </span>
+    <span><b>(@Model.FastBikeSlowRun.Count()</b> athletes)</span>
+    <p>This group was more agressive on the bike but performed slower on the run.</p>
+
+</div>
+    <script type="text/javascript">
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable(
+                        @Html.Raw(Json.Encode(Model.BikeAndRunData))
+                    );
+
+            var options = {
+                title: '',
+                hAxis: { title: 'Bike'},
+                vAxis: { title: 'Run'},
+                legend: 'none',
+                crosshair: {trigger: 'both'},
+                trendlines: {
+                    0: {
+                        type: 'linear',
+                        color: 'green',
+                        lineWidth: 3,
+                        opacity: 0.3,
+                        showR2: true,
+                        visibleInLegend: true
+                    }
+                }
+            };
+
+            function placeMarker(data) {
+                var cli = this.getChartLayoutInterface();
+                var chartArea = cli.getChartAreaBoundingBox();
+
+                @{
+                          var bikeMed = Html.Raw(Json.Encode(Model.BikeMid));
+                          var runMed = Html.Raw(Json.Encode(Model.RunMid));
+
+                 }
+                
+                var bikeX = cli.getXLocation(@bikeMed);
+                var runY = cli.getYLocation(@runMed);
+
+
+                document.querySelector('.overlay-marker-bike').style.top = chartArea.top + "px" ;
+                document.querySelector('.overlay-marker-bike').style.left = Math.floor(bikeX) + "px";
+                document.querySelector('.overlay-marker-bike').style.height = chartArea.height + "px";
+
+
+                document.querySelector('.overlay-marker-run').style.top =  Math.floor(runY) + "px";
+                document.querySelector('.overlay-marker-run').style.left = chartArea.left + "px";
+                document.querySelector('.overlay-marker-run').style.width = chartArea.width + "px";
+
+
+                document.querySelector('.overlay-text-Q1').style.top = chartArea.top + chartArea.height-20 + "px";
+                document.querySelector('.overlay-text-Q1').style.left = chartArea.left + "px";
+                           
+                document.querySelector('.overlay-text-Q2').style.top = chartArea.top + chartArea.height - 20 + "px";
+                document.querySelector('.overlay-text-Q2').style.left = chartArea.left+ chartArea.width -20+ "px";
+
+                document.querySelector('.overlay-text-Q3').style.top = chartArea.top + "px";
+                document.querySelector('.overlay-text-Q3').style.left = chartArea.left + chartArea.width - 20 + "px";
+
+                document.querySelector('.overlay-text-Q4').style.top = chartArea.top + "px";
+                document.querySelector('.overlay-text-Q4').style.left = chartArea.left + "px";
+
+                document.querySelector('.overlay-text-run-median').style.top = Math.floor(runY) -20 + "px";
+                document.querySelector('.overlay-text-run-median').style.left = chartArea.left + chartArea.width +"px";
+
+                              
+                document.querySelector('.overlay-text-bike-median').style.top = chartArea.top - 40 + "px";
+                document.querySelector('.overlay-text-bike-median').style.left = Math.floor(bikeX) -40 + "px";;
+
+
+
+            };
+            function arraysEqual(a1,a2) {
+                /* WARNING: arrays must not contain {objects} or behavior may be undefined */
+                return JSON.stringify(a1)==JSON.stringify(a2);
+            }
+
+
+            var chart = new google.visualization.ScatterChart(document.getElementById('chart-div'));
+            google.visualization.events.addListener(chart, 'ready',placeMarker.bind(chart, data));
+
+            chart.draw(data, options);
+        }
+
+        $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
