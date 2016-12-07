@@ -96,7 +96,7 @@ namespace RaceAnalysis.Controllers
                     {
                         SelectedRaceIds = filter.SelectedRaceIds,
                         SelectedAgeGroupIds = AgeGroup.Expand(filter.SelectedAgeGroupIds),
-                        SelectedGenderIds = filter.SelectedGenderIds
+                        SelectedGenderIds = Gender.Expand(filter.SelectedGenderIds)
                     },
                     filter);
 
@@ -123,7 +123,7 @@ namespace RaceAnalysis.Controllers
                     {
                         SelectedRaceIds = filter.SelectedRaceIds,
                         SelectedAgeGroupIds = AgeGroup.Expand(filter.SelectedAgeGroupIds),
-                        SelectedGenderIds = filter.SelectedGenderIds
+                        SelectedGenderIds = Gender.Expand(filter.SelectedGenderIds)
                     },
                     filter);
 
@@ -150,7 +150,7 @@ namespace RaceAnalysis.Controllers
                     {
                         SelectedRaceIds = filter.SelectedRaceIds,
                         SelectedAgeGroupIds = AgeGroup.Expand(filter.SelectedAgeGroupIds),
-                        SelectedGenderIds = filter.SelectedGenderIds
+                        SelectedGenderIds = Gender.Expand(filter.SelectedGenderIds)
                     },
                     filter);
 

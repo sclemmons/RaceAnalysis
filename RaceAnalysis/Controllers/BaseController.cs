@@ -48,8 +48,7 @@ namespace RaceAnalysis.Controllers
            return DisplayResultsView(filter);
 
         }
-
-        
+               
 
 
 

@@ -1,14 +1,27 @@
 ﻿@model IEnumerable<RaceAnalysis.Models.Race>
+@using RaceAnalysis.Models;
+@{
+    var queryViewModel = new SimpleFilterViewModel
+    {
+        //Races = "",
+        AgeGroups = "0", //this will allow us to pass these as params and possibly use them in the future
+        Genders = "0",
+       
+    };
+}
+<script src="~/Scripts/jquery.rowselector.min.js"></script>
 
 <h2>Search Results</h2>
 
+<div id="Instructions">Click on one or more rows to select races, then select the button to view details.</div>
 <div>
     @Html.ActionLink("Back to Search", "Search")
 </div>
 
-<div>
-    @Html.ActionLink("Compare Races", "Compare", "Races",null,new { @class = "btn btn-default", title = "Display Comparison" })
 
+<div>
+    @Html.ActionLink("Display Details", "SelectedRaces", "TriStats",
+                 queryViewModel, new { @id = "action-stats", @class="btn btn-default", title = "Display detailed stats" })
 </div>
 
 
@@ -16,20 +29,65 @@
 
 
 <script type="text/javascript">
-        $(document).ready(function () {
 
-            function getSelectedIds() {
-                var Ids = "";
-                $('input[type=checkbox]').each(function (index, element) {
-                    if (this.checked) {
-                        Ids += this.id + ",";
-                    }
-                });
-                if (Ids.endsWith(","))
-                    Ids = Ids.slice(0, -1);
+    $('#config-form').on('submit', function (evt) {
+        evt.preventDefault();
+    });
 
-                return Ids;
+    $('#action-stats').on('click', actionSelected);
+    $('#action-stats').attr("disabled", true); //disable until user selects rows
+    
+    function actionSelected(evt)
+    {
+        if ($('#action-stats').attr('disabled') == 'disabled'){
+            return false;
+        }
+
+        var selected = [];
+        $('#race-table').selectedrows().each(function (idx, el) {
+            if (el.id.length > 0) {
+                selected.push(el.id);
             }
-
         });
+        if (selected.length > 0) {
+           
+            this.href += "&Races=" + selected.join(', ');
+        }
+        else
+        {
+            return false;
+        }
+    
+    }
+          
+
+        //$('#action-stats').on('click', actionSelected);
+
+        $('#select-type').on('change', function (evt) {
+            $('#race-table').attr('data-rs-type', $(this).val());
+            //alert("onchange-rs-type");
+        });
+
+
+        $('#select-class').on('change', function (evt) {
+            $('#race-table').attr('data-rs-class', $(this).val());
+
+            //alert("onchange rs-class");
+        });
+
+
+        $('#race-table').on('clicked.rs.row', function (evt) {
+           
+            var numrows = $(this).selectedrows().length;
+            if (numrows > 0) {
+                $('#action-stats').attr("disabled", false);
+            }
+            else {
+                $('#action-stats').attr("disabled", true);
+          
+            }
+        
+        });
+
+    
 </script>

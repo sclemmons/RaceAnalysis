@@ -39,7 +39,7 @@ namespace RaceAnalysis.Controllers
                     {
                         SelectedRaceIds = filter.SelectedRaceIds,
                         SelectedAgeGroupIds = new int[] { agId },
-                        SelectedGenderIds = filter.SelectedGenderIds
+                        SelectedGenderIds = Gender.Expand(filter.SelectedGenderIds)
                     },
                     filter
                   );

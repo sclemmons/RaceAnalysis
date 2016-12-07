@@ -20,6 +20,7 @@ namespace RaceAnalysis.Controllers
             return View(viewmodel);
         }
 
+      
         protected override ActionResult DisplayResultsView(RaceFilterViewModel filter)
         {
             var viewModel = new TriStatsViewModel();
@@ -34,7 +35,7 @@ namespace RaceAnalysis.Controllers
                      {
                          SelectedRaceIds = new int[] { raceId },
                          SelectedAgeGroupIds = AgeGroup.Expand(filter.SelectedAgeGroupIds),
-                         SelectedGenderIds = filter.SelectedGenderIds
+                         SelectedGenderIds = Gender.Expand( filter.SelectedGenderIds)
                      },
                      new BasicDurationFilter() { } //bypass the user's duration filter so we can get all athletes, including DNFs
                  );
