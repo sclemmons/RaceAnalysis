@@ -10,6 +10,7 @@
 
 @section scripts {
 <script type="text/javascript" src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
 }
 
 
@@ -103,19 +104,20 @@
 
     <div class="hypothetical">
 
-        @Ajax.ActionLink("select bike range","ShowBikeRange", "Hypotheticals",
-                        null,
-                        new AjaxOptions
-                        {
-                            UpdateTargetId = "BikeRangeDiv",
-                            InsertionMode = InsertionMode.Replace,
-                            HttpMethod = "GET"
-                        },
-                        htmlAttributes: new { id = "BikeRangeLink" })
+        @Html.ActionLink("What is my expected finish time with the following bike time..",
+                         "ShowBikeRange", "Hypotheticals",
+                        new { id = "BikeRangeLink", @class = "modal-link" })
 
 
+        <div id="modal-container" class="modal fade"
+             tabindex="-1" role="dialog">
+            <div class="modal-content" style="width: 600px !important; margin: 30px auto !important;">
+            </div>
+        </div>
     </div>
-    <div id="BikeRangeDiv"></div>
+    <div id="BikeRangeDiv">
+      
+    </div>
 
 
 
@@ -174,6 +176,7 @@
             maximumSelectionLength: 1
         });
         $('#myForm').validate({
+           
             rules: {
                 SelectedRaceIds: {
                     required: true
@@ -190,7 +193,7 @@
             }
         });
     });
-        function beginPost(xhr, request) {
+    function beginPost(xhr, request) {
             var requester = $(this);
             //if (!validateForm(requester))/*TBD, validation  is not working*/
             // return false;
@@ -206,7 +209,7 @@
             var requestParams = request.url.split('?');
             request.url = requestParams[0] + "?races=" + race + "&agegroups=" + ag + "&genders=" + gender + "&skilllevel=" + skill;
         }
-        function validateForm(requester) {
+    function validateForm(requester) {
             var _form = requester.closest("form");
             var validator = $('#myForm').validate({
                 ignore: 'input[type=hidden]',

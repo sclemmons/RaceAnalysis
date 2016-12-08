@@ -57,7 +57,7 @@ namespace RaceAnalysis.Controllers
             return PartialView("_EstRun", modelView);
         }
 
-        public PartialViewResult ShowBikeRange(SimpleFilterViewModel model)
+        public PartialViewResult ShowBikeRange()
         {
             var modelView = new RaceFilterViewModel();
            
