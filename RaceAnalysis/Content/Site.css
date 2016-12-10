@@ -124,23 +124,26 @@ div.commingsoon_item{
 
 
 .slider-step{
-  //  background-color:red;
-    width: 70%;
-  display:block;
-  margin-left:auto;
-  margin-right:auto;
+    background-color:red;
+    width: 80%;
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
 }
 .ui-slider-horizontal {
-	width:80%; /*scott override*/
+	//width:80%; /*scott override*/
     
 }
 .ui-slider .ui-slider-range {
-    width:70%;
-    //background-color:yellow;
+    //width:70%;
+    background-color:antiquewhite;
+   
 }
 .ui-slider-range .ui-corner-all .ui-widget-header{
-background-color:black;
-
+//background-color:black;
+}
+ui-slider-handle{
+    background-color:yellow;
 }
 
 .help-tip{
