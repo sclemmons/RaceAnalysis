@@ -15,7 +15,7 @@ namespace RaceAnalysis.Models
             Triathletes = new List<Triathlete>();
 
         }
-        public Dictionary<string, BaseViewModel> Container { get; set; } //container for other ViewModels 
+        public Dictionary<string, BaseViewModel> InnerView { get; set; } //container for other ViewModels 
         public RaceFilterViewModel Filter { get; set; }
         public IEnumerable<Triathlete> Triathletes { get; set; }
     }

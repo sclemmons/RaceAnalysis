@@ -23,11 +23,18 @@ namespace RaceAnalysis.Controllers
             return View(viewmodel);
         }
 
+
+      
         protected override ActionResult DisplayResultsView(RaceFilterViewModel filter)
+        {
+            var viewModel = CreateHistogramViewModel(filter);
+            return View("Histogram", viewModel);
+        }
+
+        private HistogramViewModel CreateHistogramViewModel(RaceFilterViewModel filter)
         {
             var viewModel = new HistogramViewModel();
             viewModel.Filter = filter;
-        
             var athletes = new List<Triathlete>();
 
             foreach (int raceId in filter.SelectedRaceIds)
@@ -52,12 +59,11 @@ namespace RaceAnalysis.Controllers
             viewModel.RunMedian = calculator.TimeSpanMedian("Run");
             viewModel.FinishMedian = calculator.TimeSpanMedian("Finish");
 
-          //  var test = calculator.TimeSpanHistogram("Finish");
-          //  var test2 = calculator.TimeSpanHistogram("Bike");
-
+            //  var test = calculator.TimeSpanHistogram("Finish");
+            //  var test2 = calculator.TimeSpanHistogram("Bike");
 
             viewModel.Triathletes = athletes;
-            return View("Histogram", viewModel);
+            return viewModel;
         }
     }
 }

@@ -1,0 +1,107 @@
+﻿
+@model RaceAnalysis.Models.HypotheticalsViewModel
+
+@{
+    //default colors for bars
+    var q1_color = "#999999";
+    var q2_color = "#999999";
+    var q3_color = "#999999";
+    var q4_color = "#999999";
+
+    var q1_visible = false;
+    var q2_visible = false;
+    var q3_visible = false;
+    var q4_visible = false;
+
+    var labelInLegend = "Your Skill Level"; //only necessary to define one since only one will be shown
+
+    //highlight the user's skill level
+    switch (@Model.SelectedSkillLevel)
+    {
+        case "1":
+            q1_color = "#71e1fb";
+            q1_visible = true;
+
+            break;
+
+        case "2":
+            q2_color = "#71e1fb";
+            q2_visible = true;
+            break;
+
+        case "3":
+            q3_color = "#71e1fb";
+            q3_visible = true;
+            break;
+
+        case "4":
+            q4_color = "#71e1fb";
+            q4_visible = true;
+            break;
+
+    }
+
+    string agegroup_name = @Model.Filter.AvailableAgeGroups.Where(a => a.AgeGroupId == Model.Filter.SelectedAgeGroupIds.First()).Select(a => a.DisplayName).First();
+    string gender_name = @Model.Filter.AvailableGenders.Where(a => a.GenderId == Model.Filter.SelectedGenderIds.First()).Select(a => a.DisplayName).First();
+
+    
+}
+<div>
+    <div id='FinishDiv' style="width: 100%; height: 300px;"></div>
+    
+    <script type="text/javascript">
+
+        google.charts.load('current', { 'packages': ['corechart'] });
+
+        google.charts.setOnLoadCallback(function () {
+            drawFinishChart();
+        });
+
+        function drawFinishChart()
+        {
+           
+            var title = 'Median Finish Time: ' + '@Model.Stats[0].Finish.Median';
+            var data = google.visualization.arrayToDataTable(
+                       @Html.Raw(Json.Encode(Model.FinishData))
+                   );
+            var options = {
+                title: title,
+                hAxis: {
+                    title: "Finish Time in Hrs",
+                    ticks: [8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+                },
+                bar: { gap: 1 },
+                vAxis: {
+                    title: '# of Athletes',
+                    format: 'short'
+                },
+
+
+                legend: { position: 'top', alignment: 'center', maxLines: 2 },
+                //colors: ['#5C3292', '#1A8763', '#871B47', '#999999'],
+                interpolateNulls: false,
+
+                series: {
+                    0: { color: '@q1_color', visibleInLegend: "@q1_visible" == "True", labelInLegend: '@labelInLegend' },
+                    1:{color: '@q2_color', visibleInLegend: "@q2_visible" == "True", labelInLegend: '@labelInLegend' },
+                    2: { color: '@q3_color', visibleInLegend: "@q3_visible" == "True", labelInLegend: '@labelInLegend' },
+                    3: { color: '@q4_color', visibleInLegend: "@q4_visible" == "True", labelInLegend: '@labelInLegend' }
+                }
+            }
+
+
+            var chart = new google.visualization.Histogram(document.getElementById('FinishDiv'));
+            google.visualization.events.addListener(chart, 'ready', function () {
+              /* draw here*/
+            });
+
+
+            chart.draw(data, options);
+
+        }
+      
+    </script>
+</div>
+
+
+

@@ -10,7 +10,7 @@
 
 @section scripts {
 <script type="text/javascript" src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 }
 
 
@@ -103,38 +103,41 @@
     <div id="ExpectedRunTimeResults"></div>
 
     <div class="hypothetical">
-
-        @Html.ActionLink("What is my expected finish time with the following bike time..",
-                         "ShowBikeRange", "Hypotheticals",
-                        new { id = "BikeRangeLink", @class = "modal-link" })
-
-
-        <div id="modal-container" class="modal fade"
-             tabindex="-1" role="dialog">
-            <div class="modal-content" style="width: 600px !important; margin: 30px auto !important;">
-            </div>
-        </div>
-    </div>
-    <div id="BikeRangeDiv">
-      
-    </div>
-
-
-
-    <div class="hypothetical">
-        @Ajax.ActionLink("If I swam this fast how would I compare with other athletes?",
-                        "FinishTime", "Hypotheticals",
+        @Ajax.ActionLink("If I biked this fast what is my expected finish time..?",
+                        "ShowBikeRange", "Hypotheticals",
                         null,
                         new AjaxOptions
                         {
-                            UpdateTargetId = "ExpectedFinishTimeResults",
+                            UpdateTargetId = "BikeRangeDiv",
                             InsertionMode = InsertionMode.Replace,
                             HttpMethod = "GET",
                             OnBegin = "beginPost"
                         },
-                        htmlAttributes: new { id = "ExpectedFinishTime" })
+                        htmlAttributes: new { id = "BikeRangeLink" })
+
 
     </div>
+    <div id="BikeRangeDiv">
+      
+    </div>
+    <div>
+        @Ajax.ActionLink("Show me more...",
+                                "DisplayFinishHistogram", "Hypotheticals",
+                        null,
+                        new AjaxOptions
+                        {
+                            UpdateTargetId = "BikeVisualizationDiv",
+                            InsertionMode = InsertionMode.Replace,
+                            HttpMethod = "GET",
+                            OnBegin = "beginPost"
+                        },
+                        htmlAttributes: new { id = "ShowBikeVisualDiv" })
+       
+    </div>
+    <div id="BikeVisualizationDiv">
+
+    </div>
+       
 
     <div class="hypothetical">
         @Ajax.ActionLink("If I biked this fast how fast should my run be?",
@@ -208,6 +211,15 @@
 
             var requestParams = request.url.split('?');
             request.url = requestParams[0] + "?races=" + race + "&agegroups=" + ag + "&genders=" + gender + "&skilllevel=" + skill;
+
+          
+            var bikelowtimevalue = $("#bikelowtimevalue").val();
+            var bikehightimevalue = $("#bikehightimevalue").val();
+
+            if (bikelowtimevalue != undefined && bikehightimevalue != undefined) {
+                request.url += "&bikelowtimevalue=" + bikelowtimevalue + "&bikehightimevalue=" + bikehightimevalue;
+            }
+
         }
     function validateForm(requester) {
             var _form = requester.closest("form");

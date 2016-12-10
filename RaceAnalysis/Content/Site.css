@@ -501,13 +501,14 @@ div#overlay-marker-estfinish,div#overlay-marker-estSwim,div#overlay-marker-estBi
     font-weight:bold;
 }
 
-div#finish-range, div#Swim-range,div#Bike-range,div#Run-range{
+div#finish-range, div#Swim-range,div#Bike-range,div#Run-range,div#finish-results{
     margin-top:10px;
     //font-style: italic;
      font-weight:bold;
-    font-size: 14px;
-    background-color:darkturquoise;
-    color:white;
+    font-size: 18px;
+    //background-color:darkturquoise;
+    //color:white;
+    color:darkblue;
     padding:10px;
 }
 
@@ -547,10 +548,3 @@ div.race-list #instructions{
   
 }
 
-
-.modal{
-    text-align:center;
- }
-
-.modal-dialog {
-}

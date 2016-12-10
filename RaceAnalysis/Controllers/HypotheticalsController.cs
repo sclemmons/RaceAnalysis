@@ -73,8 +73,19 @@ namespace RaceAnalysis.Controllers
             var filter = new RaceFilterViewModel();
             filter.SaveRaceFilterValues(model);
             var modelView = GetEstimatedTime(filter);
+           
             return PartialView("_GivenBikeRange", modelView);
         }
+
+        
+        public PartialViewResult DisplayFinishHistogram(SimpleFilterViewModel model)
+        {
+            var filter = new RaceFilterViewModel();
+            filter.SaveRaceFilterValues(model);
+            var viewModel = GetEstimatedTime(filter);
+            return PartialView("_FinishHistogram", viewModel);
+        }
+
 
         #region Protected Methods
         protected override ActionResult DisplayResultsView(RaceFilterViewModel model)
@@ -101,9 +112,11 @@ namespace RaceAnalysis.Controllers
                     },
                     filter
             );
+            modelView.Triathletes = athletes;
             modelView.Stats.Add(GetStats(athletes, filter.AvailableRaces.Single(r => r.RaceId == raceId)));
-
             modelView.SelectedSkillLevel = filter.SkillLevel; //TO-DO: fix this up so it removes the redundancy
+       
+           
 
             return modelView;
         }
