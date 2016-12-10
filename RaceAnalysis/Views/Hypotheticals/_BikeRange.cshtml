@@ -1,18 +1,18 @@
 ﻿@model RaceAnalysis.Models.RaceFilterViewModel  
 
 <div id="filter-duration">
-    <label>Duration</label>
     <div class="time-range">
-        <p>
-            Bike: <span id="slider-lowtime" name="bikelowspan">00:00</span> - <span id="slider-hightime" name="bikehighspan">17:00 hrs</span>
+        <label>Slide the handles to indicate your hypothetical bike split (min-to-max):</label>
+
+        <div class="time-range-span">
+            <span id="slider-lowtime" name="bikelowspan">00:00</span> - <span id="slider-hightime" name="bikehighspan">17:00 hrs</span>
             @Html.Hidden("bikelowtimevalue", "", new { @class = "slider-lowtime-value" })
             @Html.Hidden("bikehightimevalue", "", new { @class = "slider-hightime-value" })
-        </p>
+        </div>
         <div class="slider-step">
             <div id="s1" class="slider-range" name="bike-slider">   </div>
         </div>
-    </div>
-    @Ajax.ActionLink("Select...",
+        @Ajax.ActionLink("Apply...",
                         "GivenBikeTime", "Hypotheticals",
                         null,
                         new AjaxOptions
@@ -22,7 +22,10 @@
                             HttpMethod = "GET",
                             OnBegin = "beginPost"
                         },
-                        htmlAttributes: new { id = "BikeRangeSubmit" })
+                        htmlAttributes: new { id = "BikeRangeSubmit", @class= "btn btn-default"})
+    </div>
+
+
 </div>
 
 

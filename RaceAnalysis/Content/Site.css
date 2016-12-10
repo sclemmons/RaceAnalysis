@@ -512,6 +512,14 @@ div#finish-range, div#Swim-range,div#Bike-range,div#Run-range,div#finish-results
     padding:10px;
 }
 
+div.time-range-span
+{
+    color:darkblue;
+   text-align:center;
+   font-weight:bold;
+}
+div.time-range a{
+  
 
 /**************************************************************************************************
     APP FEATURES
