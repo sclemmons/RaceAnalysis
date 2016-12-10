@@ -120,20 +120,7 @@
     <div id="BikeRangeDiv">
       
     </div>
-    <div>
-        @Ajax.ActionLink("Show me more...",
-                                "DisplayFinishHistogram", "Hypotheticals",
-                        null,
-                        new AjaxOptions
-                        {
-                            UpdateTargetId = "BikeVisualizationDiv",
-                            InsertionMode = InsertionMode.Replace,
-                            HttpMethod = "GET",
-                            OnBegin = "beginPost"
-                        },
-                        htmlAttributes: new { id = "ShowBikeVisualDiv" })
-       
-    </div>
+   
     <div id="BikeVisualizationDiv">
 
     </div>
