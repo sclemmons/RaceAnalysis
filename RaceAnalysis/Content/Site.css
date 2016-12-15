@@ -63,7 +63,15 @@ div.container-analysis {
         //background-color: white;
         //background-color:rgba(255,225,251,.8);
 }
-/***** home page*****/
+
+.btn-default:not([disabled]){
+border-color:blue;
+color:darkblue;
+}
+
+/***************************************************************
+                                Home page
+    *************************************************************/
 .home-header {
     width: 100%;
  
@@ -122,7 +130,9 @@ div.commingsoon_item{
    
 }
 
-
+/***************************************************************
+    SLIDER OVERRIDES
+***************************************************************/
 .slider-step{
     background-color:red;
     width: 80%;
@@ -146,6 +156,9 @@ ui-slider-handle{
     background-color:yellow;
 }
 
+/*****************************************************************************
+     HELP TOOLTIPS
+********************************************************************************/
 .help-tip{
 	position: absolute;
 	top: 18px;
@@ -373,7 +386,7 @@ div#chart-key{
 
 }
 
-.overlay-marker-bike {
+.overlay-marker-bike, .overlay-marker-run {
     background: red;
     width: 1px;
     position:absolute;
@@ -381,14 +394,7 @@ div#chart-key{
     border-style:dotted;
     border-width:1px;
 }
-.overlay-marker-run {
-    background: red;
-    width: 1px;
-    position:absolute;
-    height: 1px;
-    border-style:dotted;
-    border-width:1px;
-}
+
 
 .overlay-text-Q1 {
     background-color:yellow;
@@ -492,7 +498,7 @@ div#box-estfinish,div#box-estSwim,div#box-estBike,div#box-estRun{
 }
 
 div#overlay-marker-estfinish,div#overlay-marker-estSwim,div#overlay-marker-estBike,div#overlay-marker-estRun  {
-    background-color:darkturquoise;
+    background-color:lightskyblue;
     border-radius:2px;
     width: 200px;
     height: 24px;
@@ -521,7 +527,6 @@ div.time-range-span
    text-align:center;
    font-weight:bold;
 }
-div.time-range a{
   
 
 /**************************************************************************************************
@@ -552,10 +557,12 @@ div.email-form {
 ***************************************************************************************************/
 div.race-list #action-stats{
     margin:10px;
-    
 }
 
 div.race-list #instructions{
   
+    margin-top: 5px;
 }
-
+div#race-table-div{
+    margin-top:5px;
+}

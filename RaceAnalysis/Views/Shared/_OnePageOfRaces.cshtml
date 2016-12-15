@@ -1,10 +1,6 @@
 ﻿@model IEnumerable<RaceAnalysis.Models.Race>
 
 <style>
-    body {
-        padding-top: 70px;
-    }
-
     *.unselectable {
         -webkit-touch-callout: none;
         -webkit-user-select: none;
@@ -34,7 +30,7 @@
 </style>
 
 
-<div class="table-responsive">
+<div id="race-table-div" class="table-responsive">
     <table id="race-table" class="table table-striped" data-rs-selectable data-rs-type="many" >
         <tr>
             <th>
