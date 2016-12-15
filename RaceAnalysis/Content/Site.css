@@ -1,5 +1,7 @@
 ﻿
-
+/*****************************************************************************
+    BODY
+**********************************************************************************/
 body {
     padding-top: 50px;
     padding-bottom: 20px;
@@ -27,13 +29,16 @@ body.homepage{
     
 }
 
-
 /* Set padding to keep content from hitting the edges */
 .body-content {
  // padding-left: 15px;
   //  padding-right: 15px;
 }
 
+/**************************************************
+                    GLOBAL 
+   
+**********************************************/
 
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
@@ -68,10 +73,37 @@ div.container-analysis {
 border-color:blue;
 color:darkblue;
 }
-.btn-default:[disabled]{
+.btn-default:disabled{
 border-color:#ccc;
 color:#333;
 }
+
+/******************************************************************************
+            VALIDATION
+***********************************************************************************/
+.field-validation-error {
+    color: #ff0000;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+.input-validation-error {
+    border: 1px solid #ff0000;
+    background-color: #ffeeee;
+}
+
+.validation-summary-errors {
+    font-weight: bold;
+    color: #ff0000;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+
 /***************************************************************
                                 Home page
     *************************************************************/

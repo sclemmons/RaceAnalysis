@@ -18,17 +18,22 @@
     <div class="criteria">
    
     <span class="title">If I competed in this race:</span>
+        @Html.ValidationMessageFor(m => SelectedRaceId,"Please select a race.")
         @Html.DropDownListFor(m => SelectedRaceId,
                     new SelectList(Model.Filter.AvailableRaces, "RaceId", "DisplayName"),"Select Race...",
                     new { @id = "raceSelectId", @class = "selection" })
+
     
     <span class="title">I am a</span>
+        @Html.ValidationMessageFor(m => SelectedGenderId, "Please select your gender.")
         @Html.DropDownListFor(m => SelectedGenderId,
                 new SelectList(Model.Filter.AvailableGenders, "GenderId", "DisplayName"), "Select Gender...",
                 new { @id = "genderSelectId", @class = "selection" })
 
-    <span class="title">in this age group: </span>@Html.DropDownListFor(m => SelectedAgeGroupId,
-                new SelectList(Model.Filter.AvailableAgeGroups, "AgeGroupId", "DisplayName"),"Select Age Group...",
+    <span class="title">in this age group: </span>
+            @Html.ValidationMessageFor(m => SelectedAgeGroupId, "Please select your age group.")
+            @Html.DropDownListFor(m => SelectedAgeGroupId,
+                new SelectList(Model.Filter.AvailableAgeGroups, "AgeGroupId", "DisplayName"), "Select Age Group...",
                 new { @id = "agSelectId", @class = "selection" })
 
      <span class="title">In most races I am:</span>
@@ -144,7 +149,7 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
-
+     
         var $race_select = $("#raceSelectId").SumoSelect({
             placeholder: "Select Race..",
             search: true,
@@ -163,11 +168,12 @@
             placeholder: "My Skill Level...",
             maximumSelectionLength: 1
         });
+       
         $('#myForm').validate({
-           
+   
             rules: {
                 SelectedRaceIds: {
-                    required: true
+                    required: true,
                 },
                 SelectedAgeGroupIds: {
                     required: true
@@ -183,10 +189,14 @@
     });
     function beginPost(xhr, request) {
        
-            var requester = $(this);
-            //if (!validateForm(requester))/*TBD, validation  is not working*/
-            // return false;
+        var requester = $(this);
 
+        if ($('#myForm').valid() == false) {
+               $("html, body").animate({ scrollTop: 0 }, "slow");
+               return false;
+
+        }
+      
             var race = $("#raceSelectId").val();
             var ag = $("#agSelectId").val();
             var gender = $("#genderSelectId").val();
@@ -213,20 +223,6 @@
                 request.url += "&runlowtimevalue=" + runlowtimevalue + "&runhightimevalue=" + runhightimevalue;
             }
 
-        }
-    function validateForm(requester) {
-            var _form = requester.closest("form");
-            var validator = $('#myForm').validate({
-                ignore: 'input[type=hidden]',
-                errorElement: "div",
-                errorPlacement: function (error, element) {
-                    element.after(error);
-                }
-            });
-            //var validator = $("#myForm").validate(); // obtain validator
-            var anyError = false;
-            if (anyError)
-                return false; // exit if any error found    
         }
    
 </script>
