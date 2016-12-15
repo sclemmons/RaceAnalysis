@@ -2,7 +2,7 @@
 
 <div>
     @{
-        string finish_range = " Your approximate finish time would be in the range:  ";
+        string finish_range = " Your finish time would be in the range:  ";
         switch (@Model.SelectedSkillLevel)
         {
             case "1":
@@ -30,10 +30,10 @@
         finish_range += ".";
 
         string finish_explanation = "The box plot below displays the range of finishers for your age group."
-           + "The middle line represents the median time for this group of finishers. "
-           + "Left of the line represents faster than median and right of the line slower. "
            + "The colored box in the middle represents 50% of finishers."
-            + "The highlighted area represents an estimated range based on your skill level.";
+           + "The middle line represents the median time for this group of finishers. "
+           + "Left of the line represents faster than median and right of the line is slower than median. "
+           + "The highlighted area represents an estimated range based on your skill level.";
 
 
 

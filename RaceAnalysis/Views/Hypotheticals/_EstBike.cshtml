@@ -2,7 +2,7 @@
 
 <div>
     @{
-        string Bike_range = " Your approximate Bike time would be in the range:  ";
+        string Bike_range = " Your bike split would be in the range:  ";
         switch (@Model.SelectedSkillLevel)
         {
             case "1":
@@ -30,10 +30,10 @@
         Bike_range += ".";
 
         string Bike_explanation = "The box plot below displays the range of cyclists for your age group."
+           + "The colored box in the middle represents 50% of cyclists. "
            + "The middle line represents the median time for this group of cyclists. "
-           + "Left of the line represents faster than median and right of the line slower. "
-           + "The colored box in the middle represents 50% of cyclists."
-            + "The highlighted area represents an estimated range based on your skill level.";
+           + "Left of the line represents faster than median and right of the line is slower than median. "
+           + "The highlighted area represents an estimated range based on your skill level.";
 
 
 

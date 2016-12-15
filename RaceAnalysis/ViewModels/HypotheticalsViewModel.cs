@@ -12,28 +12,15 @@ namespace RaceAnalysis.Models
             PopulateSkillLevels();
         }
 
-        public IList<SkillLevel> AvailableSkillLevels{ get; set; }
+        public IList<SkillLevel> AvailableSkillLevels { get; set; }
         public string SelectedSkillLevel { get; set; }
 
-
-        private void PopulateSkillLevels()
-        {
-            var list = new List<SkillLevel>();
-            
-            //skill level values correspond to Quarters, so don't change! 
-            list.Add(new SkillLevel( display:"Back of Pack", value:"4" ));
-            list.Add(new SkillLevel(display: "Mid Pack", value: "3"));
-            list.Add(new SkillLevel(display: "Faster than most", value: "2"));
-            list.Add(new SkillLevel(display: "Leader of the Pack!", value: "1"));
-
-            AvailableSkillLevels = list;
-        }
+        public string SelectedSplit {get;set;} //run,swim,bike   this is a way that we can indicate to generic views what split we are showing
         public void SaveSkillLevel(string value)
         {
             SelectedSkillLevel = value;
         }
-
-
+        
         public List<object> FinishData
         {
             get
@@ -80,6 +67,24 @@ namespace RaceAnalysis.Models
             }
 
         }
+
+
+
+        #region Private Region
+
+        private void PopulateSkillLevels()
+        {
+            var list = new List<SkillLevel>();
+
+            //skill level values correspond to Quarters, so don't change! 
+            list.Add(new SkillLevel(display: "Back of Pack", value: "4"));
+            list.Add(new SkillLevel(display: "Mid Pack", value: "3"));
+            list.Add(new SkillLevel(display: "Faster than most", value: "2"));
+            list.Add(new SkillLevel(display: "Leader of the Pack!", value: "1"));
+
+            AvailableSkillLevels = list;
+        }
+        #endregion
 
     }
 

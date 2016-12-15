@@ -68,7 +68,10 @@ div.container-analysis {
 border-color:blue;
 color:darkblue;
 }
-
+.btn-default:[disabled]{
+border-color:#ccc;
+color:#333;
+}
 /***************************************************************
                                 Home page
     *************************************************************/

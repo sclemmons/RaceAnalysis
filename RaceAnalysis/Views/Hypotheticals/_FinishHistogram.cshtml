@@ -44,10 +44,11 @@
     string agegroup_name = @Model.Filter.AvailableAgeGroups.Where(a => a.AgeGroupId == Model.Filter.SelectedAgeGroupIds.First()).Select(a => a.DisplayName).First();
     string gender_name = @Model.Filter.AvailableGenders.Where(a => a.GenderId == Model.Filter.SelectedGenderIds.First()).Select(a => a.DisplayName).First();
 
-    
+    string chart_div = Model.SelectedSplit + "_FinishDiv";
+
 }
 <div>
-    <div id='FinishDiv' style="width: 100%; height: 300px;"></div>
+    <div id='@chart_div' style="width: 100%; height: 300px;"></div>
     
     <script type="text/javascript">
 
@@ -90,7 +91,7 @@
             }
 
 
-            var chart = new google.visualization.Histogram(document.getElementById('FinishDiv'));
+            var chart = new google.visualization.Histogram(document.getElementById('@chart_div'));
             google.visualization.events.addListener(chart, 'ready', function () {
               /* draw here*/
             });

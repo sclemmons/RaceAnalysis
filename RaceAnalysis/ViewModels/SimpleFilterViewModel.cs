@@ -84,6 +84,19 @@ namespace RaceAnalysis.Models
         public string selectedAthletes { get; set; }
 
         public string skilllevel { get; set;}
+
+
+        public void ClearDuration()
+        {
+            finishlowtimevalue = null;
+            finishhightimevalue = null;
+            swimlowtimevalue = null;
+            swimhightimevalue = null;
+            bikelowtimevalue = null;
+            bikehightimevalue = null;
+            runlowtimevalue = null;
+            runhightimevalue = null;
+        }
     }
 
 

@@ -559,6 +559,8 @@
     <Content Include="Views\Hypotheticals\_BikeRange.cshtml" />
     <Content Include="Views\Hypotheticals\_GivenBikeRange.cshtml" />
     <Content Include="Views\Hypotheticals\_FinishHistogram.cshtml" />
+    <Content Include="Views\Hypotheticals\_RunRange.cshtml" />
+    <Content Include="Views\Hypotheticals\_GivenRunRange.cshtml" />
     <None Include="Web.Test.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

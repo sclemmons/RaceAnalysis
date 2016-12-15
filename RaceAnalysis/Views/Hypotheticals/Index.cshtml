@@ -17,7 +17,7 @@
 <form id="myForm">
     <div class="criteria">
    
-    <span class="title">I am interested in this race:</span>
+    <span class="title">If I competed in this race:</span>
         @Html.DropDownListFor(m => SelectedRaceId,
                     new SelectList(Model.Filter.AvailableRaces, "RaceId", "DisplayName"),"Select Race...",
                     new { @id = "raceSelectId", @class = "selection" })
@@ -40,7 +40,7 @@
 
     <div class="hypothetical">
         @Ajax.ActionLink("What is my expected finish time?",
-                        "FinishTime", "Hypotheticals",
+                        "DisplayFinishTime", "Hypotheticals",
                         null,
                         new AjaxOptions
                         {
@@ -56,7 +56,7 @@
 
     <div class="hypothetical">
         @Ajax.ActionLink("What is my expected swim time?",
-                        "SwimTime", "Hypotheticals",
+                        "DisplaySwimTime", "Hypotheticals",
                         null,
                         new AjaxOptions
                         {
@@ -72,7 +72,7 @@
 
     <div class="hypothetical">
         @Ajax.ActionLink("What is my expected bike time?",
-                        "BikeTime", "Hypotheticals",
+                        "DisplayBikeTime", "Hypotheticals",
                         null,
                         new AjaxOptions
                         {
@@ -88,7 +88,7 @@
 
     <div class="hypothetical">
         @Ajax.ActionLink("What is my expected run time?",
-                        "RunTime", "Hypotheticals",
+                        "DisplayRunTime", "Hypotheticals",
                         null,
                         new AjaxOptions
                         {
@@ -120,24 +120,22 @@
     <div id="BikeRangeDiv">
       
     </div>
-   
-    <div id="BikeVisualizationDiv">
 
-    </div>
-       
-
-    <div class="hypothetical">
-        @Ajax.ActionLink("If I biked this fast... what is my expected run time?",
-                        "FinishTime", "Hypotheticals",
+   <div class="hypothetical">
+        @Ajax.ActionLink("If I ran this fast... what is my expected finish time?",
+                        "ShowRunRange", "Hypotheticals",
                         null,
                         new AjaxOptions
                         {
-                            UpdateTargetId = "ExpectedFinishTimeResults",
+                            UpdateTargetId = "RunRangeDiv",
                             InsertionMode = InsertionMode.Replace,
                             HttpMethod = "GET",
                             OnBegin = "beginPost"
                         },
-                        htmlAttributes: new { id = "ExpectedFinishTime" })
+                        htmlAttributes: new { id = "RunRangeLink" })
+
+    </div>
+    <div id="RunRangeDiv">
 
     </div>
 
@@ -184,6 +182,7 @@
         });
     });
     function beginPost(xhr, request) {
+       
             var requester = $(this);
             //if (!validateForm(requester))/*TBD, validation  is not working*/
             // return false;
@@ -199,12 +198,19 @@
             var requestParams = request.url.split('?');
             request.url = requestParams[0] + "?races=" + race + "&agegroups=" + ag + "&genders=" + gender + "&skilllevel=" + skill;
 
-          
+
             var bikelowtimevalue = $("#bikelowtimevalue").val();
             var bikehightimevalue = $("#bikehightimevalue").val();
 
             if (bikelowtimevalue != undefined && bikehightimevalue != undefined) {
                 request.url += "&bikelowtimevalue=" + bikelowtimevalue + "&bikehightimevalue=" + bikehightimevalue;
+            }
+
+            var runlowtimevalue = $("#runlowtimevalue").val();
+            var runhightimevalue = $("#runhightimevalue").val();
+
+            if (runlowtimevalue != undefined && runhightimevalue != undefined) {
+                request.url += "&runlowtimevalue=" + runlowtimevalue + "&runhightimevalue=" + runhightimevalue;
             }
 
         }

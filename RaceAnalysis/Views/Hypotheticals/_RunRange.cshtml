@@ -1,28 +1,28 @@
 ﻿@model RaceAnalysis.Models.RaceFilterViewModel  
 
 <div id="filter-duration">
-    <div id="time-range-bike" class="time-range">
-        <label>Slide the handles to indicate your hypothetical bike split (min-to-max):</label>
+    <div id="time-range-run" class="time-range">
+        <label>Slide the handles to indicate your hypothetical run split (min-to-max):</label>
 
         <div class="time-range-span">
-            <span id="slider-lowtime" name="bikelowspan">00:00</span> - <span id="slider-hightime" name="bikehighspan">17:00 hrs</span>
-            @Html.Hidden("bikelowtimevalue", "", new { @class = "slider-lowtime-value" })
-            @Html.Hidden("bikehightimevalue", "", new { @class = "slider-hightime-value" })
+            <span id="slider-lowtime" name="runlowspan">00:00</span> - <span id="slider-hightime" name="runhighspan">17:00 hrs</span>
+            @Html.Hidden("runlowtimevalue", "", new { @class = "slider-lowtime-value" })
+            @Html.Hidden("runhightimevalue", "", new { @class = "slider-hightime-value" })
         </div>
         <div class="slider-step">
-            <div id="s1" class="slider-range" name="bike-slider">   </div>
+            <div id="s1" class="slider-range" name="run-slider">   </div>
         </div>
         @Ajax.ActionLink("Apply...",
-                        "GivenBikeTime", "Hypotheticals",
+                        "GivenRunTime", "Hypotheticals",
                         null,
                         new AjaxOptions
                         {
-                            UpdateTargetId = "BikeRangeDiv",
+                            UpdateTargetId = "RunRangeDiv",
                             InsertionMode = InsertionMode.Replace,
                             HttpMethod = "GET",
                             OnBegin = "beginPost"
                         },
-                        htmlAttributes: new { id = "BikeRangeSubmit", @class= "btn btn-default"})
+                        htmlAttributes: new { id = "RunRangeSubmit", @class= "btn btn-default"})
     </div>
 
 
@@ -31,7 +31,7 @@
 
 <script>
     $(document).ready(function () {
-        $('#time-range-bike').each(function () {
+        $('#time-range-run').each(function () {
             $(this).find('#s1').empty().slider({
                 range: true,
                 min: 0,
@@ -67,11 +67,11 @@
         });
 
       
-        $('div[name=bike-slider]').slider("option", "min", 3*60);
-        $('div[name=bike-slider]').slider("option", "max", 10*60);
-        $('div[name=bike-slider]').slider("option", "values", [@Model.BikeLow.TotalMinutes,@Model.BikeHigh.TotalMinutes]);
-        $('span[name=bikelowspan]').html('@Model.BikeLow.ToString("hh\\:mm")');
-        $('span[name=bikehighspan]').html('@Model.BikeHigh.ToString("hh\\:mm")' + ' hrs');
+        $('div[name=run-slider]').slider("option", "min", 2*60);
+        $('div[name=run-slider]').slider("option", "max", 7*60);
+        $('div[name=run-slider]').slider("option", "values", [@Model.RunLow.TotalMinutes,@Model.RunHigh.TotalMinutes]);
+        $('span[name=runlowspan]').html('@Model.RunLow.ToString("hh\\:mm")');
+        $('span[name=runhighspan]').html('@Model.RunHigh.ToString("hh\\:mm")' + ' hrs');
 
     })
 

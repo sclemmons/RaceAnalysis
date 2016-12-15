@@ -19,7 +19,7 @@
         }
 
 
-        num_athletes += " with a bike range of " + Model.Filter.BikeLow.ToString("hh\\:mm") + " - " + Model.Filter.BikeHigh.ToString("hh\\:mm") + ".";
+        num_athletes += " with a run range of " + Model.Filter.RunLow.ToString("hh\\:mm") + " - " + Model.Filter.RunHigh.ToString("hh\\:mm") + ".";
         var Finish_range = "";
         var skill_level_count = 0;
         var finish_range_explanation = "";
@@ -70,17 +70,17 @@
         }
         else
         {
-            finish_range_explanation = "There were no finishers that biked within that range. Try broadening the bike range.";
+            finish_range_explanation = "There were no finishers that ran within that range. Try broadening the run range.";
         }
     }
     <div>
-        @Html.Hidden("bikelowtimevalue", Model.Filter.BikeLow.Ticks)
-        @Html.Hidden("bikehightimevalue", Model.Filter.BikeHigh.Ticks)
+        @Html.Hidden("runlowtimevalue", Model.Filter.RunLow.Ticks)
+        @Html.Hidden("runhightimevalue", Model.Filter.RunHigh.Ticks)
 
     </div>
 
     <div id="finish-results">
-       @Model.Triathletes.Count()  @gender_name athletes in the age group @agegroup_name  with a bike range of @Model.Filter.BikeLow.ToString("hh\\:mm")  - @Model.Filter.BikeHigh.ToString("hh\\:mm") 
+       @Model.Triathletes.Count()  @gender_name athletes in the age group @agegroup_name  with a run range of @Model.Filter.RunLow.ToString("hh\\:mm")  - @Model.Filter.RunHigh.ToString("hh\\:mm") 
         <br/>
        @finish_range_explanation
      </div>

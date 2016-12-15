@@ -28,29 +28,33 @@ namespace RaceAnalysis.Controllers
             return View(viewModel);
         }
       
-        public PartialViewResult FinishTime(SimpleFilterViewModel model)
+        public PartialViewResult DisplayFinishTime(SimpleFilterViewModel model)
         {
+            model.ClearDuration(); //we do this just in case they have values from the duration filters on the page
             var filter = new RaceFilterViewModel();
             filter.SaveRaceFilterValues(model);
             var modelView= GetEstimatedTime(filter);
             return PartialView("_EstFinish", modelView);
         }
-        public PartialViewResult SwimTime(SimpleFilterViewModel model)
+        public PartialViewResult DisplaySwimTime(SimpleFilterViewModel model)
         {
+            model.ClearDuration(); //we do this just in case they have values from the duration filters on the page
             var filter = new RaceFilterViewModel();
             filter.SaveRaceFilterValues(model);
             var modelView = GetEstimatedTime(filter);
             return PartialView("_EstSwim", modelView);
         }
-        public PartialViewResult BikeTime(SimpleFilterViewModel model)
+        public PartialViewResult DisplayBikeTime(SimpleFilterViewModel model)
         {
+            model.ClearDuration(); //we do this just in case they have values from the duration filters on the page
             var filter = new RaceFilterViewModel();
             filter.SaveRaceFilterValues(model);
             var modelView = GetEstimatedTime(filter);
             return PartialView("_EstBike", modelView);
         }
-        public PartialViewResult RunTime(SimpleFilterViewModel model)
+        public PartialViewResult DisplayRunTime(SimpleFilterViewModel model)
         {
+            model.ClearDuration(); //we do this just in case they have values from the duration filters on the page
             var filter = new RaceFilterViewModel();
             filter.SaveRaceFilterValues(model);
             var modelView = GetEstimatedTime(filter);
@@ -63,21 +67,55 @@ namespace RaceAnalysis.Controllers
            
             return PartialView("_BikeRange", modelView);
         }
+        public PartialViewResult ShowRunRange()
+        {
+            var modelView = new RaceFilterViewModel();
+
+            return PartialView("_RunRange", modelView);
+        }
         /// <summary>
-        /// Given the bike range, provide estimas 
+        /// Given the bike range, provide estimates 
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
         public PartialViewResult GivenBikeTime(SimpleFilterViewModel model)
         {
+            model.runhightimevalue = null; //clear the values that we want to ignore in this hypothetical (everything but bike)
+            model.runlowtimevalue = null;
+            model.swimhightimevalue = null;
+            model.swimlowtimevalue = null;
+
             var filter = new RaceFilterViewModel();
             filter.SaveRaceFilterValues(model);
+
             var modelView = GetEstimatedTime(filter);
+            modelView.SelectedSplit = "Bike"; //this value gets used by the generic _finishHistogram
            
             return PartialView("_GivenBikeRange", modelView);
         }
 
-        
+        // <summary>
+        /// Given the run range, provide estimates
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public PartialViewResult GivenRunTime(SimpleFilterViewModel model)
+        {
+            model.bikehightimevalue = null; //clear the values that we want to ignore in this hypothetical (everything but run)
+            model.bikelowtimevalue = null;
+            model.swimhightimevalue = null;
+            model.swimlowtimevalue = null;
+
+            var filter = new RaceFilterViewModel();
+            filter.SaveRaceFilterValues(model);
+
+            var modelView = GetEstimatedTime(filter);
+            modelView.SelectedSplit = "Run";//this value gets used by the generic _finishHistogram
+
+            return PartialView("_GivenRunRange", modelView);
+        }
+
+
         public PartialViewResult DisplayFinishHistogram(SimpleFilterViewModel model)
         {
             var filter = new RaceFilterViewModel();
