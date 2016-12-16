@@ -1,27 +1,33 @@
 ﻿@model RaceAnalysis.Models.TriStats
 
-<div class="panel-group" id="accordian">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-              <h4 class="panel-title">
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-                    <span class="glyphicon glyphicon-plus"></span>
-                    Race Conditions
-                </a>
-              </h4>
-        </div>
-            <div id="collapse1"  class="panel-collapse collapse">
-                <div class="panel-body">
-                    <div>Race: @Html.DisplayFor(r => Model.Race.DisplayName)</div>
-                    <div>Count: @Html.DisplayFor(a => Model.Athletes.Count)</div>
-                    @if (Model.Race.Conditions != null)
-                    {
-                        <div>Swim Conditions: @Html.DisplayFor(r => Model.Race.Conditions.SwimGeneral)</div>
-                        <div>Bike Conditions: @Html.DisplayFor(r => Model.Race.Conditions.BikeGeneral)</div>
-                        <div>Run Conditions:  @Html.DisplayFor(r => Model.Race.Conditions.RunGeneral)</div>
-                    }
-                </div>
-            </div>
+@{ 
+    string target_div = Model.Race.DisplayName.Replace(" ",string.Empty) + "_race-conditions";
+}
+<link rel="stylesheet" type="text/css" href="~/Content/font-awesome.min.css" />
+<div>
+     <a href="#conditions" data-toggle="collapse" data-target="#@target_div">Race Conditions</a>
+     <span class="race-conditions-span"></span>
+        <div id="@target_div" class="collapse in">
+            <div>Race: @Html.DisplayFor(r => Model.Race.DisplayName)</div>
+            <div>Count: @Html.DisplayFor(a => Model.Athletes.Count)</div>
+            @if (Model.Race.Conditions != null)
+            {
+                <div>Swim Conditions: @Html.DisplayFor(r => Model.Race.Conditions.SwimGeneral)</div>
+                <div>Bike Conditions: @Html.DisplayFor(r => Model.Race.Conditions.BikeGeneral)</div>
+                            <div>Run Conditions:  @Html.DisplayFor(r => Model.Race.Conditions.RunGeneral)</div>
+            }
         </div>
 </div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#@target_div").parent().find('span').html('<i class="fa fa-angle-right" aria-hidden="true"></i>');
+
+        $("#@target_div").on("hide.bs.collapse", function () {
+            $(this).parent().find('span').html('<i class="fa fa-angle-down" aria-hidden="true"></i>');
+      });
+        $("#@target_div").on("show.bs.collapse", function () {
+            $(this).parent().find('span').html('<i class="fa fa-angle-right" aria-hidden="true"></i>');
+      });
+  });
+</script>
 
