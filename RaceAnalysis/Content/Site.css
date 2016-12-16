@@ -6,6 +6,7 @@ body {
     padding-top: 50px;
     padding-bottom: 20px;
     background-color:whitesmoke;
+    color:darkblue;
       
 }
 body.analysis{
@@ -590,9 +591,6 @@ div.email-form {
  RACE LIST AND SEARCH RESULTS
     
 ***************************************************************************************************/
-div.race-list #action-stats{
-    margin:10px;
-}
 
 div.race-list #instructions{
   
@@ -601,3 +599,28 @@ div.race-list #instructions{
 div#race-table-div{
     margin-top:5px;
 }
+
+.search-results-preface
+{
+    position:relative;
+}
+.search-results-preface #action-stats{
+  
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+}
+
+div#search-form-section.collapsible.collapse-open a {
+    float:right;
+    padding:10px;
+    display:none;
+}
+
+div#search-form-section.collapsible.collapse-close a  {
+    display:block;
+    float:right;
+    padding:10px;
+    font-size:16px;
+}
+

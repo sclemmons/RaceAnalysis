@@ -12,12 +12,12 @@
         Url = Url.Action("SearchRaces"),
         OnBegin = "HideForm",
         OnFailure = "ShowFailure",
+        OnSuccess="OnSuccess",
         UpdateTargetId = "results-area"
     };
 }
-<div class="comingsoon_banner">
-    COMING SOON!
-</div>
+<link href="~/Content/site-collapsible.css" rel="stylesheet"/>
+<script type="text/javascript" src="~/Scripts/jquery.collapsible.js"></script>
 
 <br />
 <!-- The loading-area will be where we display a message during the AJAX call.
@@ -26,49 +26,66 @@
     <div class='alert alert-info'><strong>Searching...</strong></div>
 </div>
 
-<!-- The message-area will be where we display a message after the AJAX call
-    about whether or not the contact form was successfully sent-->
-<div id="results-area"></div>
 
-<!-- The form-area contains the contact form that will be submitted via AJAX-->
-<div class="email-form">
-    @using (Ajax.BeginForm(ajaxOptions))
-    {
-        @Html.AntiForgeryToken()
-     
-        <div class="form-group">
-            <span>Search for a race based on swim conditions</span>
-            @Html.TextBox("SearchBySwimConditions", null, new { @class = "form-control" })
+<div class="collapsible" id="search-form-section"><span></span> <a href="#">Search Again</a></div>
+<div class="container">
+        <div class="content">
+        <!-- The form-area contains the contact form that will be submitted via AJAX-->
+        <div class="email-form">
+            @using (Ajax.BeginForm(ajaxOptions))
+            {
+                @Html.AntiForgeryToken()
 
+                <div class="form-group">
+                    <span>Search for a race based on swim conditions</span>
+                    @Html.TextBox("SearchBySwimConditions", null, new { @class = "form-control" })
+
+                </div>
+                <div class="form-group">
+                    <span>Search for a race based on bike conditions</span>
+                    @Html.TextBox("SearchByBikeConditions", null, new { @class = "form-control" })
+
+                </div>
+                <div class="form-group">
+                    <span>Search for a race based on run conditions</span>
+                    @Html.TextBox("SearchByRunConditions", null, new { @class = "form-control" })
+
+                </div>
+                <div class="form-group">
+                </div>
+                <button type="submit" id="submitButton" class="btn btn-primary">Search</button>
+            }
         </div>
-        <div class="form-group">
-            <span>Search for a race based on bike conditions</span>
-            @Html.TextBox("SearchByBikeConditions", null, new { @class = "form-control" })
+        </div> <!--content-->
+</div><!--container-->
 
-        </div>
-        <div class="form-group">
-            <span>Search for a race based on run conditions</span>
-            @Html.TextBox("SearchByRunConditions", null, new { @class = "form-control" })
+        <!-- The message-area will be where we display a message after the AJAX call
+            about whether or not the contact form was successfully sent-->
+        <div id="results-area"></div>
 
-        </div>
-        <div class="form-group">
-        </div>
-        <button type="submit" id="submitButton" class="btn btn-primary">Search</button>
-    }
-</div>
+        <!-- These methods are invoked at different stages of the AJAX call-->
+        <script type="text/javascript">
+            $(document).ready(function () {
+                //collapsible management
+                $('.collapsible').collapsible({
+                    defaultOpen: 'search-form-section'
+                });
+            });
 
-<!-- These methods are invoked at different stages of the AJAX call-->
-<script type="text/javascript">
-    function HideForm() {
-        //When the form is submitted, we hide the form
-        $(".email-form").hide();
-    }
-    function ShowFailure() {
-        //In the case that the AJAX call fails to communicate with the server
-        //(e.g. the user's internet connection cuts out), we should display a message to that effect
-        $('#message-area').html("<div class='alert alert-danger'><strong>Error!</strong>The server could not be contacted and your message has not been sent. Please check your internet connection and try again later.</div>");
-    }
-</script>
+
+            function OnSuccess() {
+                $('#search-form-section').collapsible('close');
+            }
+            function HideForm() {
+                //When the form is submitted, we hide the form
+                //$(".email-form").hide();
+            }
+            function ShowFailure() {
+                //In the case that the AJAX call fails to communicate with the server
+                //(e.g. the user's internet connection cuts out), we should display a message to that effect
+                $('#message-area').html("<div class='alert alert-danger'><strong>Error!</strong>The server could not be contacted and your message has not been sent. Please check your internet connection and try again later.</div>");
+            }
+        </script>
 
 
 

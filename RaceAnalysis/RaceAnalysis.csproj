@@ -357,6 +357,7 @@
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\jquery.upvote.css" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\site-collapsible.css" />
     <Content Include="Content\sitemenu.css" />
     <Content Include="Content\sumoselect.css" />
     <Content Include="Content\themes\base\accordion.css" />
@@ -428,6 +429,7 @@
     <Content Include="Scripts\jquery-ui-1.12.1.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.collapsible.js" />
     <Content Include="Scripts\jquery.rowselector.js" />
     <Content Include="Scripts\jquery.rowselector.min.js" />
     <Content Include="Scripts\jquery.sumoselect.js" />
