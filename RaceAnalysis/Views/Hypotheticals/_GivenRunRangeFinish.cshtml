@@ -19,7 +19,7 @@
         }
 
 
-        num_athletes += " with a run range of " + Model.Filter.RunLow.ToString("hh\\:mm") + " - " + Model.Filter.RunHigh.ToString("hh\\:mm") + ".";
+        num_athletes += " had a run split of " + Model.Filter.RunLow.ToString("hh\\:mm") + " - " + Model.Filter.RunHigh.ToString("hh\\:mm") + ".";
         var Finish_range = "";
         var skill_level_count = 0;
         var finish_range_explanation = "";
@@ -80,10 +80,13 @@
     </div>
 
     <div id="finish-results">
-       @Model.Triathletes.Count()  @gender_name athletes in the age group @agegroup_name  with a run range of @Model.Filter.RunLow.ToString("hh\\:mm")  - @Model.Filter.RunHigh.ToString("hh\\:mm") 
+       @Model.Triathletes.Count()  @gender_name athletes in the age group @agegroup_name  had a run split of @Model.Filter.RunLow.ToString("hh\\:mm")  - @Model.Filter.RunHigh.ToString("hh\\:mm").
         <br/>
        @finish_range_explanation
      </div>
 
 </div>
-@Html.Partial("_FinishHistogram", Model)
+@if (Model.Triathletes.Count() > 0)
+{
+    @Html.Partial("_FinishHistogram", Model)
+}

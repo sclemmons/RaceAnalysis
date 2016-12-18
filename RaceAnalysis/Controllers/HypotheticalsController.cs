@@ -34,6 +34,7 @@ namespace RaceAnalysis.Controllers
             var filter = new RaceFilterViewModel();
             filter.SaveRaceFilterValues(model);
             var modelView= GetEstimatedTime(filter);
+            modelView.Filter = filter;
             return PartialView("_EstFinish", modelView);
         }
         public PartialViewResult DisplaySwimTime(SimpleFilterViewModel model)
@@ -42,6 +43,7 @@ namespace RaceAnalysis.Controllers
             var filter = new RaceFilterViewModel();
             filter.SaveRaceFilterValues(model);
             var modelView = GetEstimatedTime(filter);
+            modelView.Filter = filter;
             return PartialView("_EstSwim", modelView);
         }
         public PartialViewResult DisplayBikeTime(SimpleFilterViewModel model)
@@ -50,6 +52,8 @@ namespace RaceAnalysis.Controllers
             var filter = new RaceFilterViewModel();
             filter.SaveRaceFilterValues(model);
             var modelView = GetEstimatedTime(filter);
+            modelView.Filter = filter;
+
             return PartialView("_EstBike", modelView);
         }
         public PartialViewResult DisplayRunTime(SimpleFilterViewModel model)
@@ -58,27 +62,40 @@ namespace RaceAnalysis.Controllers
             var filter = new RaceFilterViewModel();
             filter.SaveRaceFilterValues(model);
             var modelView = GetEstimatedTime(filter);
+            modelView.Filter = filter;
+
             return PartialView("_EstRun", modelView);
         }
 
-        public PartialViewResult ShowBikeRange()
+        public PartialViewResult ShowBikeRangeForFinish()
         {
-            var modelView = new RaceFilterViewModel();
-           
-            return PartialView("_BikeRange", modelView);
-        }
-        public PartialViewResult ShowRunRange()
-        {
-            var modelView = new RaceFilterViewModel();
+            var viewModel = new HypotheticalsViewModel();
+            viewModel.Filter = new RaceFilterViewModel();
+            viewModel.SelectedSplit = "BikeFinish";
 
-            return PartialView("_RunRange", modelView);
+            return PartialView("_BikeRange", viewModel);
+        }
+        public PartialViewResult ShowBikeRangeForRun()
+        {
+            var viewModel = new HypotheticalsViewModel();
+            viewModel.Filter = new RaceFilterViewModel();
+            viewModel.SelectedSplit = "BikeRun";
+
+            return PartialView("_BikeRange", viewModel);
+        }
+        public PartialViewResult ShowRunRangeForFinish()
+        {
+            var viewModel = new HypotheticalsViewModel();
+            viewModel.Filter = new RaceFilterViewModel();
+            viewModel.SelectedSplit = "RunFinish";
+            return PartialView("_RunRange", viewModel);
         }
         /// <summary>
         /// Given the bike range, provide estimates 
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public PartialViewResult GivenBikeTime(SimpleFilterViewModel model)
+        public PartialViewResult DisplayBikeFinish(SimpleFilterViewModel model)
         {
             model.runhightimevalue = null; //clear the values that we want to ignore in this hypothetical (everything but bike)
             model.runlowtimevalue = null;
@@ -89,17 +106,38 @@ namespace RaceAnalysis.Controllers
             filter.SaveRaceFilterValues(model);
 
             var modelView = GetEstimatedTime(filter);
-            modelView.SelectedSplit = "Bike"; //this value gets used by the generic _finishHistogram
-           
-            return PartialView("_GivenBikeRange", modelView);
-        }
+            modelView.SelectedSplit = "BikeFinish"; //this value gets used by the generic _finishHistogram
+            modelView.Filter = filter;
 
-        // <summary>
-        /// Given the run range, provide estimates
+            return PartialView("_GivenBikeRangeFinish", modelView);
+        }
+        /// <summary>
+        /// Given the bike range, provide estimates for run
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public PartialViewResult GivenRunTime(SimpleFilterViewModel model)
+        public PartialViewResult DisplayBikeRun(SimpleFilterViewModel model)
+        {
+            model.runhightimevalue = null; //clear the values that we want to ignore in this hypothetical (everything but bike)
+            model.runlowtimevalue = null;
+            model.swimhightimevalue = null;
+            model.swimlowtimevalue = null;
+
+            var filter = new RaceFilterViewModel();
+            filter.SaveRaceFilterValues(model);
+
+            var modelView = GetEstimatedTime(filter);
+            modelView.SelectedSplit = "BikeRun"; //this value gets used by the generic _finishHistogram
+            modelView.Filter = filter;
+
+            return PartialView("_GivenBikeRangeRun", modelView);
+        }
+        // <summary>
+        /// Given the run range, provide estimates. 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public PartialViewResult DisplayRunFinish(SimpleFilterViewModel model)
         {
             model.bikehightimevalue = null; //clear the values that we want to ignore in this hypothetical (everything but run)
             model.bikelowtimevalue = null;
@@ -110,9 +148,10 @@ namespace RaceAnalysis.Controllers
             filter.SaveRaceFilterValues(model);
 
             var modelView = GetEstimatedTime(filter);
-            modelView.SelectedSplit = "Run";//this value gets used by the generic _finishHistogram
+            modelView.Filter = filter;
+            modelView.SelectedSplit = "RunFinish";//this value gets used by the generic _finishHistogram and also Hypotheth/Index to distinguish the Divs
 
-            return PartialView("_GivenRunRange", modelView);
+            return PartialView("_GivenRunRangeFinish", modelView);
         }
 
 

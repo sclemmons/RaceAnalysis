@@ -108,41 +108,57 @@
     <div id="ExpectedRunTimeResults"></div>
 
     <div class="hypothetical">
-        @Ajax.ActionLink("If I biked this fast... what is my expected finish time?",
-                        "ShowBikeRange", "Hypotheticals",
+        @Ajax.ActionLink("If I biked this fast... what is my expected run time?",
+                        "ShowBikeRangeForRun", "Hypotheticals",
                         null,
                         new AjaxOptions
                         {
-                            UpdateTargetId = "BikeRangeDiv",
+                            UpdateTargetId = "BikeRunDiv",
                             InsertionMode = InsertionMode.Replace,
                             HttpMethod = "GET",
                             OnBegin = "beginPost"
                         },
-                        htmlAttributes: new { id = "BikeRangeLink" })
-
+                        htmlAttributes: new { id = "BikeRangeRunLink" })
 
     </div>
-    <div id="BikeRangeDiv">
-      
-    </div>
-
-   <div class="hypothetical">
-        @Ajax.ActionLink("If I ran this fast... what is my expected finish time?",
-                        "ShowRunRange", "Hypotheticals",
+    <div id="BikeRunDiv"></div>
+       
+        <div class="hypothetical">
+            @Ajax.ActionLink("If I biked this fast... what is my expected finish time?",
+                        "ShowBikeRangeForFinish", "Hypotheticals",
                         null,
                         new AjaxOptions
                         {
-                            UpdateTargetId = "RunRangeDiv",
+                            UpdateTargetId = "BikeFinishDiv",
+                            InsertionMode = InsertionMode.Replace,
+                            HttpMethod = "GET",
+                            OnBegin = "beginPost"
+                        },
+                        htmlAttributes: new { id = "BikeRangeFinishLink" })
+
+
+        </div>
+        <div id="BikeFinishDiv">
+
+        </div>
+
+        <div class="hypothetical">
+            @Ajax.ActionLink("If I ran this fast... what is my expected finish time?",
+                        "ShowRunRangeForFinish", "Hypotheticals",
+                        null,
+                        new AjaxOptions
+                        {
+                            UpdateTargetId = "RunFinishDiv",
                             InsertionMode = InsertionMode.Replace,
                             HttpMethod = "GET",
                             OnBegin = "beginPost"
                         },
                         htmlAttributes: new { id = "RunRangeLink" })
 
-    </div>
-    <div id="RunRangeDiv">
+        </div>
+        <div id="RunFinishDiv">
 
-    </div>
+        </div>
 
 </form>
 

@@ -546,10 +546,10 @@ div#overlay-marker-estfinish,div#overlay-marker-estSwim,div#overlay-marker-estBi
     font-weight:bold;
 }
 
-div#finish-range, div#Swim-range,div#Bike-range,div#Run-range,div#finish-results{
+div#finish-range, div#Swim-range,div#Bike-range,div#Run-range,div#finish-results,div#run-results{
     margin-top:10px;
-    //font-style: italic;
-     font-weight:bold;
+    font-style: italic;
+     //font-weight:bold;
     font-size: 18px;
     //background-color:darkturquoise;
     //color:white;

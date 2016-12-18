@@ -1,0 +1,92 @@
+﻿@model RaceAnalysis.Models.HypotheticalsViewModel
+
+<div>
+    @{
+        string agegroup_name = Model.Filter.AvailableAgeGroups.Where(a => a.AgeGroupId == Model.Filter.SelectedAgeGroupIds.First()).Select(a => a.DisplayName).First();
+        string gender_name = Model.Filter.AvailableGenders.Where(a => a.GenderId == Model.Filter.SelectedGenderIds.First()).Select(a => a.DisplayName).First();
+
+
+        string num_athletes = "";
+        try
+        {
+            // System.Diagnostics.Debugger.Break();
+            var count = Model.Triathletes.Count();
+            num_athletes = "There were " + count.ToString() + " athletes within your agegroup and gender";
+        }
+        catch
+        {
+            //System.Diagnostics.Debugger.Break();
+        }
+
+
+        num_athletes += " had a bike split of " + Model.Filter.BikeLow.ToString("hh\\:mm") + " - " + Model.Filter.BikeHigh.ToString("hh\\:mm") + ".";
+        var Run_range = "";
+        var skill_level_count = 0;
+        var run_range_explanation = "";
+        switch (@Model.SelectedSkillLevel)
+        {
+            case "1":
+                skill_level_count = Model.Stats[0].Run.FastestHalf.Item1.Count();
+                if (skill_level_count > 0)
+                {
+                    Run_range +=
+                    new TimeSpan(Model.Stats[0].Run.FastestHalf.Item1.Min(t => t.Run.Ticks)) + " - " +
+                    new TimeSpan(Model.Stats[0].Run.FastestHalf.Item1.Max(t => t.Run.Ticks));
+                }
+                break;
+            case "2":
+                skill_level_count = Model.Stats[0].Run.FastestHalf.Item2.Count();
+                if (skill_level_count > 0)
+                {
+                    Run_range +=
+                        new TimeSpan(Model.Stats[0].Run.FastestHalf.Item2.Min(t => t.Run.Ticks)) + " - " +
+                        new TimeSpan(Model.Stats[0].Run.FastestHalf.Item2.Max(t => t.Run.Ticks));
+                }
+                break;
+            case "3":
+                skill_level_count = Model.Stats[0].Run.SlowestHalf.Item1.Count();
+                if (skill_level_count > 0)
+                {
+                    Run_range +=
+                        new TimeSpan(Model.Stats[0].Run.SlowestHalf.Item1.Min(t => t.Run.Ticks)) + " - " +
+                        new TimeSpan(Model.Stats[0].Run.SlowestHalf.Item1.Max(t => t.Run.Ticks));
+                }
+                break;
+            case "4":
+            default:
+                skill_level_count = Model.Stats[0].Run.SlowestHalf.Item2.Count();
+
+                if (skill_level_count > 0)
+                {
+                    Run_range +=
+                  new TimeSpan(Model.Stats[0].Run.SlowestHalf.Item2.Min(t => t.Run.Ticks)) + " - " +
+                  new TimeSpan(Model.Stats[0].Run.SlowestHalf.Item2.Max(t => t.Run.Ticks));
+                }
+                break;
+        }
+        if (skill_level_count > 0)
+        {
+            run_range_explanation = String.Format("{0} of those athletes with your skill level ran in the range {1}.", skill_level_count, Run_range);
+        }
+        else
+        {
+            run_range_explanation = "There were no runners that biked within that range. Try broadening the bike range.";
+        }
+    }
+    <div>
+        @Html.Hidden("bikelowtimevalue", Model.Filter.BikeLow.Ticks)
+        @Html.Hidden("bikehightimevalue", Model.Filter.BikeHigh.Ticks)
+
+    </div>
+
+    <div id="run-results">
+        @Model.Triathletes.Count()  @gender_name athletes in the age group @agegroup_name  had a bike split of @Model.Filter.BikeLow.ToString("hh\\:mm")  - @Model.Filter.BikeHigh.ToString("hh\\:mm").
+        <br />
+        @run_range_explanation
+    </div>
+
+</div>
+@if (Model.Triathletes.Count() > 0)
+{
+    @Html.Partial("_RunHistogram", Model)
+}

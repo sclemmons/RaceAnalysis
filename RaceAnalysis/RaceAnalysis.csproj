@@ -559,10 +559,12 @@
     <Content Include="Views\Hypotheticals\_EstRun.cshtml" />
     <Content Include="Views\Hypotheticals\_BikeRun.cshtml" />
     <Content Include="Views\Hypotheticals\_BikeRange.cshtml" />
-    <Content Include="Views\Hypotheticals\_GivenBikeRange.cshtml" />
+    <Content Include="Views\Hypotheticals\_GivenBikeRangeFinish.cshtml" />
     <Content Include="Views\Hypotheticals\_FinishHistogram.cshtml" />
     <Content Include="Views\Hypotheticals\_RunRange.cshtml" />
-    <Content Include="Views\Hypotheticals\_GivenRunRange.cshtml" />
+    <Content Include="Views\Hypotheticals\_GivenRunRangeFinish.cshtml" />
+    <Content Include="Views\Hypotheticals\_GivenBikeRangeRun.cshtml" />
+    <Content Include="Views\Hypotheticals\_RunHistogram.cshtml" />
     <None Include="Web.Test.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

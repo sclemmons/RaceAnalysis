@@ -68,6 +68,53 @@ namespace RaceAnalysis.Models
 
         }
 
+        public List<object> RunData
+        {
+            get
+            {
+                var list = new List<object>();
+                list.Add(new object[] {
+                    AvailableSkillLevels.Where(s => s.Value == "1").Select(s => s.DisplayName).First(),
+                    AvailableSkillLevels.Where(s => s.Value == "2").Select(s => s.DisplayName).First(),
+                    AvailableSkillLevels.Where(s => s.Value == "3").Select(s => s.DisplayName).First(),
+                    AvailableSkillLevels.Where(s => s.Value == "4").Select(s => s.DisplayName).First()
+                });
+
+                foreach (var t in Triathletes)
+                {
+
+                    /*the following would be the ideal way to do this but the histogram chart will not display the hAxis in the 
+                     * timeofday format. It sees it as a number. The toolip displays the time correctly. 
+                     * After spending many hours on this I'm opting to display it as a number.
+                     * *************************************************************************/
+                    //list.Add(new object[] { t.Name, new int[] { t.Run.Hours, t.Run.Minutes, t.Run.Seconds } });
+
+
+                    if (t.Run.TotalHours > 0)
+                    {
+
+                        var hrs = Math.Round(t.Run.TotalHours, 2);
+
+                        var q1 = Stats[0].Run.FastestHalf.Item1.Max(x => x.Run.TotalHours);
+                        var q2 = Stats[0].Run.FastestHalf.Item2.Max(x => x.Run.TotalHours);
+                        var q3 = Stats[0].Run.SlowestHalf.Item1.Max(x => x.Run.TotalHours);
+                        var q4 = Stats[0].Run.SlowestHalf.Item2.Max(x => x.Run.TotalHours);
+
+                        list.Add(new double?[] {
+                                    hrs <= q1 ? hrs :(double?) null, //Q1
+                                    (hrs > q1 && hrs <= q2)  ? hrs :(double?) null, //Q2
+                                    (hrs > q2 && hrs <= q3) ? hrs :(double?) null, //Q3
+                                    (hrs > q3 && hrs <= q4) ? hrs :(double?) null, //Q4
+                        });
+
+                    }
+                }
+
+                return list;
+            }
+
+        }
+
 
 
         #region Private Region

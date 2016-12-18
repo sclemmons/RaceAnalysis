@@ -1,4 +1,10 @@
-﻿@model RaceAnalysis.Models.RaceFilterViewModel  
+﻿@model RaceAnalysis.Models.HypotheticalsViewModel  
+
+@{
+    var action = "Display" + Model.SelectedSplit;
+    var updateDiv = Model.SelectedSplit + "Div";
+}
+
 
 <div id="filter-duration">
     <div id="time-range-run" class="time-range">
@@ -13,11 +19,11 @@
             <div id="s1" class="slider-range" name="run-slider">   </div>
         </div>
         @Ajax.ActionLink("Apply...",
-                        "GivenRunTime", "Hypotheticals",
+                        @action, "Hypotheticals",
                         null,
                         new AjaxOptions
                         {
-                            UpdateTargetId = "RunRangeDiv",
+                            UpdateTargetId = @updateDiv,
                             InsertionMode = InsertionMode.Replace,
                             HttpMethod = "GET",
                             OnBegin = "beginPost"
@@ -69,9 +75,9 @@
       
         $('div[name=run-slider]').slider("option", "min", 2*60);
         $('div[name=run-slider]').slider("option", "max", 7*60);
-        $('div[name=run-slider]').slider("option", "values", [@Model.RunLow.TotalMinutes,@Model.RunHigh.TotalMinutes]);
-        $('span[name=runlowspan]').html('@Model.RunLow.ToString("hh\\:mm")');
-        $('span[name=runhighspan]').html('@Model.RunHigh.ToString("hh\\:mm")' + ' hrs');
+        $('div[name=run-slider]').slider("option", "values", [@Model.Filter.RunLow.TotalMinutes,@Model.Filter.RunHigh.TotalMinutes]);
+        $('span[name=runlowspan]').html('@Model.Filter.RunLow.ToString("hh\\:mm")');
+        $('span[name=runhighspan]').html('@Model.Filter.RunHigh.ToString("hh\\:mm")' + ' hrs');
 
     })
 
