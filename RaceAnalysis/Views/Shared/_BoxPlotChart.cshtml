@@ -27,30 +27,27 @@
             type: 'box',
             name: 'Swim',
             marker:{
-                color: 'rgb(255,204,0)'
+                color: 'rgb(143,187,218)'
             }
           
         };
         var swim_layout = {
             xaxis : axis_template,
-            title: 'Swim Box plot',
+            title: 'Swim Box plot'
         };
         data_swim = [swim];
         Plotly.newPlot('@box_swim', data_swim, swim_layout);
 
         var bike_layout = {
             xaxis : axis_template,
-            title: 'Bike',
-            marker:{
-                color: 'rgb(255,0,0)'
-            }
+            title: 'Bike'
         };
         var bike = {
             x: @Html.Raw(Json.Encode(Model.Bike.Data)),
             type: 'box',
             name: 'Bike',
             marker:{
-                color: 'rgb(92,184,92)'
+                color: 'rgb(255,0,0)'
             }
         };
         Plotly.newPlot('@box_bike', [bike], bike_layout);
@@ -58,14 +55,14 @@
         var run = {
             x: @Html.Raw(Json.Encode(Model.Run.Data)),
             type: 'box',
-            name: 'Run'
+            name: 'Run',
+            marker:{
+                color: 'rgb(174,220,174)'
+            }
         };
         var run_layout = {
             xaxis : axis_template,
             title: 'Run',
-            marker:{
-                color: 'rgb(255,255,255)'
-            }
         };
 
         Plotly.newPlot('@box_run', [run], run_layout);

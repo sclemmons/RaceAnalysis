@@ -557,7 +557,6 @@
     <Content Include="Views\Hypotheticals\_EstSwim.cshtml" />
     <Content Include="Views\Hypotheticals\_EstBike.cshtml" />
     <Content Include="Views\Hypotheticals\_EstRun.cshtml" />
-    <Content Include="Views\Hypotheticals\_BikeRun.cshtml" />
     <Content Include="Views\Hypotheticals\_BikeRange.cshtml" />
     <Content Include="Views\Hypotheticals\_GivenBikeRangeFinish.cshtml" />
     <Content Include="Views\Hypotheticals\_FinishHistogram.cshtml" />
