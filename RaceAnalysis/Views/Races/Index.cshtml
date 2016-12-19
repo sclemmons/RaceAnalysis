@@ -2,7 +2,7 @@
 @using RaceAnalysis.Models;
 
 @{
-    ViewBag.Title = "AppFeatures";
+    ViewBag.Title = "Races";
     Layout = "~/Views/Layouts/_Layout.cshtml";
     ViewBag.BodyClass = "fullpage";
 
@@ -19,49 +19,49 @@
 <div class="race-list">
     <h2>Races</h2>
 
-    <div id="instructions">Click on one or more rows to select races, then select the button to view details.</div>
+    <div class="search-results-preface">
 
-    <div>
+        <span id="instructions">Click on one or more rows to select races, then click the button to view details.</span>
+
         @Html.ActionLink("Display Details", "SelectedRaces", "TriStats",
                  queryViewModel, new { @id = "action-stats", @class = "btn btn-default", title = "Display detailed stats" })
     </div>
+    <div>
 
-
-    @Html.Partial("~/Views/Shared/_OnePageOfRaces.cshtml", Model);
+        @Html.Partial("~/Views/Shared/_OnePageOfRaces.cshtml", Model);
+    </div>
 
 </div>
 
 <script type="text/javascript">
 
-    $('#config-form').on('submit', function (evt) {
-        evt.preventDefault();
-    });
-
-    $('#action-stats').on('click', actionSelected);
-    $('#action-stats').attr("disabled", true); //disable until user selects rows
-
-    function actionSelected(evt)
-    {
-        if ($('#action-stats').attr('disabled') == 'disabled'){
-            return false;
-        }
-
-        var selected = [];
-        $('#race-table').selectedrows().each(function (idx, el) {
-            if (el.id.length > 0) {
-                selected.push(el.id);
-            }
+        $('#config-form').on('submit', function (evt) {
+            evt.preventDefault();
         });
-        if (selected.length > 0) {
 
-            this.href += "&Races=" + selected.join(', ');
-        }
-        else
-        {
-            return false;
-        }
+        $('#action-stats').on('click', actionSelected);
+        $('#action-stats').attr("disabled", true); //disable until user selects rows
 
-    }
+        function actionSelected(evt) {
+            if ($('#action-stats').attr('disabled') == 'disabled') {
+                return false;
+            }
+
+            var selected = [];
+            $('#race-table').selectedrows().each(function (idx, el) {
+                if (el.id.length > 0) {
+                    selected.push(el.id);
+                }
+            });
+            if (selected.length > 0) {
+
+                this.href += "&Races=" + selected.join(', ');
+            }
+            else {
+                return false;
+            }
+
+        }
 
 
         //$('#action-stats').on('click', actionSelected);
