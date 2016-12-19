@@ -115,7 +115,7 @@ namespace RaceAnalysis.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
-   //         ViewBag.ConditionsId = new SelectList(_DBContext.RaceConditions, "RaceConditionsId", "SwimGeneral");
+   //         ViewBag.ConditionsId = new SelectList(_DBContext.RaceConditions, "RaceConditionsId", "SwimLayout");
             return View();
         }
 
@@ -127,7 +127,7 @@ namespace RaceAnalysis.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Create(
                 [Bind(Prefix = "Race", Include = "BaseURL,DisplayName,RaceDate,ShortName,Distance")]Race race,
-                [Bind(Prefix = "Conditions", Include = "SwimGeneral,BikeGeneral,RunGeneral")]RaceConditions conditions)
+                [Bind(Prefix = "Conditions", Include = "SwimLayout,BikeLayout,RunLayout")]RaceConditions conditions)
 
         {
             if (ModelState.IsValid)
@@ -176,7 +176,7 @@ namespace RaceAnalysis.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Edit(
                 [Bind(Prefix ="Race", Include = "RaceId,ConditionsId,BaseURL,DisplayName,RaceDate,ShortName,Distance")]Race race,
-                [Bind(Prefix ="Conditions", Include = "RaceConditionsId,SwimGeneral,BikeGeneral,RunGeneral")]RaceConditions conditions)
+                [Bind(Prefix ="Conditions", Include = "RaceConditionsId,SwimLayout,BikeLayout,RunLayout")]RaceConditions conditions)
         {
             if (ModelState.IsValid)
             {

@@ -99,7 +99,7 @@ namespace RaceAnalysis.Data
                                     RaceDate = new DateTime(2015,10,11),
                                     ShortName="louisville",
                                     Distance = "140.6",
-                                    Conditions = new RaceConditions {SwimGeneral="Wetsuit Legal",BikeGeneral="Rolling Hills",RunGeneral="Flat" }
+                                    Conditions = new RaceConditions {SwimLayout="Wetsuit Legal",BikeLayout="Rolling Hills",RunLayout="Flat" }
 
                                 },
                                  new Race
@@ -110,7 +110,7 @@ namespace RaceAnalysis.Data
                                     RaceDate = new DateTime(2016,10,9),
                                     ShortName="louisville",
                                     Distance = "140.6",
-                                    Conditions = new RaceConditions {SwimGeneral="Wetsuit Legal",BikeGeneral="Rolling Hills, Cool",RunGeneral="Flat" }
+                                    Conditions = new RaceConditions {SwimLayout="Wetsuit Legal",BikeLayout="Rolling Hills, Cool",RunLayout="Flat" }
 
                                 },
                                   new Race
@@ -121,7 +121,7 @@ namespace RaceAnalysis.Data
                                     RaceDate = new DateTime(2015,11,7),
                                     ShortName="florida",
                                     Distance = "140.6",
-                                    Conditions = new RaceConditions {SwimGeneral="Wetsuit Optional",BikeGeneral="Mostly Flat and humid",RunGeneral="Flat and humid" }
+                                    Conditions = new RaceConditions {SwimLayout="Wetsuit Optional",BikeLayout="Mostly Flat and humid",RunLayout="Flat and humid" }
 
                                 }
 

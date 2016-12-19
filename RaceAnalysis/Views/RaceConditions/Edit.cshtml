@@ -18,26 +18,26 @@
         @Html.HiddenFor(model => model.RaceConditionsId)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.SwimGeneral, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.SwimLayout, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.SwimGeneral, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SwimGeneral, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.SwimLayout, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SwimLayout, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.BikeGeneral, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.BikeLayout, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.BikeGeneral, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.BikeGeneral, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.BikeLayout, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.BikeLayout, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.RunGeneral, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.RunLayout, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.RunGeneral, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.RunGeneral, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.RunLayout, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.RunLayout, "", new { @class = "text-danger" })
             </div>
         </div>
 

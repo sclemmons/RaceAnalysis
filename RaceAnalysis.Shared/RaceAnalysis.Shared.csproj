@@ -122,6 +122,7 @@
     <Compile Include="Models\ContactForm.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\KeyValueModel.cs" />
+    <Compile Include="Models\Tag.cs" />
     <Compile Include="Models\TriStatsExtended.cs" />
     <Compile Include="ServiceSupport\BasicDurationFilter.cs" />
     <Compile Include="ServiceSupport\BasicFilterProvider.cs" />

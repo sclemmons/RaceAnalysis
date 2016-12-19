@@ -11,24 +11,58 @@ namespace RaceAnalysis.Models
     {
         public RaceConditions()
         {
-            SwimGeneral = String.Empty;
-            BikeGeneral = String.Empty;
-            RunGeneral = String.Empty;
+            SwimLayout = String.Empty;
+            BikeLayout = String.Empty;
+            RunLayout = String.Empty;
         }
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int RaceConditionsId { get; set; }
            
-        //place holders right now, intend to get more specific info
-        [Display(Name = "Swim General")]
-        public string SwimGeneral { get; set; }
+        [Display(Name = "Swim Layout")]
+        public string SwimLayout { get; set; }
 
-        [Display(Name = "Bike General")]
-        public string BikeGeneral { get; set; }
+        [Display(Name = "Swim Medium")]
+        public string SwimMedium { get; set; }
 
-        [Display(Name = "Run General")]
-        public string RunGeneral { get; set; }
-                
+        [Display(Name = "Swim Weather")]
+        public string SwimWeather { get; set; }
+
+        [Display(Name = "Swim Other")]
+        public string SwimOther { get; set; }
+
+
+
+
+
+        [Display(Name = "Bike Layout")]
+        public string BikeLayout { get; set; }
+
+        [Display(Name = "Bike Medium")]
+        public string BikeMedium { get; set; }
+
+        [Display(Name = "Bike Weather")]
+        public string BikeWeather { get; set; }
+
+        [Display(Name = "Bike Other")]
+        public string BikeOther { get; set; }
+
+
+
+
+        [Display(Name = "Run Layout")]
+        public string RunLayout { get; set; }
+
+        [Display(Name = "Run Medium")]
+        public string RunMedium { get; set; }
+
+        [Display(Name = "Run Weather")]
+        public string RunWeather { get; set; }
+
+        [Display(Name = "Run Other")]
+        public string RunOther { get; set; }
+
+
 
     }
 }

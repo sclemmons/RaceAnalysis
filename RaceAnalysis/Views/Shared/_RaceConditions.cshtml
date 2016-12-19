@@ -12,9 +12,9 @@
             <div>Count: @Html.DisplayFor(a => Model.Athletes.Count)</div>
             @if (Model.Race.Conditions != null)
             {
-                <div>Swim Conditions: @Html.DisplayFor(r => Model.Race.Conditions.SwimGeneral)</div>
-                <div>Bike Conditions: @Html.DisplayFor(r => Model.Race.Conditions.BikeGeneral)</div>
-                            <div>Run Conditions:  @Html.DisplayFor(r => Model.Race.Conditions.RunGeneral)</div>
+                <div>Swim Conditions: @Html.DisplayFor(r => Model.Race.Conditions.SwimLayout)</div>
+                <div>Bike Conditions: @Html.DisplayFor(r => Model.Race.Conditions.BikeLayout)</div>
+                <div>Run Conditions:  @Html.DisplayFor(r => Model.Race.Conditions.RunLayout)</div>
             }
         </div>
 </div>

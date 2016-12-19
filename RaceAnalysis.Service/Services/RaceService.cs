@@ -129,17 +129,17 @@ namespace RaceAnalysis.Service
         public List<Race> GetRacesBySwimCondition(string conditions)
         {
             var search = new ElasticSearchFacade(_DBContext);
-            return search.SearchRacesFieldQuery("conditions.swimGeneral", conditions);
+            return search.SearchRacesFieldQuery("conditions.SwimLayout", conditions);
         }
         public List<Race> GetRacesByBikeCondition(string conditions)
         {
             var search = new ElasticSearchFacade(_DBContext);
-            return search.SearchRacesFieldQuery("conditions.bikeGeneral", conditions);
+            return search.SearchRacesFieldQuery("conditions.BikeLayout", conditions);
         }
         public List<Race> GetRacesByRunCondition(string conditions)
         {
             var search = new ElasticSearchFacade(_DBContext);
-            return search.SearchRacesFieldQuery("conditions.runGeneral", conditions);
+            return search.SearchRacesFieldQuery("conditions.RunLayout", conditions);
         }
 
         public void ReIndex()

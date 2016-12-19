@@ -43,7 +43,7 @@ namespace RaceAnalysis.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "RaceConditionsId,SwimGeneral,BikeGeneral,RunGeneral")] RaceConditions raceConditions)
+        public ActionResult Create([Bind(Include = "RaceConditionsId,SwimLayout,BikeLayout,RunLayout")] RaceConditions raceConditions)
         {
             if (ModelState.IsValid)
             {
@@ -75,7 +75,7 @@ namespace RaceAnalysis.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "RaceConditionsId,SwimGeneral,BikeGeneral,RunGeneral")] RaceConditions raceConditions)
+        public ActionResult Edit([Bind(Include = "RaceConditionsId,SwimLayout,BikeLayout,RunLayout")] RaceConditions raceConditions)
         {
             if (ModelState.IsValid)
             {

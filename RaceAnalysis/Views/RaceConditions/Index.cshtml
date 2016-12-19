@@ -12,13 +12,13 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.SwimGeneral)
+            @Html.DisplayNameFor(model => model.SwimLayout)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.BikeGeneral)
+            @Html.DisplayNameFor(model => model.BikeLayout)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.RunGeneral)
+            @Html.DisplayNameFor(model => model.RunLayout)
         </th>
         <th></th>
     </tr>
@@ -26,13 +26,13 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.SwimGeneral)
+            @Html.DisplayFor(modelItem => item.SwimLayout)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.BikeGeneral)
+            @Html.DisplayFor(modelItem => item.BikeLayout)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.RunGeneral)
+            @Html.DisplayFor(modelItem => item.RunLayout)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.RaceConditionsId }) |
