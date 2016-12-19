@@ -61,10 +61,8 @@
                     @Html.DisplayFor(modelItem => item.Distance)
                 </td>
                 <td>
-                    ...
+                    @Html.ActionLink("View Conditions", "Conditions", new { id = item.RaceId }) 
                 </td>
-
-
 
             </tr>
         }

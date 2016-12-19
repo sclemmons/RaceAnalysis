@@ -1,0 +1,49 @@
+﻿@model RaceAnalysis.Models.Race
+
+@{
+    ViewBag.Title = "Race Conditions";
+    Layout = "~/Views/Layouts/_Layout.cshtml";
+}
+
+<h3>@Model.DisplayName Conditions</h3>
+
+<dt>
+    @Html.DisplayNameFor(model => model.Conditions)
+</dt>
+
+<div>
+<dl class="dl-horizontal">
+    <dd>
+        <table class="table table-striped">
+            <tr>
+                <th></th>
+                <th>General</th>
+                <th>Elevation</th>
+                <th>Weather</th>
+            </tr>
+
+            <tr>
+                <td>Swim</td>
+                <td>
+                    @Html.DisplayFor(model => model.Conditions.SwimGeneral)
+                </td>
+            </tr>
+            <tr>
+                <td>Bike</td>
+
+                <td>
+                    @Html.DisplayFor(model => model.Conditions.BikeGeneral)
+                </td>
+            </tr>
+            <tr>
+                <td>Run</td>
+                <td>
+                    @Html.DisplayFor(model => model.Conditions.RunGeneral)
+                </td>
+            </tr>
+
+        </table>
+    </dd>
+
+</dl>
+</div>

@@ -71,6 +71,20 @@ namespace RaceAnalysis.Controllers
             return PartialView("_SearchResults",races);
         }
 
+        // GET: Races/Conditions/5
+        public ActionResult Conditions(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Race race = _DBContext.Races.Find(id);
+            if (race == null)
+            {
+                return HttpNotFound();
+            }
+            return View(race);
+        }
 
 
         [Authorize(Roles = "Admin")]
