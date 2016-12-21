@@ -15,6 +15,8 @@ namespace RaceAnalysis.Models
         public int TagId { get; set; }
         public TagType Type{get;set;}
         public string Value { get; set; }
+
+        public virtual List<RaceConditions> RaceConditions { get; set; }
     }
 
     public enum TagType
@@ -29,7 +31,8 @@ namespace RaceAnalysis.Models
         RunLayout,
         RunMedium,
         RunWeather,
-        RunOther
+        RunOther,
+        BikeOther /*i forgot to add this when I already had a bunch of data. hense,at the end*/
     }
 
 }

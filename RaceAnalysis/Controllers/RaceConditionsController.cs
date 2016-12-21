@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using RaceAnalysis.Models;
+using System;
 
 namespace RaceAnalysis.Controllers
 {
@@ -55,19 +56,22 @@ namespace RaceAnalysis.Controllers
             return View(raceConditions);
         }
 
-        // GET: RaceConditions/Edit/5
+        // GET: RaceConditions/Edit/5  NOTE, this is the raceId, not the conditionsId
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            RaceConditions raceConditions = db.RaceConditions.Find(id);
-            if (raceConditions == null)
+            var race = db.Races.Find(id);
+            if (race == null)
             {
                 return HttpNotFound();
             }
-            return View(raceConditions);
+            var viewModel = new RaceViewModel();
+            viewModel.Race = race;
+            viewModel.Tags = db.Tags.ToList();
+            return View(viewModel);
         }
 
         // POST: RaceConditions/Edit/5
@@ -75,16 +79,72 @@ namespace RaceAnalysis.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "RaceConditionsId,SwimLayout,BikeLayout,RunLayout")] RaceConditions raceConditions)
+        //public ActionResult Edit(
+           // [Bind(Prefix="Race.Conditions",Include = "RaceConditionsId,SwimLayout,BikeLayout,RunLayout")] RaceConditions raceConditions)
+        public ActionResult Edit(SimpleRaceConditionsViewModel viewModel,int? raceId )
         {
-            if (ModelState.IsValid)
+        
+            var race = db.Races.Find(raceId);
+            if (race == null)
             {
-                db.Entry(raceConditions).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return HttpNotFound();
             }
-            return View(raceConditions);
+            
+            Save(race.Conditions, viewModel);
+
+            return RedirectToAction("Index");
         }
+        private void Save(RaceConditions conditions, SimpleRaceConditionsViewModel viewModel)
+        {
+            foreach(string s in viewModel.selectedSwimLayout)
+            {
+          
+               Tag tag;
+               int tagId;
+               bool result = Int32.TryParse(s, out tagId);
+                //tag is either a tag id or a new tag value that the user typed
+                if(result)
+                {
+                    tag = db.Tags.Find(tagId);
+
+                }
+                else //a new tag
+                {
+                    tag = new Tag
+                    {
+                        Value = s
+                    };
+                
+                    db.Tags.Add(tag);
+                    db.SaveChanges();
+                    
+                }
+                var rcTag = conditions.SwimLayout.Where(m => m.TagId == tagId).Single();
+                if (rcTag == null)
+                {
+                    rcTag = new RaceConditionTag
+                    {
+                        RaceConditions = conditions,
+                        Tag = tag,
+                        Count = 1
+                    };
+                    db.RaceConditionTags.Add(rcTag);
+                    conditions.SwimLayout.Add(rcTag);
+                }
+                else
+                {
+                    rcTag.Count += 1;
+                }
+
+            }
+
+
+                //db.Entry(conditions).State = EntityState.Modified;
+                db.SaveChanges();
+
+
+        }
+    
 
         // GET: RaceConditions/Delete/5
         public ActionResult Delete(int? id)
@@ -120,5 +180,8 @@ namespace RaceAnalysis.Controllers
             }
             base.Dispose(disposing);
         }
+
+
+       
     }
 }

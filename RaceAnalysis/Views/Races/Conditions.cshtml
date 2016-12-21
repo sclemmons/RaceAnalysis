@@ -7,39 +7,40 @@
 
 <h3>@Model.DisplayName Conditions</h3>
 
-<dt>
-    @Html.DisplayNameFor(model => model.Conditions)
-</dt>
 
 <div>
-<dl class="dl-horizontal">
+<dl>
     <dd>
         <table class="table table-striped">
             <tr>
                 <th></th>
-                <th>General</th>
-                <th>Elevation</th>
+                <th>Layout</th>
+                <th>Medium</th>
                 <th>Weather</th>
+                <th>Other</th>
             </tr>
 
             <tr>
                 <td>Swim</td>
-                <td>
-                    @Html.DisplayFor(model => model.Conditions.SwimLayout)
-                </td>
+                <td>@Html.DisplayFor(model => model.Conditions.SwimLayout)</td>
+                <td>@Html.DisplayFor(model => model.Conditions.SwimMedium)</td>
+                <td>@Html.DisplayFor(model => model.Conditions.SwimWeather)</td>
+                <td>@Html.DisplayFor(model => model.Conditions.SwimOther)</td>
+                
             </tr>
             <tr>
                 <td>Bike</td>
-
-                <td>
-                    @Html.DisplayFor(model => model.Conditions.BikeLayout)
-                </td>
+                <td>@Html.DisplayFor(model => model.Conditions.BikeLayout)</td>
+                <td>@Html.DisplayFor(model => model.Conditions.BikeMedium)</td>
+                <td>@Html.DisplayFor(model => model.Conditions.BikeWeather)</td>
+                <td>@Html.DisplayFor(model => model.Conditions.BikeOther)</td>
             </tr>
             <tr>
                 <td>Run</td>
-                <td>
-                    @Html.DisplayFor(model => model.Conditions.RunLayout)
-                </td>
+                <td>@Html.DisplayFor(model => model.Conditions.RunLayout)</td>
+                <td>@Html.DisplayFor(model => model.Conditions.RunMedium)</td>
+                <td>@Html.DisplayFor(model => model.Conditions.RunWeather)</td>
+                <td>@Html.DisplayFor(model => model.Conditions.RunOther)</td>
             </tr>
 
         </table>

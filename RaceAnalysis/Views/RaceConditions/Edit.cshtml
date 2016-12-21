@@ -1,58 +1,54 @@
-﻿@model RaceAnalysis.Models.RaceConditions
+﻿@model RaceAnalysis.Models.RaceViewModel
 
 @{
     ViewBag.Title = "Edit Race Conditions";
 }
 
-<h2>Edit</h2>
 
+<div class="form-horizontal">
+    <h4>Race Conditions</h4>
+    <hr />
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Race Conditions</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.RaceConditionsId)
+    @using (Html.BeginForm("Edit", "RaceConditions", FormMethod.Post, new { @id = "myForm" }))
+    {
+        @Html.AntiForgeryToken()
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.SwimLayout, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SwimLayout, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SwimLayout, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        <label for="conditionSelectId" class="control-label">Swim Layout</label>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.BikeLayout, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.BikeLayout, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.BikeLayout, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        @Html.ListBoxFor(m => m.SelectedSwimLayout,
+                     new SelectList(Model.Tags, "TagId", "Value"),
+                     new { @id = "conditionSelectId", name = "SwimLayout", multiple = "multiple" })
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.RunLayout, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.RunLayout, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.RunLayout, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        @Html.Hidden("raceId",@Model.Race.RaceId)
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </div>
-    </div>
-}
+
+
+    }
+</div>
 
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
 
 @section Scripts {
-  
+    <script>
+        $(document).ready(function () {
+
+            $('#conditionSelectId').select2({
+                placeholder: "Select Races...",
+                width: '95%',
+                tags: true,
+                tokenSeparators: [','],
+                placeholder: "Add your tags here"
+            });
+
+        });
+
+    </script>
+
 }

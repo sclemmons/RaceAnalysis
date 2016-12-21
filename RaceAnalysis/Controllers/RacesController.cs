@@ -165,7 +165,11 @@ namespace RaceAnalysis.Controllers
             {
                 return HttpNotFound();
             }
-            return View(race);
+
+            var viewModel = new RaceViewModel();
+            viewModel.Race = race;
+            viewModel.Tags = _DBContext.Tags.ToList();
+            return View(viewModel);
         }
 
         // POST: Races/Edit/5

@@ -13,9 +13,9 @@ namespace RaceAnalysis.Models
     public class RaceAnalysisDbContext : IdentityDbContext<ApplicationUser>
     {
 
-        public RaceAnalysisDbContext() : base("name=RaceAnalysis",throwIfV1Schema: false )//connection string      
+        public RaceAnalysisDbContext() : base("name=RaceAnalysis", throwIfV1Schema: false)//connection string      
         {
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<RaceAnalysisDbContext, 
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<RaceAnalysisDbContext,
                                           RaceAnalysis.Migrations.Configuration>("RaceAnalysis"));
 
             //Database.SetInitializer(new Data.RaceAnalysisDBInitializer());
@@ -33,16 +33,18 @@ namespace RaceAnalysis.Models
         public DbSet<Gender> Genders { get; set; }
         public DbSet<AgeGroup> AgeGroups { get; set; }
         public DbSet<RequestContext> RequestContext { get; set; }
-
         public DbSet<AppFeature> AppFeatures { get; set; }
+        public DbSet<RaceConditions> RaceConditions { get; set; }
+        public DbSet<Tag> Tags { get; set; }
 
-
+        public DbSet<RaceConditionTag> RaceConditionTags {get;set;}
+      
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
 
             base.OnModelCreating(modelBuilder);
         }
 
-        public System.Data.Entity.DbSet<RaceAnalysis.Models.RaceConditions> RaceConditions { get; set; }
+       
     }
 }
