@@ -1,4 +1,4 @@
-﻿@model RaceAnalysis.Models.RaceViewModel
+﻿@model RaceAnalysis.Models.RaceConditionsViewModel
 
 @{
     ViewBag.Title = "Edit Race Conditions";
@@ -9,6 +9,11 @@
     <h4>Race Conditions</h4>
     <hr />
 
+    <div>
+        @Html.ActionLink("Back to List", "admin", "races")
+    </div>
+    <hr/>
+
     @using (Html.BeginForm("Edit", "RaceConditions", FormMethod.Post, new { @id = "myForm" }))
     {
         @Html.AntiForgeryToken()
@@ -18,27 +23,27 @@
         <label for="SwimLayout" class="control-label">Swim Layout</label>
 
         @Html.ListBoxFor(m => m.SelectedSwimLayout,
-                     new SelectList(Model.Tags, "TagId", "Value"),
+                     new SelectList(Model.SwimLayoutTags, "TagId", "Value"),
                      new {  name = "SwimLayout", multiple = "multiple" })
 
 
         <label for="SwimMedium" class="control-label">Swim Medium</label>
 
         @Html.ListBoxFor(m => m.SelectedSwimMedium,
-                     new SelectList(Model.Tags, "TagId", "Value"),
+                     new SelectList(Model.SwimMediumTags, "TagId", "Value"),
                      new {  name = "SwimMedium", multiple = "multiple" })
 
 
         <label for="SwimWeather" class="control-label">Swim Weather</label>
 
         @Html.ListBoxFor(m => m.SelectedSwimWeather,
-                     new SelectList(Model.Tags, "TagId", "Value"),
+                     new SelectList(Model.SwimWeatherTags, "TagId", "Value"),
                      new {  name = "SwimWeather", multiple = "multiple" })
 
         <label for="SwimOther" class="control-label">Swim Other</label>
 
         @Html.ListBoxFor(m => m.SelectedSwimOther,
-                     new SelectList(Model.Tags, "TagId", "Value"),
+                     new SelectList(Model.SwimOtherTags, "TagId", "Value"),
                      new { name = "SwimOther", multiple = "multiple" })
 
 
@@ -47,27 +52,27 @@
         <label for="BikeLayout" class="control-label">Bike Layout</label>
 
         @Html.ListBoxFor(m => m.SelectedBikeLayout,
-                     new SelectList(Model.Tags, "TagId", "Value"),
+                     new SelectList(Model.BikeLayoutTags, "TagId", "Value"),
                      new { name = "BikeLayout", multiple = "multiple" })
 
 
         <label for="BikeMedium" class="control-label">Bike Medium</label>
 
         @Html.ListBoxFor(m => m.SelectedBikeMedium,
-                     new SelectList(Model.Tags, "TagId", "Value"),
+                     new SelectList(Model.BikeMediumTags, "TagId", "Value"),
                      new { name = "BikeMedium", multiple = "multiple" })
 
 
         <label for="BikeWeather" class="control-label">Bike Weather</label>
 
         @Html.ListBoxFor(m => m.SelectedBikeWeather,
-                     new SelectList(Model.Tags, "TagId", "Value"),
+                     new SelectList(Model.BikeWeatherTags, "TagId", "Value"),
                      new { name = "BikeWeather", multiple = "multiple" })
 
         <label for="BikeOther" class="control-label">Bike Other</label>
 
         @Html.ListBoxFor(m => m.SelectedBikeOther,
-                     new SelectList(Model.Tags, "TagId", "Value"),
+                     new SelectList(Model.BikeOtherTags, "TagId", "Value"),
                      new {  name = "BikeOther", multiple = "multiple" })
 
 
@@ -75,27 +80,27 @@
         <label for="RunLayout" class="control-label">Run Layout</label>
 
         @Html.ListBoxFor(m => m.SelectedRunLayout,
-                     new SelectList(Model.Tags, "TagId", "Value"),
+                     new SelectList(Model.RunLayoutTags, "TagId", "Value"),
                      new {name = "RunLayout", multiple = "multiple" })
 
 
         <label for="RunMedium" class="control-label">Run Medium</label>
 
         @Html.ListBoxFor(m => m.SelectedRunMedium,
-                     new SelectList(Model.Tags, "TagId", "Value"),
+                     new SelectList(Model.RunMediumTags, "TagId", "Value"),
                      new {  name = "RunMedium", multiple = "multiple" })
 
 
         <label for="RunWeather" class="control-label">Run Weather</label>
 
         @Html.ListBoxFor(m => m.SelectedRunWeather,
-                     new SelectList(Model.Tags, "TagId", "Value"),
+                     new SelectList(Model.RunWeatherTags, "TagId", "Value"),
                      new {  name = "RunWeather", multiple = "multiple" })
 
         <label for="RunOther" class="control-label">Run Other</label>
 
         @Html.ListBoxFor(m => m.SelectedRunOther,
-                     new SelectList(Model.Tags, "TagId", "Value"),
+                     new SelectList(Model.RunOtherTags, "TagId", "Value"),
                      new { name = "RunOther", multiple = "multiple" })
 
 
@@ -110,7 +115,7 @@
 </div>
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List","admin","races")
 </div>
 
 @section Scripts {

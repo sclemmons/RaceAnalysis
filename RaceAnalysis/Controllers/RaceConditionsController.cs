@@ -69,7 +69,7 @@ namespace RaceAnalysis.Controllers
             {
                 return HttpNotFound();
             }
-            var viewModel = new RaceViewModel();
+            var viewModel = new RaceConditionsViewModel();
             viewModel.Race = race;
             viewModel.Tags = db.Tags.ToList();
             return View(viewModel);
@@ -93,33 +93,33 @@ namespace RaceAnalysis.Controllers
             
             Save(race.Conditions, viewModel);
 
-            return View("~/views/races/admin");
+            return RedirectToAction("admin", "races");
         }
 
         private void Save(RaceConditions conditions, SimpleRaceConditionsViewModel viewModel)
         {
-            Save(conditions, conditions.SwimLayout, viewModel.selectedSwimLayout);
-            Save(conditions, conditions.SwimMedium, viewModel.selectedSwimMedium);
-            Save(conditions, conditions.SwimOther, viewModel.selectedSwimOther);
-            Save(conditions, conditions.SwimWeather, viewModel.selectedSwimWeather);
+            Save(conditions, conditions.SwimLayout, viewModel.selectedSwimLayout,TagType.SwimLayout);
+            Save(conditions, conditions.SwimMedium, viewModel.selectedSwimMedium,TagType.SwimMedium);
+            Save(conditions, conditions.SwimOther, viewModel.selectedSwimOther,TagType.SwimOther);
+            Save(conditions, conditions.SwimWeather, viewModel.selectedSwimWeather,TagType.SwimWeather);
 
 
-            Save(conditions, conditions.BikeLayout, viewModel.selectedBikeLayout);
-            Save(conditions, conditions.BikeMedium, viewModel.selectedBikeMedium);
-            Save(conditions, conditions.BikeOther, viewModel.selectedBikeOther);
-            Save(conditions, conditions.BikeWeather, viewModel.selectedBikeWeather);
+            Save(conditions, conditions.BikeLayout, viewModel.selectedBikeLayout,TagType.BikeLayout);
+            Save(conditions, conditions.BikeMedium, viewModel.selectedBikeMedium, TagType.BikeMedium);
+            Save(conditions, conditions.BikeOther, viewModel.selectedBikeOther, TagType.BikeOther);
+            Save(conditions, conditions.BikeWeather, viewModel.selectedBikeWeather,TagType.BikeWeather);
 
 
-            Save(conditions, conditions.RunLayout, viewModel.selectedRunLayout);
-            Save(conditions, conditions.RunMedium, viewModel.selectedRunMedium);
-            Save(conditions, conditions.RunOther, viewModel.selectedRunOther);
-            Save(conditions, conditions.RunWeather, viewModel.selectedRunWeather);
+            Save(conditions, conditions.RunLayout, viewModel.selectedRunLayout,TagType.RunLayout);
+            Save(conditions, conditions.RunMedium, viewModel.selectedRunMedium,TagType.RunMedium);
+            Save(conditions, conditions.RunOther, viewModel.selectedRunOther,TagType.RunOther);
+            Save(conditions, conditions.RunWeather, viewModel.selectedRunWeather,TagType.RunWeather);
 
 
 
 
         }
-        private void Save(RaceConditions conditions,List<RaceConditionTag> persistedList, List<String> selectedValues)
+        private void Save(RaceConditions conditions,List<RaceConditionTag> persistedList, List<String> selectedValues,TagType tagType)
         {
             if (selectedValues == null)
             {
@@ -161,7 +161,9 @@ namespace RaceAnalysis.Controllers
                 {
                     tag = new Tag
                     {
-                        Value = s
+                        Value = s,
+                        Type = tagType
+                        
                     };
 
                     db.Tags.Add(tag);

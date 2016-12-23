@@ -168,7 +168,7 @@ namespace RaceAnalysis.Controllers
 
             var viewModel = new RaceViewModel();
             viewModel.Race = race;
-            viewModel.Tags = _DBContext.Tags.ToList();
+        
             return View(viewModel);
         }
 

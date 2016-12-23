@@ -329,8 +329,9 @@
     <Compile Include="ViewModels\HistogramViewModel.cs" />
     <Compile Include="ViewModels\HypotheticalsViewModel.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />
-    <Compile Include="ViewModels\RaceViewModel.cs" />
+    <Compile Include="ViewModels\RaceConditionsViewModel.cs" />
     <Compile Include="ViewModels\RaceFilterViewModel.cs" />
+    <Compile Include="ViewModels\RaceViewModel.cs" />
     <Compile Include="ViewModels\SimpleFilterViewModel.cs" />
     <Compile Include="ViewModels\SimpleRaceConditionsViewModel.cs" />
     <Compile Include="ViewModels\TriathletesCompareViewModel.cs" />
