@@ -4,6 +4,7 @@ using System.Net;
 using System.Web.Mvc;
 using RaceAnalysis.Models;
 using System;
+using System.Collections.Generic;
 
 namespace RaceAnalysis.Controllers
 {
@@ -92,18 +93,66 @@ namespace RaceAnalysis.Controllers
             
             Save(race.Conditions, viewModel);
 
-            return RedirectToAction("Index");
+            return View("~/views/races/admin");
         }
+
         private void Save(RaceConditions conditions, SimpleRaceConditionsViewModel viewModel)
         {
-            foreach(string s in viewModel.selectedSwimLayout)
+            Save(conditions, conditions.SwimLayout, viewModel.selectedSwimLayout);
+            Save(conditions, conditions.SwimMedium, viewModel.selectedSwimMedium);
+            Save(conditions, conditions.SwimOther, viewModel.selectedSwimOther);
+            Save(conditions, conditions.SwimWeather, viewModel.selectedSwimWeather);
+
+
+            Save(conditions, conditions.BikeLayout, viewModel.selectedBikeLayout);
+            Save(conditions, conditions.BikeMedium, viewModel.selectedBikeMedium);
+            Save(conditions, conditions.BikeOther, viewModel.selectedBikeOther);
+            Save(conditions, conditions.BikeWeather, viewModel.selectedBikeWeather);
+
+
+            Save(conditions, conditions.RunLayout, viewModel.selectedRunLayout);
+            Save(conditions, conditions.RunMedium, viewModel.selectedRunMedium);
+            Save(conditions, conditions.RunOther, viewModel.selectedRunOther);
+            Save(conditions, conditions.RunWeather, viewModel.selectedRunWeather);
+
+
+
+
+        }
+        private void Save(RaceConditions conditions,List<RaceConditionTag> persistedList, List<String> selectedValues)
+        {
+            if (selectedValues == null)
             {
-          
-               Tag tag;
-               int tagId;
-               bool result = Int32.TryParse(s, out tagId);
+                if (persistedList.Count > 0)
+                    selectedValues = new List<string>(); //the reason we continue is in the case wehre all items have been removed from list and we need to delete them
+                else
+                    return; //we have no further business to do
+            }
+            //get the tagIds that have previously been saved and convert them to strings in order to compare them
+            var savedList = persistedList.Select(t => t.TagId).ToList().ConvertAll<string>(delegate (int i) { return i.ToString(); });
+         
+            //get the unique items that should be added
+            var newItems = selectedValues.Except(savedList).ToList();
+
+            //find the items that were removed
+            var deletedItems = savedList.Except(selectedValues).ToList();
+
+            foreach (string id in deletedItems)
+            {
+                var rcTag = persistedList.Where(m => m.TagId == Int32.Parse(id)).SingleOrDefault();
+                persistedList.Remove(rcTag);
+                db.RaceConditionTags.Remove(rcTag);
+              
+            }
+
+            foreach (string s in newItems)
+            {
+
+                Tag tag;
+                int tagId;
+                bool result = Int32.TryParse(s, out tagId);
                 //tag is either a tag id or a new tag value that the user typed
-                if(result)
+                if (result)
                 {
                     tag = db.Tags.Find(tagId);
 
@@ -114,33 +163,26 @@ namespace RaceAnalysis.Controllers
                     {
                         Value = s
                     };
-                
+
                     db.Tags.Add(tag);
                     db.SaveChanges();
-                    
-                }
-                var rcTag = conditions.SwimLayout.Where(m => m.TagId == tagId).Single();
-                if (rcTag == null)
-                {
-                    rcTag = new RaceConditionTag
-                    {
-                        RaceConditions = conditions,
-                        Tag = tag,
-                        Count = 1
-                    };
-                    db.RaceConditionTags.Add(rcTag);
-                    conditions.SwimLayout.Add(rcTag);
-                }
-                else
-                {
-                    rcTag.Count += 1;
+
                 }
 
+
+                var rcTag = new RaceConditionTag  //because we already filtered out new items, we should always need to create
+                {
+                    RaceConditions = conditions,
+                    RaceConditionsId = conditions.RaceConditionsId, //when this is a new racecondition, this id is not being populated into the table, so we're forcing it
+                    Tag = tag,
+                    TagId = tag.TagId,
+                    Count = 1
+                };
+                db.RaceConditionTags.Add(rcTag);
+                persistedList.Add(rcTag);
             }
-
-
-                //db.Entry(conditions).State = EntityState.Modified;
-                db.SaveChanges();
+                         
+             db.SaveChanges();
 
 
         }

@@ -12,9 +12,9 @@ namespace RaceAnalysis.Data
     {
         public static void Seed(RaceAnalysisDbContext context)
         {
-          
+          //  return;
 
-           // if (context.Triathletes.Count(i => i.TriathleteId > 1) == 0)
+            //if (context.Triathletes.Count(i => i.TriathleteId > 1) == 0)
             {
                 SeedRaces(context);
 
@@ -27,9 +27,11 @@ namespace RaceAnalysis.Data
                 //SeedTriathletes(context);
                 ************************************/
                 SeedAppFeatures(context);
-                
 
-            }
+                SeedRaceConditionTag(context);
+
+                SeedTags(context);
+             }
 
         }//seed
 
@@ -100,6 +102,10 @@ namespace RaceAnalysis.Data
                                     RaceDate = new DateTime(2015,10,11),
                                     ShortName="louisville",
                                     Distance = "140.6",
+                                    Conditions = new RaceConditions
+                                    {
+
+                                    }
                                     //Conditions = new RaceConditions {SwimLayout="Wetsuit Legal",BikeLayout="Rolling Hills",RunLayout="Flat" }
 
                                 },
@@ -111,8 +117,10 @@ namespace RaceAnalysis.Data
                                     RaceDate = new DateTime(2016,10,9),
                                     ShortName="louisville",
                                     Distance = "140.6",
-                                    //Conditions = new RaceConditions {SwimLayout="Wetsuit Legal",BikeLayout="Rolling Hills, Cool",RunLayout="Flat" }
+                                    Conditions = new RaceConditions
+                                    {
 
+                                    }
                                 },
                                   new Race
                                 {
@@ -122,8 +130,10 @@ namespace RaceAnalysis.Data
                                     RaceDate = new DateTime(2015,11,7),
                                     ShortName="florida",
                                     Distance = "140.6",
-                                    //Conditions = new RaceConditions {SwimLayout="Wetsuit Optional",BikeLayout="Mostly Flat and humid",RunLayout="Flat and humid" }
+                                    Conditions = new RaceConditions
+                                    {
 
+                                    }
                                 }
 
 
@@ -398,9 +408,17 @@ namespace RaceAnalysis.Data
             context.SaveChanges();
         }
 
+        private static void SeedTags(RaceAnalysisDbContext context)
+        {
+            context.Tags.RemoveRange(context.Tags);
+            context.SaveChanges();
+
+        }
+
         private static void SeedRaceConditionTag(RaceAnalysisDbContext context)
         {
-           
+            context.RaceConditionTags.RemoveRange(context.RaceConditionTags);
+            context.SaveChanges();
         }
 
     } //class
