@@ -9,14 +9,14 @@ namespace RaceAnalysis.Models
     {
         public Race Race { get; set; }
 
-        public List<Tag> Tags{get;set;}
+        public List<Tag> Tags { get; set; }
 
         public List<Tag> SwimLayoutTags {
             get
             {
                 return Tags.Where(t => t.Type == TagType.SwimLayout).ToList();
             }
-                
+
         }
         public List<Tag> SwimMediumTags
         {
@@ -117,13 +117,13 @@ namespace RaceAnalysis.Models
         {
             get
             {
-               if(_selectedSwimLayout == null)
-                   _selectedSwimLayout = Race.Conditions.SwimLayout.Select(m => m.TagId).ToList();
+                if (_selectedSwimLayout == null)
+                    _selectedSwimLayout = Race.Conditions.SwimLayout.Select(m => m.TagId).ToList();
                 return _selectedSwimLayout;
             }
             set
             {
-               _selectedSwimLayout = value;
+                _selectedSwimLayout = value;
             }
         }
 
@@ -229,7 +229,7 @@ namespace RaceAnalysis.Models
             }
         }
 
-                
+
         private List<int> _selectedRunLayout;
         public List<int> SelectedRunLayout
         {
@@ -290,5 +290,79 @@ namespace RaceAnalysis.Models
 
 
 
+        List<WordItem> _swimCloud = null;
+        public List<WordItem> SwimCloud
+        {
+            get
+            {
+                if (_swimCloud != null)
+                    return _swimCloud;
+
+                _swimCloud = new List<WordItem>();
+                populateWordCloud(Race.Conditions.SwimLayout,_swimCloud);
+                populateWordCloud(Race.Conditions.SwimMedium, _swimCloud);
+                populateWordCloud(Race.Conditions.SwimWeather, _swimCloud);
+                populateWordCloud(Race.Conditions.SwimOther, _swimCloud);
+
+                return _swimCloud;
+            }
+
+        }
+
+        List<WordItem> _bikeCloud = null;
+        public List<WordItem> BikeCloud
+        {
+            get
+            {
+                if (_bikeCloud != null)
+                    return _bikeCloud;
+
+                _bikeCloud = new List<WordItem>();
+                populateWordCloud(Race.Conditions.BikeLayout, _bikeCloud);
+                populateWordCloud(Race.Conditions.BikeMedium, _bikeCloud);
+                populateWordCloud(Race.Conditions.BikeWeather, _bikeCloud);
+                populateWordCloud(Race.Conditions.BikeOther, _bikeCloud);
+
+                return _bikeCloud;
+            }
+
+        }
+
+        List<WordItem> _runCloud = null;
+        public List<WordItem> RunCloud
+        {
+            get
+            {
+                if (_runCloud != null)
+                    return _runCloud;
+
+                _runCloud = new List<WordItem>();
+                populateWordCloud(Race.Conditions.RunLayout, _runCloud);
+                populateWordCloud(Race.Conditions.RunMedium, _runCloud);
+                populateWordCloud(Race.Conditions.RunWeather, _runCloud);
+                populateWordCloud(Race.Conditions.RunOther, _runCloud);
+
+                return _runCloud;
+            }
+
+        }
+
+        private void populateWordCloud(List<RaceConditionTag> rcTags,List<WordItem> words)
+        {
+            foreach (RaceConditionTag rcTag in rcTags)
+                words.Add(new WordItem
+                {
+                    text = rcTag.Tag.Value,
+                    weight = rcTag.Count
+                });
+        }
+
+    }
+
+
+    public class WordItem
+    {
+        public string text { get; set; }
+        public int weight { get; set; }
     }
 }

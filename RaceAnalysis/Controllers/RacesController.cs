@@ -80,10 +80,15 @@ namespace RaceAnalysis.Controllers
             }
             Race race = _DBContext.Races.Find(id);
             if (race == null)
+
             {
                 return HttpNotFound();
             }
-            return View(race);
+            var viewModel = new RaceConditionsViewModel();
+            viewModel.Race = race;
+            viewModel.Tags = _DBContext.Tags.ToList();
+            return View(viewModel);
+            
         }
 
 

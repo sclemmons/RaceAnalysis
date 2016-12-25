@@ -1,50 +1,54 @@
-﻿@model RaceAnalysis.Models.Race
+﻿@model RaceAnalysis.Models.RaceConditionsViewModel
 
 @{
     ViewBag.Title = "Race Conditions";
     Layout = "~/Views/Layouts/_Layout.cshtml";
+    ViewBag.BodyClass = "fullpage";
 }
 
-<h3>@Model.DisplayName Conditions</h3>
+<script src="~/Scripts/jqcloud.min.js"></script>
+
+<link rel="stylesheet" href="~/Content/jqcloud.min.css">
+
+<h3>@Model.Race.DisplayName Conditions</h3>
+
+<label for="swimlayout" class="control-label">Swim</label>
+<div id="swimlayout"></div>
+
+<label for="bikelayout" class="control-label">Bike</label>
+<div id="bikelayout"></div>
+
+<label for="runlayout" class="control-label">Run</label>
+<div id="runlayout"></div>
 
 
-<div>
-<dl>
-    <dd>
-        <table class="table table-striped">
-            <tr>
-                <th></th>
-                <th>Layout</th>
-                <th>Medium</th>
-                <th>Weather</th>
-                <th>Other</th>
-            </tr>
+@section Scripts {
+    <script>
+        $(document).ready(function () {
 
-            <tr>
-                <td>Swim</td>
-                <td>@Html.DisplayFor(model => model.Conditions.SwimLayout)</td>
-                <td>@Html.DisplayFor(model => model.Conditions.SwimMedium)</td>
-                <td>@Html.DisplayFor(model => model.Conditions.SwimWeather)</td>
-                <td>@Html.DisplayFor(model => model.Conditions.SwimOther)</td>
+            $('#swimlayout').jQCloud( @Html.Raw(Json.Encode(Model.SwimCloud)),
+                 {
+                     //width: 500,
+                     height: 200,
+
+                     autoResize: true
+                  });
+            
+            $('#bikelayout').jQCloud( @Html.Raw(Json.Encode(Model.BikeCloud)),
+                 {
+                     //width: 500,
+                     height: 200,
+                     autoResize: true
+                 });
+            
+            $('#runlayout').jQCloud( @Html.Raw(Json.Encode(Model.RunCloud)),
+                 {
+                     //width: 500,
+                     height: 200,
+                     autoResize: true
+                 });
                 
-            </tr>
-            <tr>
-                <td>Bike</td>
-                <td>@Html.DisplayFor(model => model.Conditions.BikeLayout)</td>
-                <td>@Html.DisplayFor(model => model.Conditions.BikeMedium)</td>
-                <td>@Html.DisplayFor(model => model.Conditions.BikeWeather)</td>
-                <td>@Html.DisplayFor(model => model.Conditions.BikeOther)</td>
-            </tr>
-            <tr>
-                <td>Run</td>
-                <td>@Html.DisplayFor(model => model.Conditions.RunLayout)</td>
-                <td>@Html.DisplayFor(model => model.Conditions.RunMedium)</td>
-                <td>@Html.DisplayFor(model => model.Conditions.RunWeather)</td>
-                <td>@Html.DisplayFor(model => model.Conditions.RunOther)</td>
-            </tr>
+        });
+    </script>
 
-        </table>
-    </dd>
-
-</dl>
-</div>
+}
