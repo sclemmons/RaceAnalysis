@@ -353,7 +353,8 @@ namespace RaceAnalysis.Models
                 words.Add(new WordItem
                 {
                     text = rcTag.Tag.Value,
-                    weight = rcTag.Count
+                    weight = rcTag.Count,
+                    TagId = rcTag.TagId
                 });
         }
 
@@ -364,5 +365,6 @@ namespace RaceAnalysis.Models
     {
         public string text { get; set; }
         public int weight { get; set; }
+        public int TagId { get; set; }
     }
 }

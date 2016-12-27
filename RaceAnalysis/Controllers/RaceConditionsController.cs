@@ -34,10 +34,28 @@ namespace RaceAnalysis.Controllers
             return View(raceConditions);
         }
 
-        // GET: RaceConditions/Create
-        public ActionResult Create()
+        // GET: RaceConditions/Create/5  NOTE, this is the raceId, not the conditionsId
+        public ActionResult Create(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var race = db.Races.Find(id);
+            if (race == null)
+            {
+                return HttpNotFound();
+            }
+            var viewModel = new RaceConditionsViewModel();
+            viewModel.Race = race;
+            viewModel.Tags = db.Tags.ToList();
+            return View(viewModel);
+        }
+
+        public JsonResult Vote(int tagId)
+        {
+            int i = tagId;
+            return Json(tagId, JsonRequestBehavior.AllowGet);
         }
 
         // POST: RaceConditions/Create

@@ -1,56 +1,67 @@
-﻿@model RaceAnalysis.Models.RaceConditions
+﻿@model RaceAnalysis.Models.RaceConditionsViewModel
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Add Race Conditions";
 }
 
-<h2>Create</h2>
 
+<div class="form-horizontal">
+    <h4>Race Conditions</h4>
+    <hr />
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Race Conditions</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.SwimLayout, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SwimLayout, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SwimLayout, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.BikeLayout, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.BikeLayout, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.BikeLayout, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.RunLayout, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.RunLayout, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.RunLayout, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
+    <div>
+        @Html.ActionLink("Back to List", "admin", "races")
     </div>
-}
+    <hr />
+
+    
+    @using (Html.BeginForm("Edit", "RaceConditions", FormMethod.Post, new { @id = "myForm" }))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.Hidden("raceId", @Model.Race.RaceId)
+
+        <label class="control-label">Select the words that describe the swim:</label>
+
+        foreach(var item in Model.SwimCloud)
+        { 
+          <div class="tags">
+                @Ajax.ActionLink(item.text,
+                        "Vote", "RaceConditions",
+                        new { @tagid = item.TagId },
+                            new AjaxOptions
+                            {
+
+                                OnSuccess = "onSuccess"
+                            },
+                            htmlAttributes: new { id = item.TagId , @class="btn btn-default"})
+            </div>
+        }
+
+        <label class="control-label">or add your own:</label>
+
+
+
+
+    }
+</div>
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "admin", "races")
 </div>
 
 @section Scripts {
-  
+    <script>
+        $(document).ready(function () {
+
+          
+        });
+
+        function onSuccess(data) { /*data is tagId*/
+
+            $("#" + data).attr('class', 'btn btn-success');
+            $("#" + data).attr("disabled", true);
+        }
+    </script>
+
 }

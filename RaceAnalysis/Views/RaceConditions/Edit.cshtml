@@ -14,6 +14,12 @@
     </div>
     <hr/>
 
+    <div>
+        @Html.ActionLink("Have you participated in this race?", "Create", new {@id = Model.Race.RaceId })
+    </div>
+    <hr />
+
+
     @using (Html.BeginForm("Edit", "RaceConditions", FormMethod.Post, new { @id = "myForm" }))
     {
         @Html.AntiForgeryToken()
