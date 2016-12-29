@@ -27,6 +27,7 @@ namespace RaceAnalysis
    
           bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/jquery-ui.js",
                         "~/Scripts/jquery-ui-{version}.js",
                         "~/Scripts/jquery.unobtrusive-ajax.js",
                          "~/Scripts/jquery.validate.js",

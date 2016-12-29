@@ -624,3 +624,23 @@ div#search-form-section.collapsible.collapse-close a  {
     font-size:16px;
 }
 
+
+/**************************************************************************************************
+ RACE Conditions 
+    
+***************************************************************************************************/
+div.race-conditions{
+    margin:10px;
+}
+div.race-conditions button{
+   margin:5px;
+}
+div.race-conditions label{
+    font-weight:normal;
+    font-size:medium;
+}
+div.race-conditions input.btn.btn-primary
+{
+    margin-top:20px;
+    
+}

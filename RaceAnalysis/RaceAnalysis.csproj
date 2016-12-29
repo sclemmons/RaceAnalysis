@@ -486,6 +486,8 @@
     <Content Include="Scripts\jquery-ui-1.12.1.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui.js" />
+    <Content Include="Scripts\jquery-ui.min.js" />
     <Content Include="Scripts\jquery.collapsible.js" />
     <Content Include="Scripts\jquery.rowselector.js" />
     <Content Include="Scripts\jquery.rowselector.min.js" />
@@ -630,6 +632,7 @@
     <Content Include="Views\Tags\Edit.cshtml" />
     <Content Include="Views\Tags\Index.cshtml" />
     <Content Include="Views\Shared\_RaceConditionsViewOnly.cshtml" />
+    <Content Include="Views\RaceConditions\_Splits.cshtml" />
     <None Include="Web.Test.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

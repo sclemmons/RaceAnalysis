@@ -1,0 +1,52 @@
+﻿@model RaceAnalysis.Models.RaceConditionsViewModel
+
+@{
+    ViewBag.Title = "Add Race Conditions";
+    ViewBag.BodyClass = "fullpage";
+}
+
+
+
+@using (Html.BeginForm("Vote", "RaceConditions"))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.Hidden("raceId", @Model.Race.RaceId)
+    @Html.Hidden("split",@Model.Split)
+
+
+    <div class="race-conditions">
+        <label>Select the tags that best represent the <b>@Model.Split</b> conditions, or add your own tags:</label>
+    </div>
+
+
+    <div class="race-conditions">
+
+        @foreach (var item in Model.Tags)
+        {
+
+            <button type="button" id="@item.TagId" class="btn btn-default">@item.Value</button>
+        }
+    </div>
+    <div class="race-conditions">
+            @Html.ListBoxFor(m => m.NewTags,
+                     new SelectList(Model.Tags, "TagId", "Value"),
+                     new { name = "selected-tags", multiple = "multiple" })
+    </div>
+
+    <div class="race-conditions">
+        <input type="submit" class="btn btn-primary" value="Next" />
+    </div>
+
+    <script>
+        $('select').select2({
+
+            width: '95%',
+            tags: true,
+            tokenSeparators: [','],
+            placeholder: "Create your tags here"
+        });
+    </script>
+    }
+
+

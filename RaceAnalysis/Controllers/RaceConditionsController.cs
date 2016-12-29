@@ -48,14 +48,248 @@ namespace RaceAnalysis.Controllers
             }
             var viewModel = new RaceConditionsViewModel();
             viewModel.Race = race;
-            viewModel.Tags = db.Tags.ToList();
+            viewModel.Split = "swim";
+            viewModel.Tags = db.Tags.Where(
+                        t => t.Type == TagType.SwimLayout 
+                        || t.Type == TagType.SwimMedium
+                        || t.Type == TagType.SwimWeather
+                        || t.Type == TagType.SwimOther
+                        ).ToList();
             return View(viewModel);
         }
 
-        public JsonResult Vote(int tagId)
+        public ActionResult Vote(string tagIds,List<String> newTags, int raceId, string split)
         {
-            int i = tagId;
-            return Json(tagId, JsonRequestBehavior.AllowGet);
+            ModelState.Clear(); //we must do this so that the input values can change on each partial view
+
+            var race = db.Races.Find(raceId);
+            if (race == null)
+            {
+                return HttpNotFound();
+            }
+
+        
+            //create new tags, if any
+            var newTagIds = SaveNewTags(newTags, split);
+
+            // existing tags, we need to increment count
+            var tagList = String.IsNullOrEmpty(tagIds) ? new List<int>() : tagIds.Split(',').Select(Int32.Parse).ToList();
+            tagList.AddRange(newTagIds);
+            IncrementTagCount(race.Conditions, tagList);
+
+            //setup for next partial view
+            var viewModel = new RaceConditionsViewModel();
+            viewModel.Race = race;
+            switch (split)
+            {
+
+                case "swim":
+                    //setup for bike:
+                       viewModel.Split = "bike";
+                        viewModel.Tags = db.Tags.Where(
+                          t => t.Type == TagType.BikeLayout
+                          || t.Type == TagType.BikeMedium
+                          || t.Type == TagType.BikeWeather
+                          || t.Type == TagType.BikeOther
+                          ).ToList();
+                    break;
+                case "bike":
+                    //setup for run:
+                    viewModel.Split = "run";
+                    viewModel.Tags = db.Tags.Where(
+                      t => t.Type == TagType.RunLayout
+                      || t.Type == TagType.RunMedium
+                      || t.Type == TagType.RunWeather
+                      || t.Type == TagType.RunOther
+                      ).ToList();
+                    break;
+                case "run":
+                    return Json("<h3>Thank You for your contributions!</h3>");
+                    
+            }
+
+
+            
+            return PartialView("_Splits",viewModel);
+        }
+
+        private List<int> SaveNewTags(List<string> userTags, string type)
+        {
+            var newTagIds = new List<int>();
+
+            if (userTags == null)
+                return newTagIds;
+                      
+
+            TagType tagType;
+            switch (type)
+            {
+                case "swim":
+                    tagType = TagType.SwimOther;
+                    break;
+
+                case "bike":
+                    tagType = TagType.BikeOther;
+                    break;
+                case "run":
+                    tagType = TagType.RunOther;
+                    break;
+
+                default:
+                    throw new Exception("Tag type not found");
+            }
+            foreach (string s in userTags)
+            {
+                Tag tag;
+                int tagId;
+                bool result = Int32.TryParse(s, out tagId);
+                //tag is either an existing tag id or a new tag value that the user typed
+                if (result)
+                {
+                    tag = db.Tags.Find(tagId);
+
+                }
+                else //a new tag
+                {
+                    tag = new Tag
+                    {
+                        Value = s,
+                        Type = tagType
+                    };
+                }
+                
+
+                db.Tags.Add(tag);
+                db.SaveChanges();
+                newTagIds.Add(tag.TagId);
+
+            }
+            return newTagIds;
+
+            
+        }
+        private void IncrementTagCount(RaceConditions conditions,List<int> tagIds)
+        {
+            if (tagIds == null)
+                return;
+
+            
+            foreach (var id in tagIds)
+            {
+                Tag tag = db.Tags.Find(id);
+                RaceConditionTag rcTag;
+                switch (tag.Type)
+                {
+                    case TagType.SwimLayout:
+                        rcTag = conditions.SwimLayout.Find(t => t.TagId == id);
+                        break;
+                    case TagType.SwimMedium:
+                        rcTag = conditions.SwimMedium.Find(t => t.TagId == id);
+                        break;
+                    case TagType.SwimWeather:
+                        rcTag = conditions.SwimWeather.Find(t => t.TagId == id);
+                        break;
+                    case TagType.SwimOther:
+                        rcTag = conditions.SwimOther.Find(t => t.TagId == id);
+                        break;
+
+                    case TagType.BikeLayout:
+                        rcTag = conditions.BikeLayout.Find(t => t.TagId == id);
+                        break;
+                    case TagType.BikeMedium:
+                        rcTag = conditions.BikeMedium.Find(t => t.TagId == id);
+                        break;
+                    case TagType.BikeWeather:
+                        rcTag = conditions.BikeWeather.Find(t => t.TagId == id);
+                        break;
+                    case TagType.BikeOther:
+                        rcTag = conditions.BikeOther.Find(t => t.TagId == id);
+                        break;
+
+                    case TagType.RunLayout:
+                        rcTag = conditions.RunLayout.Find(t => t.TagId == id);
+                        break;
+                    case TagType.RunMedium:
+                        rcTag = conditions.RunMedium.Find(t => t.TagId == id);
+                        break;
+                    case TagType.RunWeather:
+                        rcTag = conditions.RunWeather.Find(t => t.TagId == id);
+                        break;
+                    case TagType.RunOther:
+                        rcTag = conditions.RunOther.Find(t => t.TagId == id);
+                        break;
+                    default:
+                        throw new Exception("Tag Condition not found");
+                }
+                if(rcTag == null) //a new tag added by user
+                {
+                    rcTag = new RaceConditionTag  
+                    {
+                        RaceConditions = conditions,
+                        RaceConditionsId = conditions.RaceConditionsId, //when this is a new racecondition, this id is not being populated into the table, so we're forcing it
+                        Tag = tag,
+                        TagId = tag.TagId,
+                        Count = 1
+                    };
+                    switch (tag.Type)
+                    {
+                        case TagType.SwimLayout:
+                             conditions.SwimLayout.Add(rcTag);
+                            break;
+                        case TagType.SwimMedium:
+                            conditions.SwimMedium.Add(rcTag);
+                            break;
+                        case TagType.SwimWeather:
+                            conditions.SwimWeather.Add(rcTag);
+                            break;
+                        case TagType.SwimOther:
+                            conditions.SwimOther.Add(rcTag);
+                            break;
+
+                        case TagType.BikeLayout:
+                            conditions.BikeLayout.Add(rcTag);
+                            break;
+                        case TagType.BikeMedium:
+                            conditions.BikeMedium.Add(rcTag);
+                            break;
+                        case TagType.BikeWeather:
+                            conditions.BikeWeather.Add(rcTag);
+                            break;
+                        case TagType.BikeOther:
+                            conditions.BikeOther.Add(rcTag);
+                            break;
+
+                        case TagType.RunLayout:
+                            conditions.RunLayout.Add(rcTag);
+                            break;
+                        case TagType.RunMedium:
+                            conditions.RunMedium.Add(rcTag);
+                            break;
+                        case TagType.RunWeather:
+                            conditions.RunWeather.Add(rcTag);
+                            break;
+                        case TagType.RunOther:
+                            conditions.RunOther.Add(rcTag);
+                            break;
+                        default:
+                            throw new Exception("Tag Condition not found");
+                    }
+
+                    db.RaceConditionTags.Add(rcTag);
+
+
+                }
+                else
+                {
+                    rcTag.Count += 1;
+                }
+
+               
+                db.SaveChanges();
+            }
+            
+           
+           
         }
 
         // POST: RaceConditions/Create

@@ -8,8 +8,11 @@ namespace RaceAnalysis.Models
     public class RaceConditionsViewModel
     {
         public Race Race { get; set; }
-
         public List<Tag> Tags { get; set; }
+
+        public List<int> NewTags { get; set; } //container for user created new tags
+
+        public string Split { get; set; } //swim,bike,run
 
         public List<Tag> SwimLayoutTags {
             get
