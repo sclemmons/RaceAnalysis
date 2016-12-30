@@ -15,6 +15,18 @@ namespace RaceAnalysis.Models
             SwimMedium = new List<RaceConditionTag>();
             SwimWeather = new List<RaceConditionTag>();
             SwimOther = new List<RaceConditionTag>();
+
+
+            BikeLayout = new List<RaceConditionTag>();
+            BikeMedium = new List<RaceConditionTag>();
+            BikeWeather = new List<RaceConditionTag>();
+            BikeOther = new List<RaceConditionTag>();
+
+            RunLayout = new List<RaceConditionTag>();
+            RunMedium = new List<RaceConditionTag>();
+            RunWeather = new List<RaceConditionTag>();
+            RunOther = new List<RaceConditionTag>();
+
         }
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

@@ -58,9 +58,7 @@ namespace RaceAnalysis.Controllers
                                 AvailableRaces.Single(r=>r.RaceId ==raceId)); //calculate the stats based on each race 
                 viewModel.Stats.Add(stats);
             }
-            //TO-DO: Look at this for sharing views:
-            //https://blog.michaelckennedy.net/2012/03/06/managing-shared-views-folder-for-large-mvc-projects/
-            //
+      
             return View("~/Views/TriStats/TriStats.cshtml", viewModel);
         }
      
@@ -90,7 +88,7 @@ namespace RaceAnalysis.Controllers
                       }, 
                       filter
                 );
-                var stats = GetStats(athletes, filter.AvailableRaces.Single(r => r.RaceId == raceId));
+                var stats = GetStats(athletes, _DBContext.Races.Include("Conditions").Single(r => r.RaceId == raceId));
                 viewModel.Stats.Add(stats);
             }
 

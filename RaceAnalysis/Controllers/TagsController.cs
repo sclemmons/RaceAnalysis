@@ -17,7 +17,9 @@ namespace RaceAnalysis.Controllers
         // GET: Tags
         public ActionResult Index()
         {
-            return View(db.Tags.ToList());
+            List<Tag> tags = db.Tags.OrderBy(t => t.Type).ToList();
+
+            return View(tags);
         }
 
         // GET: Tags/Details/5

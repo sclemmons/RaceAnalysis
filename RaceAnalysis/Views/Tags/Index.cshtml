@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<RaceAnalysis.Models.Tag>
-
+@using RaceAnalysis.Models;
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Layouts/_Layout.cshtml";
@@ -21,10 +21,16 @@
         <th></th>
     </tr>
 
+@{ var previousType = TagType.RunOther;}
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Type)
+
+            @if (item.Type != @previousType)
+            {
+                @Html.DisplayFor(modelItem => item.Type)
+                previousType = item.Type;
+            }
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Value)
