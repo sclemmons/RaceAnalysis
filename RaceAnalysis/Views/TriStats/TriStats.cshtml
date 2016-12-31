@@ -32,11 +32,12 @@
         {
                 <h3>@stat.Race.DisplayName (@stat.Athletes.Count() Athletes)</h3>
                 @Html.Partial("~/Views/Shared/_RaceConditions.cshtml", stat)
+                <hr/>
                 @Html.Partial("~/Views/Shared/_DetailedStats.cshtml",stat)
+                <hr />
                 @Html.Partial("~/Views/Shared/_StatsChart.cshtml",stat)
+                <hr />
                 @Html.Partial("~/Views/Shared/_BoxPlotChart.cshtml", stat)
-
-
         }
     }
 }

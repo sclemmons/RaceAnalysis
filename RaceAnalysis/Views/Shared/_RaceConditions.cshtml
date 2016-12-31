@@ -1,4 +1,90 @@
 ﻿@model RaceAnalysis.Models.TriStats
 
 
-@Html.ActionLink("View Race Conditions...", "Conditions","Races", new { id = Model.Race.RaceId },null) 
+@{
+    string target_div = Model.Race.DisplayName.Replace(" ", string.Empty) + "_race-conditions";
+}
+<link rel="stylesheet" type="text/css" href="~/Content/font-awesome.min.css" />
+<div>
+    <a href="#conditions" data-toggle="collapse" data-target="#@target_div">Race Conditions</a>
+    <span class="race-conditions-span"></span>
+    <div id="@target_div" class="collapse in">
+    @if (Model.Race.Conditions != null)
+    {
+        <div><label>Swim:</label>
+                @foreach (var rcTag in Model.Race.Conditions.SwimLayout.OrderByDescending(y => y.Count).Take(2))
+                {
+                @Html.DisplayFor(x => rcTag.Tag.Value)
+                }
+                @foreach (var rcTag in Model.Race.Conditions.SwimMedium.OrderByDescending(y => y.Count).Take(2))
+                {
+                    @Html.DisplayFor(x => rcTag.Tag.Value)
+                }
+                @foreach (var rcTag in Model.Race.Conditions.SwimWeather.OrderByDescending(y => y.Count).Take(2))
+                    {
+                    @Html.DisplayFor(x => rcTag.Tag.Value)
+                }
+                @foreach (var rcTag in Model.Race.Conditions.SwimOther.OrderByDescending(y => y.Count).Take(2))
+                    {
+                    @Html.DisplayFor(x => rcTag.Tag.Value)
+                }
+          </div>
+
+
+
+          <div><label>Bike:</label>
+              @foreach (var rcTag in Model.Race.Conditions.BikeLayout.OrderByDescending(y => y.Count).Take(2))
+                {
+                  @Html.DisplayFor(x => rcTag.Tag.Value)
+              }
+              @foreach (var rcTag in Model.Race.Conditions.BikeMedium.OrderByDescending(y => y.Count).Take(2))
+                {
+                  @Html.DisplayFor(x => rcTag.Tag.Value)
+              }
+              @foreach (var rcTag in Model.Race.Conditions.BikeWeather.OrderByDescending(y => y.Count).Take(2))
+              {
+                  @Html.DisplayFor(x => rcTag.Tag.Value)
+              }
+              @foreach (var rcTag in Model.Race.Conditions.BikeOther.OrderByDescending(y => y.Count).Take(2))
+              {
+                  @Html.DisplayFor(x => rcTag.Tag.Value)
+              }
+          </div>
+
+
+          <div><label>Run:</label>
+               @foreach (var rcTag in Model.Race.Conditions.RunLayout.OrderByDescending(y => y.Count).Take(2))
+                {
+                @Html.DisplayFor(x => rcTag.Tag.Value)
+                }
+                @foreach (var rcTag in Model.Race.Conditions.RunMedium.OrderByDescending(y => y.Count).Take(2))
+                {
+                    @Html.DisplayFor(x => rcTag.Tag.Value)
+                }
+                @foreach (var rcTag in Model.Race.Conditions.RunWeather.OrderByDescending(y => y.Count).Take(2))
+                    {
+                    @Html.DisplayFor(x => rcTag.Tag.Value)
+                }
+                @foreach (var rcTag in Model.Race.Conditions.RunOther.OrderByDescending(y => y.Count).Take(2))
+                    {
+                    @Html.DisplayFor(x => rcTag.Tag.Value)
+                }
+          </div>
+        }
+        @Html.ActionLink("See all...", "Conditions", "Races", new { id = Model.Race.RaceId }, null)
+
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#@target_div").parent().find('span').html('<i class="fa fa-angle-right" aria-hidden="true"></i>');
+
+        $("#@target_div").on("hide.bs.collapse", function () {
+            $(this).parent().find('span').html('<i class="fa fa-angle-down" aria-hidden="true"></i>');
+      });
+        $("#@target_div").on("show.bs.collapse", function () {
+            $(this).parent().find('span').html('<i class="fa fa-angle-right" aria-hidden="true"></i>');
+      });
+  });
+</script>

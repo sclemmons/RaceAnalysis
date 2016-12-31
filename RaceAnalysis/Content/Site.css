@@ -644,3 +644,14 @@ div.race-conditions input.btn.btn-primary
     margin-top:20px;
     
 }
+div.modal-content
+{
+    max-width:95%;
+   --max-height:75%;
+}
+
+.jqcloud
+{
+    //max-width:90%;
+   // background-color:yellow;
+}

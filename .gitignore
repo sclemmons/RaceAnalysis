@@ -243,3 +243,5 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+/RaceAnalysis/Content/animate.min.css
+/RaceAnalysis

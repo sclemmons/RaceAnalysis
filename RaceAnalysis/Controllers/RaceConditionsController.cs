@@ -440,7 +440,24 @@ namespace RaceAnalysis.Controllers
 
 
         }
-    
+
+        // GET: RaceConditions/Edit/5  NOTE, this is the raceId, not the conditionsId
+        public ActionResult ShowRaceConditions(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var race = db.Races.Find(id);
+            if (race == null)
+            {
+                return HttpNotFound();
+            }
+            var viewModel = new RaceConditionsViewModel();
+            viewModel.Race = race;
+            viewModel.Tags = db.Tags.ToList();
+            return PartialView("~/Views/Shared/_RaceConditions.cshtml",viewModel);
+        }
 
         // GET: RaceConditions/Delete/5
         public ActionResult Delete(int? id)
