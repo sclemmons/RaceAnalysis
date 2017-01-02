@@ -569,7 +569,7 @@
     <Content Include="Views\TriAthletes\Search.cshtml" />
     <Content Include="Views\Shared\_Search.cshtml" />
     <Content Include="Views\Shared\_SearchResultsKeyValueList.cshtml" />
-    <Content Include="Views\TriAthletes\SearchResults.cshtml" />
+    <Content Include="Views\TriAthletes\_SearchResults.cshtml" />
     <Content Include="Views\TriStats\TriStats.cshtml" />
     <Content Include="Views\Shared\_StatsChart.cshtml" />
     <Content Include="Views\Shared\_RaceConditions.cshtml" />

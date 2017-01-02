@@ -72,7 +72,7 @@ namespace RaceAnalysis.Controllers
             viewmodel.Triathletes = athletes;
             viewmodel.TotalCount = athletes.Count();
 
-            return PartialView("~/Views/Shared/_OnePageOfAthletesNoFilter.cshtml", viewmodel);
+            return PartialView("_SearchResults", viewmodel);
         }
 
 

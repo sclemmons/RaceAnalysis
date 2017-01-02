@@ -1,14 +1,38 @@
 ﻿@model RaceAnalysis.Models.TriathletesViewModel
 
-@using X.PagedList
-@using X.PagedList.Mvc;
 
-    <!-- import the included stylesheet for some (very basic) default styling -->
-<link href="/Content/PagedList.css" rel="stylesheet" type="text/css" />
+<style>
+    *.unselectable {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
 
-<div id="athlete-list" class="table-responsive">
+    .table-striped > tbody > tr:nth-child(odd).selected > td {
+        background-color: #9FAFD1;
+    }
 
-    <table class="table table-striped">
+    .table-striped > tbody > tr:nth-child(even).selected > td {
+        background-color: #B0BED9;
+    }
+
+    .table-striped > tbody > tr:nth-child(odd).bnw > td {
+        background-color: #2b2b2b;
+        color: #f2f2f2;
+    }
+
+    .table-striped > tbody > tr:nth-child(even).bnw > td {
+        background-color: #f2f2f2;
+        color: #2b2b2b;
+    }
+</style>
+
+<div id="athlete-table-div" class="table-responsive">
+
+    <table id="athletes-table" class="table table-striped" data-rs-selectable data-rs-type="many">
         <thead>
             <tr>
                 <th>Race Name</th>
@@ -37,26 +61,19 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Triathletes.ElementAt(0).Finish)
                 </th>
-                <th>
-                    Select
-                </th>
 
-
-                <th></th>
             </tr>
         </thead>
         <tbody>
-            @{ var i = 0;}
+           
             @foreach (var athlete in Model.Triathletes)
             {
-                <tr>
+                <tr id="@athlete.TriathleteId">
                     <td>
                         @athlete.Race.DisplayName
                     </td>
                     <td>
                         @Html.Raw(String.Format("<a href='{0}/{1}' target='_blank'>{2}</a>", athlete.Race.BaseURL, athlete.Link, athlete.Name))
-
-
                     </td>
                     <td>
                         @athlete.Country
@@ -83,10 +100,9 @@
                     <td>
                         @athlete.Finish
                     </td>
-                    <td>
-                        <input id="@athlete.TriathleteId" type="checkbox" />
+                    
                 </tr>
-                i++;
+               
             }
 
 
@@ -94,90 +110,3 @@
     </table>
  </div>
 
-
-<script type="text/javascript">
-        $(document).ready(function () {
-          
-            var savedIds = @Html.Raw(Json.Encode(Model.Filter.SelectedAthleteIds));
-            if(savedIds.length > 0)
-            {
-                var strIds = savedIds.map(String);
-
-                $('input[type=checkbox]').each(function (index, element) {
-                    var i = strIds.indexOf(element.id);
-                    if (i >= 0)
-                    {
-                        $('#' + element.id).prop('checked',true);
-                    }
-                });
-            }
-
-            $("#pager-container").on('click', 'a', function () {
-                return handleSelectionsOnClick(this);
-            });
-            $("#action-compare-athletes").off('click');//remove previous handler
-            $("#action-compare-athletes").click(function () {
-          
-                return handleSelectionsOnClick(this);
-            });
-            function handleSelectionsOnClick(control)
-            {
-                var savedIds = @Html.Raw(Json.Encode(Model.Filter.SelectedAthleteIds));
-         
-                if(savedIds.length > 0)
-                {
-                    savedIds = filterSavedIds(savedIds);
-                }
-                var selectedIds = getSelectedIds();
-                
-                if(savedIds.length > 0 || selectedIds.length > 0)
-                {
-                    control.href += "&selectedAthletes=";
-                    if(savedIds.length > 0)
-                    {
-                        control.href += savedIds;
-                        if(selectedIds.length > 0)
-                            control.href += "," + selectedIds;
-                    }else
-                    {
-                        control.href += selectedIds;
-                    }
-                }
-                return true;
-
-            }
-            function getSelectedIds() {
-                var Ids = "";
-                $('input[type=checkbox]').each(function (index, element) {
-                    if (this.checked) {
-                        Ids += this.id + ",";
-                    }
-                });
-                if (Ids.endsWith(","))
-                    Ids = Ids.slice(0, -1);
-
-                return Ids;
-            }
-
-            function filterSavedIds(savedIds){
-               
-                var strIds = savedIds.map(String);//converting for comparison 
-
-                $('input[type=checkbox]').each(function (index, element) {
-                    var i = strIds.indexOf(element.id);
-                    if (i >= 0)
-                    {
-                      
-                        //this element was in our our savedids. We can discard it because it is either in our selectList
-                        //or has been unselected by user.
-                        strIds.splice(i,1);
-                    }
-                   
-                });
-                return strIds;
-            }
-            
-           
-
-        });
-</script>

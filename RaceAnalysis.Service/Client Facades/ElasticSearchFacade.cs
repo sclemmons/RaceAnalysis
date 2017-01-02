@@ -7,6 +7,7 @@ using Elasticsearch.Net;
 using RaceAnalysis.Models;
 using System.Diagnostics;
 using System.Text;
+using Newtonsoft.Json;
 
 namespace RaceAnalysis.Service
 {
@@ -173,11 +174,21 @@ namespace RaceAnalysis.Service
         {
             const string indexName = "mytriindex";//index names must be lower cased
 
-            var settings = new ConnectionSettings(new Uri("http://localhost:9200"))
-                        .DefaultIndex(indexName)
-                        .MapPropertiesFor<Race>(m => m.Ignore(r => r.BaseURL))
-                        .MapPropertiesFor<RequestContext>(m => m
-                          .Ignore(v => v.Instruction));      //Leaves out this field entire in mapping and _source so it doesn't get serialized
+            var nodes = new Uri[]
+                  {
+                 new Uri("http://localhost:9200")
+                      // new Uri("http://ipv4.fiddler:9200")  //use fiddler to see messages to & from elasticsearch
+                  };
+            var pool = new StaticConnectionPool(nodes);
+            var settings = new ConnectionSettings(
+                pool,
+                new HttpConnection(),
+                new SerializerFactory((jsonSettings, nestSettings) =>
+                            jsonSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore))
+                           .DefaultIndex(indexName)
+                           .MapPropertiesFor<Race>(m => m.Ignore(r => r.BaseURL))
+                           .MapPropertiesFor<RequestContext>(m => m
+                           .Ignore(v => v.Instruction));      //Leaves out this field entire in mapping and _source so it doesn't get serialized
                                                              //Does the same as jsonIgnore attribute on the field
                                                              //but this does it in a more dynamic manner so we can
                                                              //include the field on specific indexes.
@@ -245,9 +256,29 @@ namespace RaceAnalysis.Service
         public void ReIndexRaces()
         {
             const string indexName = "raceindex"; //index names must be lower cased
+
+            /***
             var settings = new ConnectionSettings(new Uri("http://localhost:9200"))
-                        .DefaultIndex(indexName)
-                        .MapPropertiesFor<Race>(m => m.Ignore(r => r.BaseURL));
+                                    .DefaultIndex(indexName)
+                                    .MapPropertiesFor<Race>(m => m.Ignore(r => r.BaseURL));
+            ***/
+            var nodes = new Uri[]
+                      {
+                 new Uri("http://localhost:9200")
+                          // new Uri("http://ipv4.fiddler:9200")  //use fiddler to see messages to & from elasticsearch
+                      };
+            var pool = new StaticConnectionPool(nodes);
+            var settings = new ConnectionSettings(
+                pool,
+                new HttpConnection(),
+                new SerializerFactory((jsonSettings, nestSettings) => 
+                jsonSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                
+                ))
+           .DefaultIndex(indexName)
+           .MapPropertiesFor<Race>(m => m.Ignore(r => r.BaseURL));
+            
+
             var client = new ElasticClient(settings);
             if (client.IndexExists(indexName).Exists)
                 client.DeleteIndex(indexName);
@@ -260,11 +291,16 @@ namespace RaceAnalysis.Service
             .Mappings(ms => ms
                 .Map<Race>(m => m.AutoMap())));
 
+            if(!indexResponse.IsValid)
+            {
+                throw new Exception("index creation failed", indexResponse.OriginalException);
+            }
 
 
             //bulk index:
-            var res = client.IndexMany<Race>(_DBContext.Races.Include("Conditions"));
 
+            var res = client.IndexMany<Race>(_DBContext.Races.Include("Conditions"));
+            //var res = client.IndexMany<Race>(_DBContext.Races);
         }
 
 
@@ -305,51 +341,65 @@ namespace RaceAnalysis.Service
         {
 
             var nodes = new Uri[]
-            {
+                        {
                  new Uri("http://localhost:9200")
-               // new Uri("http://ipv4.fiddler:9200")  //use fiddler to see messages to & from elasticsearch
-            };
+                            // new Uri("http://ipv4.fiddler:9200")  //use fiddler to see messages to & from elasticsearch
+                        };
             var pool = new StaticConnectionPool(nodes);
-            var settings = new ConnectionSettings(pool);
-/**** 
- * USE THE FOLLOWING CODE to DEBUG or LOG without Fiddler 
-            var list = new List<string>();
-     
-            settings
-            .DisableDirectStreaming()
-                .DisableAutomaticProxyDetection(true)
-                    .OnRequestCompleted(response =>
-                    {
-                        // log out the request and the request body, if one exists for the type of request
-                        if (response.RequestBodyInBytes != null)
-                        {
-                            list.Add(
-                                $"{response.HttpMethod} {response.Uri} \n" +
-                                $"{Encoding.UTF8.GetString(response.RequestBodyInBytes)}"); //this is where the request JSON will go
-                        }
-                        else
-                        {
-                            list.Add($"{response.HttpMethod} {response.Uri}");
-                        }
+            var settings = new ConnectionSettings(
+                pool,
+                new HttpConnection(),
+                new SerializerFactory((jsonSettings, nestSettings) =>
+                jsonSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore)
+                );
 
-                        // log out the response and the response body, if one exists for the type of response
-                        if (response.ResponseBodyInBytes != null)
-                        {
-                            list.Add($"Status: {response.HttpStatusCode}\n" +
-                                     $"{Encoding.UTF8.GetString(response.ResponseBodyInBytes)}\n" +
-                                     $"{new string('-', 30)}\n");
-                        }
-                        else
-                        {
-                            list.Add($"Status: {response.HttpStatusCode}\n" +
-                                     $"{new string('-', 30)}\n");
-                        }
-                    });
-                    ****/
+
+            /**** 
+             * USE THE FOLLOWING CODE to DEBUG or LOG without Fiddler 
+                        var list = new List<string>();
+
+                        settings
+                        .DisableDirectStreaming()
+                            .DisableAutomaticProxyDetection(true)
+                                .OnRequestCompleted(response =>
+                                {
+                                    // log out the request and the request body, if one exists for the type of request
+                                    if (response.RequestBodyInBytes != null)
+                                    {
+                                        list.Add(
+                                            $"{response.HttpMethod} {response.Uri} \n" +
+                                            $"{Encoding.UTF8.GetString(response.RequestBodyInBytes)}"); //this is where the request JSON will go
+                                    }
+                                    else
+                                    {
+                                        list.Add($"{response.HttpMethod} {response.Uri}");
+                                    }
+
+                                    // log out the response and the response body, if one exists for the type of response
+                                    if (response.ResponseBodyInBytes != null)
+                                    {
+                                        list.Add($"Status: {response.HttpStatusCode}\n" +
+                                                 $"{Encoding.UTF8.GetString(response.ResponseBodyInBytes)}\n" +
+                                                 $"{new string('-', 30)}\n");
+                                    }
+                                    else
+                                    {
+                                        list.Add($"Status: {response.HttpStatusCode}\n" +
+                                                 $"{new string('-', 30)}\n");
+                                    }
+                                });
+                                ****/
 
             var client = new ElasticClient(settings);
             return client;
         }
-           
+
+
+   
+
     }
+
+
+
+   
 }

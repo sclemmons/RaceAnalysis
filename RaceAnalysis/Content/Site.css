@@ -592,19 +592,21 @@ div.email-form {
     
 ***************************************************************************************************/
 
-div.race-list #instructions{
+div.race-list #instructions,div.athletes-list #instructions{
   
     margin-top: 5px;
+    
 }
-div#race-table-div{
-    margin-top:5px;
+div#race-table-div, div#athlete-table-div {
+    margin-top: 10px;
 }
 
 .search-results-preface
 {
     position:relative;
+    margin-top:30px;
 }
-.search-results-preface #action-stats{
+.search-results-preface #action-stats,#action-compare-athletes{
   
     position: absolute;
     bottom: 0px;
