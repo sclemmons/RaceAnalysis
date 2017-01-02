@@ -34,6 +34,7 @@ namespace RaceAnalysis.Models
 
         public virtual List<Tag> Tags { get; set; }
          
+     
         [Display(Name = "Swim Layout")]
         public virtual List<RaceConditionTag> SwimLayout { get; set; }
 

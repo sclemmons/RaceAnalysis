@@ -147,19 +147,20 @@ namespace RaceAnalysis.Service
 
           
         }
-        public List<Race> SearchRacesFieldQuery(string field, string queryValue)
+        public List<Race> SearchRaceConditions(string fields, string queryValue)
         {
             var client = SetupElasticSearch();
-            var request = new SearchRequest
+
+            var query = new MultiMatchQuery
             {
-                From = 0,
-                Size = 100,
-                Query = new MatchQuery { Field = field, Query = queryValue }
+                Fields = fields,
+                Query = queryValue,
+                Operator = Operator.Or
 
             };
 
-            var response = client.Search<Race>(request);
-
+            var response = client.Search<Race>(new SearchRequest { Query = query});
+           
             var races = response.Documents.ToList();
 
             return races;
