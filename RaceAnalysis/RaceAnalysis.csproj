@@ -334,6 +334,7 @@
     <Compile Include="ViewModels\RaceViewModel.cs" />
     <Compile Include="ViewModels\SimpleFilterViewModel.cs" />
     <Compile Include="ViewModels\SimpleRaceConditionsViewModel.cs" />
+    <Compile Include="ViewModels\TagViewModel.cs" />
     <Compile Include="ViewModels\TriathletesCompareViewModel.cs" />
     <Compile Include="ViewModels\TriathletesViewModel.cs" />
     <Compile Include="ViewModels\TriStatsViewModel.cs" />
@@ -633,6 +634,7 @@
     <Content Include="Views\Tags\Index.cshtml" />
     <Content Include="Views\Shared\_RaceConditionsViewOnly.cshtml" />
     <Content Include="Views\RaceConditions\_Splits.cshtml" />
+    <Content Include="Views\Tags\EditAll.cshtml" />
     <None Include="Web.Test.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>
