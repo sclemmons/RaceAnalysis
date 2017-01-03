@@ -78,6 +78,20 @@ color:darkblue;
 border-color:#ccc;
 color:#333;
 }
+hr{
+   
+    border-top-color:whitesmoke;
+
+}
+hr.title
+{
+    --border-top-color:yellow;
+    width:25%;
+    text-align:left;
+    margin-left:0;
+   
+}
+
 
 /******************************************************************************
             VALIDATION

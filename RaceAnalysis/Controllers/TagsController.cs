@@ -10,6 +10,8 @@ using RaceAnalysis.Models;
 
 namespace RaceAnalysis.Controllers
 {
+
+    [Authorize(Roles = "Admin")]
     public class TagsController : Controller
     {
         private RaceAnalysisDbContext db = new RaceAnalysisDbContext();

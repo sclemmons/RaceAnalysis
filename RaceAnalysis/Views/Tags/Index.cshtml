@@ -5,10 +5,15 @@
     Layout = "~/Views/Layouts/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Index - Tag List</h2>
 
+<div>
+    @Html.ActionLink("Edit All", "EditAll")
+</div>
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New Tag", "Create")
+
+
 </p>
 <table class="table">
     <tr>

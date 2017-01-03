@@ -8,18 +8,21 @@ using System.Collections.Generic;
 
 namespace RaceAnalysis.Controllers
 {
-    [Authorize(Roles = "Admin")]
     public class RaceConditionsController : Controller
     {
         private RaceAnalysisDbContext db = new RaceAnalysisDbContext();
 
+
+
         // GET: RaceConditions
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             return View(db.RaceConditions.ToList());
         }
 
         // GET: RaceConditions/Details/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -297,6 +300,7 @@ namespace RaceAnalysis.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create([Bind(Include = "RaceConditionsId,SwimLayout,BikeLayout,RunLayout")] RaceConditions raceConditions)
         {
             if (ModelState.IsValid)
@@ -310,6 +314,7 @@ namespace RaceAnalysis.Controllers
         }
 
         // GET: RaceConditions/Edit/5  NOTE, this is the raceId, not the conditionsId
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -332,8 +337,9 @@ namespace RaceAnalysis.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         //public ActionResult Edit(
-           // [Bind(Prefix="Race.Conditions",Include = "RaceConditionsId,SwimLayout,BikeLayout,RunLayout")] RaceConditions raceConditions)
+        // [Bind(Prefix="Race.Conditions",Include = "RaceConditionsId,SwimLayout,BikeLayout,RunLayout")] RaceConditions raceConditions)
         public ActionResult Edit(SimpleRaceConditionsViewModel viewModel,int? raceId )
         {
         
@@ -459,6 +465,7 @@ namespace RaceAnalysis.Controllers
             return PartialView("~/Views/Shared/_RaceConditions.cshtml",viewModel);
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: RaceConditions/Delete/5
         public ActionResult Delete(int? id)
         {

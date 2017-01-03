@@ -12,7 +12,7 @@
     <hr />
 
     <div>
-        @Html.ActionLink("Back to List", "admin", "races")
+        @Html.ActionLink("Back to List", "conditions", "races", new { @id = Model.Race.RaceId }, null)
     </div>
     <hr />
 
@@ -27,7 +27,7 @@
 </div>
 <hr />
 <div>
-    @Html.ActionLink("Back to List", "admin", "races")
+    @Html.ActionLink("Back to List", "conditions", "races", new { @id = Model.Race.RaceId }, null)
 </div>
 
 
