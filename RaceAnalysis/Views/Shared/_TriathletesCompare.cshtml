@@ -24,6 +24,7 @@
     };
 }
 
+<script src="~/Scripts/jquery.rowselector.min.js"></script>
 
 <div id="results-header">
 
@@ -33,5 +34,72 @@
 
 
 </div>
+<div>
+    @Html.Partial("~/Views/Shared/_OnePageOfAthletes.cshtml", Model)
+</div>
 
-@Html.Partial("~/Views/Shared/_OnePageOfAthletes.cshtml", Model)
+<script type="text/javascript">
+
+    $('#config-form').on('submit', function (evt) {
+
+            evt.preventDefault();
+        });
+
+    $('#action-compare-athletes').on('click', actionSelected); //note this gets overridden by the child ajax partialview
+    $('#action-compare-athletes').attr("disabled", true); //disable until user selects rows
+
+    function actionSelected(evt) {
+        
+            if ($('#action-compare-athletes').attr('disabled') == 'disabled') {
+                return false;
+            }
+
+            var selected = [];
+            $('#athletes-table').selectedrows().each(function (idx, el) {
+                if (el.id.length > 0) {
+                    selected.push(el.id);
+                }
+            });
+
+
+            if (selected.length > 0) {
+
+                this.href += "&selectedAthletes=" + selected.join(', ');
+            }
+            else {
+                return false;
+            }
+
+        }
+
+
+        //$('#action-compare').on('click', actionSelected);
+
+        $('#select-type').on('change', function (evt) {
+            $('#athletes-table').attr('data-rs-type', $(this).val());
+            //alert("onchange-rs-type");
+        });
+
+
+        $('#select-class').on('change', function (evt) {
+            $('#athletes-table').attr('data-rs-class', $(this).val());
+
+            //alert("onchange rs-class");
+        });
+
+
+        $('#athletes-table').on('clicked.rs.row', function (evt) {
+
+            var numrows = $(this).selectedrows().length;
+            if (numrows > 0) {
+                $('#action-compare-athletes').attr("disabled", false);
+            }
+            else {
+                $('#action-compare-athletes').attr("disabled", true);
+
+            }
+
+        });
+
+
+</script>
