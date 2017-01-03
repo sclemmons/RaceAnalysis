@@ -20,7 +20,7 @@
         <span id="instructions">Click on one or more rows to select races, then click the button to view details.</span>
 
         @Html.ActionLink("Display Details", "SelectedRaces", "TriStats",
-                 queryViewModel, new { @id = "action-stats", @class = "btn btn-default", title = "Display detailed stats" })
+                 queryViewModel, new { @id = "action-compare", @class = "btn btn-default", title = "Display detailed stats" })
     </div>
     <div>
 
@@ -39,11 +39,11 @@ else
             evt.preventDefault();
         });
 
-        $('#action-stats').on('click', actionSelected);
-        $('#action-stats').attr("disabled", true); //disable until user selects rows
+        $('#action-compare').on('click', actionSelected);
+        $('#action-compare').attr("disabled", true); //disable until user selects rows
 
         function actionSelected(evt) {
-            if ($('#action-stats').attr('disabled') == 'disabled') {
+            if ($('#action-compare').attr('disabled') == 'disabled') {
                 return false;
             }
 
@@ -64,7 +64,7 @@ else
         }
 
 
-        //$('#action-stats').on('click', actionSelected);
+        //$('#action-compare').on('click', actionSelected);
 
         $('#select-type').on('change', function (evt) {
             $('#race-table').attr('data-rs-type', $(this).val());
@@ -83,10 +83,10 @@ else
 
             var numrows = $(this).selectedrows().length;
             if (numrows > 0) {
-                $('#action-stats').attr("disabled", false);
+                $('#action-compare').attr("disabled", false);
             }
             else {
-                $('#action-stats').attr("disabled", true);
+                $('#action-compare').attr("disabled", true);
 
             }
 
