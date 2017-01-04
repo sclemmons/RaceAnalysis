@@ -32,7 +32,7 @@ namespace RaceAnalysis.Controllers
 
         //called from the racefilter
         [HttpPost]
-        public ActionResult ApplyRaceFilter(FilterViewModel queryModel)
+        public ActionResult ApplyFilter(FilterViewModel queryModel)
         {
             var filter = new RaceFilterViewModel();
             filter.SaveRaceFilterValues(queryModel);
@@ -41,7 +41,7 @@ namespace RaceAnalysis.Controllers
         }
 
         //called from actions links in the Action Bar
-         public ActionResult SelectedRaces(SimpleFilterViewModel model)
+         public ActionResult Display(SimpleFilterViewModel model)
         {
            var filter = new RaceFilterViewModel();
            filter.SaveRaceFilterValues(model);

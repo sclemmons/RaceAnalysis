@@ -26,28 +26,28 @@
 
 <ul class="nav nav-tabs">
     <li>
-        @Html.ActionLink("Summary", "SelectedRaces", "TriStatsSummary",
+        @Html.ActionLink("Summary", "Display", "TriStatsSummary",
                  queryViewModel, new { @id = "action-summary", title = "Display histogram" })
     </li>
 
     <li>
-        @Html.ActionLink("Details", "SelectedRaces", "TriStats",
+        @Html.ActionLink("Details", "Display", "TriStats",
                  queryViewModel, new { @id = "action-stats",title = "Display detailed stats" })
     </li>
     <li>
-        @Html.ActionLink("Bike and Run", "SelectedRaces", "CompareBikeRun",
+        @Html.ActionLink("Bike and Run", "Display", "CompareBikeRun",
                   queryViewModel, new { @id = "action-comparebikerun", title = "Compare bike and run" })
     </li>
     <li>
-        @Html.ActionLink("Athletes", "SelectedRaces", "TriAthletes",
+        @Html.ActionLink("Athletes", "Display", "TriAthletes",
                  queryViewModel, new { @id = "action-athletes", title = "Display selected athletes" })
     </li>
     <li>
-        @Html.ActionLink("Compare Age Groups", "SelectedRaces", "TriStatsAgeGroupsCompare",
+        @Html.ActionLink("Compare Age Groups", "Display", "TriStatsAgeGroupsCompare",
                   queryViewModel, new { @id = "action-compareages", title = "Compare selected age groups" })
     </li>
     <li>
-        @Html.ActionLink("Compare Races", "SelectedRaces", "CompareRaces",
+        @Html.ActionLink("Compare Races", "Display", "CompareRaces",
                   queryViewModel, new { @id = "action-compareraces", title = "Compare selected races" })
 
     </li>

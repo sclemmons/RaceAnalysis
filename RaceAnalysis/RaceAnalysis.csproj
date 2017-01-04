@@ -579,7 +579,7 @@
     <Content Include="Views\CompareRaces\Compare.cshtml" />
     <Content Include="Views\CompareRaces\Index.cshtml" />
     <Content Include="Views\Shared\_SearchByAthleteName.cshtml" />
-    <Content Include="Views\Shared\_HistogramChart.cshtml" />
+    <Content Include="Views\TriStatsSummary\_HistogramChart.cshtml" />
     <Content Include="Views\TriStatsSummary\Index.cshtml" />
     <Content Include="Views\TriStatsSummary\Histogram.cshtml" />
     <Content Include="Views\TriStatsAgeGroupsCompare\Compare.cshtml" />

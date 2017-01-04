@@ -229,7 +229,19 @@
             }
             
             
-           
+            $('#athletes-table').on('clicked.rs.row', function (evt) {
+
+                var numrows = $(this).selectedrows().length;
+                if (numrows > 0) {
+                    $('#action-compare-athletes').attr("disabled", false);
+                }
+                else {
+                    $('#action-compare-athletes').attr("disabled", true);
+
+                }
+
+            });
+
 
         });
 </script>
