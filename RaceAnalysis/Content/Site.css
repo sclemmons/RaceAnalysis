@@ -620,7 +620,7 @@ div#race-table-div, div#athlete-table-div {
     position:relative;
     margin-top:30px;
 }
-.search-results-preface #action-compare{
+.search-results-preface #action-compare,#action-stats{
   
     position: absolute;
     bottom: 0px;
