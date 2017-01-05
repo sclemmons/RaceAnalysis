@@ -304,6 +304,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CompareBikeRunController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
+    <Compile Include="Controllers\CuratedAnalysisController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HypotheticalsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -635,6 +636,7 @@
     <Content Include="Views\Shared\_RaceConditionsViewOnly.cshtml" />
     <Content Include="Views\RaceConditions\_Splits.cshtml" />
     <Content Include="Views\Tags\EditAll.cshtml" />
+    <Content Include="Views\CuratedAnalysis\Index.cshtml" />
     <None Include="Web.Test.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

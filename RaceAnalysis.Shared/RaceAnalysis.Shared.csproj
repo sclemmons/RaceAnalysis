@@ -120,6 +120,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AppFeature.cs" />
     <Compile Include="Models\ContactForm.cs" />
+    <Compile Include="Models\CuratedAnalysis.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\KeyValueModel.cs" />
     <Compile Include="Models\RaceConditionTag.cs" />
