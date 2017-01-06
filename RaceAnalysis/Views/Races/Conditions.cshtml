@@ -13,21 +13,42 @@
 <h3>@Model.Race.DisplayName Conditions</h3>
 
 <div>
-   @Html.ActionLink("I have participated in this race...", "Create","RaceConditions", new { @id = Model.Race.RaceId },null)
+   @Html.ActionLink("I have participated in this race and would like to contribute...", "Create", "RaceConditions", new { @id = Model.Race.RaceId }, null)
    <hr class="title"/>
 </div>
 
 <div class="race-conditions">
     <label for="swimlayout">Swim</label>
-    <div id="swimlayout"></div>
+    <div id="swimlayout">
+        @if (Model.SwimCloud.Count == 0)
+        {
+            <p>There are no swim conditions saved for this race.</p>
+            @Html.ActionLink("I know about the swim...", "Create", "RaceConditions", new { @id = Model.Race.RaceId }, null)
+
+        }
+    </div>
     <hr/>
 
     <label for="bikelayout">Bike</label>
-    <div id="bikelayout"></div>
+    <div id="bikelayout">
+        @if (Model.BikeCloud.Count == 0)
+        {
+            <p>There are no bike conditions saved for this race.</p>
+            @Html.ActionLink("I know about the bike...", "Create", "RaceConditions", new { @id = Model.Race.RaceId }, null)
+
+        }
+    </div>
     <hr />
 
     <label for="runlayout">Run</label>
-    <div id="runlayout"></div>
+    <div id="runlayout">
+        @if (Model.RunCloud.Count == 0)
+        {
+            <p>There are no run conditions saved for this race.</p>
+            @Html.ActionLink("I know about the run...", "Create", "RaceConditions", new { @id = Model.Race.RaceId }, null)
+
+        }
+    </div>
    
 
 </div>
@@ -35,29 +56,46 @@
     <script>
         $(document).ready(function () {
 
-            $('#swimlayout').jQCloud( @Html.Raw(Json.Encode(Model.SwimCloud)),
+            @if (Model.SwimCloud.Count > 0)
+            {
+                <text>
+                 $('#swimlayout').jQCloud( @Html.Raw(Json.Encode(Model.SwimCloud)),
                  {
-                     //width: 500,
-                     height: 200,
+                        //width: 500,
+                        height: 200,
 
-                     autoResize: true
-                  });
-            
-            $('#bikelayout').jQCloud( @Html.Raw(Json.Encode(Model.BikeCloud)),
-                 {
-                     //width: 500,
-                     height: 200,
-                     autoResize: true
+                        autoResize: true
                  });
-            
-            $('#runlayout').jQCloud( @Html.Raw(Json.Encode(Model.RunCloud)),
+                </text>
+            }
+
+            @if (Model.BikeCloud.Count > 0)
+            { 
+                <text>
+                $('#bikelayout').jQCloud(@Html.Raw(Json.Encode(Model.BikeCloud)),
                  {
-                     //width: 500,
-                     height: 200,
-                     autoResize: true
+                        //width: 500,
+                        height: 200,
+                         autoResize: true
                  });
+                 </text>
+             }
+
+
+            @if (Model.RunCloud.Count > 0)
+            {
+                <text>
+                    $('#runlayout').jQCloud( @Html.Raw(Json.Encode(Model.RunCloud)),
+                    {
+                        //width: 500,
+                        height: 200,
+                        autoResize: true
+                    });
                 
+                 </text>
+            }
         });
+
     </script>
 
 }

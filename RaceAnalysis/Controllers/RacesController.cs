@@ -55,25 +55,27 @@ namespace RaceAnalysis.Controllers
 
         }
 
-        public PartialViewResult SearchBySwimCondition(string tags)
+        public PartialViewResult SearchBySwimCondition(string searchstring)
         {
             //var races = _RaceService.GetRacesBySwimCondition(searchstring);
 
-            var tagIds = tags.Split(',').Select(int.Parse).ToList();
+            var tagIds = searchstring.Split(',').Select(int.Parse).ToList();
             var races = _RaceService.GetRacesByTagId(tagIds);
 
             return PartialView("_SearchResults", races);
         }
         public PartialViewResult SearchByBikeCondition(string searchstring)
         {
-            var races = _RaceService.GetRacesByBikeCondition(searchstring);
-
+            // var races = _RaceService.GetRacesByBikeCondition(searchstring);
+            var tagIds = searchstring.Split(',').Select(int.Parse).ToList();
+            var races = _RaceService.GetRacesByTagId(tagIds);
             return PartialView("_SearchResults",races);
         }
         public PartialViewResult SearchByRunCondition(string searchstring)
         {
-            var races = _RaceService.GetRacesByRunCondition(searchstring);
-
+            // var races = _RaceService.GetRacesByRunCondition(searchstring);
+            var tagIds = searchstring.Split(',').Select(int.Parse).ToList();
+            var races = _RaceService.GetRacesByTagId(tagIds);
             return PartialView("_SearchResults",races);
         }
 

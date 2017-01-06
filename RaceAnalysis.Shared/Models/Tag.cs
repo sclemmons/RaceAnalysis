@@ -16,7 +16,8 @@ namespace RaceAnalysis.Models
         public TagType Type{get;set;}
         public string Value { get; set; }
 
-        public virtual List<RaceConditions> RaceConditions { get; set; }
+        
+        public virtual List<RaceConditionTag> RaceConditionTags { get; set; }
     }
 
     public enum TagType

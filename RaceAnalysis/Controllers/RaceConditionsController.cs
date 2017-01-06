@@ -427,6 +427,7 @@ namespace RaceAnalysis.Controllers
                     db.Tags.Add(tag);
                     db.SaveChanges();
 
+                   
                 }
 
 
@@ -438,8 +439,11 @@ namespace RaceAnalysis.Controllers
                     TagId = tag.TagId,
                     Count = 1
                 };
-                db.RaceConditionTags.Add(rcTag);
-                persistedList.Add(rcTag);
+                db.RaceConditionTags.Add(rcTag); //add the rc tag to the database
+                //persistedList.Add(rcTag); //relate the rc tag to the condition-specific-list
+                //tag.RaceConditionTags.Add(rcTag);
+                
+
             }
                          
              db.SaveChanges();

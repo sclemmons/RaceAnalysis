@@ -11,71 +11,134 @@ namespace RaceAnalysis.Models
     {
         public RaceConditions()
         {
-            SwimLayout = new List<RaceConditionTag>();
-            SwimMedium = new List<RaceConditionTag>();
-            SwimWeather = new List<RaceConditionTag>();
-            SwimOther = new List<RaceConditionTag>();
-
-
-            BikeLayout = new List<RaceConditionTag>();
-            BikeMedium = new List<RaceConditionTag>();
-            BikeWeather = new List<RaceConditionTag>();
-            BikeOther = new List<RaceConditionTag>();
-
-            RunLayout = new List<RaceConditionTag>();
-            RunMedium = new List<RaceConditionTag>();
-            RunWeather = new List<RaceConditionTag>();
-            RunOther = new List<RaceConditionTag>();
 
         }
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int RaceConditionsId { get; set; }
 
-        public virtual List<Tag> Tags { get; set; }
-         
-     
+        public virtual List<RaceConditionTag> RaceConditionTags { get; set; }
+
+
+        [NotMapped]
         [Display(Name = "Swim Layout")]
-        public virtual List<RaceConditionTag> SwimLayout { get; set; }
+        public List<RaceConditionTag> SwimLayout
+        {
+            get
+            {
+                return RaceConditionTags.Where(rc => rc.Tag.Type == TagType.SwimLayout).ToList();
+            }
 
+        }
+
+        [NotMapped]
         [Display(Name = "Swim Medium")]
-        public virtual List<RaceConditionTag> SwimMedium { get; set; }
+        public List<RaceConditionTag> SwimMedium
+        { 
+            get
+            {
+                return RaceConditionTags.Where(rc => rc.Tag.Type == TagType.SwimMedium).ToList();
+            }
+        }
 
+
+        [NotMapped]
         [Display(Name = "Swim Weather")]
-        public virtual List<RaceConditionTag> SwimWeather { get; set; }
+        public List<RaceConditionTag> SwimWeather 
+        { 
+            get
+            {
+                return RaceConditionTags.Where(rc => rc.Tag.Type == TagType.SwimWeather).ToList();
+            }
+        }
 
+        [NotMapped]
         [Display(Name = "Swim Other")]
-        public virtual List<RaceConditionTag> SwimOther { get; set; }
+        public List<RaceConditionTag> SwimOther
+        {
+            get
+            {
+                return RaceConditionTags.Where(rc => rc.Tag.Type == TagType.SwimOther).ToList();
+            }
+        }
 
-        
-
+        [NotMapped]
         [Display(Name = "Bike Layout")]
-        public virtual List<RaceConditionTag> BikeLayout { get; set; }
+        public List<RaceConditionTag> BikeLayout
+        {
+            get
+            {
+                return RaceConditionTags.Where(rc => rc.Tag.Type == TagType.BikeLayout).ToList();
+            }
+        }
 
+        [NotMapped]
         [Display(Name = "Bike Medium")]
-        public virtual List<RaceConditionTag> BikeMedium { get; set; }
-
+        public  List<RaceConditionTag> BikeMedium
+        {
+            get
+            {
+                return RaceConditionTags.Where(rc => rc.Tag.Type == TagType.BikeMedium).ToList();
+            }
+        }
+        [NotMapped]
         [Display(Name = "Bike Weather")]
-        public virtual List<RaceConditionTag> BikeWeather { get; set; }
-
+        public  List<RaceConditionTag> BikeWeather
+        {
+            get
+            {
+                return RaceConditionTags.Where(rc => rc.Tag.Type == TagType.BikeWeather).ToList();
+            }
+        }
+        [NotMapped]
         [Display(Name = "Bike Other")]
-        public virtual List<RaceConditionTag> BikeOther { get; set; }
+        public  List<RaceConditionTag> BikeOther
+        {
+            get
+            {
+                return RaceConditionTags.Where(rc => rc.Tag.Type == TagType.BikeOther).ToList();
+            }
+        }
 
 
-
-
+        [NotMapped]
         [Display(Name = "Run Layout")]
-        public virtual List<RaceConditionTag> RunLayout { get; set; }
+        public  List<RaceConditionTag> RunLayout
+        {
+            get
+            {
+                return RaceConditionTags.Where(rc => rc.Tag.Type == TagType.RunLayout).ToList();
+            }
+        }
 
+        [NotMapped]
         [Display(Name = "Run Medium")]
-        public virtual List<RaceConditionTag> RunMedium { get; set; }
+        public  List<RaceConditionTag> RunMedium
+        {
+            get
+            {
+                return RaceConditionTags.Where(rc => rc.Tag.Type == TagType.RunMedium).ToList();
+            }
+        }
 
+        [NotMapped]
         [Display(Name = "Run Weather")]
-        public virtual List<RaceConditionTag> RunWeather { get; set; }
+        public  List<RaceConditionTag> RunWeather
+        {
+            get
+            {
+                return RaceConditionTags.Where(rc => rc.Tag.Type == TagType.RunWeather).ToList();
+            }
+        }
 
+
+        [NotMapped]
         [Display(Name = "Run Other")]
-        public virtual List<RaceConditionTag> RunOther { get; set; }
-
+        public  List<RaceConditionTag> RunOther
+         {
+            get
+            {
+                return RaceConditionTags.Where(rc => rc.Tag.Type == TagType.RunOther).ToList();
+            }
+        }
 
 
     }
