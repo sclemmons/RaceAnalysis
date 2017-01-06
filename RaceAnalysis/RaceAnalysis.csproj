@@ -332,6 +332,7 @@
     <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="ViewModels\RaceConditionsViewModel.cs" />
     <Compile Include="ViewModels\RaceFilterViewModel.cs" />
+    <Compile Include="ViewModels\RaceSearchViewModel.cs" />
     <Compile Include="ViewModels\RaceViewModel.cs" />
     <Compile Include="ViewModels\SimpleFilterViewModel.cs" />
     <Compile Include="ViewModels\SimpleRaceConditionsViewModel.cs" />

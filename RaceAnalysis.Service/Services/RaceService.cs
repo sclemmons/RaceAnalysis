@@ -126,6 +126,21 @@ namespace RaceAnalysis.Service
            return  search.SearchAthletesFieldQuery("name", name);
         }
 
+        public List<Race> GetRacesByTagId(List<int> tagIds)
+        {
+            //  var races = _DBContext.Races.Where(r => r.Conditions.Tags.Select(t => t.TagId).Intersect(tagIds).Any());
+
+            //var races =  _DBContext.Races.Where(r => r.Conditions.Tags.Select(t => t.TagId).Contains(245));
+
+            //var rcTags = _DBContext.RaceConditionTags.Where(r => tagIds.Contains(r.TagId));
+
+            var conditions = _DBContext.RaceConditions.Where(rc => rc.Tags.Select(t => t.TagId).Intersect(tagIds).Any());
+
+            var list = conditions.ToList();
+
+            return new List<Race>();
+        }
+
         public List<Race> GetRacesBySwimCondition(string conditions)
         {
             var search = new ElasticSearchFacade(_DBContext);

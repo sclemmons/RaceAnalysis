@@ -279,7 +279,7 @@ namespace RaceAnalysis.Controllers
                     }
 
                     db.RaceConditionTags.Add(rcTag);
-
+                    
 
                 }
                 else

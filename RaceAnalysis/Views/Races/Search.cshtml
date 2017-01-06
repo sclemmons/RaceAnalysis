@@ -1,4 +1,7 @@
-﻿@{
+﻿@model RaceAnalysis.Models.RaceSearchViewModel
+
+@{
+   
     Layout = "~/Views/Layouts/_FullPageLayout.cshtml";
 
 
@@ -37,18 +40,23 @@
 
                 <div class="form-group">
                     <span>Search for a race based on swim conditions</span>
-                    @Html.TextBox("SearchBySwimConditions", null, new { @class = "form-control" })
-
+                        @Html.ListBoxFor(m => m.SelectedSwimTags,
+                                    new SelectList(Model.SwimTags, "TagId", "Value"),
+                                        new { name = "swim-search"})
+              
                 </div>
                 <div class="form-group">
                     <span>Search for a race based on bike conditions</span>
-                    @Html.TextBox("SearchByBikeConditions", null, new { @class = "form-control" })
-
+                        @Html.ListBoxFor(m => m.SelectedBikeTags,
+                                    new SelectList(Model.BikeTags, "TagId", "Value"),
+                                        new { name = "bike-search" })
+              
                 </div>
                 <div class="form-group">
                     <span>Search for a race based on run conditions</span>
-                    @Html.TextBox("SearchByRunConditions", null, new { @class = "form-control" })
-
+                        @Html.ListBoxFor(m => m.SelectedRunTags,
+                                    new SelectList(Model.RunTags, "TagId", "Value"),
+                                        new { name = "run-search" })
                 </div>
                 <div class="form-group">
                 </div>
@@ -84,6 +92,20 @@
                 //(e.g. the user's internet connection cuts out), we should display a message to that effect
                 $('#message-area').html("<div class='alert alert-danger'><strong>Error!</strong>The server could not be contacted and your message has not been sent. Please check your internet connection and try again later.</div>");
             }
+
+
+
+
+             $('select').select2({
+
+                width: '95%',
+                placeholder: "Type Here",
+                maximumSelectionLength: 2,
+                allowclear:true
+             });
+
+            
+            
         </script>
 
 

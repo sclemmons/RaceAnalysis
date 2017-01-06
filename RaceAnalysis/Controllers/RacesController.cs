@@ -30,33 +30,39 @@ namespace RaceAnalysis.Controllers
 
         public ActionResult Search()
         {
-            return View();
+            var viewModel = new RaceSearchViewModel();
+            viewModel.Tags = _DBContext.Tags.ToList();
+
+            return View(viewModel);
         }
 
         public ActionResult SearchRaces(FormCollection form)
         {
 
-            if (!String.IsNullOrEmpty(form["SearchBySwimConditions"]))
+            if (!String.IsNullOrEmpty(form["SelectedSwimTags"]))
             {
-                return SearchBySwimCondition(form["SearchBySwimConditions"]);
+                return SearchBySwimCondition(form["SelectedSwimTags"]);
             }
-            else if (!String.IsNullOrEmpty(form["SearchByBikeConditions"]))
+            else if (!String.IsNullOrEmpty(form["SelectedBikeTags"]))
             {
-                return SearchByBikeCondition(form["SearchByBikeConditions"]);
+                return SearchByBikeCondition(form["SelectedBikeTags"]);
             }
-            else if (!String.IsNullOrEmpty(form["SearchByRunConditions"]))
+            else if (!String.IsNullOrEmpty(form["SelectedRunTags"]))
             {
-                return SearchByRunCondition(form["SearchByRunConditions"]);
+                return SearchByRunCondition(form["SelectedRunTags"]);
             }
             return HttpNotFound();
 
         }
 
-        public PartialViewResult SearchBySwimCondition(string searchstring)
+        public PartialViewResult SearchBySwimCondition(string tags)
         {
-            var races = _RaceService.GetRacesBySwimCondition(searchstring);
+            //var races = _RaceService.GetRacesBySwimCondition(searchstring);
 
-            return PartialView("_SearchResults",races);
+            var tagIds = tags.Split(',').Select(int.Parse).ToList();
+            var races = _RaceService.GetRacesByTagId(tagIds);
+
+            return PartialView("_SearchResults", races);
         }
         public PartialViewResult SearchByBikeCondition(string searchstring)
         {

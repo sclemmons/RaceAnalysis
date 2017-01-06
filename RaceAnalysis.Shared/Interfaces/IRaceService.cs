@@ -20,6 +20,8 @@ namespace RaceAnalysis.Service.Interfaces
         void ReIndex(); //note we may move this
 
 
+
+        List<Race> GetRacesByTagId(List<int> tagIds);
     }
 
 }
