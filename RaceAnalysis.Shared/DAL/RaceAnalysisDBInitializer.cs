@@ -12,7 +12,7 @@ namespace RaceAnalysis.Data
     {
         public static void Seed(RaceAnalysisDbContext context)
         {
-           
+            return;
 
             //if (context.Triathletes.Count(i => i.TriathleteId > 1) == 0)
             {
