@@ -596,9 +596,9 @@
     <Content Include="Views\Shared\_OnePageOfAthletes.cshtml" />
     <Content Include="Views\Shared\_CompareAthletesDetail.cshtml" />
     <Content Include="Views\Shared\_BoxPlotChart.cshtml" />
-    <Content Include="Views\CompareBikeRun\Compare.cshtml" />
+    <Content Include="Views\CompareBikeRun\Pacing.cshtml" />
     <Content Include="Views\Shared\_BikeRunScatterChart.cshtml" />
-    <Content Include="Views\Shared\_BikeRunPieChart.cshtml" />
+    <Content Include="Views\Shared\_BikeRunPacePieChart.cshtml" />
     <Content Include="Views\Shared\_DNFPerRacePieChart.cshtml" />
     <Content Include="Views\Hypotheticals\Index.cshtml" />
     <Content Include="Views\Hypotheticals\_EstFinish.cshtml" />
@@ -639,6 +639,7 @@
     <Content Include="Views\Tags\EditAll.cshtml" />
     <Content Include="Views\CuratedAnalysis\Index.cshtml" />
     <Content Include="Views\Shared\_BikeRunQuartileChart.cshtml" />
+    <Content Include="Views\CompareBikeRun\Quartiles.cshtml" />
     <None Include="Web.Test.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

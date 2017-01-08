@@ -15,10 +15,25 @@ namespace RaceAnalysis.Controllers
     {
         public CompareBikeRunController(IRaceService service) : base(service) { }
 
+        //called from actions links in the Action Bar
+        public ActionResult DisplayPacing(SimpleFilterViewModel model)
+        {
+            var filter = new RaceFilterViewModel();
+            filter.SaveRaceFilterValues(model);
+            return DisplayResultsView(filter,"Pacing");
 
+        }
 
+        //called from actions links in the Action Bar
+        public ActionResult DisplayQuartiles(SimpleFilterViewModel model)
+        {
+            var filter = new RaceFilterViewModel();
+            filter.SaveRaceFilterValues(model);
+            return DisplayResultsView(filter,"Quartiles");
 
-        protected override ActionResult DisplayResultsView(RaceFilterViewModel filter)
+        }
+
+        private ActionResult DisplayResultsView(RaceFilterViewModel filter, string viewName)
         {
             var viewModel = new CompareBikeRunViewModel();
             viewModel.Filter = filter;
@@ -52,7 +67,7 @@ namespace RaceAnalysis.Controllers
             viewModel.Stats.Add(GetStats(allAthletes));
 
 
-            return View("Compare", viewModel);
+            return View(viewName, viewModel);
         }
 
         private void PartitionAthletes(CompareBikeRunViewModel viewModel)

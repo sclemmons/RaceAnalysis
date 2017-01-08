@@ -679,3 +679,11 @@ div.modal-content
 div.clearFloat::after {
     clear:both;
 }
+
+.nav-tabs > li > a{
+    display:inline-block;
+    width:100px;
+    vertical-align:middle;
+    padding:10px;
+    text-align:center;
+}
