@@ -46,7 +46,7 @@ namespace RaceAnalysis.Models
        public PointsStats            Points { get; set; }
        public int DNFCount          { get; set; }
 
-       public GoogleVisualizationDataTable ChartData
+       public GoogleVisualizationDataTable DurationBarChartData
         {
             get
             {

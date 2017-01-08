@@ -671,3 +671,11 @@ div.modal-content
     //max-width:90%;
    // background-color:yellow;
 }
+
+
+div#bike-Q1chart.quartile-chart,div#run-Q1chart.quartile-chart{
+   float:left;
+}
+div.clearFloat::after {
+    clear:both;
+}

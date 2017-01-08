@@ -177,7 +177,7 @@ namespace RaceAnalysis.Controllers
         /// </summary>
         /// <param name="athletes"></param>
         /// <returns></returns>
-        protected TriStatsExtended GetStats(IEnumerable<Triathlete> athletes)
+        protected TriStatsExtended GetStats(List<Triathlete> athletes)
         {
             var stats = new TriStatsExtended(athletes);
             stats.Athletes = athletes.ToList();
@@ -191,10 +191,10 @@ namespace RaceAnalysis.Controllers
             stats.Finish.Median = calc.TimeSpanMedian("Finish");
 
 
-            stats.DivRank.Median = calc.IntMedian("DivRank");
-            stats.GenderRank.Median = calc.IntMedian("GenderRank");
-            stats.OverallRank.Median = calc.IntMedian("OverallRank");
-            stats.Points.Median = calc.IntMedian("Points");
+            stats.DivRank.Median = Math.Floor(calc.IntMedian("DivRank"));
+            stats.GenderRank.Median = Math.Floor(calc.IntMedian("GenderRank"));
+            stats.OverallRank.Median = Math.Floor(calc.IntMedian("OverallRank"));
+            stats.Points.Median = Math.Floor(calc.IntMedian("Points"));
 
             //avg
             stats.Swim.Average = calc.TimeSpanAverage("Swim");
@@ -203,10 +203,10 @@ namespace RaceAnalysis.Controllers
             stats.Finish.Average = calc.TimeSpanAverage("Finish");
 
 
-            stats.DivRank.Average = calc.IntAverage("DivRank");
-            stats.GenderRank.Average = calc.IntAverage("GenderRank");
-            stats.OverallRank.Average = calc.IntAverage("OverallRank");
-            stats.Points.Average = calc.IntAverage("Points");
+            stats.DivRank.Average = Math.Floor(calc.IntAverage("DivRank"));
+            stats.GenderRank.Average = Math.Floor(calc.IntAverage("GenderRank"));
+            stats.OverallRank.Average = Math.Floor(calc.IntAverage("OverallRank"));
+            stats.Points.Average = Math.Floor(calc.IntAverage("Points"));
 
             //min
             stats.Swim.Min = calc.TimeSpanMin("Swim");
@@ -231,6 +231,39 @@ namespace RaceAnalysis.Controllers
             stats.GenderRank.Max = calc.IntMax("GenderRank");
             stats.OverallRank.Max = calc.IntMax("OverallRank");
             stats.Points.Max = calc.IntMax("Points");
+
+
+            //standard deviation
+            stats.Swim.StandDev = calc.TimeSpanStandardDeviation("Swim");
+            stats.Bike.StandDev = calc.TimeSpanStandardDeviation("Bike");
+            stats.Run.StandDev = calc.TimeSpanStandardDeviation("Run");
+            stats.Finish.StandDev = calc.TimeSpanStandardDeviation("Finish");
+
+
+            var swimSplit = TriStatsCalculator.Split(athletes, "Swim");
+            stats.Swim.FastestHalf = TriStatsCalculator.Split(swimSplit.Item1, "Swim");
+            stats.Swim.SlowestHalf = TriStatsCalculator.Split(swimSplit.Item2, "Swim");
+
+            var bikeSplit = TriStatsCalculator.Split(athletes, "Bike");
+            stats.Bike.FastestHalf = TriStatsCalculator.Split(bikeSplit.Item1, "Bike");
+            stats.Bike.SlowestHalf = TriStatsCalculator.Split(bikeSplit.Item2, "Bike");
+
+            var runSplit = TriStatsCalculator.Split(athletes, "Run");
+            stats.Run.FastestHalf = TriStatsCalculator.Split(runSplit.Item1, "Run");
+            stats.Run.SlowestHalf = TriStatsCalculator.Split(runSplit.Item2, "Run");
+
+            var finishSplit = TriStatsCalculator.Split(athletes, "Finish");
+            stats.Finish.FastestHalf = TriStatsCalculator.Split(finishSplit.Item1, "Finish");
+            stats.Finish.SlowestHalf = TriStatsCalculator.Split(finishSplit.Item2, "Finish");
+
+
+
+            stats.Swim.Data = athletes.OrderBy(a => a.Swim).Select(a => a.Swim.ToString("hh\\:mm\\:ss")).ToArray();
+            stats.Bike.Data = athletes.OrderBy(a => a.Bike).Select(a => a.Bike.ToString("hh\\:mm\\:ss")).ToArray();
+            stats.Run.Data = athletes.OrderBy(a => a.Run).Select(a => a.Run.ToString("hh\\:mm\\:ss")).ToArray();
+            stats.Finish.Data = athletes.OrderBy(a => a.Finish).Select(a => a.Finish.ToString("hh\\:mm\\:ss")).ToArray();
+
+            stats.DNFCount = calc.NumberDNFs();
 
             return stats;
         }

@@ -37,6 +37,7 @@ namespace RaceAnalysis.Controllers
                       filter
                 );
                 allAthletes.AddRange(athletes);
+               
             }
 
             var calc = new TriStatsCalculator(allAthletes);
@@ -45,8 +46,11 @@ namespace RaceAnalysis.Controllers
             viewModel.RunMedian = calc.TimeSpanMedian("Run");
             
             viewModel.Triathletes = allAthletes;
-            viewModel.TotalCount = allAthletes.Count();
+            
             PartitionAthletes(viewModel);
+
+            viewModel.Stats.Add(GetStats(allAthletes));
+
 
             return View("Compare", viewModel);
         }

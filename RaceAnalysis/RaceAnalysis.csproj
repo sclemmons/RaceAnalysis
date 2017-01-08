@@ -573,8 +573,8 @@
     <Content Include="Views\Shared\_Search.cshtml" />
     <Content Include="Views\Shared\_SearchResultsKeyValueList.cshtml" />
     <Content Include="Views\TriAthletes\_SearchResults.cshtml" />
-    <Content Include="Views\TriStats\TriStats.cshtml" />
-    <Content Include="Views\Shared\_StatsChart.cshtml" />
+    <Content Include="Views\TriStats\Details.cshtml" />
+    <Content Include="Views\Shared\_DurationBarChart.cshtml" />
     <Content Include="Views\Shared\_RaceConditions.cshtml" />
     <Content Include="tsconfig.json" />
     <Content Include="Views\Shared\_RaceComparisonChart.cshtml" />
@@ -586,7 +586,7 @@
     <Content Include="Views\TriStatsSummary\Histogram.cshtml" />
     <Content Include="Views\TriStatsAgeGroupsCompare\Compare.cshtml" />
     <Content Include="Views\TriStatsAgeGroupsCompare\Index.cshtml" />
-    <Content Include="Views\Shared\_StatsAgeGroupsChart.cshtml" />
+    <Content Include="Views\Shared\_AgeGroupComparisonChart.cshtml" />
     <Content Include="Views\Shared\_VertRaceFilter.cshtml" />
     <Content Include="Views\Shared\_ActionBar.cshtml" />
     <Content Include="Views\Shared\_FilterByDuration.cshtml" />
@@ -638,6 +638,7 @@
     <Content Include="Views\RaceConditions\_Splits.cshtml" />
     <Content Include="Views\Tags\EditAll.cshtml" />
     <Content Include="Views\CuratedAnalysis\Index.cshtml" />
+    <Content Include="Views\Shared\_BikeRunQuartileChart.cshtml" />
     <None Include="Web.Test.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

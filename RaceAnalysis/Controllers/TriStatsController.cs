@@ -59,7 +59,7 @@ namespace RaceAnalysis.Controllers
                 viewModel.Stats.Add(stats);
             }
       
-            return View("~/Views/TriStats/TriStats.cshtml", viewModel);
+            return View("~/Views/TriStats/Details.cshtml", viewModel);
         }
      
         /// <summary>
@@ -92,7 +92,7 @@ namespace RaceAnalysis.Controllers
                 viewModel.Stats.Add(stats);
             }
 
-            return View("~/Views/TriStats/TriStats.cshtml", viewModel);
+            return View("~/Views/TriStats/Details.cshtml", viewModel);
         }
       
     }

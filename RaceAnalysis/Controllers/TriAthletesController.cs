@@ -44,7 +44,7 @@ namespace RaceAnalysis.Controllers
             viewmodel.Triathletes = _DBContext.Triathletes.OrderBy(t=>t.Finish)
                     .Where(t => filter.SelectedAthleteIds.Contains(t.TriathleteId));
 
-            viewmodel.Stats = GetStats(viewmodel.Triathletes);  
+            viewmodel.Stats = GetStats(viewmodel.Triathletes.ToList());  
             
             return View("~/Views/Triathletes/Compare.cshtml", viewmodel);
         }
