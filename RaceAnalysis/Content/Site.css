@@ -673,7 +673,7 @@ div.modal-content
 }
 
 
-div#bike-Q1chart.quartile-chart,div#run-Q1chart.quartile-chart{
+.quartile-chart{
    float:left;
 }
 div.clearFloat::after {
