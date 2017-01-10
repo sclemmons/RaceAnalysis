@@ -640,6 +640,7 @@
     <Content Include="Views\CuratedAnalysis\Index.cshtml" />
     <Content Include="Views\Shared\_BikeRunQuartileChart.cshtml" />
     <Content Include="Views\CompareBikeRun\Quartiles.cshtml" />
+    <Content Include="Views\Shared\_BikeRunTopHalfChart.cshtml" />
     <None Include="Web.Test.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>
