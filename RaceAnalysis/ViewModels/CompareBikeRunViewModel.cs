@@ -341,7 +341,10 @@ namespace RaceAnalysis.Models
                 var q3Bikers = Stats[0].Bike.SlowestHalf.Item1;
                 var q4Bikers = Stats[0].Bike.SlowestHalf.Item2;
 
-
+                /*
+                var test = q3Bikers.ToList();
+                var test1 = finishers.Where(t => q3Bikers.Contains(t));
+                */
                 list.Add(new object[] { "Q1 Bikers", finishers.Where(t => q1Bikers.Contains(t)).Count() });
                 list.Add(new object[] { "Q2 Bikers", finishers.Where(t => q2Bikers.Contains(t)).Count() });
                 list.Add(new object[] { "Q3 Bikers", finishers.Where(t => q3Bikers.Contains(t)).Count() });
@@ -368,10 +371,46 @@ namespace RaceAnalysis.Models
                 var q3Runners = Stats[0].Run.SlowestHalf.Item1;
                 var q4Runners = Stats[0].Run.SlowestHalf.Item2;
 
+                /***
+                var test = q4Runners.ToList();
+                var test2 = finishers.Where(t => q4Runners.Contains(t)).ToList();
+                var test3 = Stats[0].Run.SlowestHalf.Item1.ToList();
+                var test4 = finishers.Where(t => q3Runners.Contains(t)).ToList();
+                ****/
+
                 list.Add(new object[] { "Q1 Runners", finishers.Where(t => q1Runners.Contains(t)).Count() });
                 list.Add(new object[] { "Q2 Runners", finishers.Where(t => q2Runners.Contains(t)).Count() });
                 list.Add(new object[] { "Q3 Runners", finishers.Where(t => q3Runners.Contains(t)).Count() });
                 list.Add(new object[] { "Q4 Runners", finishers.Where(t => q4Runners.Contains(t)).Count() });
+
+                return list;
+            }
+
+        }
+        public List<object> TopHalfSwimFinishers
+        {
+            get
+            {
+                var list = new List<object>();
+                list.Add(new object[] { "Split", "# of Athletes" }); //google charts appears to have a bug where it doesn't show the first column
+
+
+                var finishers = Stats[0].Finish.FastestHalf.Item1;
+                finishers.AddRange(Stats[0].Finish.FastestHalf.Item2);
+
+                var q1Swimmers = Stats[0].Swim.FastestHalf.Item1;
+                var q2Swimmers = Stats[0].Swim.FastestHalf.Item2;
+                var q3Swimmers = Stats[0].Swim.SlowestHalf.Item1;
+                var q4Swimmers = Stats[0].Swim.SlowestHalf.Item2;
+
+                /*
+                var test = q3Swimmers.ToList();
+                var test1 = finishers.Where(t => q3Swimmers.Contains(t));
+                */
+                list.Add(new object[] { "Q1 Swimmers", finishers.Where(t => q1Swimmers.Contains(t)).Count() });
+                list.Add(new object[] { "Q2 Swimmers", finishers.Where(t => q2Swimmers.Contains(t)).Count() });
+                list.Add(new object[] { "Q3 Swimmers", finishers.Where(t => q3Swimmers.Contains(t)).Count() });
+                list.Add(new object[] { "Q4 Swimmers", finishers.Where(t => q4Swimmers.Contains(t)).Count() });
 
                 return list;
             }
