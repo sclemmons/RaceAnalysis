@@ -120,10 +120,18 @@ namespace RaceAnalysis.Service
 
         }
 
-        public List<Triathlete> GetAthletesByName(string name)
+
+        public List<Triathlete> GetAthletesByName_UseElasticSearch(string name)
         {
             var search = new ElasticSearchFacade(_DBContext);
-           return  search.SearchAthletesFieldQuery("name", name);
+            return search.SearchAthletesFieldQuery("name", name);
+        }
+
+        //For the near-term we are going directly to database rather than use elastic search to ease deployment
+        public List<Triathlete> GetAthletesByName(string name)
+        {
+            var athletes = _DBContext.Triathletes.Where(a => a.Name.Contains(name));
+            return athletes.ToList();
         }
 
         public List<Race> GetRacesByTagId(List<int> tagIds)
