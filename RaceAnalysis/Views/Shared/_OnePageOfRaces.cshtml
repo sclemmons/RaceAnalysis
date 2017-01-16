@@ -8,6 +8,7 @@
         -moz-user-select: none;
         -ms-user-select: none;
         user-select: none;
+    
     }
 
     .table-striped > tbody > tr:nth-child(odd).selected > td {
@@ -50,7 +51,7 @@
 
         @foreach (var item in Model)
         {
-            <tr id="@item.RaceId">
+            <tr onclick="" id="@item.RaceId">
                 <td>
                     @Html.DisplayFor(modelItem => item.DisplayName)
                 </td>

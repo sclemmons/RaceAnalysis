@@ -357,12 +357,7 @@
     <Content Include="Content\images\ImageLayer.png" />
     <Content Include="Content\images\ImageLayerYellow.png" />
     <Content Include="Content\images\shutterstock2.jpg" />
-    <Content Include="Content\images\sprites-meta-stackoverflow.png" />
-    <Content Include="Content\images\sprites-programmers.png" />
-    <Content Include="Content\images\sprites-serverfault.png" />
     <Content Include="Content\images\sprites-stackoverflow.png" />
-    <Content Include="Content\images\sprites-superuser.png" />
-    <Content Include="Content\images\sprites-unix.png" />
     <Content Include="Content\images\tristats-piechart.png" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />

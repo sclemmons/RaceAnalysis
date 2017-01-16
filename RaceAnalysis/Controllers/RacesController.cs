@@ -139,17 +139,14 @@ namespace RaceAnalysis.Controllers
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
         public ActionResult Create(
-                [Bind(Prefix = "Race", Include = "BaseURL,DisplayName,RaceDate,ShortName,Distance")]Race race,
-                [Bind(Prefix = "Conditions", Include = "SwimLayout,BikeLayout,RunLayout")]RaceConditions conditions)
+                [Bind(Prefix = "Race", Include = "BaseURL,DisplayName,RaceDate,ShortName,Distance")]Race race)
+             
 
         {
+            race.Conditions = new RaceConditions();
+
             if (ModelState.IsValid)
             {
-                _DBContext.RaceConditions.Add(conditions);
-                _DBContext.SaveChanges();
-
-                race.Conditions = conditions;
-
                 _DBContext.Races.Add(race);
                 _DBContext.SaveChanges();
                 return RedirectToAction("Index");

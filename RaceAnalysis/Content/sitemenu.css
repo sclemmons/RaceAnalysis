@@ -23,6 +23,11 @@
    
 }
 
+.navbar-header
+{
+    width:200px;
+   
+}
 .navbar-header span{
     margin:10px;
     font-size:32px;
@@ -32,7 +37,7 @@
 .navbar-inverse .navbar-brand:hover,
 .navbar-inverse .navbar-brand:focus {
   color: #e5e2e8;
-  
+ 
 }
 .navbar-inverse .navbar-text {
   color: #f8f9f8;
@@ -159,5 +164,15 @@
     border-bottom:5px solid deepskyblue;
     margin-left:5px;
 }
+
+.navbar-header
+{
+    width:auto;
+}
+
+.navbar-header span{
+    display:none;
+}
+
 
 } /*media 767*/
