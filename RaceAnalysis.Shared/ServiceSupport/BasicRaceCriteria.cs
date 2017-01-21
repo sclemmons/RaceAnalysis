@@ -22,4 +22,15 @@ namespace RaceAnalysis.ServiceSupport
         public IList<int> SelectedRaceIds { get; set; }
         
     }
+
+
+    public class SimpleRaceCriteria
+    {
+
+        public string RaceName { get; set; }
+        //to-do:public string AgeGroup { get; set; }
+        public IList<int> SelectedRaceIds { get; set; }
+
+
+    }
 }
