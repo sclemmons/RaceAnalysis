@@ -34,16 +34,15 @@ namespace RaceAnalysis.WebJobCacheFill
             );
             var count = GetTriathletes(msg.RaceId, msg.AgegroupIds, msg.GenderIds);
 
-            log.Write("Count: " + count);
+            log.Write("Count: " + count.Result);
         }
               
         private static Task<string> GetTriathletes(int raceId,int[] ageGroupIds,int[] genderIds)
         {
             var url = _restURL
-                 .AppendPathSegments("api", "Triathletes")  //for now we are hard coding this until we have other endpoints
+                 .AppendPathSegments("api", "Triathletes","TriathletesCount")  //for now we are hard coding this until we have other endpoints
                  .SetQueryParams(new
                  {
-                     count = 1,
                      raceId = raceId,
                      ageGroupIds = String.Join(",", ageGroupIds),  //we have to pass these values as a comma delimited string array for the API
                      genderIds = String.Join(",", genderIds)

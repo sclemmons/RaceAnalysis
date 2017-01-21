@@ -36,6 +36,8 @@ namespace RaceAnalysisAPI.Controllers
         /// <param name="agegroupIds"></param>
         /// <param name="genderIds"></param>
         /// <returns></returns>
+        [Route("api/Triathletes/Triathletes")]
+        [HttpGet]
         public IQueryable<Triathlete> GetTriathletes(int raceId, string agegroupIds, string genderIds)
         {
           
@@ -61,12 +63,14 @@ namespace RaceAnalysisAPI.Controllers
         /// <summary>
         /// Get triathletes for a specific race, agegroups, genders and return count
         /// Purpose is to populate the cache
-        /// http://localhost:52873/api/Triathletes?count=1&raceId=17&agegroupIds=72,76&genderIds=9,10
+        /// http://localhost:52873/api/Triathletes/TriathletsCount?raceId=17&agegroupIds=72,76&genderIds=9,10
         /// </summary>
         /// <param name="raceId"></param>
         /// <param name="agegroupIds"></param>
         /// <param name="genderIds"></param>
         /// <returns></returns>
+        [Route("api/Triathletes/TriathletesCount")]
+        [HttpGet]
         public int GetTriathletesCount(int raceId, string agegroupIds, string genderIds)
         {
 
@@ -132,32 +136,36 @@ namespace RaceAnalysisAPI.Controllers
         [HttpGet]
         public int GetStorageTest()
         {
-            var raceId = _DBContext.Races.Select(x => x.RaceId).First();
-            var agId = _DBContext.AgeGroups.Where(a => a.Value == "18-24").Select(x => x.AgeGroupId).First();
-            var gId = _DBContext.Genders.Where(a => a.Value == "M").Select(x => x.GenderId).First();
-            return GetTriathletesCountFromStorage(raceId, agId.ToString(), gId.ToString());
+            var racename = _DBContext.Races.Select(x => x.DisplayName).First().ToString();
+            return GetCountFromStorage(racename, "18-24", "M");
 
         }
 
-        public int GetTriathletesCountFromStorage(int raceId, string agegroupIds, string genderIds)
+
+        [Route("api/Triathletes/CountFromStorage")]
+        [HttpGet]
+        public int GetCountFromStorage(string r, string a, string g)
         {
 
-            var a = Array.ConvertAll(agegroupIds.Split(','), int.Parse);
-            var g = Array.ConvertAll(genderIds.Split(','), int.Parse);
+            var raceId = _DBContext.Races.Where(ra => ra.DisplayName.ToLower() == r.ToLower()).Select(x => x.RaceId).First();
+
+            var agId = _DBContext.AgeGroups.Where(ag => ag.Value.ToLower() == a.ToLower()).Select(y => y.AgeGroupId).First();
+
+            var gId = _DBContext.Genders.Where(ge => ge.Value.ToLower() == g.ToLower()).Select(z => z.GenderId).First();
 
 
             List<Triathlete> athletes = _RaceService.GetAthletesFromStorage(
-                new BasicRaceCriteria
-                {
-                    SelectedRaceIds = new int[] { raceId },
-                    SelectedAgeGroupIds = a,
-                    SelectedGenderIds = g
-                }
+               new BasicRaceCriteria
+               {
+                   SelectedRaceIds = new int[] { raceId },
+                   SelectedAgeGroupIds = new int[] { agId },
+                   SelectedGenderIds = new int[] { gId },
+               }
 
             );
 
-
             return athletes.Count;
+
 
         }
 
