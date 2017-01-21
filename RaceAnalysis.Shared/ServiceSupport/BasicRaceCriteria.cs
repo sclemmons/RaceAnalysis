@@ -24,13 +24,51 @@ namespace RaceAnalysis.ServiceSupport
     }
 
 
-    public class SimpleRaceCriteria
+   public class BasicRaceCriteriaDiagnostics : IRaceCriteria
     {
+        private IRaceCriteria _RaceCriteria;
+        public BasicRaceCriteriaDiagnostics(IRaceCriteria raceCriteria)
+        {
+            _RaceCriteria = raceCriteria;
+        }
 
-        public string RaceName { get; set; }
-        //to-do:public string AgeGroup { get; set; }
-        public IList<int> SelectedRaceIds { get; set; }
+        public IList<int> SelectedAgeGroupIds
+        {
+            get
+            {
+                return _RaceCriteria.SelectedAgeGroupIds;
+            }
 
+            set
+            {
+                _RaceCriteria.SelectedAgeGroupIds = value;
+            }
+        }
 
+        public IList<int> SelectedGenderIds
+        {
+            get
+            {
+                return _RaceCriteria.SelectedGenderIds;
+            }
+
+            set
+            {
+                _RaceCriteria.SelectedGenderIds = value;
+            }
+        }
+
+        public IList<int> SelectedRaceIds
+        {
+            get
+            {
+                return _RaceCriteria.SelectedRaceIds;
+            }
+
+            set
+            {
+                _RaceCriteria.SelectedRaceIds = value;
+            }
+        }
     }
 }

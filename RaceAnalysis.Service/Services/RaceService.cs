@@ -36,7 +36,7 @@ namespace RaceAnalysis.Service
                 {
                     foreach (int genderId in criteria.SelectedGenderIds)
                     {
-                        RequestContext reqContext = GetRequestContextFromCache(raceId, ageId, genderId);
+                        RequestContext reqContext = GetRequestContext(raceId, ageId, genderId);
                         List<Triathlete> athletesInReqContext = new List<Triathlete>();
                         if (reqContext == null || reqContext.Instruction == RequestInstruction.ForceSource)
                         {
@@ -52,7 +52,7 @@ namespace RaceAnalysis.Service
                         }
                         else
                         {
-                            athletesInReqContext = GetAthletesFromCache(reqContext);
+                            athletesInReqContext = GetAthletesFromStorage(reqContext);
                         }
 
                         if (athletesInReqContext.Count > 0)
@@ -79,6 +79,46 @@ namespace RaceAnalysis.Service
             //filter these athletes
             //in the future we may inject the Provider, but for now create it ...
             return new BasicFilterProvider(allAthletes, filter).GetAthletes();
+
+        }
+
+        /***************************************
+      * GetAthletes()
+      * Retrieve the athletes from storage only. This is basically for testing to see if we are successfully pulling and storing.
+      * ****************************************/
+        public List<Triathlete> GetAthletesFromStorage(IRaceCriteria criteria)
+        {
+            List<Triathlete> allAthletes = new List<Triathlete>();
+
+            //create a requestContext for each combination. 
+            foreach (int raceId in criteria.SelectedRaceIds)
+            {
+                foreach (int ageId in criteria.SelectedAgeGroupIds)
+                {
+                    foreach (int genderId in criteria.SelectedGenderIds)
+                    {
+                        RequestContext reqContext = GetRequestContext(raceId, ageId, genderId);
+                        List<Triathlete> athletesInReqContext = new List<Triathlete>();
+                        if (reqContext == null)
+                        {
+                            //don't do anything. We have not stored these athletes
+                          
+                        }
+                        else
+                        {
+                            athletesInReqContext = GetAthletesFromStorage(reqContext);
+                        }
+
+                        if (athletesInReqContext.Count > 0)
+                        {
+                            allAthletes.AddRange(athletesInReqContext);
+                        }
+                    }
+
+                }
+            }
+
+            return allAthletes.OrderBy(t => t.Finish).ToList();
 
         }
 
@@ -184,14 +224,14 @@ namespace RaceAnalysis.Service
         }
 
 
-        private RequestContext GetRequestContextFromCache(int raceId, int agegroupId, int genderId)
+        private RequestContext GetRequestContext(int raceId, int agegroupId, int genderId)
         {
             RequestContext req = _DBContext.RequestContext.SingleOrDefault(i => i.RaceId == raceId &&
                                 i.AgeGroupId == agegroupId && i.GenderId == genderId);
 
             return req;  //NOTE: THIS will return null if context not found
         }
-        private List<Triathlete> GetAthletesFromCache(RequestContext req)
+        private List<Triathlete> GetAthletesFromStorage(RequestContext req)
         {
             List<Triathlete> athletesInKeyContext;
 
@@ -414,7 +454,7 @@ namespace RaceAnalysis.Service
                 {
                     foreach (int genderId in genderIds)
                     {
-                        RequestContext reqContext = GetRequestContextFromCache(raceId, ageId, genderId);
+                        RequestContext reqContext = GetRequestContext(raceId, ageId, genderId);
 
                         string baseUrl = reqContext.Race.BaseURL;
 

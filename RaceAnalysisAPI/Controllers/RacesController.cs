@@ -23,6 +23,9 @@ namespace RaceAnalysisAPI.Controllers
         internal static Action<Exception> OnException { get; set; }
         protected IRaceService _RaceService;
 
+        private RaceAnalysisDbContext _DBContext = new RaceAnalysisDbContext();
+   
+             
         public RacesController(IRaceService service)
         {
             _RaceService = service;

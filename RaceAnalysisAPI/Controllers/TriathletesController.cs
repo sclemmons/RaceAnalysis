@@ -67,7 +67,7 @@ namespace RaceAnalysisAPI.Controllers
         /// <param name="agegroupIds"></param>
         /// <param name="genderIds"></param>
         /// <returns></returns>
-        public int GetTriathletes(int count, int raceId, string agegroupIds, string genderIds)
+        public int GetTriathletesCount(int raceId, string agegroupIds, string genderIds)
         {
 
             var a = Array.ConvertAll(agegroupIds.Split(','), int.Parse);
@@ -82,6 +82,78 @@ namespace RaceAnalysisAPI.Controllers
                     SelectedGenderIds = g
                 }
                 
+            );
+
+
+            return athletes.Count;
+
+        }
+        public int GetCount(string r,string a,string g)
+        {
+
+            var raceId = _DBContext.Races.Where(ra => ra.DisplayName.ToLower() == r.ToLower()).Select(x => x.RaceId).First();
+
+            var agId = _DBContext.AgeGroups.Where(ag => ag.Value.ToLower() == a.ToLower()).Select(y => y.AgeGroupId).First();
+
+            var gId = _DBContext.Genders.Where(ge => ge.Value.ToLower() == g.ToLower()).Select(z => z.GenderId).First();
+             
+
+            List<Triathlete> athletes = _RaceService.GetAthletes(
+               new BasicRaceCriteria
+               {
+                   SelectedRaceIds = new int[] { raceId },
+                   SelectedAgeGroupIds = new int[] { agId },
+                   SelectedGenderIds = new int[] { gId },
+               }
+
+            );
+
+            return athletes.Count;
+
+        }
+
+        /// <summary>
+        /// http://localhost:52873/api/Triathletes/Test
+        /// Allows us to easily test the API and triathletes fetching. 
+        /// </summary>
+        /// <returns>The count of triathletes in the first race found, gender 18-24, male </returns>
+        [Route("api/Triathletes/Test")]
+        [HttpGet]
+        public int GetTest()
+        {
+            var raceId = _DBContext.Races.Select(x => x.RaceId).First();
+            var agId = _DBContext.AgeGroups.Where(a => a.Value == "18-24").Select(x => x.AgeGroupId).First();
+            var gId = _DBContext.Genders.Where(a => a.Value == "M").Select(x => x.GenderId).First();
+            return GetTriathletesCount(raceId, agId.ToString(), gId.ToString());
+           
+        }
+
+        [Route("api/Triathletes/StorageTest")]
+        [HttpGet]
+        public int GetStorageTest()
+        {
+            var raceId = _DBContext.Races.Select(x => x.RaceId).First();
+            var agId = _DBContext.AgeGroups.Where(a => a.Value == "18-24").Select(x => x.AgeGroupId).First();
+            var gId = _DBContext.Genders.Where(a => a.Value == "M").Select(x => x.GenderId).First();
+            return GetTriathletesCountFromStorage(raceId, agId.ToString(), gId.ToString());
+
+        }
+
+        public int GetTriathletesCountFromStorage(int raceId, string agegroupIds, string genderIds)
+        {
+
+            var a = Array.ConvertAll(agegroupIds.Split(','), int.Parse);
+            var g = Array.ConvertAll(genderIds.Split(','), int.Parse);
+
+
+            List<Triathlete> athletes = _RaceService.GetAthletesFromStorage(
+                new BasicRaceCriteria
+                {
+                    SelectedRaceIds = new int[] { raceId },
+                    SelectedAgeGroupIds = a,
+                    SelectedGenderIds = g
+                }
+
             );
 
 
