@@ -24,8 +24,9 @@ namespace RaceAnalysis.Controllers
         // GET: Races
         public ActionResult Index()
         {
-            var races = _DBContext.Races.Include(r => r.Conditions);
-            return View(races.ToList());
+            var viewModel = new RaceFilterViewModel();
+
+            return View(viewModel);
         }
 
         public ActionResult Search()

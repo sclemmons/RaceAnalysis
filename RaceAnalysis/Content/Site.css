@@ -627,6 +627,20 @@ div#race-table-div, div#athlete-table-div {
     right: 0px;
 }
 
+.search-results-post
+{
+    position:relative;
+    margin-top:50px;
+}
+#action-stats2.btn.btn-default
+{
+    position: absolute;
+    margin-top:10px;
+    bottom: 0px;
+    right: 0px;
+    
+}
+
 div#search-form-section.collapsible.collapse-open a {
     float:right;
     padding:10px;

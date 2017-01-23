@@ -1,4 +1,5 @@
-﻿@model IEnumerable<RaceAnalysis.Models.Race>
+﻿@model RaceAnalysis.Models.RaceFilterViewModel
+
 @using RaceAnalysis.Models;
 
 @{
@@ -21,29 +22,63 @@
 
     <div class="search-results-preface">
 
-        <span id="instructions">Click on one or more rows to select races, then click the display button to view details.</span>
+        <label for="race-table">1. Click on one or more rows to select races. (We recommend starting with a single race.)</label>
 
-        @Html.ActionLink("Display Details", "Display", "TriStats",
+        @Html.ActionLink("View Results", "Display", "TriStats",
                  queryViewModel, new { @id = "action-stats", @class = "btn btn-default", title = "Display detailed stats" })
     </div>
     <div>
 
-        @Html.Partial("~/Views/Shared/_OnePageOfRaces.cshtml", Model)
+        @Html.Partial("~/Views/Shared/_OnePageOfRaces.cshtml", Model.AvailableRaces)
     </div>
 
+    <div class="form-group">
+        <label for="agSelectId">2. Optionally, select an Age Group that you are interested in.</label>
+        @Html.ListBoxFor(m => m.SelectedAgeGroupIds,
+                new SelectList(Model.AvailableAgeGroups, "AgeGroupId", "DisplayName"),
+                new { @id = "agSelectId", multiple = "multiple" })
+    </div>
+
+
+    <div class="form-group">
+      <label for="genderSelectId">3. Optionally, select a gender to further narrow the results.</label>
+        @Html.ListBoxFor(m => m.SelectedGenderIds,
+                new SelectList(Model.AvailableGenders, "GenderId", "DisplayName"),
+                new { @id = "genderSelectId", multiple = "multiple", })
+    </div>
+
+    <div class="search-results-post">
+    @Html.ActionLink("View Results", "Display", "TriStats",
+                 queryViewModel, new { @id = "action-stats2", @class = "btn btn-default", title = "Display detailed stats" })
+
+    </div>
 </div>
 
 <script type="text/javascript">
+
+    $(document).ready(function () {
+
+        var $ag_select = $("#agSelectId").SumoSelect({
+            placeholder: "Select Age Groups...",
+            selectAll: true,
+            captionFormat: '{0} Age Groups Selected',
+            captionFormatAllSelected: 'All age groups selected'
+        });
+        var $gen_select = $("#genderSelectId").SumoSelect({
+            placeholder: "Select Genders..",
+        });
+    });
+
 
         $('#config-form').on('submit', function (evt) {
             evt.preventDefault();
         });
 
-        $('#action-stats').on('click', actionSelected);
-        $('#action-stats').attr("disabled", true); //disable until user selects rows
+        $('.btn-default').on('click', actionSelected);
+        $('.btn-default').attr("disabled", true); //disable until user selects rows
 
         function actionSelected(evt) {
-            if ($('#action-stats').attr('disabled') == 'disabled') {
+            if ($('.btn-default').attr('disabled') == 'disabled') {
                 return false;
             }
 
@@ -83,10 +118,10 @@
 
             var numrows = $(this).selectedrows().length;
             if (numrows > 0) {
-                $('#action-stats').attr("disabled", false);
+                $('.btn-default').attr("disabled", false);
             }
             else {
-                $('#action-stats').attr("disabled", true);
+                $('.btn-default').attr("disabled", true);
 
             }
 
