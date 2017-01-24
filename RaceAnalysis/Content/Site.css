@@ -618,13 +618,16 @@ div#race-table-div, div#athlete-table-div {
 .search-results-preface
 {
     position:relative;
-    margin-top:30px;
+    margin-top:50px;
+    
 }
-.search-results-preface #action-compare,#action-stats{
+.search-results-preface#action-compare,#action-stats{
   
     position: absolute;
-    bottom: 0px;
+    margin-top:10px;
+    bottom: 10px;
     right: 0px;
+    
 }
 
 .search-results-post
