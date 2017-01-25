@@ -32,19 +32,20 @@
         @Html.Partial("~/Views/Shared/_OnePageOfRaces.cshtml", Model.AvailableRaces)
     </div>
 
-    <header>2. Select an Age Group that you are interested in...</header>
-    <div class="form-group">
-        @Html.ListBoxFor(m => m.SelectedAgeGroupIds,
-                new SelectList(Model.AvailableAgeGroups, "AgeGroupId", "DisplayName"),
-                new { @id = "agSelectId", multiple = "multiple" })
+    <header>2. Select the Age Groups/Divisions that you are interested in...</header>
+    <div>
+
+        @Html.Partial("~/Views/Shared/_TableOfAgeGroups.cshtml", Model.AvailableAgeGroups)
+    </div>
+ 
+    <header>3. Select a gender to futher narrow the results...</header>
+    <div>
+        @Html.Partial("~/Views/Shared/_TableOfGenders.cshtml", Model.AvailableGenders)
     </div>
 
-
-    <header>3. Select a gender to futher narrow the results...</header>
-    <div class="form-group">
-        @Html.ListBoxFor(m => m.SelectedGenderIds,
-                new SelectList(Model.AvailableGenders, "GenderId", "DisplayName"),
-                new { @id = "genderSelectId", multiple = "multiple", })
+    <header>4. You may further narrow the results by duration (advanced geek)</header>
+    <div id="duration-filter-container">
+        @Html.Partial("~/Views/Shared/_FilterByDuration.cshtml", Model)
     </div>
 </div>
     <div class="search-results-post">
@@ -57,18 +58,8 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
-
-        var $ag_select = $("#agSelectId").SumoSelect({
-            placeholder: "Select Age Groups...",
-            selectAll: true,
-            captionFormat: '{0} Age Groups Selected',
-            captionFormatAllSelected: 'All age groups selected'
-        });
-        var $gen_select = $("#genderSelectId").SumoSelect({
-            placeholder: "Select Genders..",
-        });
         $("#accordian").accordion({
-            
+            heightStyle: "content"
         });
 
     });

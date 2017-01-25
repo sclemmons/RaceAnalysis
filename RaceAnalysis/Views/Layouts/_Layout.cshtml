@@ -14,7 +14,7 @@
     @Scripts.Render("~/bundles/site")
     @Scripts.Render("~/bundles/select")
 
-      <script type="text/javascript" src="@Url.Content("~/Scripts/modal.js")"></script>
+  <!--<script type="text/javascript" src="@Url.Content("~/Scripts/modal.js")"></script> -->
 
     
 
@@ -45,7 +45,7 @@
                     <li class='@Html.IsActive("Home", "Index")'>
                         @Html.ActionLink("Home", "Index", "Home")
                     </li>
-                    <li class='@Html.IsActive("TriStatsSummary", "Index")'>
+                    <li class='@Html.IsActive("Races", "Index")'>
                         @Html.ActionLink("Analyze", "Index", "Races")
                     </li>
                     <li class='@Html.IsActive("Hypotheticals", "Index")'>

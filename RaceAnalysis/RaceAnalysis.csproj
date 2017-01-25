@@ -636,6 +636,8 @@
     <Content Include="Views\Shared\_BikeRunQuartileChart.cshtml" />
     <Content Include="Views\CompareBikeRun\Quartiles.cshtml" />
     <Content Include="Views\Shared\_BikeRunTopHalfChart.cshtml" />
+    <Content Include="Views\Shared\_TableOfAgeGroups.cshtml" />
+    <Content Include="Views\Shared\_TableOfGenders.cshtml" />
     <None Include="Web.Test.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>
