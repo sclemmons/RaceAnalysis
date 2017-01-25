@@ -3,15 +3,16 @@
 @using RaceAnalysis.Models;
 
 @{
-    ViewBag.Title = "Races";
-    Layout = "~/Views/Layouts/_Layout.cshtml";
-    ViewBag.BodyClass = "fullpage";
+        ViewBag.Title = "Races";
+        Layout = "~/Views/Layouts/_Layout.cshtml";
+        ViewBag.BodyClass = "fullpage";
 
-    var queryViewModel = new SimpleFilterViewModel
-    {
+        var queryViewModel = new SimpleFilterViewModel
+        {
+          
         //Races = "",
-        AgeGroups = "0", //this will allow us to pass these as params and possibly use them in the future
-        Genders = "0",
+        //AgeGroups = "0", //this will allow us to pass these as params and possibly use them in the future
+        //Genders = "0",
 
     };
 }
@@ -77,19 +78,49 @@
                 return false;
             }
 
-            var selected = [];
+            var selectedRaces = [];
             $('#race-table').selectedrows().each(function (idx, el) {
                 if (el.id.length > 0) {
-                    selected.push(el.id);
+                    selectedRaces.push(el.id);
                 }
             });
-            if (selected.length > 0) {
+            if (selectedRaces.length > 0) {
 
-                this.href += "&Races=" + selected.join(', ');
+                this.href += "?Races=" + selectedRaces.join(', ');
             }
             else {
                 return false;
             }
+
+            var selectedAgeGroups = [];
+            $('#agegroup-table').selectedrows().each(function (idx, el) {
+                if (el.id.length > 0) {
+                    selectedAgeGroups.push(el.id);
+                }
+            });
+            if (selectedAgeGroups.length > 0) {
+
+                this.href += "&AgeGroups=" + selectedAgeGroups.join(', ');
+            }
+            else {
+                this.href += "&AgeGroups=0";
+            }
+
+            var selectedGenders = [];
+            $('#gender-table').selectedrows().each(function (idx, el) {
+                if (el.id.length > 0) {
+                    selectedGenders.push(el.id);
+                }
+            });
+            if (selectedGenders.length > 0) {
+
+                this.href += "&Genders=" + selectedGenders.join(', ');
+            }
+            else {
+                this.href += "&Genders=0";
+            }
+
+
 
         }
 
