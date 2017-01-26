@@ -3,27 +3,19 @@
 @using RaceAnalysis.Models;
 
 @{
-        ViewBag.Title = "Races";
-        Layout = "~/Views/Layouts/_Layout.cshtml";
-        ViewBag.BodyClass = "fullpage";
+    ViewBag.Title = "Races";
+    Layout = "~/Views/Layouts/_Layout.cshtml";
+    ViewBag.BodyClass = "fullpage";
 
-        var queryViewModel = new SimpleFilterViewModel
-        {
-          
-        //Races = "",
-        //AgeGroups = "0", //this will allow us to pass these as params and possibly use them in the future
-        //Genders = "0",
-
-    };
+   
 }
 <script src="~/Scripts/jquery.rowselector.min.js"></script>
 
 
- 
+ @using (Html.BeginForm("ViewResults", "TriStats", FormMethod.Post, new { @id = "myForm" }))
+ {
     <div class="search-results-preface">
-
-        @Html.ActionLink("View Results", "Display", "TriStats",
-                 queryViewModel, new { @id = "action-stats", @class = "btn btn-default", title = "Display detailed stats" })
+        <button type="submit" id="action-stats" class="btn btn-default">View Results</button>
     </div>
 <div id="accordian" class="race-list">
 
@@ -50,12 +42,10 @@
     </div>
 </div>
     <div class="search-results-post">
-    @Html.ActionLink("View Results", "Display", "TriStats",
-                 queryViewModel, new { @id = "action-stats2", @class = "btn btn-default", title = "Display detailed stats" })
-
+        <button type="submit" id= "action-stats2" class="btn btn-default">View Results</button>
     </div>
 
-
+ }
 <script type="text/javascript">
 
     $(document).ready(function () {
@@ -66,63 +56,49 @@
     });
 
 
-        $('#config-form').on('submit', function (evt) {
-            evt.preventDefault();
-        });
+        //$('#config-form').on('submit', function (evt) {
+        //    evt.preventDefault();
+        //});
 
-        $('.btn-default').on('click', actionSelected);
+      //  $('.btn-default').on('click', actionSelected);
         $('.btn-default').attr("disabled", true); //disable until user selects rows
 
-        function actionSelected(evt) {
+      //  function actionSelected(evt) {
+        $("#myForm").submit(function (event) {
+
             if ($('.btn-default').attr('disabled') == 'disabled') {
                 return false;
             }
 
-            var selectedRaces = [];
             $('#race-table').selectedrows().each(function (idx, el) {
                 if (el.id.length > 0) {
-                    selectedRaces.push(el.id);
+                    $('<input />').attr('type', 'hidden')
+                       .attr('name', 'SelectedRaceIds')
+                       .attr('value',el.id)
+                       .appendTo('#myForm');
                 }
             });
-            if (selectedRaces.length > 0) {
 
-                this.href += "?Races=" + selectedRaces.join(', ');
-            }
-            else {
-                return false;
-            }
-
-            var selectedAgeGroups = [];
             $('#agegroup-table').selectedrows().each(function (idx, el) {
                 if (el.id.length > 0) {
-                    selectedAgeGroups.push(el.id);
+                    $('<input />').attr('type', 'hidden')
+                       .attr('name', 'SelectedAgeGroupIds')
+                       .attr('value', el.id)
+                       .appendTo('#myForm');
                 }
             });
-            if (selectedAgeGroups.length > 0) {
 
-                this.href += "&AgeGroups=" + selectedAgeGroups.join(', ');
-            }
-            else {
-                this.href += "&AgeGroups=0";
-            }
-
-            var selectedGenders = [];
             $('#gender-table').selectedrows().each(function (idx, el) {
                 if (el.id.length > 0) {
-                    selectedGenders.push(el.id);
+                    if (el.id.length > 0) {
+                        $('<input />').attr('type', 'hidden')
+                           .attr('name', 'SelectedGenderIds')
+                           .attr('value', el.id)
+                           .appendTo('#myForm');
+                    }
                 }
             });
-            if (selectedGenders.length > 0) {
-
-                this.href += "&Genders=" + selectedGenders.join(', ');
-            }
-            else {
-                this.href += "&Genders=0";
-            }
-
-
-
-        }
+        });
 
 
         //$('#action-stats').on('click', actionSelected);

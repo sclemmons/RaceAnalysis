@@ -133,29 +133,8 @@ namespace RaceAnalysis.Models
 
             PopulateRaceFilter();
             SelectedRaceIds = filter.selectedRaceIds;
-            SelectedAgeGroupIds = filter.selectedAgeGroupIds;
-            SelectedGenderIds = filter.selectedGenderIds;
-            /*****
-            using (var db = new RaceAnalysisDbContext())
-            {
-                //TODO: Look at this. seems overly complex
-
-                SelectedRaceIds = filter.selectedRaceIds == null ? db.Races.Select(s => s.RaceId).ToList()
-                 : db.Races.Where(r => filter.selectedRaceIds.Any(x => r.RaceId == x)).Select(s => s.RaceId).ToList();
-
-             
-
-                SelectedAgeGroupIds = filter.selectedAgeGroupIds == null ? db.AgeGroups.Select(s => s.AgeGroupId).ToList()
-                    : db.AgeGroups.Where(r => filter.selectedAgeGroupIds.Any(x => r.AgeGroupId == x)).Select(s => s.AgeGroupId).ToList();
-
-
-
-                SelectedGenderIds = filter.selectedGenderIds == null ? db.Genders.Select(s => s.GenderId).ToList()
-                    : db.Genders.Where(r => filter.selectedGenderIds.Any(x => r.GenderId == x)).Select(s => s.GenderId).ToList();
-
-            }
-            ****/
-
+            SelectedAgeGroupIds = filter.selectedAgeGroupIds == null ? new int[] { 0 } : filter.selectedAgeGroupIds;
+            SelectedGenderIds = filter.selectedGenderIds == null ? new int[] { 0 } : filter.selectedGenderIds;
         }
         public void SaveRaceFilterValues(string races, string agegroups, string genders)
         {
