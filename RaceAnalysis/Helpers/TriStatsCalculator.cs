@@ -107,7 +107,7 @@ namespace RaceAnalysis.Helpers
             var list = query.Cast<dynamic>().ToList();
 
             double seconds = 0;
-            if (list.Count > 0)
+            if (list.Count > 1) //must have at least 2 elements
             {
                 seconds = list.StandardDeviation(t =>
                 {

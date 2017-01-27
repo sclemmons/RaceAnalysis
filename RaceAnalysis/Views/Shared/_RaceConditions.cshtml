@@ -9,9 +9,11 @@
     <a href="#conditions" data-toggle="collapse" data-target="#@target_div">Race Conditions</a>
     <span class="race-conditions-span"></span>
     <div id="@target_div" class="collapse in">
-    @if (Model.Race.Conditions != null)
+    @if (Model.Race.Conditions != null && Model.Race.Conditions.RaceConditionTags.Count > 0)
     {
+
         <div><label>Swim:</label>
+           
                 @foreach (var rcTag in Model.Race.Conditions.SwimLayout.OrderByDescending(y => y.Count).Take(2))
                 {
                 @Html.DisplayFor(x => rcTag.Tag.Value)
@@ -70,8 +72,16 @@
                     @Html.DisplayFor(x => rcTag.Tag.Value)
                 }
           </div>
-        }
         @Html.ActionLink("See all...", "Conditions", "Races", new { id = Model.Race.RaceId }, null)
+      }
+      else
+      {
+        <div>
+            @Html.ActionLink("I have participated in this race and would like to contribute...", "Create", "RaceConditions", new { @id = Model.Race.RaceId }, null)
+            <hr class="title" />
+        </div>
+
+      }
 
     </div>
 </div>
