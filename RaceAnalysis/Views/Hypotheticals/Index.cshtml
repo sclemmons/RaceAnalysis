@@ -1,6 +1,8 @@
 ﻿@model RaceAnalysis.Models.HypotheticalsViewModel
 
 @{
+    ViewBag.Title = "Hypotheticals";
+
     Layout = "~/Views/Layouts/_FullPageLayout.cshtml";
     var SelectedRaceId = Model.Filter.SelectedRaceIds.SingleOrDefault();
     var SelectedGenderId = Model.Filter.SelectedGenderIds.SingleOrDefault();
