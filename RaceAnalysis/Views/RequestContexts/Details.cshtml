@@ -1,0 +1,75 @@
+﻿@model RaceAnalysis.Models.RequestContext
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Layouts/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>RequestContext</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AgeGroup.Value)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AgeGroup.Value)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gender.Value)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gender.Value)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Race.BaseURL)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Race.BaseURL)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastRequestedUTC)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastRequestedUTC)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Instruction)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Instruction)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SourceCount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SourceCount)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.RequestContextId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
