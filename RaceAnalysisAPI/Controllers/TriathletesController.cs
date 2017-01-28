@@ -95,11 +95,11 @@ namespace RaceAnalysisAPI.Controllers
         public int GetCount(string r,string a,string g)
         {
 
-            var raceId = _DBContext.Races.Where(ra => ra.DisplayName.ToLower() == r.ToLower()).Select(x => x.RaceId).First();
+            var raceId = _DBContext.Races.Where(ra => ra.RaceId.ToUpper() == r.ToUpper()).Select(x => x.RaceId).First();
 
-            var agId = _DBContext.AgeGroups.Where(ag => ag.Value.ToLower() == a.ToLower()).Select(y => y.AgeGroupId).First();
+            var agId = _DBContext.AgeGroups.Where(ag => ag.Value.ToUpper() == a.ToUpper()).Select(y => y.AgeGroupId).First();
 
-            var gId = _DBContext.Genders.Where(ge => ge.Value.ToLower() == g.ToLower()).Select(z => z.GenderId).First();
+            var gId = _DBContext.Genders.Where(ge => ge.Value.ToUpper() == g.ToUpper()).Select(z => z.GenderId).First();
              
 
             List<Triathlete> athletes = _RaceService.GetAthletes(
@@ -136,8 +136,8 @@ namespace RaceAnalysisAPI.Controllers
         [HttpGet]
         public int GetStorageTest()
         {
-            var racename = _DBContext.Races.Select(x => x.DisplayName).First().ToString();
-            return GetCountFromStorage(racename, "18-24", "M");
+            var raceId = _DBContext.Races.Select(x => x.RaceId).First().ToString();
+            return GetCountFromStorage(raceId, "18-24", "M");
 
         }
 
@@ -147,11 +147,11 @@ namespace RaceAnalysisAPI.Controllers
         public int GetCountFromStorage(string r, string a, string g)
         {
 
-            var raceId = _DBContext.Races.Where(ra => ra.DisplayName.ToLower() == r.ToLower()).Select(x => x.RaceId).First();
+            var raceId = _DBContext.Races.Where(ra => ra.RaceId.ToUpper() == r.ToUpper()).Select(x => x.RaceId).First();
 
-            var agId = _DBContext.AgeGroups.Where(ag => ag.Value.ToLower() == a.ToLower()).Select(y => y.AgeGroupId).First();
+            var agId = _DBContext.AgeGroups.Where(ag => ag.Value.ToUpper() == a.ToUpper()).Select(y => y.AgeGroupId).First();
 
-            var gId = _DBContext.Genders.Where(ge => ge.Value.ToLower() == g.ToLower()).Select(z => z.GenderId).First();
+            var gId = _DBContext.Genders.Where(ge => ge.Value.ToUpper() == g.ToUpper()).Select(z => z.GenderId).First();
 
 
             List<Triathlete> athletes = _RaceService.GetAthletesFromStorage(
