@@ -93,34 +93,44 @@
                 <tbody>
                     <tr>
                         <td>Swim:</td>
+                        @if (Model.Swim.FastestHalf.Item1.Count > 0)
+                        {
                         <td>@(new TimeSpan(Model.Swim.FastestHalf.Item1.Max(t => t.Swim.Ticks))) </td>
                         <td>@(new TimeSpan(Model.Swim.SlowestHalf.Item1.Min(t => t.Swim.Ticks))) </td>
                         <td>@(new TimeSpan(Model.Swim.SlowestHalf.Item1.Max(t => t.Swim.Ticks))) </td>
                         <td>@Html.DisplayFor(s => Model.Swim.Max)</td>
+                        }
 
                     </tr>
                     <tr>
                         <td>Bike:</td>
+                        @if (Model.Bike.FastestHalf.Item1.Count > 0)
+                        {
                         <td>@(new TimeSpan(Model.Bike.FastestHalf.Item1.Max(t => t.Bike.Ticks))) </td>
                         <td>@(new TimeSpan(Model.Bike.SlowestHalf.Item1.Min(t => t.Bike.Ticks))) </td>
                         <td>@(new TimeSpan(Model.Bike.SlowestHalf.Item1.Max(t => t.Bike.Ticks))) </td>
                         <td>@Html.DisplayFor(s => Model.Bike.Max)</td>
-
+                        }
                     </tr>
                     <tr>
                         <td>Run:</td>
+                        @if (Model.Run.FastestHalf.Item1.Count > 0)
+                        {
                         <td>@(new TimeSpan(Model.Run.FastestHalf.Item1.Max(t => t.Run.Ticks))) </td>
                         <td>@(new TimeSpan(Model.Run.SlowestHalf.Item1.Min(t => t.Run.Ticks))) </td>
                         <td>@(new TimeSpan(Model.Run.SlowestHalf.Item1.Max(t => t.Run.Ticks))) </td>
                         <td>@Html.DisplayFor(s => Model.Run.Max)</td>
-
+                        }
                     </tr>
                     <tr>
                         <td>Finish:</td>
+                        @if (Model.Finish.FastestHalf.Item1.Count > 0)
+                        {
                         <td>@(new TimeSpan(Model.Finish.FastestHalf.Item1.Max(t => t.Finish.Ticks))) </td>
                         <td>@(new TimeSpan(Model.Finish.SlowestHalf.Item1.Min(t => t.Finish.Ticks))) </td>
                         <td>@(new TimeSpan(Model.Finish.SlowestHalf.Item1.Max(t => t.Finish.Ticks))) </td>
                         <td>@Html.DisplayFor(s => Model.Finish.Max)</td>
+                        }
                     </tr>
 
                 </tbody>
