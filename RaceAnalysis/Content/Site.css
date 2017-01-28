@@ -577,7 +577,15 @@ div.time-range-span
    text-align:center;
    font-weight:bold;
 }
-  
+#BikeRangeSubmit
+{
+   margin-top:10px;
+}
+#RunRangeSubmit
+{
+   margin-top:10px;
+}
+
 
 /**************************************************************************************************
     APP FEATURES

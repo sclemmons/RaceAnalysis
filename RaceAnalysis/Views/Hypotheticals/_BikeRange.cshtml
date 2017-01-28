@@ -1,21 +1,30 @@
 ﻿@model RaceAnalysis.Models.HypotheticalsViewModel  
 
 @{ 
+    //these vars needed to disambiguate the use of the bikerange slider in different hypotheticals
     var action = "Display" + Model.SelectedSplit;
     var updateDiv = Model.SelectedSplit + "Div";
+    var timeRangeDiv = Model.SelectedSplit + "time-range-bike";
+    var bikeSliderName = Model.SelectedSplit + "bike-slider";
+    var bikeSliderSlowSpan = Model.SelectedSplit + "bikelowspan";
+    var bikeSliderHighSpan = Model.SelectedSplit + "bikehighpan";
+    var bikeLowTimeValue = Model.SelectedSplit + "_bikelowtimevalue";
+    var bikeHighTimeValue = Model.SelectedSplit + "_bikehightimevalue";
+
 }
 
 <div id="filter-duration">
-    <div id="time-range-bike" class="time-range">
+    <div id=@timeRangeDiv class="time-range">
         <label>Slide the handles to indicate your hypothetical bike split (min-to-max):</label>
 
         <div class="time-range-span">
-            <span id="slider-lowtime" name="bikelowspan">00:00</span> - <span id="slider-hightime" name="bikehighspan">17:00 hrs</span>
-            @Html.Hidden("bikelowtimevalue", "", new { @class = "slider-lowtime-value" })
-            @Html.Hidden("bikehightimevalue", "", new { @class = "slider-hightime-value" })
+            <span id="slider-lowtime" name="@bikeSliderSlowSpan">00:00</span> - <span id="slider-hightime" name="@bikeSliderHighSpan">17:00 hrs</span>
+            @Html.Hidden(@bikeLowTimeValue, "", new { @class = "slider-lowtime-value" })
+            @Html.Hidden(@bikeHighTimeValue, "", new { @class = "slider-hightime-value" })
+            
         </div>
         <div class="slider-step">
-            <div id="s1" class="slider-range" name="bike-slider">   </div>
+            <div id="s1" class="slider-range" name="@bikeSliderName">   </div>
         </div>
         @Ajax.ActionLink("Apply...",
                         @action, "Hypotheticals",
@@ -36,7 +45,8 @@
 
 <script>
     $(document).ready(function () {
-        $('#time-range-bike').each(function () {
+        $('#@timeRangeDiv').each(function () {
+
             $(this).find('#s1').empty().slider({
                 range: true,
                 min: 0,
@@ -71,12 +81,12 @@
             });
         });
 
-      
-        $('div[name=bike-slider]').slider("option", "min", 3*60);
-        $('div[name=bike-slider]').slider("option", "max", 10*60);
-        $('div[name=bike-slider]').slider("option", "values", [@Model.Filter.BikeLow.TotalMinutes,@Model.Filter.BikeHigh.TotalMinutes]);
-        $('span[name=bikelowspan]').html('@Model.Filter.BikeLow.ToString("hh\\:mm")');
-        $('span[name=bikehighspan]').html('@Model.Filter.BikeHigh.ToString("hh\\:mm")' + ' hrs');
+
+        $('div[name=@bikeSliderName]').slider("option", "min", 3*60);
+        $('div[name=@bikeSliderName]').slider("option", "max", 10*60);
+        $('div[name=@bikeSliderName]').slider("option", "values", [@Model.Filter.BikeLow.TotalMinutes,@Model.Filter.BikeHigh.TotalMinutes]);
+        $('span[name=@bikeSliderSlowSpan]').html('@Model.Filter.BikeLow.ToString("hh\\:mm")');
+        $('span[name=@bikeSliderHighSpan]').html('@Model.Filter.BikeHigh.ToString("hh\\:mm")' + ' hrs');
 
     })
 

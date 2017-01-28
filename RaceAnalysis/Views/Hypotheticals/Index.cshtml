@@ -226,13 +226,26 @@
             var requestParams = request.url.split('?');
             request.url = requestParams[0] + "?races=" + race + "&agegroups=" + ag + "&genders=" + gender + "&skilllevel=" + skill;
 
+        //both of these values come from the bike slider but in different contexts. However we only want to take one. 
+        //since we dont know which context it is we are going to give priority to the value displayed last on the page which is BikeFinish
 
-            var bikelowtimevalue = $("#bikelowtimevalue").val();
-            var bikehightimevalue = $("#bikehightimevalue").val();
+            debugger;
+            var bikelowtimevalue = $("#BikeFinish_bikelowtimevalue").val();
+            var bikehightimevalue = $("#BikeFinish_bikehightimevalue").val();
 
             if (bikelowtimevalue != undefined && bikehightimevalue != undefined) {
                 request.url += "&bikelowtimevalue=" + bikelowtimevalue + "&bikehightimevalue=" + bikehightimevalue;
             }
+            else {
+                var bikelowtimevalue = $("#BikeRun_bikelowtimevalue").val();
+                var bikehightimevalue = $("#BikeRun_bikehightimevalue").val();
+
+                if (bikelowtimevalue != undefined && bikehightimevalue != undefined) {
+                    request.url += "&bikelowtimevalue=" + bikelowtimevalue + "&bikehightimevalue=" + bikehightimevalue;
+                }
+            }
+
+
 
             var runlowtimevalue = $("#runlowtimevalue").val();
             var runhightimevalue = $("#runhightimevalue").val();
