@@ -38,7 +38,7 @@ namespace RaceAnalysisAPI.Controllers
         /// <returns></returns>
         [Route("api/Triathletes/Triathletes")]
         [HttpGet]
-        public IQueryable<Triathlete> GetTriathletes(int raceId, string agegroupIds, string genderIds)
+        public IQueryable<Triathlete> GetTriathletes(string raceId, string agegroupIds, string genderIds)
         {
           
             var a = Array.ConvertAll(agegroupIds.Split(','), int.Parse);
@@ -48,7 +48,7 @@ namespace RaceAnalysisAPI.Controllers
             List<Triathlete> athletes = _RaceService.GetAthletes(
               new BasicRaceCriteria
               {
-                  SelectedRaceIds = new int[] { raceId },
+                  SelectedRaceIds = new string[] { raceId },
                   SelectedAgeGroupIds = a,
                   SelectedGenderIds = g
               }
@@ -71,7 +71,7 @@ namespace RaceAnalysisAPI.Controllers
         /// <returns></returns>
         [Route("api/Triathletes/TriathletesCount")]
         [HttpGet]
-        public int GetTriathletesCount(int raceId, string agegroupIds, string genderIds)
+        public int GetTriathletesCount(string raceId, string agegroupIds, string genderIds)
         {
 
             var a = Array.ConvertAll(agegroupIds.Split(','), int.Parse);
@@ -81,7 +81,7 @@ namespace RaceAnalysisAPI.Controllers
             List<Triathlete> athletes = _RaceService.GetAthletes(
                 new BasicRaceCriteria
                 {
-                    SelectedRaceIds = new int[] { raceId },
+                    SelectedRaceIds = new string[] { raceId },
                     SelectedAgeGroupIds = a,
                     SelectedGenderIds = g
                 }
@@ -105,7 +105,7 @@ namespace RaceAnalysisAPI.Controllers
             List<Triathlete> athletes = _RaceService.GetAthletes(
                new BasicRaceCriteria
                {
-                   SelectedRaceIds = new int[] { raceId },
+                   SelectedRaceIds = new string[] { raceId },
                    SelectedAgeGroupIds = new int[] { agId },
                    SelectedGenderIds = new int[] { gId },
                }
@@ -157,7 +157,7 @@ namespace RaceAnalysisAPI.Controllers
             List<Triathlete> athletes = _RaceService.GetAthletesFromStorage(
                new BasicRaceCriteria
                {
-                   SelectedRaceIds = new int[] { raceId },
+                   SelectedRaceIds = new string[] { raceId },
                    SelectedAgeGroupIds = new int[] { agId },
                    SelectedGenderIds = new int[] { gId },
                }

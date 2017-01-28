@@ -59,7 +59,7 @@ namespace RaceAnalysisAPI.Controllers
 
         // PUT: api/Races/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutRace(int id, Race race)
+        public async Task<IHttpActionResult> PutRace(string id, Race race)
         {
             if (!ModelState.IsValid)
             {
@@ -132,7 +132,7 @@ namespace RaceAnalysisAPI.Controllers
             base.Dispose(disposing);
         }
 
-        private bool RaceExists(int id)
+        private bool RaceExists(string id)
         {
             return db.Races.Count(e => e.RaceId == id) > 0;
         }

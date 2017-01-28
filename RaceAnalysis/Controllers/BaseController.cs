@@ -290,7 +290,7 @@ namespace RaceAnalysis.Controllers
         private List<int> GetRequestIds(RaceFilterViewModel filter)
         {
 
-            int[] raceIds = filter.SelectedRaceIds.ToArray();
+            string[] raceIds = filter.SelectedRaceIds.ToArray();
             int[] ageGroupIds = filter.SelectedAgeGroupIds.ToArray();
             int[] genderIds = filter.SelectedGenderIds.ToArray();
 

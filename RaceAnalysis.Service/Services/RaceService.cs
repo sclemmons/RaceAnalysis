@@ -30,7 +30,7 @@ namespace RaceAnalysis.Service
             List<Triathlete> allAthletes = new List<Triathlete>();
 
             //create a requestContext for each combination. 
-            foreach (int raceId in criteria.SelectedRaceIds)
+            foreach (string raceId in criteria.SelectedRaceIds)
             {
                 foreach (int ageId in criteria.SelectedAgeGroupIds)
                 {
@@ -91,7 +91,7 @@ namespace RaceAnalysis.Service
             List<Triathlete> allAthletes = new List<Triathlete>();
 
             //create a requestContext for each combination. 
-            foreach (int raceId in criteria.SelectedRaceIds)
+            foreach (string raceId in criteria.SelectedRaceIds)
             {
                 foreach (int ageId in criteria.SelectedAgeGroupIds)
                 {
@@ -127,7 +127,7 @@ namespace RaceAnalysis.Service
          * GetAthletesByAgeGroup(race,gender)
          * retrieve athletes of race with given gender (male and female)
          *************************************************************/
-        public List<Triathlete> GetAthletesByAgeGroup(int raceId, int agegroupId)
+        public List<Triathlete> GetAthletesByAgeGroup(string raceId, int agegroupId)
         {
 
             var query = _DBContext.Triathletes
@@ -137,7 +137,7 @@ namespace RaceAnalysis.Service
             return query.ToList();
 
         }
-        public List<Triathlete> GetAthletesByGender(int raceId, int genderId)
+        public List<Triathlete> GetAthletesByGender(string raceId, int genderId)
         {
 
             var query = _DBContext.Triathletes
@@ -147,7 +147,7 @@ namespace RaceAnalysis.Service
             return query.ToList();
 
         }
-        public List<Triathlete> GetAthletesByRace(int raceId)
+        public List<Triathlete> GetAthletesByRace(string raceId)
         {
 
             int[] ageGroupIds = _DBContext.AgeGroups.Select(n => n.AgeGroupId).ToArray();
@@ -206,7 +206,7 @@ namespace RaceAnalysis.Service
 
 #region Private Methods
         
-        private RequestContext CreateRequestContext(int raceId, int agegroupId, int genderId)
+        private RequestContext CreateRequestContext(string raceId, int agegroupId, int genderId)
         {
             RequestContext req = new RequestContext();
             req.RaceId = raceId;
@@ -224,7 +224,7 @@ namespace RaceAnalysis.Service
         }
 
 
-        private RequestContext GetRequestContext(int raceId, int agegroupId, int genderId)
+        private RequestContext GetRequestContext(string raceId, int agegroupId, int genderId)
         {
             RequestContext req = _DBContext.RequestContext.SingleOrDefault(i => i.RaceId == raceId &&
                                 i.AgeGroupId == agegroupId && i.GenderId == genderId);
@@ -252,12 +252,12 @@ namespace RaceAnalysis.Service
             outerFilter.Condition = "and";
             outerFilter.Rules = new List<FilterRule>();
 
-            if (reqContext.RaceId != 0)
+            if (!String.IsNullOrEmpty(reqContext.RaceId))
             {
                 FilterRule raceFilter = new FilterRule();
                 raceFilter.Field = "RaceId";
                 raceFilter.Operator = "equal";
-                raceFilter.Value = reqContext.RaceId.ToString();
+                raceFilter.Value = reqContext.RaceId;
                 raceFilter.Type = "integer";
                 outerFilter.Rules.Add(raceFilter);
             }

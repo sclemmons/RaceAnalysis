@@ -76,13 +76,13 @@ namespace RaceAnalysis.Controllers
             viewModel.Filter = filter;
            
 
-            foreach (int raceId in filter.SelectedRaceIds) //it makes more sense to split the races in order to compare them rather than to combine their stats
+            foreach (string raceId in filter.SelectedRaceIds) //it makes more sense to split the races in order to compare them rather than to combine their stats
             {
              
                 var athletes = _RaceService.GetAthletes(
                       new BasicRaceCriteria
                       {
-                          SelectedRaceIds = new int[] { raceId },
+                          SelectedRaceIds = new string[] { raceId },
                           SelectedAgeGroupIds = AgeGroup.Expand(filter.SelectedAgeGroupIds),
                           SelectedGenderIds = Gender.Expand(filter.SelectedGenderIds)
                       }, 

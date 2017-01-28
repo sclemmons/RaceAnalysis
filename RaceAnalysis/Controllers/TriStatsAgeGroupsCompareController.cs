@@ -28,7 +28,7 @@ namespace RaceAnalysis.Controllers
             var athletes = new List<Triathlete>();
 
             //for now let's only deal with a single race to keep it simple
-            int raceId = viewModel.Filter.SelectedRaceIds.First();
+            string raceId = viewModel.Filter.SelectedRaceIds.First();
 
 
             //pulling from selected age groups so that we can do the same when we draw the chart

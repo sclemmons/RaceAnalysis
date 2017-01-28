@@ -16,6 +16,7 @@ namespace RaceAnalysis.Data
 
             //if (context.Triathletes.Count(i => i.TriathleteId > 1) == 0)
             {
+
                 SeedRaces(context);
 
                 SeedGenders(context);
@@ -96,7 +97,7 @@ namespace RaceAnalysis.Data
 
                                 new Race
                                 {
-                                    RaceId=1,
+                                    RaceId="IMLOU2015",
                                     BaseURL="http://www.ironman.com/triathlon/events/americas/ironman/louisville/results.aspx",
                                     DisplayName="IMLOU 2015",
                                     RaceDate = new DateTime(2015,10,11),
@@ -111,7 +112,7 @@ namespace RaceAnalysis.Data
                                 },
                                  new Race
                                 {
-                                    RaceId=2,
+                                    RaceId="IMLOU2016",
                                     BaseURL= "http://www.ironman.com/triathlon/events/americas/ironman/louisville/results.aspx",
                                     DisplayName ="IMLOU 2016",
                                     RaceDate = new DateTime(2016,10,9),
@@ -124,7 +125,7 @@ namespace RaceAnalysis.Data
                                 },
                                   new Race
                                 {
-                                    RaceId=3,
+                                    RaceId="IMFL2015",
                                     BaseURL="http://www.ironman.com/triathlon/events/americas/ironman/florida/results.aspx",
                                     DisplayName="IMFL 2015",
                                     RaceDate = new DateTime(2015,11,7),

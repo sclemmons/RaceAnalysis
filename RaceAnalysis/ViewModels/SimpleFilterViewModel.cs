@@ -30,7 +30,7 @@ namespace RaceAnalysis.Models
 
     public interface IComplexRaceFilter
     {
-        int[] selectedRaceIds { get; set; }
+        string[] selectedRaceIds { get; set; }
         int[] selectedAgeGroupIds { get; set; }
         int[] selectedGenderIds { get; set; }
     }
@@ -40,7 +40,7 @@ namespace RaceAnalysis.Models
     /// </summary>
     public class FilterViewModel : IComplexRaceFilter, ISimpleDurationFilter
     {
-        public int[] selectedRaceIds { get; set; }
+        public string[] selectedRaceIds { get; set; }
         public int[] selectedAgeGroupIds { get; set; }
         public int[] selectedGenderIds { get; set; }
 

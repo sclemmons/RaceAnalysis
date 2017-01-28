@@ -178,12 +178,12 @@ namespace RaceAnalysis.Controllers
             var modelView = new HypotheticalsViewModel();
             modelView.Filter = filter;
              
-            int raceId = filter.SelectedRaceIds.First();
+            string raceId = filter.SelectedRaceIds.First();
 
             var athletes = _RaceService.GetAthletes(
                     new BasicRaceCriteria
                     {
-                        SelectedRaceIds = new int[] { raceId },
+                        SelectedRaceIds = new string[] { raceId },
                         SelectedAgeGroupIds = AgeGroup.Expand(filter.SelectedAgeGroupIds),
                         SelectedGenderIds = Gender.Expand(filter.SelectedGenderIds)
                     },

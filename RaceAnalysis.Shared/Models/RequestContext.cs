@@ -17,7 +17,7 @@ namespace RaceAnalysis.Models
         public int RequestContextId { get; set; }
 
         
-        public int RaceId { get; set; }
+        public string RaceId { get; set; }
 
         [ForeignKey("RaceId"),Column(Order =1)]
         public virtual Race Race { get; set; }

@@ -14,7 +14,7 @@ namespace RaceAnalysis.Models
             PopulateRaceFilter();
         }
         public IList<Race> AvailableRaces { get; set; }
-        public IList<int> SelectedRaceIds { get; set; }
+        public IList<string> SelectedRaceIds { get; set; }
 
 
         public IList<AgeGroup> AvailableAgeGroups { get; set; }
@@ -52,7 +52,7 @@ namespace RaceAnalysis.Models
                 AvailableGenders = db.Genders.ToList();
             }
             if (SelectedRaceIds == null)
-            { SelectedRaceIds = new List<int>(); }
+            { SelectedRaceIds = new List<string>(); }
 
             if (SelectedAgeGroupIds == null)
             { SelectedAgeGroupIds = GetDefaultAgeGroups(); }
@@ -141,7 +141,7 @@ namespace RaceAnalysis.Models
             SaveRaceFilterValues((IComplexRaceFilter)
                    new FilterViewModel
                    {
-                       selectedRaceIds = Array.ConvertAll(races.ZeroIfEmpty().Split(','), int.Parse),
+                       selectedRaceIds = races.ZeroIfEmpty().Split(','),
                        selectedAgeGroupIds = Array.ConvertAll(agegroups.ZeroIfEmpty().Split(','), int.Parse),
                        selectedGenderIds = Array.ConvertAll(genders.ZeroIfEmpty().Split(','), int.Parse)
                    });

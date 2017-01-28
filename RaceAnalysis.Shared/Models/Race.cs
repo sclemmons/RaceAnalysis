@@ -17,8 +17,9 @@ namespace RaceAnalysis.Models
         public Race() { }
 
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int RaceId { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public string RaceId { get; set; }
+        
 
         public string BaseURL { get; set; }
 

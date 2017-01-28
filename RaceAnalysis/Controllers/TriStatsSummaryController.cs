@@ -37,12 +37,12 @@ namespace RaceAnalysis.Controllers
             viewModel.Filter = filter;
             var athletes = new List<Triathlete>();
 
-            foreach (int raceId in filter.SelectedRaceIds)
+            foreach (string raceId in filter.SelectedRaceIds)
             {
                 var athletesPerRace = _RaceService.GetAthletes(
                        new BasicRaceCriteria
                        {
-                           SelectedRaceIds = new int[] { raceId },
+                           SelectedRaceIds = new string[] { raceId },
                            SelectedAgeGroupIds = AgeGroup.Expand(filter.SelectedAgeGroupIds),
                            SelectedGenderIds = Gender.Expand(filter.SelectedGenderIds)
                        },

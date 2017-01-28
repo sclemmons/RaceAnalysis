@@ -11,7 +11,7 @@ namespace RaceAnalysis.ServiceSupport
         public BasicRaceCriteria()
         {
 
-            SelectedRaceIds = new List<int>();
+            SelectedRaceIds = new List<string>();
             SelectedAgeGroupIds = new List<int>();
             SelectedGenderIds = new List<int>();
         }
@@ -19,7 +19,7 @@ namespace RaceAnalysis.ServiceSupport
         
         public IList<int> SelectedGenderIds { get; set; }
         
-        public IList<int> SelectedRaceIds { get; set; }
+        public IList<string> SelectedRaceIds { get; set; }
         
     }
 
@@ -58,7 +58,7 @@ namespace RaceAnalysis.ServiceSupport
             }
         }
 
-        public IList<int> SelectedRaceIds
+        public IList<string> SelectedRaceIds
         {
             get
             {
