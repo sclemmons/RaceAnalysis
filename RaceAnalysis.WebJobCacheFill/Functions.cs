@@ -28,7 +28,7 @@ namespace RaceAnalysis.WebJobCacheFill
         {
             log.WriteLine("Processing triathlete pull request");
             log.WriteLine(
-            " Race: " + msg.RaceId.ToString()
+            " Race: " + msg.RaceId
             + " Age Groups: " + msg.AgegroupIds.ToString()
             + " Genders: " + msg.GenderIds.ToString()
             );
@@ -37,7 +37,7 @@ namespace RaceAnalysis.WebJobCacheFill
             log.Write("Count: " + count.Result);
         }
               
-        private static Task<string> GetTriathletes(int raceId,int[] ageGroupIds,int[] genderIds)
+        private static Task<string> GetTriathletes(string raceId,int[] ageGroupIds,int[] genderIds)
         {
             var url = _restURL
                  .AppendPathSegments("api", "Triathletes","TriathletesCount")  //for now we are hard coding this until we have other endpoints

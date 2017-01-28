@@ -7,7 +7,7 @@ namespace RaceAnalysisAPI.Dtos
 {
     public class RaceDto
     {
-        public int RaceId { get; set; }
+        public string RaceId { get; set; }
 
         public string BaseURL { get; set; }
 

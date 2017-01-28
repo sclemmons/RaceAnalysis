@@ -46,10 +46,10 @@ namespace RaceAnalysisAPI.Controllers
 
         // GET: api/Races/5
         [ResponseType(typeof(Race))]
-        public async Task<IHttpActionResult> GetRace(int id)
+        public async Task<IHttpActionResult> GetRace(string id)
         {
             Race race = await db.Races.FindAsync(id);
-            if (race == null)
+            if (String.IsNullOrEmpty(id))
             {
                 return NotFound();
             }
@@ -109,7 +109,7 @@ namespace RaceAnalysisAPI.Controllers
 
         // DELETE: api/Races/5
         [ResponseType(typeof(Race))]
-        public async Task<IHttpActionResult> DeleteRace(int id)
+        public async Task<IHttpActionResult> DeleteRace(string id)
         {
             Race race = await db.Races.FindAsync(id);
             if (race == null)

@@ -23,7 +23,7 @@ namespace RaceAnalysis.Controllers
 
         // GET: RaceConditions/Details/5
         [Authorize(Roles = "Admin")]
-        public ActionResult Details(int? id)
+        public ActionResult Details(int? id /* race condition id*/)
         {
             if (id == null)
             {
@@ -38,9 +38,9 @@ namespace RaceAnalysis.Controllers
         }
 
         // GET: RaceConditions/Create/5  NOTE, this is the raceId, not the conditionsId
-        public ActionResult Create(int? id)
+        public ActionResult Create(string id /*raceid*/)
         {
-            if (id == null)
+            if (String.IsNullOrEmpty(id))
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -61,7 +61,7 @@ namespace RaceAnalysis.Controllers
             return View(viewModel);
         }
 
-        public ActionResult Vote(string tagIds,List<String> newTags, int raceId, string split)
+        public ActionResult Vote(string tagIds,List<String> newTags, string raceId, string split)
         {
             ModelState.Clear(); //we must do this so that the input values can change on each partial view
 
@@ -315,7 +315,7 @@ namespace RaceAnalysis.Controllers
 
         // GET: RaceConditions/Edit/5  NOTE, this is the raceId, not the conditionsId
         [Authorize(Roles = "Admin")]
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(string id)
         {
             if (id == null)
             {
@@ -340,11 +340,11 @@ namespace RaceAnalysis.Controllers
         [Authorize(Roles = "Admin")]
         //public ActionResult Edit(
         // [Bind(Prefix="Race.Conditions",Include = "RaceConditionsId,SwimLayout,BikeLayout,RunLayout")] RaceConditions raceConditions)
-        public ActionResult Edit(SimpleRaceConditionsViewModel viewModel,int? raceId )
+        public ActionResult Edit(SimpleRaceConditionsViewModel viewModel,string raceId )
         {
         
             var race = db.Races.Find(raceId);
-            if (race == null)
+            if (String.IsNullOrEmpty(raceId))
             {
                 return HttpNotFound();
             }
@@ -452,9 +452,9 @@ namespace RaceAnalysis.Controllers
         }
 
         // GET: RaceConditions/Edit/5  NOTE, this is the raceId, not the conditionsId
-        public ActionResult ShowRaceConditions(int? id)
+        public ActionResult ShowRaceConditions(string id)
         {
-            if (id == null)
+            if (String.IsNullOrEmpty(id))
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -471,7 +471,7 @@ namespace RaceAnalysis.Controllers
 
         [Authorize(Roles = "Admin")]
         // GET: RaceConditions/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int? id /*racecondition id */) 
         {
             if (id == null)
             {
@@ -488,7 +488,7 @@ namespace RaceAnalysis.Controllers
         // POST: RaceConditions/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id /*race condition id*/)
         {
             RaceConditions raceConditions = db.RaceConditions.Find(id);
             db.RaceConditions.Remove(raceConditions);

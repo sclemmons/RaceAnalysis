@@ -81,9 +81,9 @@ namespace RaceAnalysis.Controllers
         }
 
         // GET: Races/Conditions/5
-        public ActionResult Conditions(int? id)
+        public ActionResult Conditions(string id)  //this is the race id
         {
-            if (id == null)
+            if (String.IsNullOrEmpty(id))
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -111,9 +111,9 @@ namespace RaceAnalysis.Controllers
 
         // GET: Races/Details/5
         [Authorize(Roles = "Admin")]
-        public ActionResult Details(int? id)
+        public ActionResult Details(string id)
         {
-            if (id == null)
+            if (String.IsNullOrEmpty(id))
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -165,9 +165,9 @@ namespace RaceAnalysis.Controllers
 
         // GET: Races/Edit/5
         [Authorize(Roles = "Admin")]
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(string id)
         {
-            if (id == null)
+            if (String.IsNullOrEmpty(id))
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -207,9 +207,9 @@ namespace RaceAnalysis.Controllers
 
         // GET: Races/Delete/5
         [Authorize(Roles = "Admin")]
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(string id)
         {
-            if (id == null)
+            if (String.IsNullOrEmpty(id))
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -225,7 +225,7 @@ namespace RaceAnalysis.Controllers
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(string id)
         {
             Race race = _DBContext.Races.Find(id);
             _DBContext.Races.Remove(race);
@@ -235,9 +235,9 @@ namespace RaceAnalysis.Controllers
 
 
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> CacheFill(int? id)
+        public async Task<ActionResult> CacheFill(string id)
         {
-            if (id == null)
+            if (String.IsNullOrEmpty(id))
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -249,18 +249,18 @@ namespace RaceAnalysis.Controllers
                 return HttpNotFound();
             }
 
-            await AddQueueMessages(id.Value);
+            await AddQueueMessages(id);
 
             return RedirectToAction("Index");
         }
 
-        private async Task AddQueueMessages(int raceId)
+        private async Task AddQueueMessages(string raceId)
         {
-            var raceIds = new int[]{ raceId }; //for futer growth?
+            var raceIds = new string[]{ raceId }; //for futer growth?
             var agegroupIds = _DBContext.AgeGroups.Select(ag => ag.AgeGroupId).ToArray();
             var genderIds = _DBContext.Genders.Select(g => g.GenderId).ToArray();
 
-            foreach (int id in raceIds)
+            foreach (string id in raceIds)
             {
                 foreach (int ageId in agegroupIds)
                 {
