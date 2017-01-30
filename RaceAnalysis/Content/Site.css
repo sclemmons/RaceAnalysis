@@ -712,3 +712,12 @@ div.clearFloat::after {
     padding:10px;
     text-align:center;
 }
+
+/*******************************************************************
+    ADMIN 
+***********************************************************************/
+div.admin-links a{
+    
+    font-size:large;
+    display:block;
+}
