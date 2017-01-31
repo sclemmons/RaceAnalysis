@@ -162,9 +162,7 @@ hr.title
 }
 
 
-#results {
-  
-}
+
 
 div.comingsoon_banner{
     margin:10px;
@@ -353,12 +351,12 @@ div.SumoSelect{
 #results{
     border-top:none;
     margin-top:0px;
+   
 }
 
 
 div#results-header
 {
- // background-color:yellow;
   text-align:right;
     
 }
@@ -696,8 +694,11 @@ div.modal-content
     //max-width:90%;
    // background-color:yellow;
 }
-
-
+.chart-container
+{
+    width:100%;
+    height:100%;
+}
 .quartile-chart{
    float:left;
 }
@@ -705,13 +706,15 @@ div.clearFloat::after {
     clear:both;
 }
 
+
 .nav-tabs > li > a{
     display:inline-block;
-    width:100px;
+    --width:100%;
     vertical-align:middle;
     padding:10px;
     text-align:center;
 }
+
 
 /*******************************************************************
     ADMIN 
