@@ -45,7 +45,7 @@
     </div>
 
     <div id='box-estfinish' >
-           <div id="overlay-marker-estfinish">--- Your Est. Finish Time ---</div>
+           
     </div>
          
 
@@ -65,7 +65,7 @@
           
         };
         var finish_layout = {
-            xaxis : axis_template,
+            axis : axis_template,
             //title: 'Finish',
             annotations: [
              {
@@ -79,39 +79,53 @@
             ]
         };
         Plotly.newPlot('box-estfinish', [finish], finish_layout,{showLink: false, displaylogo: false});
-
-
-
+                  
         $(function(){
-            var containerWidth = parseInt( $('#box-estfinish').css("width"));
-            var overlayWidth =   parseInt( $('#overlay-marker-estfinish').css("width"));
+            var containerWidth = parseInt( $('.gridlayer').css("width"));
+            var overlayWidth = containerWidth/4; 
+                //parseInt( $('#overlay-marker-estfinish').css("width"));
            // var overlayCenter = parseInt(overlayWidth)/2;
-            var fudge = 125; //a guess right now from where the axis starts
-            var fudge2 = 100;
-            var qtr;
+            var fudge = 0; //a guess right now from where the axis starts
+            var fudge2 = 0;
+            $('g.draglayer').append("<div z-index:5, id='overlay-marker-estfinish'>--- Your Est. Finish Time ---</div>");
+            var left =  $('g.cartesianlayer').position().left;
+            var top =  $('g.cartesianlayer').position().top;
+
+            //var y = $('g.subplot.xy').position().top;
+            //var x = $('g.subplot.xy').position().left;
+
+            left = 50;
+            top = 50;
+
+            debugger;
             switch(@Model.SelectedSkillLevel)
             {
                 case 1:
-                    qtr= 0 + fudge;
+                    left=left;
                     break;
                 case 2:
-                    qtr= containerWidth/4 + fudge2;
+                    left= left+ overlayWidth;
                     break;
                 case 3:
-                    qtr= containerWidth/2;
+                    left = left+ overlayWidth*2;
                     break;
                 case 4:
-                    qtr= containerWidth - fudge - overlayWidth;
+                    left= containerWidth - overlayWidth;
                     break;
                 default: 
-                    qtr= containerWidth - fudge - overlayWidth;
+                    left= containerWidth - overlayWidth;
                     break;
             }
            
-            $('#overlay-marker-estfinish').css('left', qtr + "px");
+
+            $('#overlay-marker-estfinish').css('left', left + "px");
+            $('#overlay-marker-estfinish').css('top', top + "px");
+
+            $('#overlay-marker-estfinish').css('width', overlayWidth + "px");
+
 
             $( window ).on("resize", function() {
-                 $('#overlay-marker-estfinish').css('left', qtr + "px");
+                 $('#overlay-marker-estfinish').css('left', left + "px");
 
                 
             });

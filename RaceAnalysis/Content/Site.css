@@ -547,14 +547,15 @@ div#box-estfinish,div#box-estSwim,div#box-estBike,div#box-estRun{
 div#overlay-marker-estfinish,div#overlay-marker-estSwim,div#overlay-marker-estBike,div#overlay-marker-estRun  {
     background-color:lightskyblue;
     border-radius:2px;
-    width: 200px;
+    width: 100%;
     height: 24px;
-    position: absolute;
-    top: 90px;   /* chartArea top  */
+    position: relative;
+    top: 0px;   /* chartArea top  */
     left: 0px; /* chartArea left */
     text-align:center;
     border: 2px;
     font-weight:bold;
+    z-index:3;
 }
 
 div#finish-range, div#Swim-range,div#Bike-range,div#Run-range,div#finish-results,div#run-results{
