@@ -14,7 +14,6 @@ namespace RaceAnalysis.Data
         {
             return;
 
-
             //if (context.Triathletes.Count(i => i.TriathleteId > 1) == 0)
             {
 
