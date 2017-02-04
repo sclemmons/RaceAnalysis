@@ -53,10 +53,10 @@
         axis_template = {
             nticks: 20,
         };
-       
+
         var Swim = {
             x: @Html.Raw(Json.Encode(Model.Stats[0].Swim.Data)),
-            
+
             type: 'box',
             name: 'Swim',
             marker:{
@@ -65,7 +65,7 @@
         };
         var Swim_layout = {
             xaxis : axis_template,
-           
+
         };
         Plotly.newPlot('box-estSwim', [Swim], Swim_layout,{showLink: false, displaylogo: false});
 
@@ -73,10 +73,10 @@
 
         $(function(){
             var containerWidth = parseInt( $('#box-estSwim').css("width"));
-            var overlayWidth =   parseInt( $('#overlay-marker-estSwim').css("width"));
+            var overlayWidth =   containerWidth/4 + 21;
            // var overlayCenter = parseInt(overlayWidth)/2;
-            var fudge = 125; //a guess right now from where the axis starts
-            var fudge2 = 100;
+            var fudge = 120; // 125; //a guess right now from where the axis starts
+
             var qtr;
             switch(@Model.SelectedSkillLevel)
             {
@@ -84,27 +84,26 @@
                     qtr= 0 + fudge;
                     break;
                 case 2:
-                    qtr= containerWidth/4 + fudge2;
+                    qtr=  containerWidth/3;
                     break;
                 case 3:
-                    qtr= containerWidth/2;
+                    qtr= containerWidth/2 + 21;
                     break;
                 case 4:
-                    qtr= containerWidth - fudge - overlayWidth;
+                    qtr= containerWidth - (overlayWidth +21);
                     break;
-                default: 
-                    qtr= containerWidth - fudge - overlayWidth;
+                default:
+                    qtr= containerWidth - (overlayWidth +21);
                     break;
             }
-           
+
             $('#overlay-marker-estSwim').css('left', qtr + "px");
 
             $( window ).on("resize", function() {
                  $('#overlay-marker-estSwim').css('left', qtr + "px");
 
-                
-            });
 
+            });
         });
     </script>
 </div>

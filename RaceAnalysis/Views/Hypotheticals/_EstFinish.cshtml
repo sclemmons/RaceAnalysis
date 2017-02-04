@@ -65,18 +65,8 @@
           
         };
         var finish_layout = {
-            xaxis : axis_template,
-            //title: 'Finish',
-            annotations: [
-             {
-                 text: 'Fastest',
-                 x: 2,
-                 xref: '3',
-                 y: 0 ,
-                 yref: 'paper'
-
-             }
-            ]
+           
+           
         };
         Plotly.newPlot('box-estfinish', [finish], finish_layout,{showLink: false, displaylogo: false});
 
@@ -84,10 +74,10 @@
 
         $(function(){
             var containerWidth = parseInt( $('#box-estfinish').css("width"));
-            var overlayWidth =   parseInt( $('#overlay-marker-estfinish').css("width"));
+            var overlayWidth =   containerWidth/4 + 21;
            // var overlayCenter = parseInt(overlayWidth)/2;
-            var fudge = 125; //a guess right now from where the axis starts
-            var fudge2 = 100;
+            var fudge = 120; // 125; //a guess right now from where the axis starts
+            
             var qtr;
             switch(@Model.SelectedSkillLevel)
             {
@@ -95,16 +85,16 @@
                     qtr= 0 + fudge;
                     break;
                 case 2:
-                    qtr= containerWidth/4 + fudge2;
+                    qtr=  containerWidth/3;
                     break;
                 case 3:
-                    qtr= containerWidth/2;
+                    qtr= containerWidth/2 + 21;
                     break;
                 case 4:
-                    qtr= containerWidth - fudge - overlayWidth;
+                    qtr= containerWidth - (overlayWidth +21);
                     break;
                 default: 
-                    qtr= containerWidth - fudge - overlayWidth;
+                    qtr= containerWidth - (overlayWidth +21);
                     break;
             }
            
