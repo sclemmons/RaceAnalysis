@@ -626,7 +626,7 @@ div#race-table-div, div#athlete-table-div {
     margin-top:50px;
     
 }
-.search-results-preface#action-compare,#action-stats{
+#action-compare.btn.btn-default,#action-stats.btn.btn-default{
   
     position: absolute;
     margin-top:10px;
