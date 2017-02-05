@@ -29,6 +29,7 @@ namespace RaceAnalysis
                         "~/Scripts/jquery-{version}.js",
                         "~/Scripts/jquery-ui.js",
                         "~/Scripts/jquery-ui-{version}.js",
+                        "~/Scripts/jquery-ui-touch-punch-min.js",
                         "~/Scripts/jquery.unobtrusive-ajax.js",
                          "~/Scripts/jquery.validate.js",
                         "~/Scripts/jquery.validate.unobtrusive.js"
