@@ -22,9 +22,23 @@ namespace RaceAnalysis.Service
                        IsBodyHtml = true
                    };
 
-                using (var client = new SmtpClient()) // SmtpClient configuration comes from config file
+
+            //SmtpServer.Port = 587;
+            //SmtpServer.Credentials = new System.Net.NetworkCredential("your mail@gmail.com", "your password");
+            //SmtpServer.EnableSsl = true;
+
+
+            using (var client = new SmtpClient()) // SmtpClient configuration comes from config file
                 {
-                    await client.SendMailAsync(email);
+                   try
+                    {
+                    
+                        await client.SendMailAsync(email);
+                    }
+                    catch (Exception ex)
+                    {
+                    throw ex;
+                    }
                 }
             }
         }
