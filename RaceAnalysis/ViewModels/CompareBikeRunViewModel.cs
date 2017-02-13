@@ -333,8 +333,8 @@ namespace RaceAnalysis.Models
                 list.Add(new object[] { "Split", "# of Athletes" }); //google charts appears to have a bug where it doesn't show the first column
 
 
-                var finishers = Stats[0].Finish.FastestHalf.Item1;
-                finishers.AddRange(Stats[0].Finish.FastestHalf.Item2);
+                var finishers = Stats[0].Finish.FastestHalf.Item1.Concat(
+                                Stats[0].Finish.FastestHalf.Item2);
                     
                 var q1Bikers = Stats[0].Bike.FastestHalf.Item1;
                 var q2Bikers = Stats[0].Bike.FastestHalf.Item2;
@@ -363,8 +363,8 @@ namespace RaceAnalysis.Models
                 list.Add(new object[] { "Split", "# of Athletes" }); //google charts appears to have a bug where it doesn't show the first column
 
 
-                var finishers = Stats[0].Finish.FastestHalf.Item1;
-                finishers.AddRange(Stats[0].Finish.FastestHalf.Item2);
+                var finishers = Stats[0].Finish.FastestHalf.Item1.Concat(
+                                Stats[0].Finish.FastestHalf.Item2);
 
                 var q1Runners = Stats[0].Run.FastestHalf.Item1;
                 var q2Runners = Stats[0].Run.FastestHalf.Item2;
@@ -395,8 +395,8 @@ namespace RaceAnalysis.Models
                 list.Add(new object[] { "Split", "# of Athletes" }); //google charts appears to have a bug where it doesn't show the first column
 
 
-                var finishers = Stats[0].Finish.FastestHalf.Item1;
-                finishers.AddRange(Stats[0].Finish.FastestHalf.Item2);
+                var finishers = Stats[0].Finish.FastestHalf.Item1.Concat(
+                                Stats[0].Finish.FastestHalf.Item2);
 
                 var q1Swimmers = Stats[0].Swim.FastestHalf.Item1;
                 var q2Swimmers = Stats[0].Swim.FastestHalf.Item2;

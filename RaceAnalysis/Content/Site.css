@@ -2,6 +2,10 @@
 /*****************************************************************************
     BODY
 **********************************************************************************/
+.col-sm-3,.col-sm-9{
+    padding-right:5px;
+    padding-left:5px;
+}
 body {
     padding-top: 50px;
     padding-bottom: 20px;
@@ -699,12 +703,17 @@ div.modal-content
     
 }
 .quartile-chart{
+    
    float:left;
 }
 div.clearFloat::after {
     clear:both;
 }
-
+.quartile-charts-div
+{
+    --width:800px;
+    background-color:yellow;
+}
 
 .nav-tabs > li > a{
     display:inline-block;
