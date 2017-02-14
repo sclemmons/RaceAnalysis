@@ -47,7 +47,9 @@ namespace RaceAnalysis.Models
        [JsonIgnore]
         public virtual Race Race
         {
-            get { return RequestContext.Race; }
+            get {
+                return RequestContext.Race; 
+            }
         }
      
         [NotMapped]

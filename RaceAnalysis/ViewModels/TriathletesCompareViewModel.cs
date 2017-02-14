@@ -32,7 +32,7 @@ namespace RaceAnalysis.Models
                 foreach (Triathlete athlete in Triathletes)
                 {
                     var row = new List<object>();
-                    row.Add(new object[] { athlete.Name });
+                    row.Add(new object[] { athlete.Name + "(" +  athlete.Race.DisplayName + ")" });
                     row.Add(new object[]
                      { athlete.Swim.Hours, athlete.Swim.Minutes, athlete.Swim.Seconds });
 

@@ -41,7 +41,7 @@ namespace RaceAnalysis.Controllers
             viewmodel.Filter = filter;
 
             //order them from fastest to slowest so the view can know who was first,second, last, etc.
-            viewmodel.Triathletes = _DBContext.Triathletes.OrderBy(t=>t.Finish)
+            viewmodel.Triathletes = _DBContext.Triathletes.Include("RequestContext.Race").OrderBy(t=>t.Finish)
                     .Where(t => filter.SelectedAthleteIds.Contains(t.TriathleteId));
 
             viewmodel.Stats = GetStats(viewmodel.Triathletes.ToList());  
