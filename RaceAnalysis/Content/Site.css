@@ -686,6 +686,14 @@ div.race-conditions input.btn.btn-primary
     margin-top:20px;
     
 }
+
+div.rc-tag{
+    display:inline-block;
+    background-color:azure;
+    padding:5px;
+}
+
+/*****************************************************************************/
 div.modal-content
 {
     max-width:95%;

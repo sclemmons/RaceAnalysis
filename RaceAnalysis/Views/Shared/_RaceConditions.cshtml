@@ -3,6 +3,19 @@
 
 @{
     string target_div = Model.Race.DisplayName.Replace(" ", string.Empty) + "_race-conditions";
+
+    var tags = Model.Race.Conditions.SwimLayout.OrderByDescending(y => y.Count).Select(t => t.Tag.Value).Take(2);
+    string swimLayout = String.Join(",", tags);
+
+    tags = Model.Race.Conditions.SwimMedium.OrderByDescending(y => y.Count).Select(t => t.Tag.Value).Take(2);
+    string swimMedium = String.Join(",", tags);
+
+    tags = Model.Race.Conditions.SwimWeather.OrderByDescending(y => y.Count).Select(t => t.Tag.Value).Take(2);
+    string swimWeather = String.Join(",", tags);
+
+    tags = Model.Race.Conditions.SwimOther.OrderByDescending(y => y.Count).Select(t => t.Tag.Value).Take(2);
+    string swimOther = String.Join(",", tags);
+
 }
 <link rel="stylesheet" type="text/css" href="~/Content/font-awesome.min.css" />
 <div>
@@ -12,64 +25,66 @@
     @if (Model.Race.Conditions != null && Model.Race.Conditions.RaceConditionTags.Count > 0)
     {
 
-        <div><label>Swim:</label>
-           
-                @foreach (var rcTag in Model.Race.Conditions.SwimLayout.OrderByDescending(y => y.Count).Take(2))
+        <div>
+            <label>Swim:</label>
+            @foreach (var rcTag in Model.Race.Conditions.SwimLayout.OrderByDescending(y => y.Count).Take(2))
+            {
+                <div class="rc-tag">@Html.DisplayFor(x => rcTag.Tag.Value)</div>
+            }
+            @foreach (var rcTag in Model.Race.Conditions.SwimMedium.OrderByDescending(y => y.Count).Take(2))
+            {
+
+                <div class="rc-tag">@Html.DisplayFor(x => rcTag.Tag.Value)</div>
+            }
+            @foreach (var rcTag in Model.Race.Conditions.SwimWeather.OrderByDescending(y => y.Count).Take(2))
                 {
-                @Html.DisplayFor(x => rcTag.Tag.Value)
-                }
-                @foreach (var rcTag in Model.Race.Conditions.SwimMedium.OrderByDescending(y => y.Count).Take(2))
+                <div class="rc-tag">@Html.DisplayFor(x => rcTag.Tag.Value)</div>
+            }
+            @foreach (var rcTag in Model.Race.Conditions.SwimOther.OrderByDescending(y => y.Count).Take(2))
                 {
-                    @Html.DisplayFor(x => rcTag.Tag.Value)
-                }
-                @foreach (var rcTag in Model.Race.Conditions.SwimWeather.OrderByDescending(y => y.Count).Take(2))
-                    {
-                    @Html.DisplayFor(x => rcTag.Tag.Value)
-                }
-                @foreach (var rcTag in Model.Race.Conditions.SwimOther.OrderByDescending(y => y.Count).Take(2))
-                    {
-                    @Html.DisplayFor(x => rcTag.Tag.Value)
-                }
-          </div>
+                <div class="rc-tag">@Html.DisplayFor(x => rcTag.Tag.Value)</div>
+            }
+        </div>
 
 
 
           <div><label>Bike:</label>
               @foreach (var rcTag in Model.Race.Conditions.BikeLayout.OrderByDescending(y => y.Count).Take(2))
-                {
-                  @Html.DisplayFor(x => rcTag.Tag.Value)
-              }
+               {
+                  <div class="rc-tag">@Html.DisplayFor(x => rcTag.Tag.Value)</div>
+               }
               @foreach (var rcTag in Model.Race.Conditions.BikeMedium.OrderByDescending(y => y.Count).Take(2))
                 {
-                  @Html.DisplayFor(x => rcTag.Tag.Value)
-              }
-              @foreach (var rcTag in Model.Race.Conditions.BikeWeather.OrderByDescending(y => y.Count).Take(2))
-              {
-                  @Html.DisplayFor(x => rcTag.Tag.Value)
-              }
-              @foreach (var rcTag in Model.Race.Conditions.BikeOther.OrderByDescending(y => y.Count).Take(2))
-              {
-                  @Html.DisplayFor(x => rcTag.Tag.Value)
-              }
-          </div>
+               
+                    <div class="rc-tag">@Html.DisplayFor(x => rcTag.Tag.Value)</div>
+                }
+                @foreach (var rcTag in Model.Race.Conditions.BikeWeather.OrderByDescending(y => y.Count).Take(2))
+                {
+                    <div class="rc-tag">@Html.DisplayFor(x => rcTag.Tag.Value)</div>
+                }
+                @foreach (var rcTag in Model.Race.Conditions.BikeOther.OrderByDescending(y => y.Count).Take(2))
+                {
+                    <div class="rc-tag">@Html.DisplayFor(x => rcTag.Tag.Value)</div>
+                }
+            </div>
 
 
           <div><label>Run:</label>
                @foreach (var rcTag in Model.Race.Conditions.RunLayout.OrderByDescending(y => y.Count).Take(2))
                 {
-                @Html.DisplayFor(x => rcTag.Tag.Value)
+                    <div class="rc-tag">@Html.DisplayFor(x => rcTag.Tag.Value)</div>
                 }
                 @foreach (var rcTag in Model.Race.Conditions.RunMedium.OrderByDescending(y => y.Count).Take(2))
                 {
-                    @Html.DisplayFor(x => rcTag.Tag.Value)
+                    <div class="rc-tag">@Html.DisplayFor(x => rcTag.Tag.Value)</div>
                 }
                 @foreach (var rcTag in Model.Race.Conditions.RunWeather.OrderByDescending(y => y.Count).Take(2))
-                    {
-                    @Html.DisplayFor(x => rcTag.Tag.Value)
+                {
+                    <div class="rc-tag">@Html.DisplayFor(x => rcTag.Tag.Value)</div>
                 }
                 @foreach (var rcTag in Model.Race.Conditions.RunOther.OrderByDescending(y => y.Count).Take(2))
-                    {
-                    @Html.DisplayFor(x => rcTag.Tag.Value)
+                {
+                    <div class="rc-tag">@Html.DisplayFor(x => rcTag.Tag.Value)</div>
                 }
           </div>
         @Html.ActionLink("See all...", "Conditions", "Races", new { id = Model.Race.RaceId }, null)
