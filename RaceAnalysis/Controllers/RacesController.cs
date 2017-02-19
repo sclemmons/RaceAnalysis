@@ -11,6 +11,7 @@ using RaceAnalysis.SharedQueueMessages;
 using Newtonsoft.Json;
 using RaceAnalysis.Service.Interfaces;
 using System;
+using Microsoft.AspNet.Identity;
 
 namespace RaceAnalysis.Controllers
 {
@@ -18,8 +19,12 @@ namespace RaceAnalysis.Controllers
     {
       
         private CloudQueue cacheRequestQueue;
+        private IIdentityMessageService _emailService;
 
-        public RacesController(IRaceService service) : base(service) { }
+        public RacesController(IRaceService raceService, IIdentityMessageService emailService) : base(raceService) 
+        {
+            _emailService = emailService;
+        }
 
         // GET: Races
         public ActionResult Index()
@@ -55,8 +60,50 @@ namespace RaceAnalysis.Controllers
             return HttpNotFound();
 
         }
+        public PartialViewResult ShowRaceRequest()
+        {
+        
+            return PartialView("_RaceRequest", new RequestRaceForm());
+        }
 
-        public PartialViewResult SearchBySwimCondition(string searchstring)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<PartialViewResult> SubmitRaceRequest(RequestRaceForm model)
+        {
+            bool isMessageSent = true;
+
+            if (ModelState.IsValid)
+            {
+                string bodyText = "<p>The following is a race request: from {2}: </p><p>Race:{0}</p><p>Url: {1}</p><p>Message: {3}</p>";
+                string body = string.Format(bodyText, model.RaceName,model.URL, model.Email, model.Message);
+
+                try
+                {
+                    await _emailService.SendAsync(
+                        new IdentityMessage
+                        {
+                            Subject = "Race Request Message",
+                            Destination = "scott_clemmons@hotmail.com",
+                            Body = body
+                        }
+                     );
+
+                    // await RaceAnalysis.Service.EmailService.SendContactForm(model);
+                }
+                catch (Exception ex)
+                {
+                    isMessageSent = false;
+                }
+            }
+            else
+            {
+                isMessageSent = false;
+            }
+            return PartialView("_SubmitMessage", isMessageSent);
+        }
+    
+
+    public PartialViewResult SearchBySwimCondition(string searchstring)
         {
             //var races = _RaceService.GetRacesBySwimCondition(searchstring);
 

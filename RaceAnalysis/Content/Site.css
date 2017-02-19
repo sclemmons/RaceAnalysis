@@ -611,13 +611,32 @@ div.email-form {
     font-size:18px;
     
 }
+div.form-submit-btn{
+    text-align:center;
+}
 
+a#ShowRaceRequestLink.modal-link{
+    float:right;
+    font-style:italic;
+}
+a#XXShowRaceRequestLink.modal-link{
+    position: absolute;
+    --margin-top: 10px;
+    bottom: 10px;
+    right: 120px;
+    font-style:italic;
+    display:none;
+}
 
 /**************************************************************************************************
  RACE LIST AND SEARCH RESULTS
     
 ***************************************************************************************************/
 
+span#request-race {
+   float: right;
+   font-style:italic;
+}
 div.race-list #instructions,div.athletes-list #instructions{
   
     margin-top: 5px;
@@ -702,6 +721,15 @@ div.modal-content
     max-width:95%;
    --max-height:75%;
 }
+
+.modal-header {
+    border-bottom:none;
+}
+.modal-title {
+  text-align:center;
+}
+
+
 
 .jqcloud
 {

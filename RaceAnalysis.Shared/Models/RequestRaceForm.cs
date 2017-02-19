@@ -1,21 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 
 namespace RaceAnalysis.Models
 {
-    public class ContactForm
+    public class RequestRaceForm
     {
         [Required(ErrorMessage = "Please provide your name.")]
-        public string Name { get; set; }
+        [Display(Name ="Race Name")]
+        public string RaceName { get; set; }
+
+        [Required(ErrorMessage = "Please provide the URL to the race's website.")]
+        public string URL { get; set; }
 
         [Required(ErrorMessage = "Please provide your email address."), EmailAddress]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "Please include a message.")]
         public string Message { get; set; }
     }
 }

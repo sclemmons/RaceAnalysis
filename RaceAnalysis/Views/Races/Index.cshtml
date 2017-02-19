@@ -9,29 +9,49 @@
 
    
 }
+<script  src="~/Scripts/modal.js"></script>
+
 <script src="~/Scripts/jquery.rowselector.min.js"></script>
 
+<div id="modal-container" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-content">
+       
+    </div>
+</div>
 
  @using (Html.BeginForm("ViewResults", "TriStats", FormMethod.Post, new { @id = "myForm" }))
  {
+  
     <div class="search-results-preface">
+        @Html.ActionLink("I don't see my race...",
+                         "ShowRaceRequest", "Race",
+                        new { id = "XXShowRaceRequestLink", @class = "modal-link" })
+
+
         <button type="submit" id="action-stats" class="btn btn-default">View Results</button>
     </div>
 <div id="accordian" class="race-list">
 
-    <header>1. Click on one or more rows to select a race...</header>
+    <header>1. Click on one or more rows to select a race
+    @Html.ActionLink("I don't see my race...",
+                         "ShowRaceRequest", "Race",
+                        new { id = "ShowRaceRequestLink", @class = "modal-link" })
+    </header>
+
+
+    
     <div>
 
         @Html.Partial("~/Views/Shared/_OnePageOfRaces.cshtml", Model.AvailableRaces)
     </div>
 
-    <header>2. Select the Age Groups/Divisions that you are interested in...</header>
+    <header>2. Select the Age Groups/Divisions that you are interested in (optional)</header>
     <div>
 
         @Html.Partial("~/Views/Shared/_TableOfAgeGroups.cshtml", Model.AvailableAgeGroups)
     </div>
  
-    <header>3. Select a gender to futher narrow the results...</header>
+    <header>3. Select a gender to futher narrow the results (optional)</header>
     <div>
         @Html.Partial("~/Views/Shared/_TableOfGenders.cshtml", Model.AvailableGenders)
     </div>
