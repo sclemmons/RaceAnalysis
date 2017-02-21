@@ -21,10 +21,15 @@ namespace RaceAnalysis.Models
         public string RaceId { get; set; }
         
 
-        public string BaseURL { get; set; }
+        public string BaseURL { get; set; } //this is for the REST service to get the data
+    
+        public string RaceURL { get; set; } //this is the URL used for users to go to view the race 
 
-        [Display(Name = "Display Name")]
-        public string DisplayName { get; set; }
+        [Display(Name = "Short Display Name")]
+        public string DisplayName { get; set; } //this is displayed through the analysis
+
+        [Display(Name = "Long Display Name")]
+        public string LongDisplayName { get; set; } //this is displayed on the full race list page
 
         [Display(Name = "Race Date")]
         [MinDate("01/01/2006")]
@@ -33,9 +38,9 @@ namespace RaceAnalysis.Models
         public DateTime RaceDate { get; set; }
 
         [Display(Name = "Short Name")]
-        public string ShortName { get; set; }
+        public string ShortName { get; set; }//this is used for the REST call to get the data
 
-        public string Distance { get; set; }
+        public string Distance { get; set; } //this is for display and grouping purposes
 
         [ForeignKey("Conditions")]
         public int ConditionsId { get; set; }

@@ -15,8 +15,16 @@
             @Html.DisplayNameFor(model => model.BaseURL)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.RaceId)
+        </th>
+
+        <th>
             @Html.DisplayNameFor(model => model.DisplayName)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LongDisplayName)
+        </th>
+
         <th>
             @Html.DisplayNameFor(model => model.RaceDate)
         </th>
@@ -39,9 +47,17 @@
             @Html.DisplayFor(modelItem => item.BaseURL)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.RaceId)
+        </td>
+
+        <td>
             @Html.DisplayFor(modelItem => item.DisplayName)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.LongDisplayName)
+        </td>
+
+         <td>
             @item.RaceDate.ToShortDateString()
         </td>
         <td>
