@@ -19,7 +19,7 @@
     </div>
 </div>
 
- @using (Html.BeginForm("ViewResults", "TriStats", FormMethod.Post, new { @id = "myForm" }))
+ @using (Html.BeginForm("DisplayStats", "TriStats", FormMethod.Post, new { @id = "myForm" }))
  {
   
     <div class="search-results-preface">
@@ -32,7 +32,7 @@
     </div>
 <div id="accordian" class="race-list">
 
-    <header>1. Click on one or more rows to select a race
+    <header>1. Click on one or more rows to select the races you are interested in
     @Html.ActionLink("I don't see my race...",
                          "ShowRaceRequest", "Race",
                         new { id = "ShowRaceRequestLink", @class = "modal-link" })

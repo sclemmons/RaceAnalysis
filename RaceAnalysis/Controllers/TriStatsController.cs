@@ -24,6 +24,21 @@ namespace RaceAnalysis.Controllers
             return View(viewModel);
         }
 
+        /************************************************
+        //called from the race/analyse page. 
+        //this method redirects depending on the values passed in
+        ******************************************************/
+        [HttpPost]
+        public ActionResult DisplayStats(FilterViewModel queryModel)
+        {
+            TempData["queryModel"] = queryModel;
+            if (queryModel.selectedRaceIds.Count() > 1)
+                return RedirectToAction("ViewResults", "CompareRaces");
+            else
+                return RedirectToAction("ViewResults", "TriStatsSummary");
+
+        }
+
         [Authorize(Roles = "Admin")]
         public ActionResult ReIndex()
         {

@@ -30,7 +30,7 @@ namespace RaceAnalysis.Controllers
 
       
 
-        //called from the racefilter
+        //called from the racefilter, using the POST verb
         [HttpPost]
         public ActionResult ViewResults(FilterViewModel queryModel)
         {
@@ -40,15 +40,26 @@ namespace RaceAnalysis.Controllers
 
         }
 
-        //called from actions links in the Action Bar
-         public ActionResult Display(SimpleFilterViewModel model)
+        //called from one controller to another, data stored in the TempData
+        public ActionResult ViewResults()
+        {
+            var queryModel = TempData["queryModel"] as FilterViewModel;
+            var filter = new RaceFilterViewModel();
+            filter.SaveRaceFilterValues(queryModel);
+            return DisplayResultsView(filter);
+
+        }
+        //called from actions links in the Action Bar using the GET verb
+        public ActionResult Display(SimpleFilterViewModel model)
         {
            var filter = new RaceFilterViewModel();
            filter.SaveRaceFilterValues(model);
            return DisplayResultsView(filter);
 
         }
-               
+
+       
+
 
 
 
