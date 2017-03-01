@@ -348,18 +348,18 @@ namespace RaceAnalysis.Service
 
             string baseUrl = reqContext.Race.BaseURL;
 
-            IronmanClient client = new IronmanClient(_DBContext);
+            var sourceClient = new IronmanClient(_DBContext);
 
             for (int pagenum = 1; pagenum < 100; pagenum++)
             {
                 List<Triathlete> athletesPerPage = new List<Triathlete>();
 
 
-                IRestResponse response = client.MakeRequest(baseUrl, client.BuildRequestParameters(pagenum, reqContext));
-                bool result = client.HandleResponse(response, reqContext);
+                IRestResponse response = sourceClient.MakeRequest(baseUrl, sourceClient.BuildRequestParameters(pagenum, reqContext));
+                bool result = sourceClient.HandleResponse(response, reqContext);
                 if (result)
                 {
-                    athletesPerPage = IronmanClient.ParseData(reqContext, response.Content);
+                    athletesPerPage = sourceClient.ParseData(reqContext, response.Content);
 
                     if (athletesPerPage.Count > 0)
                     {

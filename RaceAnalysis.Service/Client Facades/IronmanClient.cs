@@ -39,7 +39,7 @@ namespace RaceAnalysis.Rest
             return parameters;
         }
 
-        public static List<Triathlete> ParseData(RequestContext request, string htmlData)
+        public virtual List<Triathlete> ParseData(RequestContext request, string htmlData)
         {
 
             HtmlDocument doc = new HtmlDocument();
@@ -48,7 +48,7 @@ namespace RaceAnalysis.Rest
             var myTable = doc.DocumentNode
                  .Descendants("table")
                  .Where(t => t.Attributes["id"].Value == "eventResults")
-                 .FirstOrDefault();
+                 .LastOrDefault();//changed to Last rather First because of bug in IMBoulder2016 where they show 2 grids, the 2nd one is the correct one
 
             if (myTable == null) //this case is expected when we've iterated through all of the pages of the source
             {
@@ -137,7 +137,7 @@ namespace RaceAnalysis.Rest
 
             return (response.ResponseStatus == ResponseStatus.Completed);
         }
-        private static int ParseInt(string s)
+        protected static int ParseInt(string s)
         {
             int result;
             if (int.TryParse(s, out result))
@@ -145,7 +145,7 @@ namespace RaceAnalysis.Rest
             return 0;
         }
 
-        private static TimeSpan ParseTimeSpan(string s)
+        protected static TimeSpan ParseTimeSpan(string s)
         {
             TimeSpan result;
             if (TimeSpan.TryParse(s, out result))
@@ -153,7 +153,7 @@ namespace RaceAnalysis.Rest
             return result;
         }
 
-        private static String ParseLink(HtmlNode td)
+        protected static String ParseLink(HtmlNode td)
         {
 
             var link = td.Descendants("a").First(x => x.Attributes["class"] != null
@@ -163,7 +163,7 @@ namespace RaceAnalysis.Rest
             //ID = ....href.Split
             return hrefValue;
         }
-        private static String ParseName(HtmlNode td)
+        protected static String ParseName(HtmlNode td)
         {
 
             var link = td.Descendants("a").First(x => x.Attributes["class"] != null
@@ -173,4 +173,7 @@ namespace RaceAnalysis.Rest
 
         }
     }//class
+
+
+   
 }
