@@ -348,8 +348,15 @@ namespace RaceAnalysis.Service
 
             string baseUrl = reqContext.Race.BaseURL;
 
-            var sourceClient = new IronmanClient(_DBContext);
-
+            IronmanClient sourceClient;  //we'll change this to a factory pattern if we have more than these two classes
+            if (reqContext.Race.ApiName.ToLower().Equals("ironmanclientdoubletable"))
+            {
+                sourceClient = new IronmanClientDoubleTable(_DBContext);
+            }
+            else
+            {
+                sourceClient = new IronmanClient(_DBContext);
+            }
             for (int pagenum = 1; pagenum < 100; pagenum++)
             {
                 List<Triathlete> athletesPerPage = new List<Triathlete>();

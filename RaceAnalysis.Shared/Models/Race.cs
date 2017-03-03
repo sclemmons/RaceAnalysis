@@ -47,6 +47,8 @@ namespace RaceAnalysis.Models
         //     [JsonIgnore]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public virtual RaceConditions Conditions { get; set; }
+
+        public string ApiName { get; set; } //at this point, if this is null, we assume it is IronmanClient
     }
 
 

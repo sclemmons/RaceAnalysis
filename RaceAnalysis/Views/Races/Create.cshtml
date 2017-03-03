@@ -52,6 +52,14 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.ApiName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ApiName, null, "Race.ApiName", new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ApiName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
             @Html.LabelFor(model => model.DisplayName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.DisplayName, null, "Race.DisplayName",new { htmlAttributes = new { @class = "form-control" } })

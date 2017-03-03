@@ -45,10 +45,16 @@ namespace RaceAnalysis.Rest
             HtmlDocument doc = new HtmlDocument();
             doc.LoadHtml(htmlData);
 
+
+            var count = doc.DocumentNode
+                 .Descendants("table")
+                 .Where(t => t.Attributes["id"].Value == "eventResults").Count();
+
+
             var myTable = doc.DocumentNode
                  .Descendants("table")
                  .Where(t => t.Attributes["id"].Value == "eventResults")
-                 .LastOrDefault();//changed to Last rather First because of bug in IMBoulder2016 where they show 2 grids, the 2nd one is the correct one
+                 .Last();//changed to Last rather First because of bug in IMBoulder2016 where they show 2 grids, the 2nd one is the correct one
 
             if (myTable == null) //this case is expected when we've iterated through all of the pages of the source
             {
@@ -175,5 +181,70 @@ namespace RaceAnalysis.Rest
     }//class
 
 
-   
+   public class IronmanClientDoubleTable : IronmanClient
+   {
+        public IronmanClientDoubleTable(RaceAnalysisDbContext db) : base(db) { }
+
+
+        public override List<Triathlete> ParseData(RequestContext request, string htmlData)
+        {
+
+            HtmlDocument doc = new HtmlDocument();
+            doc.LoadHtml(htmlData);
+
+
+            var count = doc.DocumentNode
+                 .Descendants("table")
+                 .Where(t => t.Attributes["id"].Value == "eventResults").Count();
+            //we expect 2 tables. when there is only 1 left, that means that we have reached the end of this request context
+
+            var myTable = doc.DocumentNode
+                 .Descendants("table")
+                 .Where(t => t.Attributes["id"].Value == "eventResults")
+                 .Last();//changed to Last rather First because of bug in IMBoulder2016 where they show 2 grids, the 2nd one is the correct one
+
+            if (myTable == null || count < 2) //this case is expected when we've iterated through all of the pages of the source
+            {
+                if (request.SourceCount == 0) //we have retrieved nothing from this source
+                {
+                    request.Status = "Failed to find table in HTML document.";
+                    request.Instruction = RequestInstruction.ForceSource; //force next request rather than go to cache
+                }
+
+                return new List<Triathlete>();
+            }
+
+
+
+            var headers = myTable.Descendants("th");
+
+            var body = myTable.Element("tbody");
+
+            var trs = body.Descendants("tr");
+
+            var data = from tr in trs
+                       let tds = tr.Descendants("TD").ToArray()
+
+                       select new Triathlete
+                       {
+                           RequestContext = request,
+                           RequestContextId = request.RequestContextId,
+                           Name = IronmanClient.ParseName(tds[0]),
+                           Link = IronmanClient.ParseLink(tds[0]),
+                           Country = tds[1].InnerText,
+                           DivRank = ParseInt(tds[2].InnerText),
+                           GenderRank = ParseInt(tds[3].InnerText),
+                           OverallRank = ParseInt(tds[4].InnerText),
+                           Swim = ParseTimeSpan(tds[5].InnerText),
+                           Bike = ParseTimeSpan(tds[6].InnerText),
+                           Run = ParseTimeSpan(tds[7].InnerText),
+                           Finish = ParseTimeSpan(tds[8].InnerText),
+                           Points = ParseInt(tds[9].InnerText)
+
+                       };
+
+            return data.ToList<Triathlete>();
+        }
+
+    }
 }

@@ -187,7 +187,7 @@ namespace RaceAnalysis.Controllers
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
         public ActionResult Create(
-                [Bind(Prefix = "Race", Include = "BaseURL,RaceId,DisplayName,LongDisplayName,RaceDate,ShortName,Distance")]Race race)
+                [Bind(Prefix = "Race", Include = "BaseURL,RaceId,ApiName,DisplayName,LongDisplayName,RaceDate,ShortName,Distance")]Race race)
              
 
         {
@@ -237,7 +237,7 @@ namespace RaceAnalysis.Controllers
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
         public ActionResult Edit(
-                [Bind(Prefix ="Race", Include = "RaceId,ConditionsId,BaseURL,DisplayName,LongDisplayName,RaceDate,ShortName,Distance")]Race race,
+                [Bind(Prefix ="Race", Include = "RaceId,ApiName,ConditionsId,BaseURL,DisplayName,LongDisplayName,RaceDate,ShortName,Distance")]Race race,
                 [Bind(Prefix ="Conditions", Include = "RaceConditionsId,SwimLayout,BikeLayout,RunLayout")]RaceConditions conditions)
         {
             if (ModelState.IsValid)
