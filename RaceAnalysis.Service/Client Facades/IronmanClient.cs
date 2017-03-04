@@ -54,7 +54,7 @@ namespace RaceAnalysis.Rest
             var myTable = doc.DocumentNode
                  .Descendants("table")
                  .Where(t => t.Attributes["id"].Value == "eventResults")
-                 .Last();//changed to Last rather First because of bug in IMBoulder2016 where they show 2 grids, the 2nd one is the correct one
+                 .LastOrDefault();//changed to Last rather First because of bug in IMBoulder2016 where they show 2 grids, the 2nd one is the correct one
 
             if (myTable == null) //this case is expected when we've iterated through all of the pages of the source
             {
@@ -201,7 +201,7 @@ namespace RaceAnalysis.Rest
             var myTable = doc.DocumentNode
                  .Descendants("table")
                  .Where(t => t.Attributes["id"].Value == "eventResults")
-                 .Last();//changed to Last rather First because of bug in IMBoulder2016 where they show 2 grids, the 2nd one is the correct one
+                 .LastOrDefault();//changed to Last rather First because of bug in IMBoulder2016 where they show 2 grids, the 2nd one is the correct one
 
             if (myTable == null || count < 2) //this case is expected when we've iterated through all of the pages of the source
             {

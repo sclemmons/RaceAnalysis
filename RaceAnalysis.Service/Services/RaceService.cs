@@ -349,7 +349,9 @@ namespace RaceAnalysis.Service
             string baseUrl = reqContext.Race.BaseURL;
 
             IronmanClient sourceClient;  //we'll change this to a factory pattern if we have more than these two classes
-            if (reqContext.Race.ApiName.ToLower().Equals("ironmanclientdoubletable"))
+
+            string apiName = reqContext.Race.ApiName == null ? "IronmanClient" : reqContext.Race.ApiName.ToLower();
+            if (apiName.Equals("ironmanclientdoubletable"))
             {
                 sourceClient = new IronmanClientDoubleTable(_DBContext);
             }
