@@ -82,7 +82,7 @@
         });
 
 
-        $('div[name=@bikeSliderName]').slider("option", "min", 3*60);
+        $('div[name=@bikeSliderName]').slider("option", "min", 0*60);
         $('div[name=@bikeSliderName]').slider("option", "max", 10*60);
         $('div[name=@bikeSliderName]').slider("option", "values", [@Model.Filter.BikeLow.TotalMinutes,@Model.Filter.BikeHigh.TotalMinutes]);
         $('span[name=@bikeSliderSlowSpan]').html('@Model.Filter.BikeLow.ToString("hh\\:mm")');

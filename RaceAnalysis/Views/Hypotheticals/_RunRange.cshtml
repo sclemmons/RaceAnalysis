@@ -73,7 +73,7 @@
         });
 
       
-        $('div[name=run-slider]').slider("option", "min", 2*60);
+        $('div[name=run-slider]').slider("option", "min", 0*60);
         $('div[name=run-slider]').slider("option", "max", 8*60);
         $('div[name=run-slider]').slider("option", "values", [@Model.Filter.RunLow.TotalMinutes,@Model.Filter.RunHigh.TotalMinutes]);
         $('span[name=runlowspan]').html('@Model.Filter.RunLow.ToString("hh\\:mm")');

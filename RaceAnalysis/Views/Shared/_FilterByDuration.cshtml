@@ -91,19 +91,19 @@
         $('span[name=swimhighspan]').html('@Model.SwimHigh.ToString("hh\\:mm")' + ' hrs');
 
 
-        $('div[name=bike-slider]').slider("option", "min", 3*60);
+        $('div[name=bike-slider]').slider("option", "min", 0*60);
         $('div[name=bike-slider]').slider("option", "max", 10*60);
         $('div[name=bike-slider]').slider("option", "values", [@Model.BikeLow.TotalMinutes,@Model.BikeHigh.TotalMinutes]);
         $('span[name=bikelowspan]').html('@Model.BikeLow.ToString("hh\\:mm")');
         $('span[name=bikehighspan]').html('@Model.BikeHigh.ToString("hh\\:mm")' + ' hrs');
 
-        $('div[name=run-slider]').slider("option", "min", 2*60);
+        $('div[name=run-slider]').slider("option", "min", 0*60);
         $('div[name=run-slider]').slider("option", "max", 8*60);
         $('div[name=run-slider]').slider("option", "values", [@Model.RunLow.TotalMinutes, @Model.RunHigh.TotalMinutes]);
         $('span[name=runlowspan]').html('@Model.RunLow.ToString("hh\\:mm")');
         $('span[name=runhighspan]').html('@Model.RunHigh.ToString("hh\\:mm")' + ' hrs');
 
-        $('div[name=finish-slider]').slider("option", "min", 7*60);
+        $('div[name=finish-slider]').slider("option", "min", 0*60);
         $('div[name=finish-slider]').slider("option", "max", 17*60);
         $('div[name=finish-slider]').slider("option", "values", [@Model.FinishLow.TotalMinutes, @Model.FinishHigh.TotalMinutes]);
         $('span[name=finishlowspan]').html('@Model.FinishLow.ToString("hh\\:mm")');

@@ -298,7 +298,7 @@ namespace RaceAnalysis.Controllers
 
             await AddQueueMessages(id);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Admin");
         }
 
         private async Task AddQueueMessages(string raceId)
