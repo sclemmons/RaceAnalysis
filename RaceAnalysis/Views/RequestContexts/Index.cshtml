@@ -64,7 +64,7 @@
         </td>
         <td>
 
-            @Html.ActionLink("Retry", "Retry", new { id = item.RequestContextId }) |
+            @Html.ActionLink("Retry", "Retry", new { id = item.RequestContextId }, new { target = "_blank" }) |
             @Html.ActionLink("Edit", "Edit", new { id=item.RequestContextId }) |
             @Html.ActionLink("Details", "Details", new { id=item.RequestContextId }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.RequestContextId })

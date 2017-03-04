@@ -65,8 +65,8 @@ namespace RaceAnalysis.Models
             BikeLow = new TimeSpan(3, 0, 0);
             BikeHigh = new TimeSpan(10, 0, 0);
             RunLow = new TimeSpan(2, 0, 0);
-            RunHigh = new TimeSpan(7, 0, 0);
-            FinishLow = new TimeSpan(8, 0, 0);
+            RunHigh = new TimeSpan(8, 0, 0);
+            FinishLow = new TimeSpan(7, 0, 0);
             FinishHigh = new TimeSpan(17, 0, 0);
 
             if (SelectedAthleteIds == null)

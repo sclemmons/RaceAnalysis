@@ -226,8 +226,12 @@ namespace RaceAnalysis.Service
 
         private RequestContext GetRequestContext(string raceId, int agegroupId, int genderId)
         {
+            //test
+     
             RequestContext req = _DBContext.RequestContext.SingleOrDefault(i => i.RaceId == raceId &&
                                 i.AgeGroupId == agegroupId && i.GenderId == genderId);
+
+            _DBContext.Entry(req).Reload();//force reloading from database so next call will pick up the change
 
             return req;  //NOTE: THIS will return null if context not found
         }
@@ -345,6 +349,7 @@ namespace RaceAnalysis.Service
         private List<Triathlete> GetAthletesFromSource(RequestContext reqContext)
         {
             List<Triathlete> athletesFromSource = new List<Triathlete>();
+            reqContext.SourceCount = 0;
 
             string baseUrl = reqContext.Race.BaseURL;
 
@@ -389,6 +394,7 @@ namespace RaceAnalysis.Service
             //changed to accumulate   reqContext.SourceCount = athletesFromSource.Count;
 
             SaveRequestContext(reqContext);
+            DeleteAthletes(reqContext);
             SaveAthletes(athletesFromSource);
 
 
@@ -396,10 +402,11 @@ namespace RaceAnalysis.Service
             return athletesFromSource;
         }
 
-        private void DeleteAthletes(int reqContextId)
+        private void DeleteAthletes(RequestContext reqContext)
         {
-            var range = _DBContext.Triathletes.Where(x => x.RequestContextId == reqContextId);
+            var range = _DBContext.Triathletes.Where(x => x.RequestContextId == reqContext.RequestContextId);
             var removed = _DBContext.Triathletes.RemoveRange(range);
+            var test = removed.Count();
             _DBContext.SaveChanges();
 
         }
