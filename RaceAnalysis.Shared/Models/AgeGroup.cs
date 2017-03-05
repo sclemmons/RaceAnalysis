@@ -27,11 +27,12 @@ namespace RaceAnalysis.Models
                 using (var db = new RaceAnalysisDbContext())
                 {
                     /*note: a little kludgy and not the way I started coding it, but got errors try to include Pro in the Except List. */
-                    var pro = db.AgeGroups.Where(a => a.Value.ToLower() == "pro");
-                    var allExceptPro = db.AgeGroups.Except(pro).Select(a => a.AgeGroupId);
-                    var list = allExceptPro.ToList();
-                    if (selectedAgeGroupIds.Contains(pro.First().AgeGroupId))
-                        list.Insert(0,pro.First().AgeGroupId);
+                    //       var pro = db.AgeGroups.Where(a => a.Value.ToLower() == "pro");
+                    //       var allExceptPro = db.AgeGroups.Except(pro).Select(a => a.AgeGroupId);
+                    //       var list = allExceptPro.ToList();
+                    //       if (selectedAgeGroupIds.Contains(pro.First().AgeGroupId))
+                    //           list.Insert(0,pro.First().AgeGroupId);
+                    var list = db.AgeGroups.Select(a => a.AgeGroupId).ToList();
 
                     return list;
                 }

@@ -16,19 +16,19 @@ body {
 body.analysis{
     background-image:none;
     background-color:whitesmoke;
-     background-image: url(../Content/images/imagelayer.png);
+     background-image: url(../Content/images/shutterstock_448957918.jpg);
     background-repeat:no-repeat;
     background-size:cover;
 }
 body.fullpage{
     background-image:none;
     background-color:whitesmoke;
-    background-image: url(../Content/images/imagelayeryellow.png);
+    background-image: url(../Content/images/fullpage.png);
     background-repeat:no-repeat;
     background-size:cover;
 }
 body.homepage{
-    background-image: url(../Content/images/shutterstock2.jpg);
+    background-image: url(../Content/images/shutterstock_448957918.jpg);
     background-size:cover;
     background-repeat:no-repeat;
     
