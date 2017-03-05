@@ -230,9 +230,10 @@ namespace RaceAnalysis.Service
      
             RequestContext req = _DBContext.RequestContext.SingleOrDefault(i => i.RaceId == raceId &&
                                 i.AgeGroupId == agegroupId && i.GenderId == genderId);
-
-            _DBContext.Entry(req).Reload();//force reloading from database so next call will pick up the change
-
+            if (req != null)
+            {
+                _DBContext.Entry(req).Reload();//force reloading from database so next call will pick up the change
+            }
             return req;  //NOTE: THIS will return null if context not found
         }
         private List<Triathlete> GetAthletesFromStorage(RequestContext req)
