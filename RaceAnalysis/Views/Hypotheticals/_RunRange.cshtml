@@ -3,6 +3,8 @@
 @{
     var action = "Display" + Model.SelectedSplit;
     var updateDiv = Model.SelectedSplit + "Div";
+    var loadingDiv = "loading-area-" + updateDiv;
+
 }
 
 
@@ -23,6 +25,8 @@
                         null,
                         new AjaxOptions
                         {
+                            LoadingElementId = loadingDiv,
+                            LoadingElementDuration = 500,
                             UpdateTargetId = @updateDiv,
                             InsertionMode = InsertionMode.Replace,
                             HttpMethod = "GET",

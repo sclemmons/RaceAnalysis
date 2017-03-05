@@ -51,12 +51,18 @@
                         null,
                         new AjaxOptions
                         {
+                            LoadingElementId = "loading-area-ExpectedFinishTime",
+                            LoadingElementDuration = 500,
                             UpdateTargetId = "ExpectedFinishTimeResults",
                             InsertionMode = InsertionMode.Replace,
                             HttpMethod = "GET",
                             OnBegin = "beginPost"
                         },
                         htmlAttributes: new { id = "ExpectedFinishTime" })
+
+    </div>
+    <div id="loading-area-ExpectedFinishTime" class="load" style="display:none;">
+        <div class='alert alert-info'><strong>Calculating...</strong></div>
     </div>
 
     <div id="ExpectedFinishTimeResults"></div>
@@ -67,12 +73,18 @@
                         null,
                         new AjaxOptions
                         {
+                            LoadingElementId = "loading-area-ExpectedSwimTime",
+                            LoadingElementDuration = 500,
                             UpdateTargetId = "ExpectedSwimTimeResults",
                             InsertionMode = InsertionMode.Replace,
                             HttpMethod = "GET",
                             OnBegin = "beginPost"
                         },
                         htmlAttributes: new { id = "ExpectedSwimTime" })
+    </div>
+
+    <div id="loading-area-ExpectedSwimTime" class="load" style="display:none;">
+        <div class='alert alert-info'><strong>Calculating...</strong></div>
     </div>
 
     <div id="ExpectedSwimTimeResults"></div>
@@ -83,12 +95,18 @@
                         null,
                         new AjaxOptions
                         {
+                            LoadingElementId = "loading-area-ExpectedBikeTime",
+                            LoadingElementDuration = 500,
                             UpdateTargetId = "ExpectedBikeTimeResults",
                             InsertionMode = InsertionMode.Replace,
                             HttpMethod = "GET",
                             OnBegin = "beginPost"
                         },
                         htmlAttributes: new { id = "ExpectedBikeTime" })
+    </div>
+
+    <div id="loading-area-ExpectedBikeTime" class="load" style="display:none;">
+        <div class='alert alert-info'><strong>Calculating...</strong></div>
     </div>
 
     <div id="ExpectedBikeTimeResults"></div>
@@ -99,12 +117,18 @@
                         null,
                         new AjaxOptions
                         {
+                            LoadingElementId = "loading-area-ExpectedRunTime",
+                            LoadingElementDuration = 500,
                             UpdateTargetId = "ExpectedRunTimeResults",
                             InsertionMode = InsertionMode.Replace,
                             HttpMethod = "GET",
                             OnBegin = "beginPost"
                         },
                         htmlAttributes: new { id = "ExpectedRunTime" })
+    </div>
+
+    <div id="loading-area-ExpectedRunTime" class="load" style="display:none;">
+        <div class='alert alert-info'><strong>Calculating...</strong></div>
     </div>
 
     <div id="ExpectedRunTimeResults"></div>
@@ -115,6 +139,8 @@
                         null,
                         new AjaxOptions
                         {
+                            LoadingElementId = "loading-area-BikeRunDiv",
+                            LoadingElementDuration = 500,
                             UpdateTargetId = "BikeRunDiv",
                             InsertionMode = InsertionMode.Replace,
                             HttpMethod = "GET",
@@ -123,6 +149,10 @@
                         htmlAttributes: new { id = "BikeRangeRunLink" })
 
     </div>
+    <div id="loading-area-ExpectedBikeRunDiv" class="load" style="display:none;">
+        <div class='alert alert-info'><strong>Calculating...</strong></div>
+    </div>
+
     <div id="BikeRunDiv"></div>
        
         <div class="hypothetical">
@@ -131,6 +161,8 @@
                         null,
                         new AjaxOptions
                         {
+                            LoadingElementId = "loading-area-BikeFinishDiv",
+                            LoadingElementDuration = 500,
                             UpdateTargetId = "BikeFinishDiv",
                             InsertionMode = InsertionMode.Replace,
                             HttpMethod = "GET",
@@ -140,6 +172,10 @@
 
 
         </div>
+        <div id="loading-area-BikeFinishDiv" class="load" style="display:none;">
+            <div class='alert alert-info'><strong>Loading...</strong></div>
+        </div>
+
         <div id="BikeFinishDiv">
 
         </div>
@@ -150,6 +186,8 @@
                         null,
                         new AjaxOptions
                         {
+                            LoadingElementId = "loading-area-RunFinishDiv",
+                            LoadingElementDuration = 500,
                             UpdateTargetId = "RunFinishDiv",
                             InsertionMode = InsertionMode.Replace,
                             HttpMethod = "GET",
@@ -158,6 +196,10 @@
                         htmlAttributes: new { id = "RunRangeLink" })
 
         </div>
+        <div id="loading-area-RunFinishDiv" class="load" style="display:none;">
+            <div class='alert alert-info'><strong>Loading...</strong></div>
+        </div>
+
         <div id="RunFinishDiv">
 
         </div>
