@@ -12,15 +12,17 @@
 
 }
 .navbar-inverse .navbar-brand {
- color:silver;
- color:black;/*depends on the color we wind up with*/
-   background-image: url(../Content/images/tristats-piechart.png);
-   background-repeat:no-repeat;
-   background-position:top;
-   height:70px;
-   width:70px;
+ 
   text-indent: -9999px; /* hides the link text */
    
+}
+.navbar-inverse .navbar-brand{
+    background: url(../Content/images/TriStats-Logo.png) no-repeat;
+    background-size: 75%;
+    height:70px;
+    width:281px;
+    
+  
 }
 
 .navbar-header

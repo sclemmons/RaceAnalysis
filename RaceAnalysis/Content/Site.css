@@ -513,7 +513,7 @@ div#chart-key{
 ******************************************************************************/
 div.criteria,div.email-form {
      width:50%;
-    margin: 0 auto; /*center inside the outter div*/ 
+    margin: 10px auto; /*center inside the outter div*/ 
     padding:5px;
     background-color:white;
     border-width:1px;
