@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 using RaceAnalysis.Service.Interfaces;
 using System;
 using Microsoft.AspNet.Identity;
+using System.Text;
 
 namespace RaceAnalysis.Controllers
 {
@@ -44,20 +45,39 @@ namespace RaceAnalysis.Controllers
 
         public ActionResult SearchRaces(FormCollection form)
         {
-
+            var searchString = new StringBuilder();
             if (!String.IsNullOrEmpty(form["SelectedSwimTags"]))
             {
-                return SearchBySwimCondition(form["SelectedSwimTags"]);
+                searchString.Append(form["SelectedSwimTags"]);
             }
-            else if (!String.IsNullOrEmpty(form["SelectedBikeTags"]))
+
+            if (!String.IsNullOrEmpty(form["SelectedBikeTags"]))
             {
-                return SearchByBikeCondition(form["SelectedBikeTags"]);
+                if(searchString.Length > 0)
+                    searchString.AppendFormat(", {0}", (form["SelectedBikeTags"]));
+                else
+                    searchString.Append(form["SelectedBikeTags"]);
             }
-            else if (!String.IsNullOrEmpty(form["SelectedRunTags"]))
+
+            if (!String.IsNullOrEmpty(form["SelectedRunTags"]))
             {
-                return SearchByRunCondition(form["SelectedRunTags"]);
+                if (searchString.Length > 0)
+                    searchString.AppendFormat(", {0}", (form["SelectedRunTags"]));
+                else
+                    searchString.Append(form["SelectedRunTags"]);
             }
-            return HttpNotFound();
+
+            if(String.IsNullOrEmpty(searchString.ToString()))
+                return HttpNotFound();
+
+
+            var tagIds = searchString.ToString().Split(',').Select(int.Parse).ToList();
+            var races = _RaceService.GetRacesByTagId(tagIds);
+
+            return PartialView("_SearchResults", races);
+
+
+            
 
         }
         public PartialViewResult ShowRaceRequest()
