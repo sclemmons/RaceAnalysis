@@ -22,7 +22,7 @@
     <span class="title">If I competed in this race:</span>
         @Html.ValidationMessageFor(m => SelectedRaceId,"Please select a race.")
         @Html.DropDownListFor(m => SelectedRaceId,
-                    new SelectList(Model.Filter.AvailableRaces, "RaceId", "DisplayName"),"Select Race...",
+                    new SelectList(Model.Filter.AvailableRaces, "RaceId", "LongDisplayName"),"Select Race...",
                     new { @id = "raceSelectId", @class = "selection" })
 
     
