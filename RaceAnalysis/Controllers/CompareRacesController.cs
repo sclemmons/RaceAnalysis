@@ -19,7 +19,7 @@ namespace RaceAnalysis.Controllers
             viewmodel.Filter = new RaceFilterViewModel();
             return View(viewmodel);
         }
-
+        
       
         protected override ActionResult DisplayResultsView(RaceFilterViewModel filter)
         {

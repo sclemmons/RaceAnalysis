@@ -48,6 +48,10 @@ namespace RaceAnalysis.Models
                 //if I like this choice but going with it for now. Other option is to populate the stats using
                 //available races from the dbContext. 
                 AvailableRaces = db.Races.Include("Conditions").ToList();
+                foreach(var r in AvailableRaces)
+                {
+                    r.RaceId = r.RaceId.ToUpper(); //this way we only do it here and not everywhere in the code 
+                }
                 AvailableAgeGroups = GetAvailableAgeGroups(db);
                 AvailableGenders = db.Genders.ToList();
             }
@@ -132,7 +136,8 @@ namespace RaceAnalysis.Models
         {
 
             PopulateRaceFilter();
-            SelectedRaceIds = filter.selectedRaceIds;
+            SelectedRaceIds = filter.selectedRaceIds.Select(s => s.ToUpper()).ToList();
+
             SelectedAgeGroupIds = filter.selectedAgeGroupIds == null ? new int[] { 0 } : filter.selectedAgeGroupIds;
             SelectedGenderIds = filter.selectedGenderIds == null ? new int[] { 0 } : filter.selectedGenderIds;
         }

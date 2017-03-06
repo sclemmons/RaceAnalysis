@@ -11,7 +11,7 @@ namespace RaceAnalysis.Helpers
     {
         public static string ZeroIfEmpty(this string s)
         {
-            return string.IsNullOrEmpty(s) ? "0" : s;
+            return string.IsNullOrEmpty(s) ? "0" : s.ToUpper();
         }
 
 

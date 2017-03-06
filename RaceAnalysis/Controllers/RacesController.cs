@@ -192,6 +192,7 @@ namespace RaceAnalysis.Controllers
 
         {
             race.Conditions = new RaceConditions();
+            race.RaceId = race.RaceId.ToUpper();
 
             if (ModelState.IsValid)
             {
