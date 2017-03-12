@@ -3,6 +3,6 @@
 delete Triathletes 
 where RequestContextId in
 (select RequestContextId from RequestContexts 
-where raceid='imchoo2016')
+where raceid='imswitz2016')
 
-delete RequestContexts where raceId = 'imchoo2016'
+delete RequestContexts where raceId = 'imswitz2016'

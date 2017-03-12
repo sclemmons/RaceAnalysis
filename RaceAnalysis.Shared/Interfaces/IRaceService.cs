@@ -10,6 +10,8 @@ namespace RaceAnalysis.Service.Interfaces
         List<Triathlete> GetAthletes(IRaceCriteria criteria);
         List<Triathlete> GetAthletes(IRaceCriteria criteria, IDurationFilter filter);
         List<Triathlete> GetAthletesFromStorage(IRaceCriteria criteria); //for testing purposes
+        List<Triathlete> GetAthletesFromSource(IRaceCriteria criteria); //for testing purposes
+
         List<Race> GetRacesBySwimCondition(string conditions);
         List<Race> GetRacesByBikeCondition(string conditions);
         List<Race> GetRacesByRunCondition(string conditions);

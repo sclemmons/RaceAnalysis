@@ -109,6 +109,36 @@ namespace RaceAnalysis.Controllers
 
             return View("~/Views/TriStats/Details.cshtml", viewModel);
         }
-      
+
+
+
+        public ActionResult DisplayResultsViewFromSource() //for admin purposes 
+        {
+            var ctx = TempData["requestContext"] as RequestContext;
+
+            var viewModel = new TriStatsViewModel();
+            viewModel.Filter = new RaceFilterViewModel();
+            viewModel.Filter.SelectedRaceIds = new List<string>() { ctx.RaceId };
+            viewModel.Filter.SelectedAgeGroupIds = new List<int>() { ctx.AgeGroupId };
+            viewModel.Filter.SelectedGenderIds = new List<int>() { ctx.GenderId };
+            
+
+            var athletes = _RaceService.GetAthletesFromSource(
+                    new BasicRaceCriteria
+                    {
+                        SelectedRaceIds = viewModel.Filter.SelectedRaceIds,
+                        SelectedAgeGroupIds = viewModel.Filter.SelectedAgeGroupIds,
+                        SelectedGenderIds = viewModel.Filter.SelectedGenderIds
+                    }
+                       
+              );
+            var stats = GetStats(athletes, _DBContext.Races.Include("Conditions").Single(r => r.RaceId == ctx.RaceId));
+            viewModel.Stats.Add(stats);
+            
+
+            return View("~/Views/TriStats/Details.cshtml", viewModel);
+        }
+
+
     }
 }

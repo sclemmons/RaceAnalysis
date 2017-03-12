@@ -19,7 +19,6 @@ namespace RaceAnalysisAPI.Controllers
 {
     public class RacesController : ApiController
     {
-        private RaceAnalysisDbContext db = new RaceAnalysisDbContext();
         internal static Action<Exception> OnException { get; set; }
         protected IRaceService _RaceService;
 
@@ -35,7 +34,7 @@ namespace RaceAnalysisAPI.Controllers
         // GET: api/Races
         public IQueryable<RaceDto> GetRaces()
         {
-            var races = db.Races.Include("Race").UseAsDataSource(Mapper.Instance)
+            var races = _DBContext.Races.Include("Race").UseAsDataSource(Mapper.Instance)
                 .For<RaceDto>()
                 .OrderBy(r => r.NewDisplayName);
 
@@ -48,7 +47,7 @@ namespace RaceAnalysisAPI.Controllers
         [ResponseType(typeof(Race))]
         public async Task<IHttpActionResult> GetRace(string id)
         {
-            Race race = await db.Races.FindAsync(id);
+            Race race = await _DBContext.Races.FindAsync(id);
             if (String.IsNullOrEmpty(id))
             {
                 return NotFound();
@@ -71,11 +70,11 @@ namespace RaceAnalysisAPI.Controllers
                 return BadRequest();
             }
 
-            db.Entry(race).State = EntityState.Modified;
+            _DBContext.Entry(race).State = EntityState.Modified;
 
             try
             {
-                await db.SaveChangesAsync();
+                await _DBContext.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -101,8 +100,8 @@ namespace RaceAnalysisAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.Races.Add(race);
-            await db.SaveChangesAsync();
+            _DBContext.Races.Add(race);
+            await _DBContext.SaveChangesAsync();
 
             return CreatedAtRoute("DefaultApi", new { id = race.RaceId }, race);
         }
@@ -111,14 +110,14 @@ namespace RaceAnalysisAPI.Controllers
         [ResponseType(typeof(Race))]
         public async Task<IHttpActionResult> DeleteRace(string id)
         {
-            Race race = await db.Races.FindAsync(id);
+            Race race = await _DBContext.Races.FindAsync(id);
             if (race == null)
             {
                 return NotFound();
             }
 
-            db.Races.Remove(race);
-            await db.SaveChangesAsync();
+            _DBContext.Races.Remove(race);
+            await _DBContext.SaveChangesAsync();
 
             return Ok(race);
         }
@@ -127,14 +126,14 @@ namespace RaceAnalysisAPI.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _DBContext.Dispose();
             }
             base.Dispose(disposing);
         }
 
         private bool RaceExists(string id)
         {
-            return db.Races.Count(e => e.RaceId == id) > 0;
+            return _DBContext.Races.Count(e => e.RaceId == id) > 0;
         }
     }
 }

@@ -121,6 +121,42 @@ namespace RaceAnalysis.Service
             return allAthletes.OrderBy(t => t.Finish).ToList();
 
         }
+        public List<Triathlete> GetAthletesFromSource(IRaceCriteria criteria)
+        {
+            List<Triathlete> allAthletes = new List<Triathlete>();
+
+            //create a requestContext for each combination. 
+            foreach (string raceId in criteria.SelectedRaceIds)
+            {
+                foreach (int ageId in criteria.SelectedAgeGroupIds)
+                {
+                    foreach (int genderId in criteria.SelectedGenderIds)
+                    {
+                        RequestContext reqContext = GetRequestContext(raceId, ageId, genderId);
+                        List<Triathlete> athletesInReqContext = new List<Triathlete>();
+                        if (reqContext == null)
+                        {
+                            //don't do anything. We have not stored these athletes
+
+                        }
+                        else
+                        {
+                            athletesInReqContext = GetAthletesFromSource(reqContext);
+                        }
+
+                        if (athletesInReqContext.Count > 0)
+                        {
+                            allAthletes.AddRange(athletesInReqContext);
+                        }
+                    }
+
+                }
+            }
+
+            return allAthletes.OrderBy(t => t.Finish).ToList();
+
+        }
+
 
 
         /***********************************************************
@@ -230,10 +266,10 @@ namespace RaceAnalysis.Service
      
             RequestContext req = _DBContext.RequestContext.SingleOrDefault(i => i.RaceId == raceId &&
                                 i.AgeGroupId == agegroupId && i.GenderId == genderId);
-            if (req != null)
-            {
-                _DBContext.Entry(req).Reload();//force reloading from database so next call will pick up the change
-            }
+           // if (req != null)
+           // {
+           //     _DBContext.Entry(req).Reload();//force reloading from database so next call will pick up the change
+           // }
             return req;  //NOTE: THIS will return null if context not found
         }
         private List<Triathlete> GetAthletesFromStorage(RequestContext req)
@@ -248,7 +284,7 @@ namespace RaceAnalysis.Service
 
             return athletesInKeyContext;
         }
-
+      
 
 
         private List<Triathlete> GetAthletesFromCacheDyanamic(RequestContext reqContext)
@@ -345,8 +381,7 @@ namespace RaceAnalysis.Service
 
             return filteredCollection;
         }
-
-
+       
         private List<Triathlete> GetAthletesFromSource(RequestContext reqContext)
         {
             List<Triathlete> athletesFromSource = new List<Triathlete>();
