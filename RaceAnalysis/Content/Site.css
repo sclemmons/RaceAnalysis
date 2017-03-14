@@ -338,6 +338,16 @@ div.SumoSelect{
 	 box-shadow: 0 8px 6px -6px black;
 }
 
+#page-actions
+{
+ border-bottom-left-radius:unset;
+ border-bottom-right-radius:unset;   
+}
+#results
+{
+    border-top-left-radius:unset;
+    border-top-right-radius:unset;
+}
 #page-header
 {
     text-align:center;
@@ -772,7 +782,7 @@ div.clearFloat::after {
     background-color: #fff;
     border: 1px solid #ddd;
     border-bottom-color: transparent;
-    background-color:whitesmoke;
+    background-color:#bef1f5;
 }
 
 
