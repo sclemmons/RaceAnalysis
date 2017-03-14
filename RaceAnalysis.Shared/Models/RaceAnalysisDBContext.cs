@@ -10,9 +10,9 @@ using Microsoft.AspNet.Identity.Owin;
 
 namespace RaceAnalysis.Models
 {
+    [DbConfigurationType(typeof(RaceAnalysis.Shared.DAL.RaceAnalysisConfiguration))]
     public class RaceAnalysisDbContext : IdentityDbContext<ApplicationUser>
     {
-
         public RaceAnalysisDbContext() : base("name=RaceAnalysis", throwIfV1Schema: false)//connection string      
         {
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<RaceAnalysisDbContext,

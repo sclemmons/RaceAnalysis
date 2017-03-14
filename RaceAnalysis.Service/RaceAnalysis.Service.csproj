@@ -34,6 +34,10 @@
       <HintPath>..\packages\Castle.DynamicLinqQueryBuilder.1.0.5\lib\Castle.DynamicLinqQueryBuilder.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="EFCache, Version=1.0.0.0, Culture=neutral, PublicKeyToken=46c4868af4307d2c, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.Cache.1.0.0\lib\net45\EFCache.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Elasticsearch.Net, Version=2.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
       <HintPath>..\packages\Elasticsearch.Net.2.4.6\lib\net46\Elasticsearch.Net.dll</HintPath>
       <Private>True</Private>

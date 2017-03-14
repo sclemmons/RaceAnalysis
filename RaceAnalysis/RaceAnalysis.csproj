@@ -78,6 +78,10 @@
       <HintPath>..\packages\Castle.DynamicLinqQueryBuilder.1.0.5\lib\Castle.DynamicLinqQueryBuilder.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="EFCache, Version=1.0.0.0, Culture=neutral, PublicKeyToken=46c4868af4307d2c, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.Cache.1.0.0\lib\net45\EFCache.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Elmah, Version=1.2.14706.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
       <Private>True</Private>
