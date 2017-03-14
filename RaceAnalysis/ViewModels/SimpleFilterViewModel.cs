@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RaceAnalysis.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -63,7 +64,7 @@ namespace RaceAnalysis.Models
     /// <summary>
     /// SimpleFilterViewModel - all properties are strings so it can be used with an HTTP GET
     /// </summary>
-    public class SimpleFilterViewModel : ISimpleRaceFilter,ISimpleDurationFilter
+    public class SimpleFilterViewModel : ISimpleRaceFilter, ISimpleDurationFilter
     {
         public string Races { get; set; }
         public string AgeGroups { get; set; }
@@ -83,7 +84,7 @@ namespace RaceAnalysis.Models
 
         public string selectedAthletes { get; set; }
 
-        public string skilllevel { get; set;}
+        public string skilllevel { get; set; }
 
 
         public void ClearDuration()
@@ -97,7 +98,34 @@ namespace RaceAnalysis.Models
             runlowtimevalue = null;
             runhightimevalue = null;
         }
+
+        
+        public static SimpleFilterViewModel Create(FilterViewModel filterView)
+        {
+            var simple = new SimpleFilterViewModel();
+
+            simple.Races = filterView.selectedRaceIds.JoinIfNotNull();
+            simple.AgeGroups = filterView.selectedAgeGroupIds.JoinIfNotNull();
+            simple.Genders = filterView.selectedGenderIds.JoinIfNotNull();
+
+            simple.swimlowtimevalue = filterView.swimlowtimevalue;
+            simple.swimhightimevalue = filterView.swimhightimevalue;
+
+            simple.bikelowtimevalue = filterView.bikelowtimevalue;
+            simple.bikehightimevalue = filterView.bikehightimevalue;
+
+            simple.runlowtimevalue = filterView.bikelowtimevalue;
+            simple.runhightimevalue = filterView.bikelowtimevalue;
+
+            simple.finishlowtimevalue = filterView.bikelowtimevalue;
+            simple.finishhightimevalue = filterView.bikehightimevalue;
+
+            simple.selectedAthletes = null; //no conversion;
+
+            simple.skilllevel = null; //no conversion
+
+            return simple;
     }
 
-
+}
 }

@@ -29,13 +29,14 @@ namespace RaceAnalysis.Controllers
         //this method redirects depending on the values passed in
         ******************************************************/
         [HttpPost]
-        public ActionResult DisplayStats(FilterViewModel queryModel)
+        public ActionResult DisplayStats(FilterViewModel filterModel)
         {
-            TempData["queryModel"] = queryModel;
-            if (queryModel.selectedRaceIds.Count() > 1)
-                return RedirectToAction("ViewResults", "CompareRaces");
+            var simpleModel = SimpleFilterViewModel.Create(filterModel);
+
+            if (filterModel.selectedRaceIds.Count() > 1)
+                return RedirectToAction("ViewResults", "CompareRaces",simpleModel);
             else
-                return RedirectToAction("ViewResults", "TriStatsSummary");
+                return RedirectToAction("ViewResults", "TriStatsSummary",simpleModel);
 
         }
 

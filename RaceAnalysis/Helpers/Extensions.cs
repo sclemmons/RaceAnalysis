@@ -14,6 +14,20 @@ namespace RaceAnalysis.Helpers
             return string.IsNullOrEmpty(s) ? "0" : s.ToUpper();
         }
 
+        public static string JoinIfNotNull(this int[] i)
+        {
+            if (i != null)
+                return String.Join(",", i);
+            else
+                return null;
+        }
+        public static string JoinIfNotNull(this string[] s)
+        {
+            if (s != null)
+                return String.Join(",", s);
+            else
+                return null;
+        }
 
         public static string MaxIfEmpty(this string s)
         {

@@ -41,11 +41,10 @@ namespace RaceAnalysis.Controllers
         }
 
         //called from one controller to another, data stored in the TempData
-        public ActionResult ViewResults()
+        public ActionResult ViewResults(SimpleFilterViewModel model)
         {
-            var queryModel = TempData["queryModel"] as FilterViewModel;
             var filter = new RaceFilterViewModel();
-            filter.SaveRaceFilterValues(queryModel);
+            filter.SaveRaceFilterValues(model);
             return DisplayResultsView(filter);
 
         }
