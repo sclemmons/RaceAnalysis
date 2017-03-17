@@ -28,9 +28,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaceAnalysis.Service", "RaceAnalysis.Service\RaceAnalysis.Service.csproj", "{45F8C32C-81D3-45E7-A298-C6767BCA7EA0}"
 EndProject
 Global
-	GlobalSection(Performance) = preSolution
-		HasPerformanceSessions = true
-	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		SharedQueueMessages\SharedQueueMessages.projitems*{90d32306-80fb-43d9-9179-9942ffc10577}*SharedItemsImports = 4
 		SharedQueueMessages\SharedQueueMessages.projitems*{bdaef501-e198-4214-b883-26b1669a604e}*SharedItemsImports = 13

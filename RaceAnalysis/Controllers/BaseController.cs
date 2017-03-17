@@ -30,17 +30,18 @@ namespace RaceAnalysis.Controllers
 
       
 
-        //called from the racefilter, using the POST verb
-        [HttpPost]
-        public ActionResult ViewResults(FilterViewModel queryModel)
+        //called from the racefilter
+        [HttpGet]
+        public ActionResult Filter(FilterViewModel queryModel)
         {
+       
             var filter = new RaceFilterViewModel();
             filter.SaveRaceFilterValues(queryModel);
             return DisplayResultsView(filter);
 
         }
 
-        //called from one controller to another, data stored in the TempData
+        //called from one controller to another
         public ActionResult ViewResults(SimpleFilterViewModel model)
         {
             var filter = new RaceFilterViewModel();
