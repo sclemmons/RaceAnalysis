@@ -69,14 +69,17 @@ $("#filter-show-btn").click(function() {
 function displayFilter()
 {
     $('#filter-show-btn').hide();
-  //  $('#filter').fadeIn("slow");
     $('#analysis-container').removeClass('col-sm-12');
     $('#analysis-container').addClass('col-sm-9');
 
     $('#filter').removeClass('hide');
-   // $('#filter-container').addClass('col-sm-3');
-    $('#filter').fadeIn("slow");
+    $('#filter-container').removeClass('col-sm-2');
+    $('#filter-container').addClass('col-sm-3');
+   
+    $('#page-header').removeClass('col-sm-10');
+    $('#page-header').addClass('col-sm-9');
 
+   
 }
 
 </script>
