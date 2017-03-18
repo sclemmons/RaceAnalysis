@@ -9,14 +9,14 @@
 
 <div class="container-analysis">
     <div class="row">
-        <div id="filter-container" class="col-sm-3">
+        <div id="filter-container" class="col-sm-2">
             <div class="hide" id="filter">
                     @Html.Partial("~/Views/Shared/_VertRaceFilter.cshtml", Model.Filter)
                     @RenderSection("filter", required: false)
             </div>
             <button type="button" class="btn btn-default" id="filter-show-btn"><i class="fa fa-chevron-down"> Filter  </i><i class="fa fa-chevron-down"></i></button>
         </div>
-            <div class="col-sm-9" id="page-header">
+            <div class="col-sm-10" id="page-header">
                 <h3>@ViewBag.Title</h3>
                 @RenderSection("Page_Header", required: false)
                 <!--   <div class="help-tip"> -->

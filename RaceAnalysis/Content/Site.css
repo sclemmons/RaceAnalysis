@@ -358,7 +358,7 @@ div.SumoSelect{
     border-top-left-radius:unset;
     border-top-right-radius:unset;
 }
-#page-header.col-sm-9
+#page-header
 {
     text-align:center;
    
@@ -765,6 +765,7 @@ div.modal-content
 .chart-container
 {
     display:inline-block;
+    width:800px;
     
 }
 .quartile-chart{
