@@ -132,7 +132,10 @@ td a{
 {
   margin:15px;
 }
-
+#filter-container.col-sm-3
+{
+    padding:0;
+}
 /***************************************************************
                                 Home page
     *************************************************************/
@@ -355,10 +358,15 @@ div.SumoSelect{
     border-top-left-radius:unset;
     border-top-right-radius:unset;
 }
-#page-header
+#page-header.col-sm-9
 {
     text-align:center;
- 
+   
+    margin-right:0px;
+}
+#analysis-container.col-sm-12
+{
+    padding-right:0px;
 }
 
 #results,#page-actions
@@ -375,6 +383,7 @@ div.SumoSelect{
 #results{
     border-top:none;
     margin-top:0px;
+    padding:10px;
     
 }
 
