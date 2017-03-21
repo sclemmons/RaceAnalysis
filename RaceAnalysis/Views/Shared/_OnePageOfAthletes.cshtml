@@ -104,9 +104,8 @@
                         @athlete.Race.DisplayName
                     </td>
                     <td>
-                        @Html.Raw(String.Format("<a href='{0}/{1}' target='_blank'>{2}</a>", athlete.Race.BaseURL, athlete.Link, athlete.Name))
-
-
+                         
+                        @Html.ActionLink(@athlete.Name, "Search","athletes", new {athlete.Name },null)
                     </td>
                     <td>
                         @athlete.Country

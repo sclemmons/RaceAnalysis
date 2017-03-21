@@ -1,4 +1,5 @@
-﻿@{
+﻿@model RaceAnalysis.Models.TriathletesViewModel
+@{
     Layout = "~/Views/Layouts/_FullPageLayout.cshtml";
     ViewBag.Title = "Search";
 
@@ -27,28 +28,40 @@
 <div class="collapsible" id="search-form-section"><span></span> <a href="#">Search Again</a></div>
 <div class="container">
     <div class="content">
+        @if (Model.Triathletes.Count() == 0)
+        {
+
         <!-- The form-area contains the contact form that will be submitted via AJAX-->
         <div class="email-form">
             @using (Ajax.BeginForm(ajaxOptions))
             {
                 @Html.AntiForgeryToken()
 
-                <div class="form-group">
-                    <span>Search for athletes by name:</span>
-                    @Html.TextBox("SearchByName", null, new { @class = "form-control" })
-                </div>
-               
-               <div class="form-group">
-                </div>
-                <button type="submit" id="submitButton" class="btn btn-primary">Search</button>
+                   <div class="form-group">
+
+                        <span>Search for athletes by name:</span>
+                        @Html.TextBox("SearchByName", null, new { @class = "form-control" })
+                   </div>
+
+
+                    <button type="submit" id="submitButton" class="btn btn-primary">Search</button>
             }
-        </div>
+            
+     
+           </div>
+        }
     </div> <!--content-->
 </div><!--container-->
 
 <!-- The message-area will be where we display a message after the AJAX call
     about whether or not the contact form was successfully sent-->
-<div id="results-area"></div>
+<div id="results-area">
+@if (Model.Triathletes.Any())
+{
+    @Html.Partial("_SearchResults", Model);
+}
+
+</div>
 
 
 

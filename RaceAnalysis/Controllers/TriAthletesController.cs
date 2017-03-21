@@ -49,20 +49,32 @@ namespace RaceAnalysis.Controllers
             return View("~/Views/Triathletes/Compare.cshtml", viewmodel);
         }
 
-        //triathletes/search
-        public ActionResult Search()
+        //athletes/search?name=
+        [Route("athletes/search")]
+        public ActionResult Search(string name)
         {
-            return View();
+            if (String.IsNullOrEmpty(name))
+                return View(new TriathletesViewModel());
+            else
+                return View(DoSearch(name));
         }
+
+
+
+        //called within Search page via ajax
         public PartialViewResult AthleteSearch(string searchbyname)
         {
-         
+
+            return PartialView("_SearchResults", DoSearch(searchbyname));
+        }
+        private TriathletesViewModel DoSearch(string search)
+        { 
             var viewmodel = new TriathletesViewModel();
 
             List<Triathlete> athletes;
-            if (!String.IsNullOrEmpty(searchbyname))
+            if (!String.IsNullOrEmpty(search))
             {
-                athletes = _RaceService.GetAthletesByName(searchbyname);
+                athletes = _RaceService.GetAthletesByName(search);
 
             }
             else
@@ -72,7 +84,7 @@ namespace RaceAnalysis.Controllers
             viewmodel.Triathletes = athletes;
             viewmodel.TotalCount = athletes.Count();
 
-            return PartialView("_SearchResults", viewmodel);
+            return viewmodel;
         }
 
 
