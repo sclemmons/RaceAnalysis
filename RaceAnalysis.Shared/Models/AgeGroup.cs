@@ -15,6 +15,8 @@ namespace RaceAnalysis.Models
         public string Value { get; set; }
         public string DisplayName { get; set; }
 
+        public int? DisplayOrder { get; set; }
+
         /// <summary>
         /// Expand the list if needed. For example, ID=0 is "all age-groupers" so we need to get all age group Ids
         /// </summary>
@@ -32,14 +34,23 @@ namespace RaceAnalysis.Models
                     //       var list = allExceptPro.ToList();
                     //       if (selectedAgeGroupIds.Contains(pro.First().AgeGroupId))
                     //           list.Insert(0,pro.First().AgeGroupId);
-                    var list = db.AgeGroups.Select(a => a.AgeGroupId).ToList();
+                    var list = db.AgeGroups.OrderBy(a => a.DisplayOrder).Select(a => a.AgeGroupId).ToList();
 
                     return list;
                 }
             }
             else
             {
-                return selectedAgeGroupIds;
+                using (var db = new RaceAnalysisDbContext())
+                {
+                    var list = db.AgeGroups.OrderBy(a => a.DisplayOrder)
+                                            .Where(a =>selectedAgeGroupIds.Contains(a.AgeGroupId))
+                                            .Select(a => a.AgeGroupId).ToList();
+
+                    return list;
+                }
+
+               
             }
         }
     }

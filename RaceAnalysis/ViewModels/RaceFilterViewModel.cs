@@ -167,7 +167,7 @@ namespace RaceAnalysis.Models
 
         private List<AgeGroup> GetAvailableAgeGroups(RaceAnalysisDbContext db)
         {
-            var ag = db.AgeGroups.OrderBy(a => a.DisplayName).ToList();
+            var ag = db.AgeGroups.OrderBy(a => a.DisplayOrder).ToList();
             return ag;
         }
         private List<int> GetDefaultAgeGroups()
