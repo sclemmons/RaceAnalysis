@@ -2,7 +2,7 @@
 @model RaceAnalysis.Models.TriStatsViewModel
 
 <div>
-    <h3>@Model.Triathletes.Count()   Athletes</h3><span>(Includes DNF and DNS athletes)</span>
+    <h4>@Model.Triathletes.Count()  Finishers   (@Model.Filter.SelectedRaceNames)</h4><span>Includes DNF and DNS athletes</span>
     <div id='race-compare-median-div'></div>
     <div id='race-compare-fastest-div'></div>
     <script type="text/javascript">

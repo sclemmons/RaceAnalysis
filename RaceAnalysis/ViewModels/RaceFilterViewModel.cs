@@ -16,6 +16,16 @@ namespace RaceAnalysis.Models
         public IList<Race> AvailableRaces { get; set; }
         public IList<string> SelectedRaceIds { get; set; }
 
+        public string SelectedRaceNames
+        {
+            get
+            {
+                return String.Join(",",
+                  AvailableRaces.Where(r => SelectedRaceIds.Contains(r.RaceId)).Select(r => r.DisplayName).ToList());
+       
+            }
+            
+        }
 
         public IList<AgeGroup> AvailableAgeGroups { get; set; }
         public IList<int> SelectedAgeGroupIds { get; set; }

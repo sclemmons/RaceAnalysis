@@ -18,7 +18,7 @@
 @section results{
     @if (Model.Triathletes.Any())
     {
-       <h3>@Model.Triathletes.Count()   Finishers</h3>
+        <h4>@Model.Triathletes.Count()  Finishers   (@Model.Filter.SelectedRaceNames)</h4>
        @Html.Partial("~/Views/Shared/_CompareAthletesChart.cshtml", Model);
        @Html.Partial("~/Views/Shared/_CompareAthletesDetail.cshtml", Model);
 
