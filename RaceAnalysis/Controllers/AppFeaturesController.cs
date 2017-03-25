@@ -110,13 +110,13 @@ namespace RaceAnalysis
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public ActionResult Edit([Bind(Include = "AppFeatureId,Category,Name,Description,State,VoteCount")] AppFeature appFeature)
+        public ActionResult Edit([Bind(Include = "AppFeatureId,Category,Name,Description,Status,VoteCount")] AppFeature appFeature)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(appFeature).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Admin");
             }
             return View(appFeature);
         }
