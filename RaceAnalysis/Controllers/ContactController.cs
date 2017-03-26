@@ -48,7 +48,7 @@ namespace RaceAnalysis.Controllers
 
                    // await RaceAnalysis.Service.EmailService.SendContactForm(model);
                 }
-                catch (Exception ex)
+                catch (Exception )
                 {
                     isMessageSent = false;
                 }

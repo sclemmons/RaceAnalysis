@@ -27,11 +27,7 @@ namespace RaceAnalysis.Controllers
             
             var athletes = new List<Triathlete>();
 
-            //for now let's only deal with a single race to keep it simple
-            string raceId = viewModel.Filter.SelectedRaceIds.First();
-
-
-            //pulling from selected age groups so that we can do the same when we draw the chart
+          //calculating each selected age groups so that we can do the same when we draw the chart
             foreach (var agId in AgeGroup.Expand(viewModel.Filter.SelectedAgeGroupIds)) //collect the stats for each age group
             {
                 var athletesPerAG = _RaceService.GetAthletes(
@@ -44,9 +40,10 @@ namespace RaceAnalysis.Controllers
                     filter
                   );
                 athletes.AddRange(athletesPerAG);
-                viewModel.Stats.Add(GetStats(athletesPerAG, viewModel.Filter.AvailableRaces.Single(r => r.RaceId == raceId)));
+                viewModel.Stats.Add(GetStats(athletesPerAG));
             }
 
+            viewModel.Triathletes = athletes;
             return View("Compare", viewModel);
         }
 

@@ -87,5 +87,41 @@ namespace RaceAnalysis.Models
             }
 
         }
+
+
+        public List<object> FinishersPerAgeGroup
+        { 
+            get
+            {
+                var list = new List<object>();
+                list.Add(new object[] { "Age Group", "# Count" });
+
+               
+                foreach (var id in AgeGroup.Expand(Filter.SelectedAgeGroupIds))
+                {
+                    var ag = Filter.AvailableAgeGroups.First(a => a.AgeGroupId == id);
+                    list.Add(new object[] { ag.DisplayName, 0 });
+               
+                }
+
+                var listEnum = list.GetEnumerator();
+                listEnum.MoveNext();//the first row is our header
+                listEnum.MoveNext(); //our first data row
+                //assign values to each column. 
+                foreach (TriStats stat in Stats)
+                {
+
+                    //each row represents a different AG that corresponds to the selected agegroups
+                    var o = listEnum.Current as object[];
+                    o[1] =  stat.Athletes.Count;
+                    listEnum.MoveNext();
+                }
+
+
+                return list;
+            }
+
+        }
+
     }
 }
