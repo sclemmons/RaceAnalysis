@@ -6,6 +6,7 @@ using RaceAnalysis.Models;
 using X.PagedList;
 using RaceAnalysis.Service.Interfaces;
 using System.Linq;
+using System.IO;
 
 namespace RaceAnalysis.Controllers
 {
@@ -58,7 +59,28 @@ namespace RaceAnalysis.Controllers
 
         }
 
-       
+        public JsonResult ExportReport(string name,string imageData)
+        {
+            string fileName = Path.Combine(Server.MapPath("~/ExportImage"), 
+                                name + ".png");
+            using (FileStream fs = new FileStream(fileName, FileMode.Create))
+            {
+                using (BinaryWriter bw = new BinaryWriter(fs))
+                {
+                    byte[] data = Convert.FromBase64String(imageData);
+                    bw.Write(data);
+                    bw.Close();
+                }
+            }
+            string host = Request.Url.Host.Equals("localhost") ? Request.Url.Authority : Request.Url.Host;
+            
+                        
+            string fileUrl = string.Format("http://{0}/ExportImage/{1}.png", host, name);
+
+            return new JsonResult { Data = fileUrl };
+        }
+
+
 
 
 

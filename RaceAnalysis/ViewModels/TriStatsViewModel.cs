@@ -30,7 +30,7 @@ namespace RaceAnalysis.Models
                 dataTable.AddColumn("Races", "string", "domain"); //our header column
 
                 var races = new List<Race>();  //we are going to compare races, so build out the race list and our columns
-                foreach (TriStats stat in Stats)
+                foreach (TriStats stat in Stats.OrderBy(s => s.Finish.Median))
                 {
                     races.Add(stat.Race);
                     dataTable.AddColumn(stat.Race.DisplayName, "timeofday", "data"); //define the data type the we will be populating in the rows
@@ -77,7 +77,7 @@ namespace RaceAnalysis.Models
                 dataTable.AddColumn("Races", "string", "domain"); //our header column
 
                 var races = new List<Race>();  //we are going to compare races, so build out the race list and our columns
-                foreach (TriStats stat in Stats)
+                foreach (TriStats stat in Stats.OrderBy(s => s.Finish.Min))
                 {
                     races.Add(stat.Race);
                     dataTable.AddColumn(stat.Race.DisplayName, "timeofday", "data"); //define the data type the we will be populating in the rows

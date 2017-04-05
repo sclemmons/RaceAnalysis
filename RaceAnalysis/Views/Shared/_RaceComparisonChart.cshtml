@@ -1,11 +1,32 @@
 ﻿
 @model RaceAnalysis.Models.TriStatsViewModel
 
+@{ 
+    string baseFileName = @Model.Triathletes.Count() + @Model.Filter.SelectedRaceNames;
+    baseFileName = baseFileName.Replace(',', '-');
+    baseFileName = baseFileName.Replace(' ', '-');
+
+    string fb_description = "Comparison of median times for: " + Model.Filter.SelectedRaceNames; 
+}
 <div>
     <h4>@Model.Triathletes.Count()  Finishers   (@Model.Filter.SelectedRaceNames)</h4><span>Includes DNF and DNS athletes</span>
+    
+   
     <div id='race-compare-median-div'></div>
+    <div id='race-compare-median-div-png'></div>
+  
+    <div id="fb-root"></div>
+   
+    <div id="share_button" class="fb-share">
+        <a>Share</a>
+       </div>
+</div>
+    
     <div id='race-compare-fastest-div'></div>
-    <script type="text/javascript">
+
+   <script type="text/javascript">
+       var share_img; 
+
         google.charts.load('current', { 'packages': ['corechart'] });
 
         google.charts.setOnLoadCallback(function () {
@@ -23,7 +44,7 @@
 
             var options = {
                 title:  'Comparison of Median times',
-                
+
                 hAxis:
                     {
                         title: 'Duration (HRS)'
@@ -33,14 +54,26 @@
                 }
             };
 
-            var chart = new google.visualization.BarChart(document.getElementById('race-compare-median-div'));
-            chart.draw(data,options)
-            
+            var chart_div = document.getElementById('race-compare-median-div');
+            var chart = new google.visualization.BarChart(chart_div);
+
+            var png_div = document.getElementById('race-compare-median-div-png');
+
+            google.visualization.events.addListener(chart, 'ready', function () {
+               // png_div.outerHTML = '<a href="' + chart.getImageURI() + '">Printable Version</a>';
+
+                share_img = chart.getImageURI();
+            });
+
+            chart.draw(data, options)
+
         };
+
+
 
         function drawFastestChart()
         {
-          
+
             var data = new google.visualization.DataTable(
                 @Html.Raw(Json.Encode(Model.RaceComparisonChartDataFastest))
             );
@@ -55,14 +88,73 @@
                     title: 'By Activity'
                 }
             };
-         
+
 
             var chart = new google.visualization.BarChart(document.getElementById('race-compare-fastest-div'));
             chart.draw(data, options)
         };
 
-    </script>
 
+        window.fbAsyncInit = function() {
+            FB.init({appId: '775857442565265', status: true, cookie: true, xfbml: true});
+        };
+        (function() {
+            var e = document.createElement('script'); e.async = true;
+            e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
+            document.getElementById('fb-root').appendChild(e);
+        }());
+
+        $(document).ready(function(){
+            $('#share_button').click(function(e){
+                e.preventDefault();
+                ExportImageToServer();
+                
+                });
+            });
+
+
+            function ExportImageToServer() {
+                var string = share_img;
+                var image = string.replace('data:image/png;base64,', '');
+                $.ajax({
+                    type: "POST",
+                    url: "/TriStats/ExportReport",
+                    data:
+                        "{'name':'" + '@baseFileName' + "','imageData':'" + image + "'}",
+                       
+                       
+
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (d) {
+                        ShowFacebookShare(d, '@fb_description');
+                    },
+                    error: function () {
+                        alert('Error! Please try again.');
+                    }
+                });
+            }
+            function ShowFacebookShare(img_url,description){
+                FB.ui(
+                {
+                    method: 'feed',
+                    name: 'tristats.net',
+                    link: 'http://tristats.net/races',
+                    picture: img_url,
+                    caption: description,
+                    description: description,
+                    message: ""
+                },
+                function (response) {
+                    if (response && response.post_id) {
+                       // alert('Post was published.');
+                    } else {
+                       // alert('Post was not published.');
+                    }
+                }
+                );
+            }
+    </script>
 
 </div>
 
