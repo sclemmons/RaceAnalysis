@@ -38,7 +38,7 @@ namespace RaceAnalysis
                 user.UserName = "scott_clemmons@hotmail.com";
                 user.Email = "scott_clemmons@hotmail.com";
 
-                string userPWD = "@Tritone123";
+                string userPWD = "@Tritone32963";
 
                  var chkUser = UserManager.Create(user, userPWD);
              
