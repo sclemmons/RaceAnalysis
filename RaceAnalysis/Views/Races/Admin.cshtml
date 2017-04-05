@@ -11,9 +11,8 @@
 </p>
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.BaseURL)
-        </th>
+
+      
         <th>
             @Html.DisplayNameFor(model => model.RaceId)
         </th>
@@ -43,9 +42,6 @@
 
 @foreach (var item in Model) {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.BaseURL)
-        </td>
         <td>
             @Html.DisplayFor(modelItem => item.RaceId)
         </td>

@@ -338,6 +338,7 @@
     <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="ViewModels\RaceConditionsViewModel.cs" />
     <Compile Include="ViewModels\RaceFilterViewModel.cs" />
+    <Compile Include="ViewModels\RequestContextSearchViewModel.cs" />
     <Compile Include="ViewModels\RaceSearchViewModel.cs" />
     <Compile Include="ViewModels\RaceViewModel.cs" />
     <Compile Include="ViewModels\SimpleFilterViewModel.cs" />
@@ -656,6 +657,8 @@
     <Content Include="Views\RequestContexts\Index.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Races\_RaceRequest.cshtml" />
+    <Content Include="Views\RequestContexts\Search.cshtml" />
+    <Content Include="Views\RequestContexts\_SearchResults.cshtml" />
     <None Include="Web.Test.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>
