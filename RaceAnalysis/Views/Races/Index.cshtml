@@ -7,7 +7,7 @@
     Layout = "~/Views/Layouts/_Layout.cshtml";
     ViewBag.BodyClass = "fullpage";
 
-   
+  
 }
 <script  src="~/Scripts/modal.js"></script>
 
@@ -28,7 +28,7 @@
                         new { id = "XXShowRaceRequestLink", @class = "modal-link" })
 
 
-        <button type="submit" id="action-stats" class="btn btn-default">View Results</button>
+        <button type="submit" id="action-stats" class="btn btn-default btn-results">View Results</button>
     </div>
 <div id="accordian" class="race-list">
 
@@ -41,8 +41,29 @@
 
     
     <div>
+        <div data-toggle="buttons">
 
-        @Html.Partial("~/Views/Shared/_OnePageOfRaces.cshtml", Model.AvailableRaces)
+            @Ajax.ActionLink("140.6", "RaceDistanceToggle", "Races",
+                routeValues: new
+                {
+                    distance = "full",
+                },
+                ajaxOptions: new AjaxOptions { UpdateTargetId = "race-div" },
+                htmlAttributes: new { @class = "btn btn-primary race-distance", @type = "radio", @id="full"}
+                )
+            @Ajax.ActionLink("70.3", "RaceDistanceToggle", "Races",
+                routeValues: new
+                {
+                    distance = "half",
+                },
+                ajaxOptions: new AjaxOptions { UpdateTargetId = "race-div" },
+                htmlAttributes: new { @class = "btn btn-primary race-distance", @type = "radio", @id="half"}
+                )
+
+        </div>
+        <div id="race-div">
+            @Html.Partial("~/Views/Shared/_OnePageOfRaces.cshtml", Model)
+        </div>
     </div>
 
     <header>2. Select the Age Groups/Divisions that you are interested in (optional)</header>
@@ -62,15 +83,27 @@
     </div>
 </div>
     <div class="search-results-post">
-        <button type="submit" id= "action-stats2" class="btn btn-default">View Results</button>
+        <button type="submit" id= "action-stats2" class="btn btn-default btn-results">View Results</button>
     </div>
 
  }
 <script type="text/javascript">
 
+    var _SelectedRaces;
+    
     $(document).ready(function () {
         $("#accordian").accordion({
             heightStyle: "content"
+        });
+        $('#full').click(function () {
+            $(this).addClass("active");
+            $('#half').removeClass("active"); 
+            
+        });
+        $('#half').click(function () {
+            $(this).addClass("active");
+            $('#full').removeClass("active");
+
         });
 
     });
@@ -81,23 +114,25 @@
         //});
 
       //  $('.btn-default').on('click', actionSelected);
-        $('.btn-default').attr("disabled", true); //disable until user selects rows
+        $('.btn-results').attr("disabled", true); //disable until user selects rows
 
       //  function actionSelected(evt) {
         $("#myForm").submit(function (event) {
 
-            if ($('.btn-default').attr('disabled') == 'disabled') {
+            if ($('.btn-results').attr('disabled') == 'disabled') {
                 return false;
             }
 
-            $('#race-table').selectedrows().each(function (idx, el) {
-                if (el.id.length > 0) {
-                    $('<input />').attr('type', 'hidden')
+            
+            var races = _SelectedRaces.split(',') //value set in child view
+            for (var r in races) {
+                var id = races[r]
+                $('<input />').attr('type', 'hidden')
                        .attr('name', 'SelectedRaceIds')
-                       .attr('value',el.id)
+                       .attr('value',id)
                        .appendTo('#myForm');
-                }
-            });
+             }
+            
 
             $('#agegroup-table').selectedrows().each(function (idx, el) {
                 if (el.id.length > 0) {
@@ -137,16 +172,14 @@
 
 
         $('#race-table').on('clicked.rs.row', function (evt) {
-
             var numrows = $(this).selectedrows().length;
             if (numrows > 0) {
-                $('.btn-default').attr("disabled", false);
+                $('.btn-results').attr("disabled", false);
             }
             else {
-                $('.btn-default').attr("disabled", true);
+                $('.btn-results').attr("disabled", true);
 
             }
-
         });
 
 

@@ -9,11 +9,12 @@ namespace RaceAnalysis.Models
     public class RaceFilterViewModel : IRaceCriteria, IDurationFilter
     {
 
-        public RaceFilterViewModel()
+        public RaceFilterViewModel(string distance="full")
         {
-            PopulateRaceFilter();
+            PopulateRaceFilter(distance);
         }
-        public IList<Race> AvailableRaces { get; set; }
+       
+        public IEnumerable<Race> AvailableRaces { get; set; }
         public IList<string> SelectedRaceIds { get; set; }
 
         public string SelectedRaceNames
@@ -48,16 +49,30 @@ namespace RaceAnalysis.Models
 
         public IList<int> SelectedAthleteIds { get; set; }
 
-
-        private void PopulateRaceFilter()
+        public string Distance { get; private set; }
+        private void PopulateRaceFilter(string distance="full")
         {
+            //eventually I'll change this in the database: 
+            switch(distance)
+            {
+                case "full":
+                    distance = "140.6";
+                    break;
+                case "half":
+                    distance = "70.3";
+                    break;
+                
+            }
+            Distance = distance;
             using (var db = new RaceAnalysisDbContext())
             {
                 //note: need to include the Conditions info because the AvailableRaces property is being 
                 //used to populate the Stats. Don't know if 
                 //if I like this choice but going with it for now. Other option is to populate the stats using
                 //available races from the dbContext. 
-                AvailableRaces = db.Races.Include("Conditions").ToList();
+
+
+                AvailableRaces = db.Races.Include("Conditions").Where(r => r.Distance== distance).ToList();
                 foreach(var r in AvailableRaces)
                 {
                     r.RaceId = r.RaceId.ToUpper(); //this way we only do it here and not everywhere in the code 
@@ -65,6 +80,8 @@ namespace RaceAnalysis.Models
                 AvailableAgeGroups = GetAvailableAgeGroups(db);
                 AvailableGenders = db.Genders.ToList();
             }
+
+
             if (SelectedRaceIds == null)
             { SelectedRaceIds = new List<string>(); }
 
@@ -145,7 +162,6 @@ namespace RaceAnalysis.Models
         private void SaveRaceFilterValues(IComplexRaceFilter filter)
         {
 
-            PopulateRaceFilter();
             SelectedRaceIds = filter.selectedRaceIds.Select(s => s.ToUpper()).ToList();
 
             SelectedAgeGroupIds = filter.selectedAgeGroupIds == null ? new int[] { 0 } : filter.selectedAgeGroupIds;
@@ -156,7 +172,7 @@ namespace RaceAnalysis.Models
             SaveRaceFilterValues((IComplexRaceFilter)
                    new FilterViewModel
                    {
-                       selectedRaceIds = races.ZeroIfEmpty().Split(','),
+                       selectedRaceIds = races.EmptyIfNull().Split(','),
                        selectedAgeGroupIds = Array.ConvertAll(agegroups.ZeroIfEmpty().Split(','), int.Parse),
                        selectedGenderIds = Array.ConvertAll(genders.ZeroIfEmpty().Split(','), int.Parse)
                    });

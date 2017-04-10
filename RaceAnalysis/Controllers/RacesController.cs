@@ -13,6 +13,7 @@ using RaceAnalysis.Service.Interfaces;
 using System;
 using Microsoft.AspNet.Identity;
 using System.Text;
+using X.PagedList;
 
 namespace RaceAnalysis.Controllers
 {
@@ -21,6 +22,13 @@ namespace RaceAnalysis.Controllers
       
         private CloudQueue cacheRequestQueue;
         private IIdentityMessageService _emailService;
+#if DEBUG
+        private const int _PageSize = 2;
+#else
+        private const int _PageSize = 20;
+
+#endif
+
 
         public RacesController(IRaceService raceService, IIdentityMessageService emailService) : base(raceService) 
         {
@@ -32,9 +40,13 @@ namespace RaceAnalysis.Controllers
         {
             var viewModel = new RaceFilterViewModel();
 
+            int page = 1;
+            viewModel.AvailableRaces= viewModel.AvailableRaces.ToPagedList(page, _PageSize); //max xx per page
+
+
+
             return View(viewModel);
         }
-
         public ActionResult Search()
         {
             var viewModel = new RaceSearchViewModel();
@@ -85,6 +97,35 @@ namespace RaceAnalysis.Controllers
         
             return PartialView("_RaceRequest", new RequestRaceForm());
         }
+
+        public PartialViewResult RaceDistanceToggle(string distance)
+        {
+            var viewModel = new RaceFilterViewModel(distance);
+        
+            int page = 1;
+            viewModel.AvailableRaces = viewModel.AvailableRaces.ToPagedList(page, _PageSize); //max xx per page
+
+            return PartialView("~/Views/Shared/_OnePageOfRaces.cshtml", viewModel);
+        }
+
+        /// <summary>
+        /// Called while paging through athletes. We need to return just the partial view of athletes
+        /// </summary>
+        /// <param name="page"></param>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        //
+        public PartialViewResult DisplayPagedRaces(int page,string distance, SimpleFilterViewModel model)
+        {
+            var filter = new RaceFilterViewModel(distance);
+            filter.SaveRaceFilterValues(model);
+            page = page > 0 ? page : 1;
+            filter.AvailableRaces = filter.AvailableRaces.ToPagedList(page, _PageSize); //max xx per page
+
+            return PartialView("~/Views/Shared/_OnePageOfRaces.cshtml", filter);
+        }
+
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]

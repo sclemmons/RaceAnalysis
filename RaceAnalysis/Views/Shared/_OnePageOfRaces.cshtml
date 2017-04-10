@@ -1,5 +1,6 @@
-﻿@model IEnumerable<RaceAnalysis.Models.Race>
-
+﻿@model RaceAnalysis.Models.RaceFilterViewModel
+@using X.PagedList
+@using X.PagedList.Mvc;
 <style>
     *.unselectable {
         -webkit-touch-callout: none;
@@ -30,26 +31,41 @@
     }
 </style>
 
-
 <div id="race-table-div" class="table-responsive">
+    <div id="pager-container">
+        @Html.PagedListPager((IPagedList)Model.AvailableRaces,
+                     page => Url.Action("DisplayPagedRaces",
+                    new RouteValueDictionary{
+                            { "page", page },
+                            { "distance",Model.Distance}
+                            }),
+                            PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(
+                                new AjaxOptions()
+                                {
+                                    HttpMethod = "GET",
+                                    InsertionMode = InsertionMode.Replace,
+                                    UpdateTargetId = "race-table-div",
+                                }))
+    </div>
+
     <table id="race-table" class="table table-striped" data-rs-selectable data-rs-type="many" >
         <tr>
             <th>
                 Name
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.RaceDate)
+                @Html.DisplayNameFor(model => model.AvailableRaces.ElementAt(0).RaceDate)
             </th>
 
             <th>
-                @Html.DisplayNameFor(model => model.Distance)
+                @Html.DisplayNameFor(model => model.AvailableRaces.ElementAt(0).Distance)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Conditions)
+                @Html.DisplayNameFor(model => model.AvailableRaces.ElementAt(0).Conditions)
             </th>
         </tr>
 
-        @foreach (var item in Model)
+        @foreach (var item in Model.AvailableRaces)
         {
             <tr onclick="" id="@item.RaceId">
                 <td>
@@ -72,3 +88,107 @@
 
 </div>
 
+<script type="text/javascript">
+        $(document).ready(function () {
+
+            var savedIds = @Html.Raw(Json.Encode(Model.SelectedRaceIds));
+           
+            if(savedIds.length > 0)
+            {
+                var strIds = savedIds.map(String);
+                var c =  $('#race-table').attr('data-rs-class') || 'selected';
+
+                $('#race-table tr').each(function (index, element) {
+
+                    var i = strIds.indexOf(element.id);
+                    if (i >= 0)
+                    {
+                        //$('#' + element.id).prop('checked',true);
+                        $(this).toggleClass(c);
+                    }
+                });
+            }
+
+            $("#pager-container").on('click', 'a', function () {
+                return handleSelectionsOnClick(this);
+            });
+           $(".btn-results").off('click');//remove previous handler
+            $(".btn-results").click(function () {
+                return handleSelectionsOnClick(this);
+            });
+            function handleSelectionsOnClick(control)
+            {
+                var savedIds = @Html.Raw(Json.Encode(Model.SelectedRaceIds));
+
+                if(savedIds.length > 0)
+                {
+                    savedIds = filterSavedIds(savedIds);
+                }
+                var selectedIds = getSelectedIds();
+
+                if(savedIds.length > 0 || selectedIds.length > 0)
+                {
+                    control.href += "&races=";
+                    if(savedIds.length > 0)
+                    {
+                        control.href += savedIds;
+                        if(selectedIds.length > 0)
+                            control.href += "," + selectedIds;
+                    }else
+                    {
+                        control.href+= selectedIds.join(', ');
+                    }
+                    //defined in parent
+                    _SelectedRaces = savedIds + "," + selectedIds;
+                    _SelectedRaces = _SelectedRaces.replace(/^,|,$/g,'');
+         
+                }
+
+                return true;
+
+            }
+            function getSelectedIds() {
+
+                var selected = [];
+                $('#race-table').selectedrows().each(function (idx, el) {
+                    if (el.id.length > 0) {
+                        selected.push(el.id);
+                    }
+                });
+
+                return selected;
+            }
+
+            function filterSavedIds(savedIds){
+
+                var strIds = savedIds.map(String);//converting for comparison
+
+                $('#race-table tr').each(function (index, element) {
+                    var i = strIds.indexOf(element.id);
+                    if (i >= 0)
+                    {
+
+                        //this element was in our our savedids. We can discard it because it is either in our selectList
+                        //or has been unselected by user.
+                        strIds.splice(i,1);
+                    }
+
+                });
+                return strIds;
+            }
+
+
+            $('#race-table').on('clicked.rs.row', function (evt) {
+                var numrows = $(this).selectedrows().length;
+                if (numrows > 0) {
+                    $('.btn-results').attr("disabled", false);
+                }
+                else {
+                    $('.btn-results').attr("disabled", true);
+
+                }
+            });
+
+
+        });
+</script>

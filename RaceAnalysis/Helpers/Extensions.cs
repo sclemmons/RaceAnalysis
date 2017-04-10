@@ -9,6 +9,10 @@ namespace RaceAnalysis.Helpers
 {
     public static class Extensions
     {
+        public static string EmptyIfNull(this string s)
+        {
+            return string.IsNullOrEmpty(s) ? string.Empty : s.ToUpper();
+        }
         public static string ZeroIfEmpty(this string s)
         {
             return string.IsNullOrEmpty(s) ? "0" : s.ToUpper();
