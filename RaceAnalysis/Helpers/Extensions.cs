@@ -27,8 +27,9 @@ namespace RaceAnalysis.Helpers
         }
         public static string JoinIfNotNull(this string[] s)
         {
+            
             if (s != null)
-                return String.Join(",", s);
+                return String.Join(",", s.Distinct().ToArray());//remove duplicates as well
             else
                 return null;
         }
