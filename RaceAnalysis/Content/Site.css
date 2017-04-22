@@ -96,7 +96,7 @@ hr.title
    
 }
 
-td a{
+td  a, th a{
     text-decoration:underline;
 }
 
@@ -671,6 +671,8 @@ div.race-list #instructions,div.athletes-list #instructions{
 div#race-table-div, div#athlete-table-div {
     margin-top: 10px;
 }
+
+
 
 .search-results-preface
 {

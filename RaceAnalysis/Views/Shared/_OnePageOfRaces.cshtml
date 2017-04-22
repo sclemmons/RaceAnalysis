@@ -1,6 +1,17 @@
 ﻿@model RaceAnalysis.Models.RaceFilterViewModel
 @using X.PagedList
 @using X.PagedList.Mvc;
+
+@{ 
+    var pLRO = PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(
+                       new AjaxOptions()
+                       {
+                           HttpMethod = "GET",
+                           InsertionMode = InsertionMode.Replace,
+                           UpdateTargetId = "race-table-div",
+                       });
+    pLRO.Display = PagedListDisplayMode.IfNeeded;
+}
 <style>
     *.unselectable {
         -webkit-touch-callout: none;
@@ -31,32 +42,31 @@
     }
 </style>
 
+         
+<input type="hidden" name="distance" value= @Model.Distance> 
+
 <div id="race-table-div" class="table-responsive">
+  
     <div id="pager-container">
-        @Html.PagedListPager((IPagedList)Model.AvailableRaces,
+  
+              @Html.PagedListPager((IPagedList)Model.AvailableRaces,
                      page => Url.Action("DisplayPagedRaces",
-                    new RouteValueDictionary{
-                            { "page", page },
-                            { "distance",Model.Distance}
-                            }),
-                            PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(
-                                new AjaxOptions()
-                                {
-                                    HttpMethod = "GET",
-                                    InsertionMode = InsertionMode.Replace,
-                                    UpdateTargetId = "race-table-div",
-                                }))
+                                    new RouteValueDictionary{
+                                            { "page", page },
+                                            { "distance",Model.Distance},
+                                            { "sortOrder", Model.Sort}
+                                            }),pLRO )
     </div>
 
     <table id="race-table" class="table table-striped" data-rs-selectable data-rs-type="many" >
         <tr>
             <th>
-                Name
+                @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParm, distance = Model.Distance })
+                
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AvailableRaces.ElementAt(0).RaceDate)
+                @Html.ActionLink("Race Date", "Index", new { sortOrder = ViewBag.DateSortParm, distance = Model.Distance })
             </th>
-
             <th>
                 @Html.DisplayNameFor(model => model.AvailableRaces.ElementAt(0).Distance)
             </th>
@@ -92,7 +102,7 @@
         $(document).ready(function () {
 
             var savedIds = @Html.Raw(Json.Encode(Model.SelectedRaceIds));
-           
+
             if(savedIds.length > 0)
             {
                 var strIds = savedIds.map(String);
@@ -141,7 +151,7 @@
                     //defined in parent
                     _SelectedRaces = savedIds + "," + selectedIds;
                     _SelectedRaces = _SelectedRaces.replace(/^,|,$/g,'');
-         
+
                 }
 
                 return true;

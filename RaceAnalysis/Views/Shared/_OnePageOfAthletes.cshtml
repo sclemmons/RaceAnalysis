@@ -1,6 +1,17 @@
 ﻿@model RaceAnalysis.Models.TriathletesViewModel
 @using X.PagedList
 @using X.PagedList.Mvc;
+
+@{ 
+    var pLRO = PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(
+                                new AjaxOptions()
+                                {
+                                    HttpMethod = "GET",
+                                    InsertionMode = InsertionMode.Replace,
+                                    UpdateTargetId = "athlete-list",
+                                });
+    pLRO.Display = PagedListDisplayMode.IfNeeded;
+}
 <style>
     *.unselectable {
         -webkit-touch-callout: none;
@@ -53,14 +64,7 @@
                             {"finishhightimevalue", Model.Filter.FinishHigh.TotalMinutes.ToString() },
 
         
-                            }),
-                            PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(
-                                new AjaxOptions()
-                                {
-                                    HttpMethod = "GET",
-                                    InsertionMode = InsertionMode.Replace,
-                                    UpdateTargetId = "athlete-list",
-                                }))
+                            }),pLRO)
     </div>
 
 

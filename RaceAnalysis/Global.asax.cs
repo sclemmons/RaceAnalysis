@@ -21,5 +21,15 @@ using RaceAnalysis.App_Start;
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
+
+        protected void Application_Error(object sender, EventArgs e)
+        {
+            Exception exception = Server.GetLastError();
+#if _DEBUG
+            throw exception;
+#endif 
+            Server.ClearError();
+            Response.Redirect("~/races");
+        }
     }
 }

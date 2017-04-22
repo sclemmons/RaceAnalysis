@@ -36,8 +36,8 @@ namespace RaceAnalysis.Controllers
         public ActionResult Filter(FilterViewModel queryModel)
         {
        
-            var filter = new RaceFilterViewModel();
-            filter.SaveRaceFilterValues(queryModel);
+            var filter = new RaceFilterViewModel(queryModel);
+        
             return DisplayResultsView(filter);
 
         }
@@ -45,16 +45,14 @@ namespace RaceAnalysis.Controllers
         //called from one controller to another
         public ActionResult ViewResults(SimpleFilterViewModel model)
         {
-            var filter = new RaceFilterViewModel();
-            filter.SaveRaceFilterValues(model);
+            var filter = new RaceFilterViewModel(model);
             return DisplayResultsView(filter);
 
         }
         //called from actions links in the Action Bar using the GET verb
         public ActionResult Display(SimpleFilterViewModel model)
         {
-           var filter = new RaceFilterViewModel();
-           filter.SaveRaceFilterValues(model);
+           var filter = new RaceFilterViewModel(model);
            return DisplayResultsView(filter);
 
         }

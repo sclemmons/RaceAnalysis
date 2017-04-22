@@ -31,6 +31,9 @@ namespace RaceAnalysis.Controllers
         [HttpPost]
         public ActionResult DisplayStats(FilterViewModel filterModel)
         {
+            if (filterModel.selectedRaceIds == null)
+                return new HttpNotFoundResult();
+
             var simpleModel = SimpleFilterViewModel.Create(filterModel);
 
             if (filterModel.selectedRaceIds.Count() > 1)

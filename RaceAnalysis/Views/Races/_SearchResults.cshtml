@@ -1,4 +1,4 @@
-﻿@model IEnumerable<RaceAnalysis.Models.Race>
+﻿@model RaceAnalysis.Models.RaceFilterViewModel
 @using RaceAnalysis.Models;
 @{
     var queryViewModel = new SimpleFilterViewModel
@@ -13,7 +13,7 @@
 <div class="race-list">
     <h2>Search Results</h2>
 
-@if (Model.Any())
+@if (Model.AvailableRaces.Any())
 {
     <div class="search-results-preface">
 

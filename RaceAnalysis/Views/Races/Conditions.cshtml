@@ -10,7 +10,7 @@
 
 <link rel="stylesheet" href="~/Content/jqcloud.min.css">
 
-<h3>@Model.Race.DisplayName Conditions</h3>
+<h3>@Model.Race.LongDisplayName Conditions</h3>
 
 <div>
    @Html.ActionLink("I have participated in this race and would like to contribute...", "Create", "RaceConditions", new { @id = Model.Race.RaceId }, null)

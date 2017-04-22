@@ -36,15 +36,21 @@ namespace RaceAnalysis.Controllers
         }
 
         // GET: Races
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder,string distance)
         {
-            var viewModel = new RaceFilterViewModel();
-
             int page = 1;
-            viewModel.AvailableRaces= viewModel.AvailableRaces.ToPagedList(page, _PageSize); //max xx per page
+            //default to 140.6 
+            if (String.IsNullOrEmpty(distance)) distance = "140.6";
+            var viewModel = new RaceFilterViewModel(distance:distance,sortOrder:sortOrder);
+            var races = viewModel.AvailableRaces;
+                    
+           
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
 
-
-
+           
+            viewModel.AvailableRaces = races.ToPagedList(page, _PageSize); //max xx per page
+          
             return View(viewModel);
         }
         public ActionResult Search()
@@ -86,11 +92,11 @@ namespace RaceAnalysis.Controllers
             var tagIds = searchString.ToString().Split(',').Select(int.Parse).ToList();
             var races = _RaceService.GetRacesByTagId(tagIds);
 
-            return PartialView("_SearchResults", races);
+            var viewModel = new RaceFilterViewModel();
+            viewModel.AvailableRaces = races.ToPagedList(pageNumber:1,pageSize: _PageSize); //max xx per page
 
-
+            return PartialView("_SearchResults", viewModel);
             
-
         }
         public PartialViewResult ShowRaceRequest()
         {
@@ -115,10 +121,9 @@ namespace RaceAnalysis.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         //
-        public PartialViewResult DisplayPagedRaces(int page,string distance, SimpleFilterViewModel model)
+        public PartialViewResult DisplayPagedRaces(int page,string sortOrder, SimpleFilterViewModel model)
         {
-            var filter = new RaceFilterViewModel(distance);
-            filter.SaveRaceFilterValues(model);
+            var filter = new RaceFilterViewModel(model,sortOrder);
             page = page > 0 ? page : 1;
             filter.AvailableRaces = filter.AvailableRaces.ToPagedList(page, _PageSize); //max xx per page
 

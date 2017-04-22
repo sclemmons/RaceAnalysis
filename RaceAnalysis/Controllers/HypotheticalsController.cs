@@ -31,8 +31,7 @@ namespace RaceAnalysis.Controllers
         public PartialViewResult DisplayFinishTime(SimpleFilterViewModel model)
         {
             model.ClearDuration(); //we do this just in case they have values from the duration filters on the page
-            var filter = new RaceFilterViewModel();
-            filter.SaveRaceFilterValues(model);
+            var filter = new RaceFilterViewModel(model);
             var modelView= GetEstimatedTime(filter);
             modelView.Filter = filter;
             return PartialView("_EstFinish", modelView);
@@ -40,8 +39,7 @@ namespace RaceAnalysis.Controllers
         public PartialViewResult DisplaySwimTime(SimpleFilterViewModel model)
         {
             model.ClearDuration(); //we do this just in case they have values from the duration filters on the page
-            var filter = new RaceFilterViewModel();
-            filter.SaveRaceFilterValues(model);
+            var filter = new RaceFilterViewModel(model);
             var modelView = GetEstimatedTime(filter);
             modelView.Filter = filter;
             return PartialView("_EstSwim", modelView);
@@ -49,8 +47,7 @@ namespace RaceAnalysis.Controllers
         public PartialViewResult DisplayBikeTime(SimpleFilterViewModel model)
         {
             model.ClearDuration(); //we do this just in case they have values from the duration filters on the page
-            var filter = new RaceFilterViewModel();
-            filter.SaveRaceFilterValues(model);
+            var filter = new RaceFilterViewModel(model);
             var modelView = GetEstimatedTime(filter);
             modelView.Filter = filter;
 
@@ -59,8 +56,7 @@ namespace RaceAnalysis.Controllers
         public PartialViewResult DisplayRunTime(SimpleFilterViewModel model)
         {
             model.ClearDuration(); //we do this just in case they have values from the duration filters on the page
-            var filter = new RaceFilterViewModel();
-            filter.SaveRaceFilterValues(model);
+            var filter = new RaceFilterViewModel(model);
             var modelView = GetEstimatedTime(filter);
             modelView.Filter = filter;
 
@@ -102,9 +98,8 @@ namespace RaceAnalysis.Controllers
             model.swimhightimevalue = null;
             model.swimlowtimevalue = null;
 
-            var filter = new RaceFilterViewModel();
-            filter.SaveRaceFilterValues(model);
-
+            var filter = new RaceFilterViewModel(model);
+     
             var modelView = GetEstimatedTime(filter);
             modelView.SelectedSplit = "BikeFinish"; //this value gets used by the generic _finishHistogram
             modelView.Filter = filter;
@@ -123,9 +118,8 @@ namespace RaceAnalysis.Controllers
             model.swimhightimevalue = null;
             model.swimlowtimevalue = null;
 
-            var filter = new RaceFilterViewModel();
-            filter.SaveRaceFilterValues(model);
-
+            var filter = new RaceFilterViewModel(model);
+           
             var modelView = GetEstimatedTime(filter);
             modelView.SelectedSplit = "BikeRun"; //this value gets used by the generic _finishHistogram
             modelView.Filter = filter;
@@ -144,9 +138,8 @@ namespace RaceAnalysis.Controllers
             model.swimhightimevalue = null;
             model.swimlowtimevalue = null;
 
-            var filter = new RaceFilterViewModel();
-            filter.SaveRaceFilterValues(model);
-
+            var filter = new RaceFilterViewModel(model);
+          
             var modelView = GetEstimatedTime(filter);
             modelView.Filter = filter;
             modelView.SelectedSplit = "RunFinish";//this value gets used by the generic _finishHistogram and also Hypotheth/Index to distinguish the Divs
@@ -157,8 +150,7 @@ namespace RaceAnalysis.Controllers
 
         public PartialViewResult DisplayFinishHistogram(SimpleFilterViewModel model)
         {
-            var filter = new RaceFilterViewModel();
-            filter.SaveRaceFilterValues(model);
+            var filter = new RaceFilterViewModel(model);
             var viewModel = GetEstimatedTime(filter);
             return PartialView("_FinishHistogram", viewModel);
         }

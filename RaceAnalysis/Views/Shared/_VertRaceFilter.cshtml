@@ -9,6 +9,8 @@
 @using (Html.BeginForm("Filter", controllerName, FormMethod.Get, new { @id = "myForm" }))
 
 {
+    <input type="hidden" name="distance" value=@Model.Distance>
+
     <div class="form-group">
         <label for="raceSelectId" class="control-label">Races</label>
         @Html.ListBoxFor(m => m.SelectedRaceIds,

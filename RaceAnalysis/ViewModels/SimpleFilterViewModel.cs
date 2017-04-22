@@ -57,9 +57,8 @@ namespace RaceAnalysis.Models
         public string finishlowtimevalue { get; set; }
         public string finishhightimevalue { get; set; }
 
-
-
-    }
+        public string distance { get; set; }
+}
 
     /// <summary>
     /// SimpleFilterViewModel - all properties are strings so it can be used with an HTTP GET
@@ -83,6 +82,8 @@ namespace RaceAnalysis.Models
         public string finishhightimevalue { get; set; }
 
         public string selectedAthletes { get; set; }
+
+        public string distance { get; set; }
 
         public string skilllevel { get; set; }
 
@@ -123,6 +124,8 @@ namespace RaceAnalysis.Models
             simple.selectedAthletes = null; //no conversion;
 
             simple.skilllevel = null; //no conversion
+
+            simple.distance = filterView.distance;
 
             return simple;
     }

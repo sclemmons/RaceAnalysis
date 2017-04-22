@@ -31,11 +31,10 @@ namespace RaceAnalysis.Controllers
             return View(viewmodel);
 
         }
-        public ActionResult Compare(SimpleFilterViewModel selections)
+        public ActionResult Compare(SimpleFilterViewModel model)
         {
-            var filter = new RaceFilterViewModel();
-            filter.SaveRaceFilterValues(selections);
-
+            var filter = new RaceFilterViewModel(model);
+          
 
             var viewmodel = new TriathletesCompareViewModel();
             viewmodel.Filter = filter;
@@ -98,8 +97,7 @@ namespace RaceAnalysis.Controllers
         //
         public PartialViewResult DisplayPagedAthletes(int page, SimpleFilterViewModel model)
         {
-            var filter = new RaceFilterViewModel();
-            filter.SaveRaceFilterValues(model);
+            var filter = new RaceFilterViewModel(model);
             page = page > 0 ? page : 1;
             int pageSize = 20;
 

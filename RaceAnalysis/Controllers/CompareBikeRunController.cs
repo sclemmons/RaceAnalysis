@@ -18,8 +18,7 @@ namespace RaceAnalysis.Controllers
         //called from actions links in the Action Bar
         public ActionResult DisplayPacing(SimpleFilterViewModel model)
         {
-            var filter = new RaceFilterViewModel();
-            filter.SaveRaceFilterValues(model);
+            var filter = new RaceFilterViewModel(model);
             return DisplayResultsView(filter,"Pacing");
 
         }
@@ -27,8 +26,7 @@ namespace RaceAnalysis.Controllers
         //called from actions links in the Action Bar
         public ActionResult DisplayQuartiles(SimpleFilterViewModel model)
         {
-            var filter = new RaceFilterViewModel();
-            filter.SaveRaceFilterValues(model);
+            var filter = new RaceFilterViewModel(model);
             return DisplayResultsView(filter,"Quartiles");
 
         }

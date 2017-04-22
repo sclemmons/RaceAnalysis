@@ -41,24 +41,24 @@
 
     
     <div>
-        <div data-toggle="buttons">
+        <div data-toggle="buttons" id="race-distance-div">
 
             @Ajax.ActionLink("140.6", "RaceDistanceToggle", "Races",
                 routeValues: new
                 {
-                    distance = "full",
+                    distance = "140.6",
                 },
                 ajaxOptions: new AjaxOptions { UpdateTargetId = "race-div" },
-                htmlAttributes: new { @class = "btn btn-primary race-distance", @type = "radio", @id="full"}
+                htmlAttributes: new { @class = "btn btn-primary race-distance active", @type = "radio", @id="full"}
                 )
             @Ajax.ActionLink("70.3", "RaceDistanceToggle", "Races",
-                routeValues: new
-                {
-                    distance = "half",
-                },
-                ajaxOptions: new AjaxOptions { UpdateTargetId = "race-div" },
-                htmlAttributes: new { @class = "btn btn-primary race-distance", @type = "radio", @id="half"}
-                )
+                 routeValues: new
+                 {
+                     distance = "70.3",
+                 },
+                 ajaxOptions: new AjaxOptions { UpdateTargetId = "race-div" },
+                 htmlAttributes: new { @class = "btn btn-primary race-distance", @type = "radio", @id="half"}
+                 )
 
         </div>
         <div id="race-div">
@@ -95,18 +95,27 @@
         $("#accordian").accordion({
             heightStyle: "content"
         });
+
+        
+        var distance = @Html.Raw(Json.Encode(Model.Distance));
+
+        if (distance == "70.3")
+        {
+            $('#half').addClass("active");
+            $('#full').removeClass("active");
+        }
         $('#full').click(function () {
             $(this).addClass("active");
-            $('#half').removeClass("active"); 
-            
-        });
+            $('#half').removeClass("active");
+
+            });
         $('#half').click(function () {
             $(this).addClass("active");
             $('#full').removeClass("active");
 
-        });
+            });
 
-    });
+        });
 
 
         //$('#config-form').on('submit', function (evt) {
@@ -153,6 +162,8 @@
                     }
                 }
             });
+
+     
         });
 
 
