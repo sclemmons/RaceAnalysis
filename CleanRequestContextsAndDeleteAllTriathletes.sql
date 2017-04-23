@@ -1,8 +1,10 @@
 
+select * from requestcontexts where raceid="imtx2013'
+
 
 delete Triathletes 
 where RequestContextId in
 (select RequestContextId from RequestContexts 
-where raceid='imswitz2016')
+where raceid='imtx2013')
 
-delete RequestContexts where raceId = 'imswitz2016'
+delete RequestContexts where raceId = 'imtx2013'

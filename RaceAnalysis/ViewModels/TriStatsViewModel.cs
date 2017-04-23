@@ -26,11 +26,11 @@ namespace RaceAnalysis.Models
             get
             {
                 var dataTable = new GoogleVisualizationDataTable();
-
+                var orderedStats = Stats.OrderBy(s => s.Race.RaceDate);
                 dataTable.AddColumn("Races", "string", "domain"); //our header column
 
                 var races = new List<Race>();  //we are going to compare races, so build out the race list and our columns
-                foreach (TriStats stat in Stats.OrderBy(s => s.Finish.Median))
+                foreach (TriStats stat in orderedStats)
                 {
                     races.Add(stat.Race);
                     dataTable.AddColumn(stat.Race.DisplayName, "timeofday", "data"); //define the data type the we will be populating in the rows
@@ -52,7 +52,7 @@ namespace RaceAnalysis.Models
                 runRow.Add("run");
                 finishRow.Add("finish");
 
-                foreach (TriStats stat in Stats.OrderBy(s => s.Finish.Median))
+                foreach (TriStats stat in orderedStats)
                 {
 //                    raceCol++;  //each stat and each column represents a different race in this chart
 
@@ -73,11 +73,11 @@ namespace RaceAnalysis.Models
             get
             {
                 var dataTable = new GoogleVisualizationDataTable();
-
+                var orderedStats = Stats.OrderBy(s => s.Race.RaceDate);
                 dataTable.AddColumn("Races", "string", "domain"); //our header column
 
                 var races = new List<Race>();  //we are going to compare races, so build out the race list and our columns
-                foreach (TriStats stat in Stats.OrderBy(s => s.Finish.Min))
+                foreach (TriStats stat in orderedStats)
                 {
                     races.Add(stat.Race);
                     dataTable.AddColumn(stat.Race.DisplayName, "timeofday", "data"); //define the data type the we will be populating in the rows
@@ -101,7 +101,7 @@ namespace RaceAnalysis.Models
 
                 
                 //assign values to each column. 
-                foreach (TriStats stat in Stats.OrderBy(s => s.Finish.Min))
+                foreach (TriStats stat in orderedStats)
                 {
                    //each stat and each column represents a different race in this chart
 
@@ -121,10 +121,11 @@ namespace RaceAnalysis.Models
         {
             get
             {
+                var orderedStats = Stats.OrderBy(s => s.Race.RaceDate);
                 var list = new List<object>();
                 list.Add(new object[] { "Race","# DNFs" });
 
-                foreach (TriStats stat in Stats)
+                foreach (TriStats stat in orderedStats)
                 {
                     //each stat and each column represents a different race in this chart
                     list.Add(new object[] {

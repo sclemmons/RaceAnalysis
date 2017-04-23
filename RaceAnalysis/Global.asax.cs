@@ -25,11 +25,11 @@ using RaceAnalysis.App_Start;
         protected void Application_Error(object sender, EventArgs e)
         {
             Exception exception = Server.GetLastError();
-#if _DEBUG
+
             throw exception;
-#endif 
-            Server.ClearError();
-            Response.Redirect("~/races");
+
+   //         Server.ClearError();
+   //         Response.Redirect("~/races");
         }
     }
 }
