@@ -133,13 +133,16 @@
             }
 
             
-            var races = _SelectedRaces.split(',') //value set in child view
+            var races = _SelectedRaces.split(','); //value set in child view
             for (var r in races) {
-                var id = races[r]
-                $('<input />').attr('type', 'hidden')
-                       .attr('name', 'SelectedRaceIds')
-                       .attr('value',id)
-                       .appendTo('#myForm');
+                var id = races[r].trim();
+                if(id.length > 0)
+                {
+                    $('<input />').attr('type', 'hidden')
+                           .attr('name', 'SelectedRaceIds')
+                           .attr('value',id)
+                           .appendTo('#myForm');
+                }
              }
             
 
