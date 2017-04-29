@@ -814,7 +814,7 @@ div.clearFloat::after {
    --background-color:aqua;
 }
 
-#chart-sort-div
+#median-chart-div
 {
     width:80%;
     --background-color:blueviolet;
