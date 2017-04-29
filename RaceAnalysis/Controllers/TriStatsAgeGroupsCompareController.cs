@@ -40,7 +40,11 @@ namespace RaceAnalysis.Controllers
                     filter
                   );
                 athletes.AddRange(athletesPerAG);
-                viewModel.Stats.Add(GetStats(athletesPerAG));
+
+                var stats = GetStats(athletesPerAG);
+                stats.AgeGroupId = agId;
+                viewModel.Stats.Add(stats);
+
             }
 
             viewModel.Triathletes = athletes;

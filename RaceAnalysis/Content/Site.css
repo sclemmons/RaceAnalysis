@@ -787,6 +787,40 @@ div.clearFloat::after {
     background-color:yellow;
 }
 
+.charts-title
+{
+    font-size:medium;
+   text-align:center;
+ 
+}
+.agegroup-chart-container
+{
+    display:inline-block;
+    width:100%;
+    --height:600px;
+    padding:10px;
+    margin:0px;
+    --border:dashed;
+    --border-width:thin;
+    --background-color:yellow;
+}
+.agegroup-charts{
+    
+   float:left;
+}
+#median-table-ags-div
+{
+    width:20%;
+   --background-color:aqua;
+}
+
+#chart-sort-div
+{
+    width:80%;
+    --background-color:blueviolet;
+}
+
+
 .nav-tabs > li > a{
     display:inline-block;
     --width:100%;

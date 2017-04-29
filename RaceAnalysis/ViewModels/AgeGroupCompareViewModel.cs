@@ -20,30 +20,19 @@ namespace RaceAnalysis.Models
             {
                 var dataTable = new GoogleVisualizationDataTable();
 
-                dataTable.AddColumn("AgeGroups", "string", "domain"); //our header column
-
-                var ageGroups = new List<AgeGroup>();  //we are going to compare aggroups, so build out the  list and our columns
-                foreach (var id in AgeGroup.Expand(Filter.SelectedAgeGroupIds ))
-                {
-                    var ag = Filter.AvailableAgeGroups.First(a => a.AgeGroupId == id);
-                    ageGroups.Add(ag);
-                    dataTable.AddColumn(ag.DisplayName, "timeofday", "data"); //define the data type the we will be populating in the rows
-            
-                }
-                             
-                var finishRow = new List<object>();
-                dataTable.AddRow(finishRow);
-
-                //our header values: 
-                finishRow.Add("Age Groups");
-
-                
-                
-                //assign values to each column. 
+                dataTable.AddColumn("Age Group", "string"); //our header column
+                dataTable.AddColumn("Duration", "timeofday"); //our header column
+   
                 foreach (TriStats stat in Stats)
                 {
-                     //each row represents a different AG 
-                    finishRow.Add(new int[] { stat.Finish.Median.Hours, stat.Finish.Median.Minutes, stat.Finish.Median.Seconds });
+                    var ag = Filter.AvailableAgeGroups.First(a => a.AgeGroupId == stat.AgeGroupId);
+                    if (stat.Finish.Median.TotalSeconds > 0)
+                    {
+                        var row = new List<object>();
+                        row.Add(ag.DisplayName);
+                        row.Add(new int[] { stat.Finish.Median.Hours, stat.Finish.Median.Minutes, stat.Finish.Median.Seconds });
+                        dataTable.AddRow(row);
+                    }
                 }
 
                 return dataTable;

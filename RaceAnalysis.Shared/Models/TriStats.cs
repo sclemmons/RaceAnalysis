@@ -22,6 +22,7 @@ namespace RaceAnalysis.Models
             Points = new PointsStats();
             Race = new Models.Race();
             Athletes = new List<Triathlete>();
+            AgeGroupId = 0;
         }
         public TriStats(List<Triathlete> athletes,Race race) : this()
         {
@@ -33,8 +34,11 @@ namespace RaceAnalysis.Models
 
         public Race Race { get; set; }  //each set of stats is associated with a single race, unless empty which means the athletes came from multiple races
         public List<Triathlete> Athletes{get;set;} //and a group of triathletes
-     
 
+        //SOME, but not all, set of stats are associated with a single age group
+        //this would be view specific
+        public int AgeGroupId { get; set; } 
+        
         //STATS:
        public SwimStats              Swim { get; set; }
        public BikeStats              Bike { get; set; }
