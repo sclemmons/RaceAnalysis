@@ -808,15 +808,19 @@ div.clearFloat::after {
     
    float:left;
 }
-#median-table-ags-div
+#median-table-ags-div,#fastest-table-ags-div
 {
     width:20%;
+    padding-right:0px;
+    margin-right:0px;
    --background-color:aqua;
 }
 
-#median-chart-div
+#median-chart-div,#fastest-chart-div
 {
     width:80%;
+    margin-left:0px;
+    padding-left:0px;
     --background-color:blueviolet;
 }
 
