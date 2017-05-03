@@ -22,6 +22,17 @@
         finishhightimevalue = Model.Filter.FinishHigh.TotalMinutes.ToString()
 
     };
+
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        LoadingElementId = "loading-area",
+        LoadingElementDuration = 1000,
+        Url = Url.Action("AthleteSearch"),
+      //  OnBegin = "HideForm",
+        OnFailure = "ShowFailure",
+        OnSuccess = "OnSuccess",
+        UpdateTargetId = "results-area"
+    };
 }
 
 <script src="~/Scripts/jquery.rowselector.min.js"></script>
@@ -30,16 +41,54 @@
 
     <h4>@Model.TotalCount   Finishers  (@Model.Filter.SelectedRaceNames)</h4>
 
+    
+        @using (Ajax.BeginForm(ajaxOptions))
+            {
+            @Html.AntiForgeryToken()
+
+            <div class="athletes-list-search-form">
+                @Html.TextBox("SearchByName", null, new { @class = "form-control inline" , placeholder="Search Name"})
+                <button type="submit" id="submitButton" class="btn btn-primary">Search</button>
+
+                @Html.ActionLink("All", "ShowAll", "Triathletes",
+                 queryViewModel, new { @id = "action-show-athletes", @class = "btn btn-default", @style="display:none", title = "Show All" })
+
+             </div>
+
+        }
+
+
+    
+
     @Html.ActionLink("Compare Athletes", "Compare", "Triathletes",
                  queryViewModel, new { @id = "action-compare-athletes", @class = "btn btn-default", title = "Display Comparison" })
 
 
 </div>
-<div>
+
+<div id="results-area">
     @Html.Partial("~/Views/Shared/_OnePageOfAthletes.cshtml", Model)
 </div>
 
 <script type="text/javascript">
+
+            function OnSuccess() {
+                $('#action-compare-athletes').hide();
+                $('#action-show-athletes').show();
+
+            }
+            function HideForm() {
+                //When the form is submitted, we hide the form
+                //$(".email-form").hide();
+            }
+            function ShowFailure() {
+                //In the case that the AJAX call fails to communicate with the server
+                //(e.g. the user's internet connection cuts out), we should display a message to that effect
+                $('#message-area').html("<div class='alert alert-danger'><strong>Error!</strong>The server could not be contacted and your message has not been sent. Please check your internet connection and try again later.</div>");
+            alert("failed!");
+            }
+
+
 
     $('#config-form').on('submit', function (evt) {
 

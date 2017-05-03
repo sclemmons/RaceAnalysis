@@ -747,6 +747,29 @@ div.rc-tag{
     padding:5px;
 }
 
+/**********************************************************************************/
+div.athletes-list-search-form
+{
+   -- background-color:yellow;
+     margin:10px;
+    margin-left:0px;
+    margin-right:0px;
+    padding:5px;
+    --border-width:1px;
+    --border-style:solid;
+    --border-color: rgba(0, 0, 0, 0.2);
+    --border-radius:5px;
+
+   text-align:left;
+}
+input#SearchByName.form-control.inline
+{
+   display:inline;
+   max-width:200px;
+}
+
+
+/************************************************************************/
 /*****************************************************************************/
 div.modal-content
 {
