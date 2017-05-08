@@ -1,6 +1,6 @@
 ﻿@model RaceAnalysis.Models.TriathletesViewModel
-
 @using RaceAnalysis.Models;
+
 
 @{
     var queryViewModel = new SimpleFilterViewModel
@@ -37,6 +37,8 @@
 
 <script src="~/Scripts/jquery.rowselector.min.js"></script>
 
+<script src="~/Scripts/typeahead.bundle.js"></script>
+
 <div id="results-header">
 
     <h4>@Model.TotalCount   Finishers  (@Model.Filter.SelectedRaceNames)</h4>
@@ -47,8 +49,9 @@
             @Html.AntiForgeryToken()
 
             <div class="athletes-list-search-form">
-                @Html.TextBox("SearchByName", null, new { @class = "form-control inline" , placeholder="Search Name"})
-                <button type="submit" id="submitButton" class="btn btn-primary">Search</button>
+             @Html.TextBox("SearchByName", null, new { @class = "form-control inline", placeholder = "Search Name" })
+      
+                                                                                                                       s            <button type="submit" id="submitButton" class="btn btn-primary">Search</button>
 
                 @Html.ActionLink("All", "ShowAll", "Triathletes",
                  queryViewModel, new { @id = "action-show-athletes", @class = "btn btn-default", @style="display:none", title = "Show All" })
@@ -56,8 +59,6 @@
              </div>
 
         }
-
-
     
 
     @Html.ActionLink("Compare Athletes", "Compare", "Triathletes",
@@ -71,7 +72,60 @@
 </div>
 
 <script type="text/javascript">
+    /**
+        var athletes = new Bloodhound({
+            datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+            queryTokenizer: Bloodhound.tokenizers.whitespace,
+            //prefetch: 'JsonAthleteSearchxx.json',
+            remote: {
+                url: 'JsonAthleteSearch?query=%QUERY',
+                valueKey: "name"
 
+            }
+        });
+        athletes.initialize();
+    ***/
+    $(function () {
+        SetupTipeahead();
+    });
+    function SetupTipeahead() {
+        
+        var engine = new Bloodhound({
+            remote: {
+                url: 'JsonAthleteSearch?query=%QUERY',
+                wildcard: '%QUERY',
+                ajax: {
+                    type: 'GET'
+                }
+            },
+            datumTokenizer: function (d) {
+                return Bloodhound.tokenizers.whitespace(d.FullName);
+            },
+            queryTokenizer: Bloodhound.tokenizers.whitespace
+        });
+
+        engine.initialize();
+
+        $('#SearchByName').typeahead(
+            {
+                minLength:2
+            },
+            {
+            //displayKey: 'value',
+            
+            source: engine.ttAdapter(),
+            templates: {
+                empty: [
+                                    '<div class="empty-message">',
+                                    'No match',
+                                    '</div>'
+                ].join('\n'),
+                suggestion: function (data) {
+                    return '<p class="">' + data.FullName + '</p><p class="">' + data.ManNumber + '</p>';
+                }
+            }
+        });
+    }
             function OnSuccess() {
                 $('#action-compare-athletes').hide();
                 $('#action-show-athletes').show();

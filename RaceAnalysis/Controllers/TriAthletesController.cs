@@ -66,6 +66,31 @@ namespace RaceAnalysis.Controllers
 
             return PartialView("_SearchResults", DoSearch(searchbyname));
         }
+
+      
+        public ActionResult JsonAthleteSearch(string query)
+        {
+           var athletes = DoSearchX(query);
+            return Json(athletes, JsonRequestBehavior.AllowGet);
+           
+        }
+
+        private List<String> DoSearchX(string search)
+        {
+           
+            List<String> names;
+            if (!String.IsNullOrEmpty(search))
+            {
+                var athletes = _RaceService.GetAthletesByName(search);
+                names = athletes.Select(a => a.Name).ToList();
+            }
+            else
+            {
+                names = new List<String>();
+            }
+            return names;
+        }
+
         private TriathletesViewModel DoSearch(string search)
         { 
             var viewmodel = new TriathletesViewModel();

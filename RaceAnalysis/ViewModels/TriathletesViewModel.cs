@@ -11,5 +11,7 @@ namespace RaceAnalysis.Models
     {
         public int TotalCount { get; set; }
 
+        public int SelectedAthleteId { get; set; }
+        public string Name { get { return "Name"; } }
     }
 }
