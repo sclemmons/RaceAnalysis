@@ -28,6 +28,8 @@ namespace RaceAnalysis.Models
             PopulateRaceFilter(model.distance);
             SaveRaceFilterValues(model);
         }
+     
+
         public IEnumerable<Race> AvailableRaces { get; set; }
         public IList<string> SelectedRaceIds { get; set; }
 

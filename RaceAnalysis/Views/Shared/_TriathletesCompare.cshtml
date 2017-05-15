@@ -23,6 +23,7 @@
 
     };
 
+
     AjaxOptions ajaxOptions = new AjaxOptions
     {
         LoadingElementId = "loading-area",
@@ -34,10 +35,12 @@
         UpdateTargetId = "results-area"
     };
 }
-
+<link rel="stylesheet" type="text/css" href="~/Content/typeahead.css" />
+<link rel="stylesheet" href="~/Content/themes/base/jquery-ui.min.css">
+<script src="~/Scripts/jquery-ui.min.js"></script>
 <script src="~/Scripts/jquery.rowselector.min.js"></script>
-
-<script src="~/Scripts/typeahead.bundle.js"></script>
+<script src="~/Scripts/typeahead.bundle.min.js"></script>
+<script src="~/Scripts/typeahead.mvc.model.js?v=5"></script>
 
 <div id="results-header">
 
@@ -45,25 +48,33 @@
 
     
         @using (Ajax.BeginForm(ajaxOptions))
-            {
+        {
             @Html.AntiForgeryToken()
 
             <div class="athletes-list-search-form">
-             @Html.TextBox("SearchByName", null, new { @class = "form-control inline", placeholder = "Search Name" })
-      
-                                                                                                                       s            <button type="submit" id="submitButton" class="btn btn-primary">Search</button>
+                @Html.HiddenFor(model => model.SelectedAthleteId,new {id="SelectedAthleteId" } )
+                @Html.AutocompleteFor(model => model.Athletes, model => model.SelectedAthleteId, "JsonAthleteSearch",
+                        "Triathletes", false,
+                        new
+                        {
+                            htmlAttributes = new { placeholder = "Search Athletes", type="search" }
+                        },
+                        new RouteValueDictionary {
+                        { "races", queryViewModel.Races }
+                        })
 
-                @Html.ActionLink("All", "ShowAll", "Triathletes",
-                 queryViewModel, new { @id = "action-show-athletes", @class = "btn btn-default", @style="display:none", title = "Show All" })
-
-             </div>
-
-        }
     
 
-    @Html.ActionLink("Compare Athletes", "Compare", "Triathletes",
+
+                <button type="submit" id="submitAthleteSearch" style="display:none" class="btn btn-primary">Search</button>
+
+
+                @Html.ActionLink("Compare Athletes", "Compare", "Triathletes",
                  queryViewModel, new { @id = "action-compare-athletes", @class = "btn btn-default", title = "Display Comparison" })
 
+            </div>
+
+        }
 
 </div>
 
@@ -72,75 +83,28 @@
 </div>
 
 <script type="text/javascript">
-    /**
-        var athletes = new Bloodhound({
-            datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
-            queryTokenizer: Bloodhound.tokenizers.whitespace,
-            //prefetch: 'JsonAthleteSearchxx.json',
-            remote: {
-                url: 'JsonAthleteSearch?query=%QUERY',
-                valueKey: "name"
 
-            }
-        });
-        athletes.initialize();
-    ***/
-    $(function () {
-        SetupTipeahead();
+    $('input[type=search]').on('search', function () {
+        // search logic here
+        $("#SelectedAthleteId").val("0");
+        // this function will be executed on click of X (clear button)
+        $(":submit").submit();
     });
-    function SetupTipeahead() {
-        
-        var engine = new Bloodhound({
-            remote: {
-                url: 'JsonAthleteSearch?query=%QUERY',
-                wildcard: '%QUERY',
-                ajax: {
-                    type: 'GET'
-                }
-            },
-            datumTokenizer: function (d) {
-                return Bloodhound.tokenizers.whitespace(d.FullName);
-            },
-            queryTokenizer: Bloodhound.tokenizers.whitespace
-        });
+    function OnSuccess() {
+        $('#action-compare-athletes').hide();
+        $('#action-show-athletes').show();
 
-        engine.initialize();
-
-        $('#SearchByName').typeahead(
-            {
-                minLength:2
-            },
-            {
-            //displayKey: 'value',
-            
-            source: engine.ttAdapter(),
-            templates: {
-                empty: [
-                                    '<div class="empty-message">',
-                                    'No match',
-                                    '</div>'
-                ].join('\n'),
-                suggestion: function (data) {
-                    return '<p class="">' + data.FullName + '</p><p class="">' + data.ManNumber + '</p>';
-                }
-            }
-        });
     }
-            function OnSuccess() {
-                $('#action-compare-athletes').hide();
-                $('#action-show-athletes').show();
-
-            }
-            function HideForm() {
-                //When the form is submitted, we hide the form
-                //$(".email-form").hide();
-            }
-            function ShowFailure() {
-                //In the case that the AJAX call fails to communicate with the server
-                //(e.g. the user's internet connection cuts out), we should display a message to that effect
-                $('#message-area').html("<div class='alert alert-danger'><strong>Error!</strong>The server could not be contacted and your message has not been sent. Please check your internet connection and try again later.</div>");
-            alert("failed!");
-            }
+    function HideForm() {
+        //When the form is submitted, we hide the form
+        //$(".email-form").hide();
+    }
+    function ShowFailure() {
+        //In the case that the AJAX call fails to communicate with the server
+        //(e.g. the user's internet connection cuts out), we should display a message to that effect
+        $('#message-area').html("<div class='alert alert-danger'><strong>Error!</strong>The server could not be contacted and your message has not been sent. Please check your internet connection and try again later.</div>");
+   // alert("failed!");
+    }
 
 
 

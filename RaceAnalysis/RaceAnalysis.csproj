@@ -316,6 +316,7 @@
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\CuratedAnalysisController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\HtmlHelpers.cs" />
     <Compile Include="Controllers\HypotheticalsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\RaceConditionsController.cs" />
@@ -334,6 +335,7 @@
     <Compile Include="Helpers\Extensions.cs" />
     <Compile Include="Helpers\TriStatsCalculator.cs" />
     <Compile Include="Helpers\TriStatsCalculatorExtended.cs" />
+    <Compile Include="Models\Autocomplete.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="ViewModels\AgeGroupCompareViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
@@ -423,6 +425,7 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Content\typeahead.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -445,8 +448,6 @@
     <Content Include="Scripts\bootstrap-spinner.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\bootstrap3-typeahead.js" />
-    <Content Include="Scripts\bootstrap3-typeahead.min.js" />
     <Content Include="Scripts\gviz-api.js" />
     <Content Include="Scripts\i18n\ar.js" />
     <Content Include="Scripts\i18n\az.js" />
@@ -534,6 +535,7 @@
     <Content Include="Scripts\typeahead.bundle.min.js" />
     <Content Include="Scripts\typeahead.jquery.js" />
     <Content Include="Scripts\typeahead.jquery.min.js" />
+    <Content Include="Scripts\typeahead.mvc.model.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Views\Shared\_BikeRunQuartileChart.cshtml" />
     <Content Include="Web.config">

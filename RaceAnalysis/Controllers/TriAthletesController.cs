@@ -7,6 +7,7 @@ using RaceAnalysis.Service.Interfaces;
 using RaceAnalysis.ServiceSupport;
 using System.Linq;
 using System;
+using System.Web;
 
 namespace RaceAnalysis.Controllers
 {
@@ -33,9 +34,27 @@ namespace RaceAnalysis.Controllers
         }
         public ActionResult Compare(SimpleFilterViewModel model)
         {
-            var filter = new RaceFilterViewModel(model);
-          
+            RaceFilterViewModel filter;
 
+            //the following is a workaround for some flawed javascript that doesn't always pass the params we need
+            if (String.IsNullOrEmpty(model.Races))
+            {
+                var simple = SimpleFilterViewModel.Create(Request.UrlReferrer.Query);
+                if (!String.IsNullOrEmpty(model.selectedAthletes))
+                {
+                    simple.selectedAthletes = model.selectedAthletes;
+                    return RedirectToAction("Compare", simple);
+                }
+
+                //this is to keep from a null exception
+                filter = new RaceFilterViewModel(simple); 
+                
+            }
+            else
+            {
+                filter = new RaceFilterViewModel(model);
+
+            }
             var viewmodel = new TriathletesCompareViewModel();
             viewmodel.Filter = filter;
 
@@ -55,51 +74,65 @@ namespace RaceAnalysis.Controllers
             if (String.IsNullOrEmpty(name))
                 return View(new TriathletesViewModel());
             else
-                return View(DoSearch(name));
+            {
+                throw new NotImplementedException();
+                //return View(DoSearch(name));
+
+            }
         }
 
 
 
         //called within Search page via ajax
-        public PartialViewResult AthleteSearch(string searchbyname)
+        public PartialViewResult AthleteSearch(string SelectedAthleteId)
         {
 
-            return PartialView("_SearchResults", DoSearch(searchbyname));
+            if(SelectedAthleteId == "0")
+            {
+                var simple = SimpleFilterViewModel.Create(Request.UrlReferrer.Query);
+                return DisplayPagedAthletes(1, simple);
+
+            }
+
+            return PartialView("_SearchResults", DoSearchById(SelectedAthleteId));
         }
 
       
-        public ActionResult JsonAthleteSearch(string query)
+        public ActionResult JsonAthleteSearch(string query,string races)
         {
-           var athletes = DoSearchX(query);
+
+            var raceIds = races.EmptyIfNull().Split(',');
+
+            var athletes = DoSearchX(query,raceIds);
             return Json(athletes, JsonRequestBehavior.AllowGet);
            
         }
 
-        private List<String> DoSearchX(string search)
+        private List<ShallowTriathlete> DoSearchX(string search,string[] raceIds=null)
         {
            
-            List<String> names;
+            List<ShallowTriathlete> athletes;
             if (!String.IsNullOrEmpty(search))
             {
-                var athletes = _RaceService.GetAthletesByName(search);
-                names = athletes.Select(a => a.Name).ToList();
+                 athletes = _RaceService.GetAthletesByName(search,raceIds);
+                
             }
             else
             {
-                names = new List<String>();
+                athletes = new List<ShallowTriathlete>();
             }
-            return names;
+            return athletes;
         }
 
-        private TriathletesViewModel DoSearch(string search)
+        private TriathletesViewModel DoSearchById(string id)
         { 
             var viewmodel = new TriathletesViewModel();
 
-            List<Triathlete> athletes;
-            if (!String.IsNullOrEmpty(search))
+            var athletes = new List<Triathlete>();
+            if (!String.IsNullOrEmpty(id))
             {
-                athletes = _RaceService.GetAthletesByName(search);
-
+                var a = _RaceService.GetAthleteById(Convert.ToInt32(id));
+                athletes.Add(a);
             }
             else
             {
@@ -200,7 +233,32 @@ namespace RaceAnalysis.Controllers
             return  View("List", viewmodel);
         }
 
-      
+        private IPagedList<Triathlete> GetOnePageAthletes(RaceFilterViewModel filter)
+        {
+
+            int page = 1;
+            int pageSize = 20;
+
+            List<Triathlete> athletes = _RaceService.GetAthletes(
+                    new BasicRaceCriteria
+                    {
+                        SelectedRaceIds = filter.SelectedRaceIds,
+                        SelectedAgeGroupIds = AgeGroup.Expand(filter.SelectedAgeGroupIds),
+                        SelectedGenderIds = Gender.Expand(filter.SelectedGenderIds)
+                    },
+                    filter);
+
+            var onePageOfAthletes = athletes.ToPagedList(page, pageSize); //max xx per page
+
+            return onePageOfAthletes;
+           // var viewmodel = new TriathletesViewModel();
+           // viewmodel.TotalCount = athletes.Count;
+           // viewmodel.Triathletes = onePageOfAthletes;
+           // viewmodel.Filter = filter;
+
+          //  return View("List", viewmodel);
+        }
+
 
 
 

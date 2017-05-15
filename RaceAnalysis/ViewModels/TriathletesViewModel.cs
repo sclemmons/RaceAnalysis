@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using X.PagedList;
 using System.Collections;
+using System.ComponentModel.DataAnnotations;
 
 namespace RaceAnalysis.Models
 {
@@ -12,6 +13,8 @@ namespace RaceAnalysis.Models
         public int TotalCount { get; set; }
 
         public int SelectedAthleteId { get; set; }
-        public string Name { get { return "Name"; } }
+
+       
+        public IEnumerable<ShallowTriathlete> Athletes { get; set; }
     }
 }

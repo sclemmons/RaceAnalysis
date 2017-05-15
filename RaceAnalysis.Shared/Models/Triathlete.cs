@@ -57,5 +57,9 @@ namespace RaceAnalysis.Models
 
     }
 
-   
+    public class ShallowTriathlete
+    {
+        public string Name { get; set; }
+        public int Id { get; set; }
+    }
 }

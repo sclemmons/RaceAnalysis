@@ -204,11 +204,25 @@ namespace RaceAnalysis.Service
         }
 
         //For the near-term we are going directly to database rather than use elastic search to ease deployment
-        public List<Triathlete> GetAthletesByName(string name)
+        public List<ShallowTriathlete> GetAthletesByName(string name,string[] raceIds=null)
         {
-            var athletes = _DBContext.Triathletes.Where(a => a.Name.Contains(name));
-            return athletes.ToList();
+            var query = _DBContext.Triathletes
+                                  .Where(a => a.Name.Contains(name));
+            if(raceIds != null)
+                query = query.Where(t => raceIds.Contains( t.RequestContext.RaceId));
+
+
+            var results = query.Select(t => new ShallowTriathlete()
+                            { Name = t.Name, Id = t.TriathleteId });
+
+            return results.ToList();
         }
+        public Triathlete GetAthleteById(int id)
+        {
+            var athlete = _DBContext.Triathletes.Where(a => a.TriathleteId == id);
+            return athlete.SingleOrDefault();
+        }
+
 
         public List<Race> GetRacesByTagId(List<int> tagIds)
         {

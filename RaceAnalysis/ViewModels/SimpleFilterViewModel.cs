@@ -115,11 +115,11 @@ namespace RaceAnalysis.Models
             simple.bikelowtimevalue = filterView.bikelowtimevalue;
             simple.bikehightimevalue = filterView.bikehightimevalue;
 
-            simple.runlowtimevalue = filterView.bikelowtimevalue;
-            simple.runhightimevalue = filterView.bikelowtimevalue;
+            simple.runlowtimevalue = filterView.runlowtimevalue;
+            simple.runhightimevalue = filterView.runhightimevalue;
 
-            simple.finishlowtimevalue = filterView.bikelowtimevalue;
-            simple.finishhightimevalue = filterView.bikehightimevalue;
+            simple.finishlowtimevalue = filterView.finishlowtimevalue;
+            simple.finishhightimevalue = filterView.finishhightimevalue;
 
             simple.selectedAthletes = null; //no conversion;
 
@@ -129,6 +129,35 @@ namespace RaceAnalysis.Models
 
             return simple;
     }
+        public static SimpleFilterViewModel Create(string queryString)
+        {
+            var simple = new SimpleFilterViewModel();
+            var parms = HttpUtility.ParseQueryString(queryString);
 
-}
+
+            simple.Races = parms["races"];
+            simple.AgeGroups = parms["agegroups"];
+            simple.Genders = parms["genders"];
+
+            simple.swimlowtimevalue = parms["swimlowtimevalue"];
+            simple.swimhightimevalue = parms["swimhightimevalue"];
+
+            simple.bikelowtimevalue = parms["bikelowtimevalue"];
+            simple.bikehightimevalue = parms["bikehightimevalue"];
+
+            simple.runlowtimevalue = parms["runlowtimevalue"];
+            simple.runhightimevalue = parms["runhightimevalue"];
+
+            simple.finishlowtimevalue = parms["finishlowtimevalue"];
+            simple.finishhightimevalue = parms["finishhightimevalue"];
+
+            simple.selectedAthletes = null; //no conversion;
+
+            simple.skilllevel = null; //no conversion
+
+            simple.distance = parms["distance"];
+
+            return simple;
+        }
+    }
 }
