@@ -18,8 +18,11 @@ namespace RaceAnalysis.Service.Interfaces
         List<Race> GetRacesByBikeCondition(string conditions);
         List<Race> GetRacesByRunCondition(string conditions);
 
-        List<ShallowTriathlete> GetAthletesByName(string name,string[] raceIds=null);
-            
+        List<ShallowTriathlete> GetShallowAthletesByName(string name,string[] raceIds=null);
+        List<Triathlete> GetAthletesByName(string name, string[] raceIds = null);
+
+
+
         void ReIndex(); //note we may move this
 
 

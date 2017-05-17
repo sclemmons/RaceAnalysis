@@ -57,9 +57,38 @@ namespace RaceAnalysis.Models
 
     }
 
+
+
+    public class TriathleteComparer : EqualityComparer<Triathlete>
+    {
+        public override bool Equals(Triathlete x, Triathlete y)
+        {
+            return x.Name.Equals(y.Name);
+        }
+
+        public override int GetHashCode(Triathlete obj)
+        {
+            return obj.Name.GetHashCode();
+        }
+    }
+
     public class ShallowTriathlete
     {
         public string Name { get; set; }
         public int Id { get; set; }
     }
+
+
+    public class ShallowTriathleteComparer : EqualityComparer<ShallowTriathlete>
+    {
+        public override bool Equals(ShallowTriathlete x, ShallowTriathlete y)
+        {
+            return x.Name.Equals(y.Name);
+        }
+
+        public override int GetHashCode(ShallowTriathlete obj)
+        {
+            return obj.Name.GetHashCode(); 
+       }
+    } 
 }

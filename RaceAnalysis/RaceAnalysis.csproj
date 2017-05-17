@@ -613,10 +613,10 @@
     <Content Include="Views\Shared\_ActionBar.cshtml" />
     <Content Include="Views\Shared\_FilterByDuration.cshtml" />
     <Content Include="Views\Shared\_TriathletesCompare.cshtml" />
-    <Content Include="Views\Shared\_CompareAthletesChart.cshtml" />
+    <Content Include="Views\TriAthletes\_CompareAthletesChart.cshtml" />
     <Content Include="Views\TriAthletes\Compare.cshtml" />
     <Content Include="Views\Shared\_OnePageOfAthletes.cshtml" />
-    <Content Include="Views\Shared\_CompareAthletesDetail.cshtml" />
+    <Content Include="Views\TriAthletes\_CompareAthletesDetail.cshtml" />
     <Content Include="Views\Shared\_BoxPlotChart.cshtml" />
     <Content Include="Views\CompareBikeRun\Pacing.cshtml" />
     <Content Include="Views\Shared\_BikeRunScatterChart.cshtml" />
@@ -673,6 +673,7 @@
     <Content Include="Views\Races\_RaceRequest.cshtml" />
     <Content Include="Views\RequestContexts\Search.cshtml" />
     <Content Include="Views\RequestContexts\_SearchResults.cshtml" />
+    <Content Include="Views\TriAthletes\_OnePageOfAthletes.cshtml" />
     <None Include="Web.Test.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

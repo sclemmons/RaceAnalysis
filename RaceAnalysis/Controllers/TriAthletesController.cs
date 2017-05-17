@@ -83,7 +83,6 @@ namespace RaceAnalysis.Controllers
 
 
 
-        //called within Search page via ajax
         public PartialViewResult AthleteSearch(string SelectedAthleteId)
         {
 
@@ -96,13 +95,31 @@ namespace RaceAnalysis.Controllers
 
             return PartialView("_SearchResults", DoSearchById(SelectedAthleteId));
         }
-
-      
-        public ActionResult JsonAthleteSearch(string query,string races)
+        public PartialViewResult AthleteSearchByName(string athletes)
         {
 
-            var raceIds = races.EmptyIfNull().Split(',');
+            if (athletes == "0")
+            {
+                var simple = SimpleFilterViewModel.Create(Request.UrlReferrer.Query);
+                return DisplayPagedAthletes(1, simple);
 
+            }
+
+            return PartialView("_SearchResults", DoSearchByName(athletes));
+        }
+
+
+        public ActionResult JsonAthleteSearch(string query)
+        {
+            string[] raceIds = null;
+            if (Request.UrlReferrer.Query != null)
+            {
+                var parms = HttpUtility.ParseQueryString(Request.UrlReferrer.Query);
+                string races = parms["races"];
+                if (!String.IsNullOrEmpty(races))
+                    raceIds = races.EmptyIfNull().Split(',');
+            }
+ 
             var athletes = DoSearchX(query,raceIds);
             return Json(athletes, JsonRequestBehavior.AllowGet);
            
@@ -114,7 +131,7 @@ namespace RaceAnalysis.Controllers
             List<ShallowTriathlete> athletes;
             if (!String.IsNullOrEmpty(search))
             {
-                 athletes = _RaceService.GetAthletesByName(search,raceIds);
+                 athletes = _RaceService.GetShallowAthletesByName(search,raceIds);
                 
             }
             else
@@ -144,6 +161,26 @@ namespace RaceAnalysis.Controllers
             return viewmodel;
         }
 
+        private TriathletesViewModel DoSearchByName(string name)
+        {
+            var viewmodel = new TriathletesViewModel();
+
+            var athletes = new List<Triathlete>();
+            if (!String.IsNullOrEmpty(name))
+            {
+                athletes = _RaceService.GetAthletesByName(name);
+                
+            }
+            else
+            {
+                athletes = new List<Triathlete>();
+            }
+            viewmodel.SelectedAthleteName = name;
+            viewmodel.Triathletes = athletes;
+            viewmodel.TotalCount = athletes.Count();
+
+            return viewmodel;
+        }
 
 
         /// <summary>

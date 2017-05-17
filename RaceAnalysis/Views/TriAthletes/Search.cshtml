@@ -1,4 +1,6 @@
 ﻿@model RaceAnalysis.Models.TriathletesViewModel
+@using RaceAnalysis.Models;
+
 @{
     Layout = "~/Views/Layouts/_FullPageLayout.cshtml";
     ViewBag.Title = "Search";
@@ -9,14 +11,28 @@
     {
         LoadingElementId = "loading-area",
         LoadingElementDuration = 1000,
-        Url = Url.Action("AthleteSearch"),
+        Url = Url.Action("AthleteSearchByName"),
         OnBegin = "HideForm",
         OnFailure = "ShowFailure",
         OnSuccess = "OnSuccess",
         UpdateTargetId = "results-area"
     };
 }
-<script type="text/javascript" src="~/Scripts/jquery.collapsible.js"></script>
+@section scripts{
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<link rel="stylesheet" type="text/css" href="~/Content/typeahead.css" />
+<link rel="stylesheet" href="~/Content/themes/base/jquery-ui.min.css">
+<script src="~/Scripts/jquery.collapsible.js"></script>
+<script src="~/Scripts/jquery-ui.min.js"></script>
+<script src="~/Scripts/jquery.rowselector.min.js"></script>
+<script src="~/Scripts/typeahead.bundle.min.js"></script>
+<script src="~/Scripts/typeahead.mvc.model.js?v=5"></script>
+
+}
+
+
+
+
 
 <br />
 <!-- The loading-area will be where we display a message during the AJAX call.
@@ -35,19 +51,26 @@
         <div class="email-form">
             @using (Ajax.BeginForm(ajaxOptions))
             {
-                @Html.AntiForgeryToken()
+               // @Html.AntiForgeryToken()
 
-                   <div class="form-group">
+                <div class="athletes-list-search-form">
+                    @Html.HiddenFor(model => model.SelectedAthleteName, new { id = "SelectedAthleteId" })
+                    @Html.AutocompleteFor(model => model.Athletes, model => model.SelectedAthleteName, "JsonAthleteSearch",
+                        "Triathletes", false,
+                        new
+                        {
+                            htmlAttributes = new { placeholder = "Search Athletes", type = "search" }
+                        })
 
-                        <span>Search for athletes by name:</span>
-                        @Html.TextBox("SearchByName", null, new { @class = "form-control" })
-                   </div>
 
 
-                    <button type="submit" id="submitButton" class="btn btn-primary">Search</button>
-            }
-            
-     
+
+                    <button type="submit" id="submitAthleteSearch" style="display:none" class="btn btn-primary">Search</button>
+
+
+                </div>
+
+            }            
            </div>
         }
     </div> <!--content-->
@@ -59,6 +82,7 @@
 @if (Model.Triathletes.Any())
 {
     @Html.Partial("_SearchResults", Model);
+
 }
 
 </div>
@@ -72,8 +96,16 @@
                 $('.collapsible').collapsible({
                     defaultOpen: 'search-form-section'
                 });
-            });
+            
 
+            $('input[type=search]').on('search', function () {
+                // search logic here
+                $("#SelectedAthleteId").val("0");
+                // this function will be executed on click of X (clear button)
+                $(":submit").submit();
+             });
+
+            });
 
             function OnSuccess() {
                 $('#search-form-section').collapsible('close');
