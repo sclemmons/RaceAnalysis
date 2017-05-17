@@ -26,7 +26,7 @@ namespace RaceAnalysis.Models
             {
                 var dataTable = new GoogleVisualizationDataTable();
                
-                dataTable.AddColumn("Race", "string", "data"); 
+                dataTable.AddColumn("Race", "string", "domain"); 
                 dataTable.AddColumn("Athlete", "string", "data");
                 dataTable.AddColumn("Country", "string", "data");
                 dataTable.AddColumn("Div Rank", "string", "data");
@@ -92,12 +92,16 @@ namespace RaceAnalysis.Models
 
                     row.Add(new object[]
                        { athlete.Run.Hours, athlete.Run.Minutes, athlete.Run.Seconds });
-
-                    TimeSpan tTime = athlete.Finish - (athlete.Swim + athlete.Bike + athlete.Run);
-
-                    row.Add(new object[]
+                    if (athlete.Finish.TotalSeconds > 0)
+                    {
+                        TimeSpan tTime = athlete.Finish - (athlete.Swim + athlete.Bike + athlete.Run);
+                        row.Add(new object[]
                          { tTime.Hours, tTime.Minutes, tTime.Seconds });
-
+                    }
+                    else
+                    {
+                        row.Add(new object[]{ 0,0,0});
+                    }
                     row.Add(new object[] { "" });
                     dataTable.AddRow(row);
                 }

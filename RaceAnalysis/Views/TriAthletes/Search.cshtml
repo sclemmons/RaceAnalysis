@@ -51,7 +51,7 @@
         <div class="email-form">
             @using (Ajax.BeginForm(ajaxOptions))
             {
-               // @Html.AntiForgeryToken()
+                @Html.AntiForgeryToken()
 
                 <div class="athletes-list-search-form">
                     @Html.HiddenFor(model => model.SelectedAthleteName, new { id = "SelectedAthleteId" })
@@ -61,9 +61,6 @@
                         {
                             htmlAttributes = new { placeholder = "Search Athletes", type = "search" }
                         })
-
-
-
 
                     <button type="submit" id="submitAthleteSearch" style="display:none" class="btn btn-primary">Search</button>
 
@@ -96,15 +93,7 @@
                 $('.collapsible').collapsible({
                     defaultOpen: 'search-form-section'
                 });
-            
-
-            $('input[type=search]').on('search', function () {
-                // search logic here
-                $("#SelectedAthleteId").val("0");
-                // this function will be executed on click of X (clear button)
-                $(":submit").submit();
-             });
-
+    
             });
 
             function OnSuccess() {
