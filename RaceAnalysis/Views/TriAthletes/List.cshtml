@@ -12,6 +12,10 @@
 <!-- import the included stylesheet for some (very basic) default styling -->
 <link href="/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
+@section scripts
+{
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+}
 
 @section filter{
   
@@ -29,6 +33,6 @@
     @if (Model.Triathletes.Any())
     {
         <script type="text/javascript">  $("#results").show(); </script>
-          @Html.Partial("~/Views/Shared/_TriathletesCompare.cshtml",Model);
+          @Html.Partial("~/Views/Shared/_TriathletesCompare.cshtml",Model)
     }
 }
