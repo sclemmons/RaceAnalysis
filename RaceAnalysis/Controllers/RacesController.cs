@@ -14,6 +14,7 @@ using System;
 using Microsoft.AspNet.Identity;
 using System.Text;
 using X.PagedList;
+using System.Web.Routing;
 
 namespace RaceAnalysis.Controllers
 {
@@ -367,6 +368,40 @@ namespace RaceAnalysis.Controllers
 
             return RedirectToAction("Admin");
         }
+
+        [Authorize(Roles = "Admin")]
+        public ActionResult Verify(string id)
+        {
+            if (String.IsNullOrEmpty(id))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Race race = _DBContext.Races.Find(id);
+            if (race == null)
+            {
+                return HttpNotFound();
+            }
+
+            _RaceService.VerifyRace(race);
+
+            var query = _DBContext.RequestContext.Where(r => r.RaceId == id);
+            race.ValidateMessage = "Validated";
+            foreach (var cxt in query)
+            {
+                if(cxt.Expected != cxt.SourceCount)
+                {
+                    race.ValidateMessage = "Mismatch";
+                    break;
+                }
+            }
+            _DBContext.SaveChanges();
+
+  
+
+            return RedirectToAction("Index", "RequestContexts", new {  raceId = id  });
+        }   
+
 
         private async Task AddQueueMessages(string raceId)
         {

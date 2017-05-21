@@ -46,6 +46,8 @@ namespace RaceAnalysis.Models
         public RequestInstruction Instruction { get; set; }  //eg: always get from source, ignore request,  
 
         public int SourceCount { get; set; } //number of records we got from the source
+
+        public int Expected { get; set; } //number of records we expected to get from source
     }
 
     public enum RequestInstruction

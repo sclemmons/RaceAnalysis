@@ -28,15 +28,14 @@
             @Html.DisplayNameFor(model => model.RaceDate)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ShortName)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Distance)
         </th>
         <th>
            Conditions
         </th>
-
+        <th>
+            @Html.DisplayNameFor(model => model.ValidateMessage)
+        </th>
         <th></th>
     </tr>
 
@@ -60,19 +59,19 @@
             @Html.DisplayFor(modelItem => item.ShortName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Distance)
-        </td>
-        <td>
             @Html.ActionLink("Conditions...", "Edit", "RaceConditions", new { id = item.RaceId },null )
         </td>
-
+        <td>
+            @Html.DisplayFor(modelItem => item.ValidateMessage)
+        </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.RaceId }) |
             @Html.ActionLink("Details", "Details", new { id=item.RaceId }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.RaceId }) |
-  
-            @Html.ActionLink("Trigger Cache Fill", "CacheFill",new {id = item.RaceId})
-        </td>
+            @Html.ActionLink("Trigger Fill", "CacheFill",new {id = item.RaceId}) |
+            @Html.ActionLink("Verify", "Verify", new { id = item.RaceId })
+      
+         </td>
     </tr>
 }
 

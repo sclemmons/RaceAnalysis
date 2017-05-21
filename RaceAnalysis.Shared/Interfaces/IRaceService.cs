@@ -12,6 +12,10 @@ namespace RaceAnalysis.Service.Interfaces
         List<Triathlete> GetAthletesFromStorage(IRaceCriteria criteria); //for testing purposes
         List<Triathlete> GetAthletesFromSource(IRaceCriteria criteria); //for testing purposes
 
+        void VerifyRequestContext(RequestContext context);
+        void VerifyRace(Race race);
+
+
         Triathlete GetAthleteById(int id);
 
         List<Race> GetRacesBySwimCondition(string conditions);

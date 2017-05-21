@@ -49,6 +49,8 @@ namespace RaceAnalysis.Models
         public virtual RaceConditions Conditions { get; set; }
 
         public string ApiName { get; set; } //at this point, if this is null, we assume it is IronmanClient
+
+        public string ValidateMessage { get; set; }
     }
 
 

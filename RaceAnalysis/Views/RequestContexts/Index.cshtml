@@ -10,6 +10,10 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+<p>
+    Validate: @Model.First().Race.ValidateMessage
+</p>
+
 <table class="table">
     <tr>
         <th>
@@ -32,6 +36,10 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.SourceCount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Expected)
+
         </th>
         <th></th>
     </tr>
@@ -63,13 +71,17 @@
             @Html.DisplayFor(modelItem => item.SourceCount)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.Expected)
+        </td>
+
+        <td>
 
             @Html.ActionLink("Retry", "Retry", new { id = item.RequestContextId }, new { target = "_blank" }) |
             @Html.ActionLink("Edit", "Edit", new { id=item.RequestContextId }) |
             @Html.ActionLink("Details", "Details", new { id=item.RequestContextId }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.RequestContextId })
-            @Html.ActionLink("Trigger Cache Fill", "CacheFill", new { id = item.RequestContextId })
-
+            @Html.ActionLink("Trigger Fill", "CacheFill", new { id = item.RequestContextId })
+            @Html.ActionLink("Validate", "Validate", new { id = item.RequestContextId })
 
         </td>
     </tr>

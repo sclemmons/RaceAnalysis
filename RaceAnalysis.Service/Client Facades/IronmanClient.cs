@@ -5,7 +5,7 @@ using System.Web;
 using RaceAnalysis.Models;
 using HtmlAgilityPack;
 using RestSharp;
-
+using System.Text.RegularExpressions;
 
 namespace RaceAnalysis.Rest
 {
@@ -39,12 +39,14 @@ namespace RaceAnalysis.Rest
             return parameters;
         }
 
-        public virtual List<Triathlete> ParseData(RequestContext request, string htmlData)
+        public virtual List<Triathlete> ParseData(RequestContext request, string htmlData,int pageNum)
         {
 
             HtmlDocument doc = new HtmlDocument();
             doc.LoadHtml(htmlData);
 
+            if(pageNum == 1)
+                ParseDataToVerify(request,doc);
 
             var count = doc.DocumentNode
                  .Descendants("table")
@@ -97,6 +99,16 @@ namespace RaceAnalysis.Rest
                        };
 
             return data.ToList<Triathlete>();
+        }
+
+
+        public virtual void ParseDataToVerify(RequestContext request, string htmlData)
+        {
+            
+
+            HtmlDocument doc = new HtmlDocument();
+            doc.LoadHtml(htmlData);
+            ParseDataToVerify(request, doc);
         }
 
         public bool HandleResponse(IRestResponse response, RequestContext reqContext)
@@ -178,6 +190,28 @@ namespace RaceAnalysis.Rest
 
 
         }
+
+        private void ParseDataToVerify(RequestContext request, HtmlDocument doc)
+        {
+            var tableDiv = doc.DocumentNode
+                  .Descendants("div")
+                  .Where(t => t.Attributes.Contains("class") && t.Attributes["class"].Value.Equals("results-athletes-table"))
+                  .FirstOrDefault();
+            if (tableDiv != null)
+            {
+                var h2Ele = tableDiv.Element("h2");
+                var spanElement = h2Ele.Element("span");
+                var val = spanElement.InnerHtml;
+                var numericPart = Regex.Match(val, "\\d+").Value;
+                int count = -1;
+                int.TryParse(numericPart, out count);
+                request.Expected = count;
+            }
+            else
+            {
+                request.Expected = -99; //magic number to indicate we didnt find tableDiv
+            }
+        }
     }//class
 
 
@@ -186,7 +220,7 @@ namespace RaceAnalysis.Rest
         public IronmanClientDoubleTable(RaceAnalysisDbContext db) : base(db) { }
 
 
-        public override List<Triathlete> ParseData(RequestContext request, string htmlData)
+        public override List<Triathlete> ParseData(RequestContext request, string htmlData,int pageNum)
         {
 
             HtmlDocument doc = new HtmlDocument();

@@ -142,6 +142,7 @@ namespace RaceAnalysis.Service
                         else
                         {
                             athletesInReqContext = GetAthletesFromSource(reqContext);
+
                         }
 
                         if (athletesInReqContext.Count > 0)
@@ -158,6 +159,46 @@ namespace RaceAnalysis.Service
         }
 
 
+        public void VerifyRequestContext(RequestContext reqContext)
+        {
+            string baseUrl = reqContext.Race.BaseURL;
+
+            IronmanClient sourceClient;  //we'll change this to a factory pattern if we have more than these two classes
+
+            string apiName = reqContext.Race.ApiName == null ? "IronmanClient" : reqContext.Race.ApiName.ToLower();
+            if (apiName.Equals("ironmanclientdoubletable"))
+            {
+                sourceClient = new IronmanClientDoubleTable(_DBContext);
+            }
+            else
+            {
+                sourceClient = new IronmanClient(_DBContext);
+            }
+            int pagenum = 1;
+                
+            List<Triathlete> athletesPerPage = new List<Triathlete>();
+
+
+            IRestResponse response = sourceClient.MakeRequest(baseUrl, sourceClient.BuildRequestParameters(pagenum, reqContext));
+            bool result = sourceClient.HandleResponse(response, reqContext);
+            if (result)
+            {
+                sourceClient.ParseDataToVerify(reqContext,response.Content);
+
+                SaveRequestContext(reqContext);
+
+            }
+        }
+        
+
+        public void VerifyRace(Race race)
+        {
+          var query = _DBContext.RequestContext.Where(r => r.RaceId == race.RaceId);
+          foreach(RequestContext req in query)
+          {
+                VerifyRequestContext(req);
+          }
+        }
 
         /***********************************************************
          * GetAthletesByAgeGroup(race,gender)
@@ -434,7 +475,7 @@ namespace RaceAnalysis.Service
                 bool result = sourceClient.HandleResponse(response, reqContext);
                 if (result)
                 {
-                    athletesPerPage = sourceClient.ParseData(reqContext, response.Content);
+                    athletesPerPage = sourceClient.ParseData(reqContext, response.Content,pagenum);
 
                     if (athletesPerPage.Count > 0)
                     {
@@ -452,8 +493,7 @@ namespace RaceAnalysis.Service
                 }
             }
 
-            //changed to accumulate   reqContext.SourceCount = athletesFromSource.Count;
-
+   
             SaveRequestContext(reqContext);
             DeleteAthletes(reqContext);
             SaveAthletes(athletesFromSource);
@@ -462,6 +502,8 @@ namespace RaceAnalysis.Service
 
             return athletesFromSource;
         }
+
+
 
         private void DeleteAthletes(RequestContext reqContext)
         {
@@ -517,7 +559,7 @@ namespace RaceAnalysis.Service
             _DBContext.SaveChanges();
 
         }
-
+        
 
         /*************
         private List<Triathlete> GetAthletesFromSource_SAVE-MAY NEED THIS LATER(int[] raceIds, int[] agegroupIds, int[] genderIds)
