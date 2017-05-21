@@ -15,6 +15,8 @@ using Microsoft.AspNet.Identity;
 using System.Text;
 using X.PagedList;
 using System.Web.Routing;
+using System.Data.Entity.Migrations;
+using RaceAnalysis.ServiceSupport;
 
 namespace RaceAnalysis.Controllers
 {
@@ -400,8 +402,68 @@ namespace RaceAnalysis.Controllers
   
 
             return RedirectToAction("Index", "RequestContexts", new {  raceId = id  });
-        }   
+        }
 
+
+        public ActionResult Aggregate(string id)
+        {
+            Race race = _DBContext.Races.Find(id);
+            if (race == null)
+            {
+                return HttpNotFound();
+            }
+
+            var athletes = _RaceService.GetAthletesFromStorage(
+                new BasicRaceCriteria
+                {
+                    SelectedRaceIds = {id },
+                    SelectedAgeGroupIds = 
+                        _DBContext.AgeGroups.OrderBy(a => a.DisplayOrder).Select(a => a.AgeGroupId).ToList(),
+                    SelectedGenderIds = 
+                        _DBContext.Genders.Select(g => g.GenderId).ToList()
+
+                }
+
+            );
+            var stats = GetStats(athletes, _DBContext.Races.Single(r => r.RaceId == id));
+
+
+            var aggr = new RaceAggregate();
+            aggr.RaceId = race.RaceId;
+            aggr.RaceName = race.LongDisplayName;
+            aggr.AthleteCount = athletes.Count;
+            aggr.DNFCount = stats.DNFCount;
+            aggr.MaleCount = athletes.Where(a => a.RequestContext.Gender.Value.Equals("M")).Count();
+            aggr.FemaleCount = athletes.Where(a => a.RequestContext.Gender.Value.Equals("F")).Count();
+
+
+            aggr.SwimFastest = stats.Swim.Min;
+            aggr.BikeFastest = stats.Bike.Min;
+            aggr.RunFastest = stats.Run.Min;
+            aggr.FinishFastest = stats.Finish.Min;
+
+            aggr.SwimSlowest = stats.Swim.Max;
+            aggr.BikeSlowest = stats.Bike.Max;
+            aggr.RunSlowest = stats.Run.Max;
+            aggr.FinishSlowest = stats.Finish.Max;
+
+            aggr.SwimStdDev = stats.Swim.StandDev;
+            aggr.BikeStdDev = stats.Bike.StandDev;
+            aggr.RunStdDev = stats.Run.StandDev;
+            aggr.FinishStdDev = stats.Finish.StandDev;
+
+            aggr.SwimMedian = stats.Swim.Median;
+            aggr.BikeMedian = stats.Bike.Median;
+            aggr.RunMedian = stats.Run.Median;
+            aggr.FinishMedian = stats.Finish.Median;
+
+      
+            _DBContext.RacesAggregate.AddOrUpdate(aggr);
+            _DBContext.SaveChanges();
+
+            return RedirectToAction("Admin");
+       }
+        
 
         private async Task AddQueueMessages(string raceId)
         {

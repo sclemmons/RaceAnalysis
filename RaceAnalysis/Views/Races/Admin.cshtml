@@ -71,7 +71,8 @@
             @Html.ActionLink("Trigger Fill", "CacheFill",new {id = item.RaceId}) |
             @Html.ActionLink("Verify", "Verify", new { id = item.RaceId })
       
-         </td>
+            @Html.ActionLink("Aggregate", "Aggregate", new { id = item.RaceId })
+     </td>
     </tr>
 }
 

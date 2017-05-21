@@ -319,6 +319,7 @@
     <Compile Include="Controllers\HtmlHelpers.cs" />
     <Compile Include="Controllers\HypotheticalsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\RaceAggregatesController.cs" />
     <Compile Include="Controllers\RaceConditionsController.cs" />
     <Compile Include="Controllers\RacesController.cs" />
     <Compile Include="Controllers\RequestContextsController.cs" />
@@ -674,6 +675,11 @@
     <Content Include="Views\RequestContexts\Search.cshtml" />
     <Content Include="Views\RequestContexts\_SearchResults.cshtml" />
     <Content Include="Views\TriAthletes\_OnePageOfAthletes.cshtml" />
+    <Content Include="Views\RaceAggregates\Create.cshtml" />
+    <Content Include="Views\RaceAggregates\Delete.cshtml" />
+    <Content Include="Views\RaceAggregates\Details.cshtml" />
+    <Content Include="Views\RaceAggregates\Edit.cshtml" />
+    <Content Include="Views\RaceAggregates\Index.cshtml" />
     <None Include="Web.Test.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

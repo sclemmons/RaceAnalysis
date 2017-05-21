@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 //using System.Web.Script.Services;
@@ -11,7 +12,7 @@ namespace RaceAnalysis.Models
 
         public TriStats()
         {
-
+            
             Swim = new SwimStats();
             Bike = new BikeStats();
             Run = new RunStats();
@@ -29,9 +30,7 @@ namespace RaceAnalysis.Models
             Athletes = athletes;
             Race = race;
         }
-
-
-
+        public int Id { get; set; }//artificial Id for entity framework
         public Race Race { get; set; }  //each set of stats is associated with a single race, unless empty which means the athletes came from multiple races
         public List<Triathlete> Athletes{get;set;} //and a group of triathletes
 
