@@ -23,7 +23,7 @@ namespace RaceAnalysis.Models
                 dataTable.AddColumn("Age Group", "string"); //our header column
                 dataTable.AddColumn("Duration", "timeofday"); //our header column
    
-                foreach (TriStats stat in Stats)
+                foreach (TriStats stat in Stats)//each stat is for a different age group
                 {
                     var ag = Filter.AvailableAgeGroups.First(a => a.AgeGroupId == stat.AgeGroupId);
                     if (stat.Finish.Median.TotalSeconds > 0)

@@ -14,9 +14,9 @@ using System;
 using Microsoft.AspNet.Identity;
 using System.Text;
 using X.PagedList;
-using System.Web.Routing;
 using System.Data.Entity.Migrations;
 using RaceAnalysis.ServiceSupport;
+using System.Collections.Generic;
 
 namespace RaceAnalysis.Controllers
 {
@@ -413,24 +413,33 @@ namespace RaceAnalysis.Controllers
                 return HttpNotFound();
             }
 
-            var athletes = _RaceService.GetAthletesFromStorage(
-                new BasicRaceCriteria
-                {
-                    SelectedRaceIds = {id },
-                    SelectedAgeGroupIds = 
-                        _DBContext.AgeGroups.OrderBy(a => a.DisplayOrder).Select(a => a.AgeGroupId).ToList(),
-                    SelectedGenderIds = 
-                        _DBContext.Genders.Select(g => g.GenderId).ToList()
+      
+            CreateRaceAggregates(race);
+  //TBD          CreateAgeGroupAggregates(race);
 
-                }
 
-            );
-            var stats = GetStats(athletes, _DBContext.Races.Single(r => r.RaceId == id));
+            return RedirectToAction("Admin");
+        }
 
+        private void CreateRaceAggregates(Race race)
+        {
+            List<Triathlete> athletes = _RaceService.GetAthletesFromStorage(
+                  new BasicRaceCriteria
+                  {
+                      SelectedRaceIds = { race.RaceId },
+                      SelectedAgeGroupIds =
+                          _DBContext.AgeGroups.OrderBy(a => a.DisplayOrder).Select(a => a.AgeGroupId).ToList(),
+                      SelectedGenderIds =
+                          _DBContext.Genders.Select(g => g.GenderId).ToList()
+
+                  }
+
+              );
+            var stats = GetStats(athletes, _DBContext.Races.Single(r => r.RaceId == race.RaceId));
 
             var aggr = new RaceAggregate();
+           
             aggr.RaceId = race.RaceId;
-            aggr.RaceName = race.LongDisplayName;
             aggr.AthleteCount = athletes.Count;
             aggr.DNFCount = stats.DNFCount;
             aggr.MaleCount = athletes.Where(a => a.RequestContext.Gender.Value.Equals("M")).Count();
@@ -456,14 +465,74 @@ namespace RaceAnalysis.Controllers
             aggr.BikeMedian = stats.Bike.Median;
             aggr.RunMedian = stats.Run.Median;
             aggr.FinishMedian = stats.Finish.Median;
-
-      
+            
             _DBContext.RacesAggregate.AddOrUpdate(aggr);
             _DBContext.SaveChanges();
 
-            return RedirectToAction("Admin");
-       }
-        
+        }
+
+        private void CreateAgeGroupAggregates(Race race)
+        {
+            var athletes = new List<Triathlete>();
+
+            var ageGroups = _DBContext.AgeGroups.OrderBy(a => a.DisplayOrder).Select(a => a.AgeGroupId).ToList();
+          
+            foreach (var agId in ageGroups) //calc the stats for each age group
+            {
+                var athletesPerAG = _RaceService.GetAthletesFromStorage(
+                    new BasicRaceCriteria
+                    {
+                        SelectedRaceIds = { race.RaceId },
+                        SelectedAgeGroupIds = new int[] { agId },
+                        SelectedGenderIds =
+                          _DBContext.Genders.Select(g => g.GenderId).ToList()
+                    }
+
+                  );
+                athletes.AddRange(athletesPerAG);
+
+                var stats = GetStats(athletesPerAG);
+                stats.AgeGroupId = agId;
+
+                var ageGroupAgg = new AgeGroupAggregateA();
+                /***
+                var aggr = new RaceAggregate();
+
+                aggr.RaceId = race.RaceId;
+                aggr.AthleteCount = athletes.Count;
+                aggr.DNFCount = stats.DNFCount;
+                aggr.MaleCount = athletes.Where(a => a.RequestContext.Gender.Value.Equals("M")).Count();
+                aggr.FemaleCount = athletes.Where(a => a.RequestContext.Gender.Value.Equals("F")).Count();
+
+
+                aggr.SwimFastest = stats.Swim.Min;
+                aggr.BikeFastest = stats.Bike.Min;
+                aggr.RunFastest = stats.Run.Min;
+                aggr.FinishFastest = stats.Finish.Min;
+
+                aggr.SwimSlowest = stats.Swim.Max;
+                aggr.BikeSlowest = stats.Bike.Max;
+                aggr.RunSlowest = stats.Run.Max;
+                aggr.FinishSlowest = stats.Finish.Max;
+
+                aggr.SwimStdDev = stats.Swim.StandDev;
+                aggr.BikeStdDev = stats.Bike.StandDev;
+                aggr.RunStdDev = stats.Run.StandDev;
+                aggr.FinishStdDev = stats.Finish.StandDev;
+
+                aggr.SwimMedian = stats.Swim.Median;
+                aggr.BikeMedian = stats.Bike.Median;
+                aggr.RunMedian = stats.Run.Median;
+                aggr.FinishMedian = stats.Finish.Median;
+                ***/
+          //      _DBContext.AgeGroupAggregateA.AddOrUpdate(aggr);
+          //      _DBContext.SaveChanges();
+
+
+
+            }
+
+        }
 
         private async Task AddQueueMessages(string raceId)
         {

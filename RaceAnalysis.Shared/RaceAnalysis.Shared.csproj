@@ -123,11 +123,13 @@
     <Compile Include="Interfaces\IRaceCriteria.cs" />
     <Compile Include="Interfaces\IRaceService.cs" />
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AgeGroupAggregate.cs" />
     <Compile Include="Models\AppFeature.cs" />
     <Compile Include="Models\ContactForm.cs" />
     <Compile Include="Models\CuratedAnalysis.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\KeyValueModel.cs" />
+    <Compile Include="Models\RaceAggregate.cs" />
     <Compile Include="Models\RaceConditionTag.cs" />
     <Compile Include="Models\RequestRaceForm.cs" />
     <Compile Include="Models\Tag.cs" />

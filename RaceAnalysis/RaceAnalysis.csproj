@@ -319,7 +319,6 @@
     <Compile Include="Controllers\HtmlHelpers.cs" />
     <Compile Include="Controllers\HypotheticalsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\RaceAggregatesController.cs" />
     <Compile Include="Controllers\RaceConditionsController.cs" />
     <Compile Include="Controllers\RacesController.cs" />
     <Compile Include="Controllers\RequestContextsController.cs" />
@@ -337,6 +336,7 @@
     <Compile Include="Helpers\TriStatsCalculator.cs" />
     <Compile Include="Helpers\TriStatsCalculatorExtended.cs" />
     <Compile Include="Models\Autocomplete.cs" />
+    <Compile Include="Controllers\RaceAggregatesController.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="ViewModels\AgeGroupCompareViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
