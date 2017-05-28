@@ -36,6 +36,10 @@
         <th>
             @Html.DisplayNameFor(model => model.ValidateMessage)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsAggregated)
+        </th>
+
         <th></th>
     </tr>
 
@@ -63,6 +67,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.ValidateMessage)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsAggregated)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.RaceId }) |

@@ -469,7 +469,8 @@ namespace RaceAnalysis.Controllers
             aggr.BikeMedian = stats.Bike.Median;
             aggr.RunMedian = stats.Run.Median;
             aggr.FinishMedian = stats.Finish.Median;
-                   
+
+            aggr.Race.IsAggregated = true;
             _DBContext.RacesAggregate.AddOrUpdate(aggr);
             _DBContext.SaveChanges();
 
