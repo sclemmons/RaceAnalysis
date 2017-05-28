@@ -20,6 +20,7 @@ using RaceAnalysis.App_Start;
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            MVCGridConfig.RegisterGrids();
         }
 
         protected void Application_Error(object sender, EventArgs e)

@@ -167,6 +167,10 @@
       <HintPath>..\packages\morelinq.2.0.0-beta06\lib\net35\MoreLinq.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="MVCGrid, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MVCGrid.Net.1.0.0.61\lib\net40\MVCGrid.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -300,6 +304,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\MVCGridConfig.cs" />
     <Compile Include="App_Start\TypeaheadBundleConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AppFeaturesController.cs" />
@@ -549,7 +554,9 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Layouts\_Layout.cshtml" />
@@ -680,6 +687,8 @@
     <Content Include="Views\RaceAggregates\Details.cshtml" />
     <Content Include="Views\RaceAggregates\Edit.cshtml" />
     <Content Include="Views\RaceAggregates\Index.cshtml" />
+    <Content Include="Views\RaceAggregates\List.cshtml" />
+    <Content Include="Views\Shared\_MvcGridToolbar.cshtml" />
     <None Include="Web.Test.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

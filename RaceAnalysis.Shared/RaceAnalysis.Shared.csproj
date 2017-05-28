@@ -129,6 +129,7 @@
     <Compile Include="Models\CuratedAnalysis.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\KeyValueModel.cs" />
+    <Compile Include="Models\MVCGridToolbarModel.cs" />
     <Compile Include="Models\RaceAggregate.cs" />
     <Compile Include="Models\RaceConditionTag.cs" />
     <Compile Include="Models\RequestRaceForm.cs" />

@@ -7,6 +7,9 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using System.Data.Entity.Validation;
+using System.Data.Entity.Core.Metadata.Edm;
+using System.Data.Entity.Core.Objects;
+using System.Data.Entity.Infrastructure;
 
 namespace RaceAnalysis.Models
 {
@@ -27,7 +30,7 @@ namespace RaceAnalysis.Models
         {
             return new RaceAnalysisDbContext();
         }
-
+        
         public DbSet<Triathlete> Triathletes { get; set; }
         public DbSet<Race> Races { get; set; }
         public DbSet<Gender> Genders { get; set; }

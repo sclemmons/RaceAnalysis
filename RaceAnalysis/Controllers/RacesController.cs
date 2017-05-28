@@ -437,8 +437,12 @@ namespace RaceAnalysis.Controllers
               );
             var stats = GetStats(athletes, _DBContext.Races.Single(r => r.RaceId == race.RaceId));
 
-            var aggr = new RaceAggregate();
-           
+            var aggr = _DBContext.RacesAggregate.Where(r => r.RaceId == race.RaceId).FirstOrDefault();
+            if (aggr == null)
+            {
+
+                aggr = new RaceAggregate();
+            }
             aggr.RaceId = race.RaceId;
             aggr.AthleteCount = athletes.Count;
             aggr.DNFCount = stats.DNFCount;
@@ -465,7 +469,7 @@ namespace RaceAnalysis.Controllers
             aggr.BikeMedian = stats.Bike.Median;
             aggr.RunMedian = stats.Run.Median;
             aggr.FinishMedian = stats.Finish.Median;
-            
+                   
             _DBContext.RacesAggregate.AddOrUpdate(aggr);
             _DBContext.SaveChanges();
 
