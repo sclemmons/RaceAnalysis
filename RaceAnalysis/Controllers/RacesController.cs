@@ -415,7 +415,11 @@ namespace RaceAnalysis.Controllers
 
       
             CreateRaceAggregates(race);
-  //TBD          CreateAgeGroupAggregates(race);
+            //TBD          CreateAgeGroupAggregates(race);
+
+            race.IsAggregated = true;
+            _DBContext.Races.AddOrUpdate(race);
+            _DBContext.SaveChanges();
 
 
             return RedirectToAction("Admin");
@@ -435,21 +439,32 @@ namespace RaceAnalysis.Controllers
                   }
 
               );
+            if (athletes == null)
+                throw new Exception("No athletes");
+
             var stats = GetStats(athletes, _DBContext.Races.Single(r => r.RaceId == race.RaceId));
 
+            if (stats == null)
+                throw new Exception("No stats");
+
             var aggr = _DBContext.RacesAggregate.Where(r => r.RaceId == race.RaceId).FirstOrDefault();
+            
             if (aggr == null)
             {
 
                 aggr = new RaceAggregate();
             }
+            if (aggr == null)
+                throw new Exception("No aggregates");
+
+
             aggr.RaceId = race.RaceId;
             aggr.AthleteCount = athletes.Count;
             aggr.DNFCount = stats.DNFCount;
             aggr.MaleCount = athletes.Where(a => a.RequestContext.Gender.Value.Equals("M")).Count();
             aggr.FemaleCount = athletes.Where(a => a.RequestContext.Gender.Value.Equals("F")).Count();
 
-
+         
             aggr.SwimFastest = stats.Swim.Min;
             aggr.BikeFastest = stats.Bike.Min;
             aggr.RunFastest = stats.Run.Min;
@@ -469,10 +484,11 @@ namespace RaceAnalysis.Controllers
             aggr.BikeMedian = stats.Bike.Median;
             aggr.RunMedian = stats.Run.Median;
             aggr.FinishMedian = stats.Finish.Median;
+                 
 
-            aggr.Race.IsAggregated = true;
             _DBContext.RacesAggregate.AddOrUpdate(aggr);
             _DBContext.SaveChanges();
+
 
         }
 
