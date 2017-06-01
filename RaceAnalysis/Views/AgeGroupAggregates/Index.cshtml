@@ -1,0 +1,166 @@
+﻿@model IEnumerable<RaceAnalysis.Models.AgeGroupAggregate>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Layouts/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AgeGroup.Value)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Gender.Value)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Race.BaseURL)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AthleteCount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DNFCount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MaleCount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FemaleCount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SwimMedian)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BikeMedian)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RunMedian)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FinishMedian)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SwimFastest)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BikeFastest)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RunFastest)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FinishFastest)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SwimSlowest)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BikeSlowest)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RunSlowest)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FinishSlowest)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SwimStdDev)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BikeStdDev)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RunStdDev)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FinishStdDev)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.AgeGroup.Value)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Gender.Value)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Race.BaseURL)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AthleteCount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DNFCount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MaleCount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FemaleCount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SwimMedian)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BikeMedian)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RunMedian)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FinishMedian)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SwimFastest)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BikeFastest)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RunFastest)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FinishFastest)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SwimSlowest)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BikeSlowest)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RunSlowest)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FinishSlowest)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SwimStdDev)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BikeStdDev)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RunStdDev)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FinishStdDev)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>
