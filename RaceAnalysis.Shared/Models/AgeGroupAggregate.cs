@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,14 +9,24 @@ using System.Threading.Tasks;
 namespace RaceAnalysis.Models
 {
 
-    public class AgeGroupAggregateA
+    public class AgeGroupAggregate
     {
 
-        [Key]
-        public string RaceId { get; set; } //not foreign refrence as do not want joins for this table
-        public string RaceName { get; set; }
+        [Key, Column(Order = 0)]
+        [ForeignKey("Race")]
+        public string RaceId { get; set; }
+        public Race Race { get; set; }
 
-     
+        [Key, Column(Order = 1)]
+        [ForeignKey( "AgeGroup")]
+        public int AgeGroupId { get; set; }
+        public AgeGroup AgeGroup { get; set; }
+
+        [Key, Column(Order = 2)]
+        [ForeignKey("Gender")]
+        public int GenderId { get; set; }
+        public Gender Gender { get; set; }
+
         public int AthleteCount { get; set; }
         public int DNFCount { get; set; }
         public int MaleCount { get; set; }
