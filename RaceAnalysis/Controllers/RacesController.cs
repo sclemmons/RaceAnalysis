@@ -372,6 +372,12 @@ namespace RaceAnalysis.Controllers
         }
 
         [Authorize(Roles = "Admin")]
+        public ActionResult List()
+        {
+            return View();
+        }
+        
+        [Authorize(Roles = "Admin")]
         public ActionResult Validate(string id)
         {
             if (String.IsNullOrEmpty(id))

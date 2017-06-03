@@ -696,6 +696,7 @@
     <Content Include="Views\AgeGroupAggregates\Edit.cshtml" />
     <Content Include="Views\AgeGroupAggregates\Index.cshtml" />
     <Content Include="Views\AgeGroupAggregates\List.cshtml" />
+    <Content Include="Views\Races\List.cshtml" />
     <None Include="Web.Test.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>
