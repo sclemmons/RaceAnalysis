@@ -372,7 +372,7 @@ namespace RaceAnalysis.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        public ActionResult Verify(string id)
+        public ActionResult Validate(string id)
         {
             if (String.IsNullOrEmpty(id))
             {
@@ -404,6 +404,40 @@ namespace RaceAnalysis.Controllers
             return RedirectToAction("Index", "RequestContexts", new {  raceId = id  });
         }
 
+
+        [Authorize(Roles = "Admin")]
+        public ActionResult ValidateAll()
+        {
+            var races = _DBContext.Races.ToList();
+            foreach (Race r in races)
+            {
+                if (r.ValidateMessage == null ||  !r.ValidateMessage.ToLower().Equals("validated"))
+                {
+                    Validate(r.RaceId);
+                }
+            }
+
+            return RedirectToAction("Admin");
+
+        }
+
+        [Authorize(Roles = "Admin")]
+        public ActionResult AggregateAll()
+        {
+            var races = _DBContext.Races.ToList();
+            foreach(Race r in races)
+            {
+                if(!r.IsAggregated)
+                {
+                    Aggregate(r.RaceId);
+                }
+            }
+
+            return RedirectToAction("Admin");
+
+        }
+
+        [Authorize(Roles = "Admin")]
 
         public ActionResult Aggregate(string id)
         {

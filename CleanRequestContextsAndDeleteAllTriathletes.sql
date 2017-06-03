@@ -1,10 +1,10 @@
 
-select * from requestcontexts where raceid='implacid2014' order by AgeGroupId
+select * from requestcontexts where raceid='imbrazil2017' order by AgeGroupId
 
 
 delete Triathletes 
 where RequestContextId in
 (select RequestContextId from RequestContexts 
-where raceid='implacid2014')
+where raceid='imbrazil2017')
 
-delete RequestContexts where raceId = 'implacid2014' 
+delete RequestContexts where raceId = 'imbrazil2017' 

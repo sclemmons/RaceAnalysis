@@ -307,6 +307,7 @@
     <Compile Include="App_Start\MVCGridConfig.cs" />
     <Compile Include="App_Start\TypeaheadBundleConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\AgeGroupAggregatesController.cs" />
     <Compile Include="Controllers\AppFeaturesController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -689,6 +690,12 @@
     <Content Include="Views\RaceAggregates\Index.cshtml" />
     <Content Include="Views\RaceAggregates\List.cshtml" />
     <Content Include="Views\Shared\_MvcGridToolbar.cshtml" />
+    <Content Include="Views\AgeGroupAggregates\Create.cshtml" />
+    <Content Include="Views\AgeGroupAggregates\Delete.cshtml" />
+    <Content Include="Views\AgeGroupAggregates\Details.cshtml" />
+    <Content Include="Views\AgeGroupAggregates\Edit.cshtml" />
+    <Content Include="Views\AgeGroupAggregates\Index.cshtml" />
+    <Content Include="Views\AgeGroupAggregates\List.cshtml" />
     <None Include="Web.Test.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>
