@@ -1,0 +1,83 @@
+﻿@model IEnumerable<RaceAnalysis.Models.RequestContext>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<p>
+   Validate: @Model.First().Race.ValidateMessage
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AgeGroup.Value)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Gender.Value)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Race.RaceId)
+        </th>
+        <th>
+            Last Updated (LocalTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Instruction)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SourceCount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Expected)
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AgeGroup.Value)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gender.Value)
+            </td>
+            <td>
+                @Html.ActionLink(item.Race.RaceId,
+                        "Edit", "Races", new { id = item.Race.RaceId }, null)
+
+
+            </td>
+            <td>
+                @item.LastRequestedUTC.GetValueOrDefault().ToLocalTime().ToString()
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Instruction)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SourceCount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Expected)
+            </td>
+
+            <td>
+
+                @Html.ActionLink("Retry", "Retry", new { id = item.RequestContextId }, new { target = "_blank" }) |
+                @Html.ActionLink("Edit", "Edit", new { id = item.RequestContextId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.RequestContextId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.RequestContextId })
+                @Html.ActionLink("Trigger Fill", "CacheFill", new { id = item.RequestContextId })
+                @Html.ActionLink("Verify", "Validate", new { id = item.RequestContextId })
+
+            </td>
+        </tr>
+    }
+
+</table>

@@ -1,0 +1,85 @@
+﻿@model RaceAnalysis.Models.CompareBikeRunViewModel
+
+
+<div id="results-header">
+    <h4>@Model.Triathletes.Count()  Finishers   (@Model.Filter.SelectedRaceNames)</h4>
+
+</div>
+
+    <div class="chart-container">
+        <div id='bike-tophalfchart' class="quartile-chart"></div>
+        <div id='run-tophalfchart' class="quartile-chart"></div>
+        <div class="clearFloat"></div>
+    </div>
+
+
+
+<script type="text/javascript">
+    google.charts.load('current', { 'packages': ['corechart'] });
+
+    google.charts.setOnLoadCallback(drawTopHalfBikeChart);
+    google.charts.setOnLoadCallback(drawTopHalfRunChart);
+
+    var chartHeight, chartWidth;
+    var mq = window.matchMedia("(min-width: 1025px)");
+    mq.addListener(WidthChange);
+    WidthChange(mq);
+    // media query change
+    function WidthChange(mq) {
+        if (mq.matches) {
+            /* the viewport is at least -n- pixels wide */
+            chartHeight = 200, chartWidth = 400;
+
+        }
+        else {
+            /* the viewport is less than -n- pixels wide */
+            chartHeight = 100, chartWidth = 250;
+        }
+    }
+        
+    function drawTopHalfBikeChart() {
+
+        var data = new google.visualization.arrayToDataTable(
+            @Html.Raw(Json.Encode(Model.TopHalfBikeFinishers))
+        );
+
+        
+        var options = {
+            title: 'Top 50% Finishers by Bike Quartiles',
+            
+            height: chartHeight,
+            width:  chartWidth
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('bike-tophalfchart'));
+
+        chart.draw(data, options);
+    }
+    function drawTopHalfRunChart() {
+
+        var data = new google.visualization.arrayToDataTable(
+            @Html.Raw(Json.Encode(Model.TopHalfRunFinishers))
+        );
+
+        var options = {
+            title: 'Top 50% Finishers by Run Quartiles',
+          
+            height: chartHeight,
+            width: chartWidth
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('run-tophalfchart'));
+
+        chart.draw(data, options);
+    }
+
+
+
+</script>
+
+
+
+
+
+
+  

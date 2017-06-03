@@ -1,0 +1,27 @@
+﻿@model RaceAnalysis.Models.CompareBikeRunViewModel
+
+<div id="bike-run-piechart"></div>
+
+<script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Pacing', '# of Athletes'],
+          ['Fast Bike, Fast Run',      @Model.FastBikeFastRun.Count()],
+          ['Slower Bike, Fast Run',    @Model.SlowBikeFastRun.Count()],
+          ['Slower Bike, Slower Run',  @Model.SlowBikeSlowRun.Count()],
+          ['Fast Bike, Slow Run',      @Model.FastBikeSlowRun.Count()],
+
+        ]);
+
+        var options = {
+          title: 'Bike/Run Pacing'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('bike-run-piechart'));
+
+        chart.draw(data, options);
+      }
+</script>

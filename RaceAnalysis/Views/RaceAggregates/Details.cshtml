@@ -1,0 +1,187 @@
+﻿@model RaceAnalysis.Models.RaceAggregate
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Layouts/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>RaceAggregate</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Race.BaseURL)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Race.BaseURL)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AthleteCount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AthleteCount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DNFCount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DNFCount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MaleCount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaleCount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FemaleCount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FemaleCount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SwimMedian)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SwimMedian)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BikeMedian)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BikeMedian)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RunMedian)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RunMedian)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FinishMedian)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FinishMedian)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SwimFastest)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SwimFastest)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BikeFastest)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BikeFastest)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RunFastest)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RunFastest)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FinishFastest)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FinishFastest)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SwimSlowest)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SwimSlowest)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BikeSlowest)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BikeSlowest)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RunSlowest)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RunSlowest)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FinishSlowest)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FinishSlowest)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SwimStdDev)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SwimStdDev)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BikeStdDev)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BikeStdDev)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RunStdDev)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RunStdDev)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FinishStdDev)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FinishStdDev)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.RaceAggregateId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

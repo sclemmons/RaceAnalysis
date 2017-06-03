@@ -1,0 +1,32 @@
+﻿@model RaceAnalysis.Models.BaseViewModel
+@{
+    Layout = "~/Views/Layouts/_AnalysisLayout.cshtml";
+    ViewBag.Title = "Bike-Finish Correlation vs. Run-Finish Correlation";
+    PageData["Instructions"] = "This view displays aggregated results to compare finishers by their bike and run quartiles";
+    ViewBag.Action = "action-comparebikerunquartiles";
+}
+
+@section scripts{
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+}
+@section filter{}
+
+
+@section page_actions{
+    @if (Model.Triathletes.Any())
+    {
+        <script type="text/javascript">  $("#page-actions").show(); </script>
+        @Html.Partial("~/Views/Shared/_ActionBar.cshtml", Model)
+    }<!--actions-->
+}<!--section-->
+
+@section results{
+    @if (Model.Triathletes.Any())
+    {
+        <script type="text/javascript">  $("#results").show(); </script>
+      <div class="chart-container">
+       @Html.Partial("~/Views/Shared/_BikeRunTopHalfChart.cshtml", Model)
+       @Html.Partial("~/Views/Shared/_BikeRunQuartileChart.cshtml", Model)
+      </div>
+    }
+}

@@ -1,0 +1,210 @@
+﻿@model RaceAnalysis.Models.CompareBikeRunViewModel
+
+<div>
+    <div class="quartile-charts-div">
+        <div id='bike-Q1chart' class="quartile-chart"></div>
+        <div id='run-Q1chart' class="quartile-chart"></div>
+        <div class="clearFloat"></div>
+    </div>
+
+    <div class="quartile-charts-div">
+        <div id='bike-Q2chart' class="quartile-chart"></div>
+        <div id='run-Q2chart' class="quartile-chart"></div>
+        <div class="clearFloat"></div>
+    </div>
+    <div class="quartile-charts-div">
+        <div id='bike-Q3chart' class="quartile-chart"></div>
+        <div id='run-Q3chart' class="quartile-chart"></div>
+        <div class="clearFloat"></div>
+    </div>
+
+    <div class="quartile-charts-div">
+        <div id='bike-Q4chart' class="quartile-chart"></div>
+        <div id='run-Q4chart' class="quartile-chart"></div>
+        <div class="clearFloat"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+            google.charts.load('current', { 'packages': ['corechart'] });
+
+            google.charts.setOnLoadCallback(drawQ1BikeChart);
+            google.charts.setOnLoadCallback(drawQ1RunChart);
+
+            google.charts.setOnLoadCallback(drawQ2BikeChart);
+            google.charts.setOnLoadCallback(drawQ2RunChart);
+
+            google.charts.setOnLoadCallback(drawQ3BikeChart);
+            google.charts.setOnLoadCallback(drawQ3RunChart);
+
+            google.charts.setOnLoadCallback(drawQ4BikeChart);
+            google.charts.setOnLoadCallback(drawQ4RunChart);
+
+            var chartHeight, chartWidth;
+            var mq = window.matchMedia("(min-width: 769px)");
+            mq.addListener(WidthChange);
+            WidthChange(mq);
+            // media query change
+            function WidthChange(mq) {
+                if (mq.matches) {
+                    /* the viewport is at least -n- pixels wide */
+                    chartHeight = 200, chartWidth = 400;
+
+                }
+                else {
+                    /* the viewport is less than -n- pixels wide */
+                    chartHeight = 100, chartWidth = 300;
+                }
+            }
+
+            function drawQ1BikeChart() {
+
+                var data = new google.visualization.arrayToDataTable(
+                  @Html.Raw(Json.Encode(Model.Q1BikeFinishers))
+                );
+
+                var options = {
+                    title: 'Top 25% Finishers by Bike Quartiles',
+                 
+                    height: chartHeight,
+                    width: chartWidth
+                
+                };
+
+                var chart = new google.visualization.PieChart(document.getElementById('bike-Q1chart'));
+
+                chart.draw(data, options);
+            }
+            function drawQ1RunChart() {
+
+                var data = new google.visualization.arrayToDataTable(
+                  @Html.Raw(Json.Encode(Model.Q1RunFinishers))
+                );
+
+               
+                var options = {
+                    title: 'Top 25% Finishers by Run Quartiles',
+
+                    height: chartHeight,
+                    width: chartWidth
+                };
+
+                var chart = new google.visualization.PieChart(document.getElementById('run-Q1chart'));
+
+                chart.draw(data, options);
+            }
+
+
+
+            function drawQ2BikeChart() {
+
+                var data = new google.visualization.arrayToDataTable(
+                  @Html.Raw(Json.Encode(Model.Q2BikeFinishers))
+                );
+
+                var options = {
+                    title: 'Second 25% Finishers by Bike Quartiles',
+
+                    height: chartHeight,
+                    width: chartWidth
+                };
+
+                var chart = new google.visualization.PieChart(document.getElementById('bike-Q2chart'));
+
+                chart.draw(data, options);
+            }
+            function drawQ2RunChart() {
+
+                var data = new google.visualization.arrayToDataTable(
+                  @Html.Raw(Json.Encode(Model.Q2RunFinishers))
+                );
+
+                var options = {
+                    title: 'Second 25% Finishers by Run Quartiles',
+
+                    height: chartHeight,
+                    width: chartWidth
+                };
+
+                var chart = new google.visualization.PieChart(document.getElementById('run-Q2chart'));
+
+                chart.draw(data, options);
+            }
+
+            function drawQ3BikeChart() {
+
+                var data = new google.visualization.arrayToDataTable(
+                  @Html.Raw(Json.Encode(Model.Q3BikeFinishers))
+                );
+
+                var options = {
+                    title: '3rd 25% Finishers by Bike Quartiles',
+                                 
+                    height: chartHeight,
+                    width: chartWidth
+                };
+
+                var chart = new google.visualization.PieChart(document.getElementById('bike-Q3chart'));
+
+                chart.draw(data, options);
+            }
+            function drawQ3RunChart() {
+
+                var data = new google.visualization.arrayToDataTable(
+                  @Html.Raw(Json.Encode(Model.Q3RunFinishers))
+
+                );
+
+                var options = {
+                    title: '3rd 25% Finishers by Run Quartiles',
+                  
+                    height: chartHeight,
+                    width: chartWidth
+                };
+
+                var chart = new google.visualization.PieChart(document.getElementById('run-Q3chart'));
+
+                chart.draw(data, options);
+            }
+
+            function drawQ4BikeChart() {
+
+                var data = new google.visualization.arrayToDataTable(
+                  @Html.Raw(Json.Encode(Model.Q4BikeFinishers))
+                );
+
+                var options = {
+                    title: '4th 25% Finishers by Bike Quartiles',
+                                
+                    height: chartHeight,
+                    width: chartWidth
+                };
+
+                var chart = new google.visualization.PieChart(document.getElementById('bike-Q4chart'));
+
+                chart.draw(data, options);
+            }
+            function drawQ4RunChart() {
+
+                var data = new google.visualization.arrayToDataTable(
+                  @Html.Raw(Json.Encode(Model.Q4RunFinishers))
+                );
+
+                var options = {
+                    title: '4th 25% Finishers by Run Quartiles',
+
+                    height: chartHeight,
+                    width: chartWidth
+                };
+
+                var chart = new google.visualization.PieChart(document.getElementById('run-Q4chart'));
+
+                chart.draw(data, options);
+            }
+
+
+
+        </script>
+
+
+  

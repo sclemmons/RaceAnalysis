@@ -1,0 +1,149 @@
+﻿
+@model RaceAnalysis.Models.AgeGroupCompareViewModel
+
+<div id="results-header">
+    <h4>@Model.Triathletes.Count()  Finishers   (@Model.Filter.SelectedRaceNames)</h4>
+</div>
+
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<div>
+        <div class="agegroup-chart-container">
+            <div class="charts-title"><span>Median Finish Times</span></div>
+            <div><span><i>Click on the column headers to change sort.</i></span></div>
+            <div id='median-table-ags-div' class="agegroup-charts"></div>
+            <div id='median-chart-div' class="agegroup-charts"></div>
+            <div class="clearFloat"></div>
+        </div>
+
+    <div class="agegroup-chart-container">
+        <div class="charts-title"><span>Fastest Finish Times</span></div>
+        <div><span><i>Click on the column headers to change sort.</i></span></div>
+        <div id='fastest-table-ags-div' class="agegroup-charts"></div>
+        <div id='fastest-chart-div' class="agegroup-charts"></div>
+        <div class="clearFloat"></div>
+    </div>
+
+    
+    <div id='finishers-ag-div' style="width: 100%; height: 100%;"></div>
+
+
+    <script type="text/javascript">
+
+        google.charts.load('current', { 'packages': ['corechart', 'bar','table'] });
+
+
+        google.charts.setOnLoadCallback(drawMedian);
+        google.charts.setOnLoadCallback(drawFastest);
+        google.charts.setOnLoadCallback(drawFinishersPerAgeGroupChart);
+
+      
+      
+        function drawMedian() {
+            var data = new google.visualization.DataTable(
+                                             @Html.Raw(Json.Encode(Model.ChartDataMedian)));
+    
+            var view = new google.visualization.DataView(data);
+            view.setColumns([0, 1]);
+            var table = new google.visualization.Table(document.getElementById('median-table-ags-div'));
+            table.draw(view, {width:'100%',  height: '100%' });
+            view.setColumns([0, 1]);
+        
+
+            var options = {
+                title: "Median Finish Times",
+                height: "400",
+                width: "75%",
+                legend:"none",
+                bar: {
+                    groupWidth: '75%',
+                    minValue: 0,
+                },
+                chartArea:{
+                    //left:5,
+                    top: 10,
+                    //width: '100%',
+                    height: '350',
+                }
+            
+
+            };
+
+            var chart = new google.visualization.BarChart(document.getElementById('median-chart-div'));
+            chart.draw(view,options);
+
+            google.visualization.events.addListener(table, 'sort',
+                function (event) {
+                    data.sort([{ column: event.column, desc: !event.ascending }]);
+                    chart.draw(view, options);
+                });
+
+         
+        }
+        function drawFastest() {
+            var data = new google.visualization.DataTable(
+                                             @Html.Raw(Json.Encode(Model.ChartDataFastest)));
+    
+            var view = new google.visualization.DataView(data);
+            view.setColumns([0, 1]);
+            var table = new google.visualization.Table(document.getElementById('fastest-table-ags-div'));
+            table.draw(view, { width:'100%',height: '100%' });
+            view.setColumns([0, 1]);
+        
+
+            var options = {
+                title: "Fastest Finish Times",
+                height: "400",
+                width: "100%",
+                legend:"none",
+                bar: {
+                    groupWidth: '75%',
+                    minValue: 0,
+                },
+                chartArea:{
+                    //left:5,
+                    top: 10,
+                    //width: '100%',
+                    height: '350',
+                }
+            
+
+            };
+
+            var chart = new google.visualization.BarChart(document.getElementById('fastest-chart-div'));
+            chart.draw(view,options);
+
+            google.visualization.events.addListener(table, 'sort',
+                function (event) {
+                    data.sort([{ column: event.column, desc: !event.ascending }]);
+                    chart.draw(view,options);
+                });
+
+         
+        }
+
+
+     
+        function drawFinishersPerAgeGroupChart() {
+
+            var data = google.visualization.arrayToDataTable(
+                             @Html.Raw(Json.Encode(Model.FinishersPerAgeGroup))
+                         );
+
+            var options = {
+                title: 'Partipants per Age Group',
+                pieSliceText: 'percentage',
+                height: "400",
+                width: "100%",
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('finishers-ag-div'));
+
+            chart.draw(data, options);
+        }
+
+    </script>
+</div>
+
+
+

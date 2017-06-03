@@ -1,0 +1,54 @@
+﻿@using MVCGrid.Web
+@using RaceAnalysis.Models;
+
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Layouts/_Layout.cshtml";
+}
+<script src="~/MVCGridHandler.axd/script.js"></script>
+
+
+<h2>Races</h2>
+<p>
+    @Html.ActionLink("Create New", "Create") |
+    @Html.ActionLink("Validate All", "ValidateAll") |
+    @Html.ActionLink("Aggregate All", "AggregateAll")
+</p>
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        @Html.Partial("_MVCGridToolbar", new MVCGridToolbarModel()
+{
+    MVCGridName = "RaceAdminGrid",
+    PageSize = true,
+    ColumnVisibility = false,
+    Export = false,
+    GlobalSearch = true
+})
+        @Html.MVCGrid("RaceAdminGrid")
+
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $('#selPageSize').change(function () {
+            MVCGrid.setPageSize('RaceAdminGrid', $('#selPageSize').val());
+        });
+        // set value of dropdown to grid setting
+        $('#selPageSize').val(MVCGrid.getPageSize('RaceAdminGrid'));
+
+        $('#half').click(function () {
+            MVCGrid.setFilters('RaceAdminGrid', { Distance: '70.3' })
+            $(this).addClass("active");
+            $('#full').removeClass("active");
+
+        });
+        $('#full').click(function () {
+            MVCGrid.setFilters('RaceAdminGrid', { Distance: '140.6' })
+            $(this).addClass("active");
+            $('#half').removeClass("active");
+
+        });
+    });
+</script>

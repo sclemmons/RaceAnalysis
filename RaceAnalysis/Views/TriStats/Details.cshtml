@@ -1,0 +1,47 @@
+﻿@model RaceAnalysis.Models.TriStatsViewModel
+@{
+    Layout = "~/Views/Layouts/_AnalysisLayout.cshtml";
+    ViewBag.Title  = "Race Stats";
+    PageData["Instructions"] = "This view displays details for each race selected";
+    ViewBag.Action = "action-details";
+}
+
+@section scripts {
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+}
+
+
+
+@section page_actions{
+      @if (Model.Stats.Count > 0)
+      {
+            <script type="text/javascript">  $("#page-actions").show(); </script>
+            @Html.Partial("~/Views/Shared/_ActionBar.cshtml",Model)
+      }<!--actions-->
+}<!--section-->
+
+ 
+
+@section results{
+    @if (Model.Stats.Count > 0)
+    {
+        <script type="text/javascript">  $("#results").show(); </script>
+
+        foreach (var stat in Model.Stats)
+        {
+                <h3>@stat.Race.LongDisplayName (@stat.Athletes.Count() Finishers)</h3>
+                
+                @Html.Partial("~/Views/Shared/_RaceConditions.cshtml", stat)
+                <hr/>
+                @Html.Partial("~/Views/Shared/_DetailedStats.cshtml",stat)
+                <hr />
+                @Html.Partial("~/Views/Shared/_DurationBarChart.cshtml",stat)
+                <hr />
+                @Html.Partial("~/Views/Shared/_BoxPlotChart.cshtml", stat)
+        }
+    }
+}
+
+
+

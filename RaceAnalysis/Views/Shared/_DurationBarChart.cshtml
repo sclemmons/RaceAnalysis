@@ -1,0 +1,27 @@
+﻿
+@model RaceAnalysis.Models.TriStats
+
+
+<div>
+    <div id='@Model.Race.DisplayName' style="width: 100%; height: 500px;"></div>
+    <script type="text/javascript">
+            google.charts.load('current', { 'packages': ['corechart', 'bar'] });
+
+            google.charts.setOnLoadCallback(function () {
+                var title = '@Model.Race.DisplayName' + '  (@Model.Athletes.Count ' + 'Athletes)';
+                var vAxis = "Duration (HRS)";
+                var hAxis = "Fastest,Median,Slowest Times"
+
+
+                var dataTable = new google.visualization.DataTable(
+                    @Html.Raw(Json.Encode(Model.DurationBarChartData))
+                );
+               drawColumnChart('@Model.Race.DisplayName', title,hAxis,vAxis, dataTable);
+                
+            });
+
+    </script>
+</div>
+
+
+  

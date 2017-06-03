@@ -1,0 +1,141 @@
+﻿@model RaceAnalysis.Models.TagViewModel
+
+@{
+    ViewBag.Title = "EditAllTags";
+    Layout = "~/Views/Layouts/_Layout.cshtml";
+}
+
+<h2>Edit All Tags</h2>
+
+<div class="form-horizontal">
+    <div>
+        @Html.ActionLink("Back to List", "index")
+    </div>
+    <hr />
+
+    <hr />
+
+
+    @using (Html.BeginForm("EditAll", "Tags", FormMethod.Post, new { @id = "myForm" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+
+        <label for="SwimLayout" class="control-label">Swim Layout</label>
+
+        @Html.ListBoxFor(m =>  m.SelectedSwimLayout,
+                     new SelectList(Model.SwimLayoutTags, "TagId", "Value"),
+                     new { name = "SwimLayout", multiple = "multiple" })
+
+
+        <label for="SwimMedium" class="control-label">Swim Medium</label>
+
+        @Html.ListBoxFor(m => m.SelectedSwimMedium,
+                     new SelectList(Model.SwimMediumTags, "TagId", "Value"),
+                     new { name = "SwimMedium", multiple = "multiple" })
+
+
+        <label for="SwimWeather" class="control-label">Swim Weather</label>
+
+        @Html.ListBoxFor(m => m.SelectedSwimWeather,
+                     new SelectList(Model.SwimWeatherTags, "TagId", "Value"),
+                     new { name = "SwimWeather", multiple = "multiple" })
+
+        <label for="SwimOther" class="control-label">Swim Other</label>
+
+        @Html.ListBoxFor(m => m.SelectedSwimOther,
+                     new SelectList(Model.SwimOtherTags, "TagId", "Value"),
+                     new { name = "SwimOther", multiple = "multiple" })
+
+
+
+
+        <label for="BikeLayout" class="control-label">Bike Layout</label>
+
+        @Html.ListBoxFor(m => m.SelectedBikeLayout,
+                     new SelectList(Model.BikeLayoutTags, "TagId", "Value"),
+                     new { name = "BikeLayout", multiple = "multiple" })
+
+
+        <label for="BikeMedium" class="control-label">Bike Medium</label>
+
+        @Html.ListBoxFor(m => m.SelectedBikeMedium,
+                     new SelectList(Model.BikeMediumTags, "TagId", "Value"),
+                     new { name = "BikeMedium", multiple = "multiple" })
+
+
+        <label for="BikeWeather" class="control-label">Bike Weather</label>
+
+        @Html.ListBoxFor(m => m.SelectedBikeWeather,
+                     new SelectList(Model.BikeWeatherTags, "TagId", "Value"),
+                     new { name = "BikeWeather", multiple = "multiple" })
+
+        <label for="BikeOther" class="control-label">Bike Other</label>
+
+        @Html.ListBoxFor(m => m.SelectedBikeOther,
+                     new SelectList(Model.BikeOtherTags, "TagId", "Value"),
+                     new { name = "BikeOther", multiple = "multiple" })
+
+
+
+        <label for="RunLayout" class="control-label">Run Layout</label>
+
+        @Html.ListBoxFor(m => m.SelectedRunLayout,
+                     new SelectList(Model.RunLayoutTags, "TagId", "Value"),
+                     new { name = "RunLayout", multiple = "multiple" })
+
+
+        <label for="RunMedium" class="control-label">Run Medium</label>
+
+        @Html.ListBoxFor(m => m.SelectedRunMedium,
+                     new SelectList(Model.RunMediumTags, "TagId", "Value"),
+                     new { name = "RunMedium", multiple = "multiple" })
+
+
+        <label for="RunWeather" class="control-label">Run Weather</label>
+
+        @Html.ListBoxFor(m => m.SelectedRunWeather,
+                     new SelectList(Model.RunWeatherTags, "TagId", "Value"),
+                     new { name = "RunWeather", multiple = "multiple" })
+
+        <label for="RunOther" class="control-label">Run Other</label>
+
+        @Html.ListBoxFor(m => m.SelectedRunOther,
+                     new SelectList(Model.RunOtherTags, "TagId", "Value"),
+                     new { name = "RunOther", multiple = "multiple" })
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+
+
+    }
+</div>
+
+<div>
+    @Html.ActionLink("Back to List", "index")
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+
+            $('select').select2({
+
+                width: '95%',
+                tags: true,
+                tokenSeparators: [','],
+                placeholder: "Add your tags here"
+            });
+        });
+    </script>
+
+}
