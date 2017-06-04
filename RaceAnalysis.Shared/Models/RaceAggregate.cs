@@ -19,7 +19,7 @@ namespace RaceAnalysis.Models
         [ForeignKey("Race")]
         public string RaceId { get; set; }
         public virtual Race Race { get; set; }
-
+		public string Segment { get; set; }
         public int AthleteCount { get; set; }
         public int DNFCount { get; set; }
         public int MaleCount { get; set; }

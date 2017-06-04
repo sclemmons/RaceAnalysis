@@ -12,8 +12,16 @@ namespace RaceAnalysis.Data
     {
         public static void Seed(RaceAnalysisDbContext context)
         {
-           
-            return;
+			/*****
+			context.RacesAggregates.RemoveRange(context.RacesAggregates); //clear out existing rows
+
+			foreach (Race race in context.Races)
+			{
+				race.IsAggregated = false;
+			}
+			context.SaveChanges();
+			*****/
+			return;
 
             //if (context.Triathletes.Count(i => i.TriathleteId > 1) == 0)
             {

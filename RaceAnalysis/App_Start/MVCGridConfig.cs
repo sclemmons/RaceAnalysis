@@ -30,7 +30,11 @@ namespace RaceAnalysis
               {
                   cols.Add("RaceName").WithSorting(true).WithValueExpression(p => p.Race.LongDisplayName);
 
-                  cols.Add("SwimMedian").WithSorting(true).WithHeaderText("Swim Median")
+				  cols.Add("Segment").WithSorting(true).WithValueExpression(p => p.Segment);
+
+				  cols.Add("Count").WithSorting(true).WithValueExpression(p => p.AthleteCount.ToString());
+
+				  cols.Add("SwimMedian").WithSorting(true).WithHeaderText("Swim Median")
                       .WithValueExpression(p => p.SwimMedian.ToString());
                   cols.Add("BikeMedian").WithSorting(true).WithHeaderText("Bike Median")
                       .WithValueExpression(p => p.BikeMedian.ToString());
@@ -84,7 +88,21 @@ namespace RaceAnalysis
                                                 ? query.OrderBy(p => p.Race.LongDisplayName)
                                                 : query.OrderByDescending(p => p.Race.LongDisplayName);
                                   break;
-                              case "swimfastest":
+
+							  case "count":
+								  query = options.SortDirection == SortDirection.Asc
+												? query.OrderBy(p => p.AthleteCount)
+												: query.OrderByDescending(p => p.AthleteCount);
+								  break;
+
+							  case "segment":
+								  query = options.SortDirection == SortDirection.Asc
+												? query.OrderBy(p => p.Segment)
+												: query.OrderByDescending(p => p.Segment);
+								  break;
+
+
+							  case "swimfastest":
                                   query = options.SortDirection == SortDirection.Asc
                                            ? query.OrderBy(p => p.SwimFastest)
                                            : query.OrderByDescending(p => p.SwimFastest);

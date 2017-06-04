@@ -427,7 +427,27 @@ namespace RaceAnalysis.Controllers
 
         }
 
-        [Authorize(Roles = "Admin")]
+		[Authorize(Roles = "Admin")]
+		public ActionResult AggregateTen()
+		{
+			int count = 0;
+			var races = _DBContext.Races.ToList();
+			foreach (Race r in races)
+			{
+				if (!r.IsAggregated)
+				{
+					Aggregate(r.RaceId);
+					count++;
+				}
+				if (count > 9)
+					break;
+			}
+
+			return RedirectToAction("Admin");
+
+		}
+
+		[Authorize(Roles = "Admin")]
         public ActionResult AggregateAll()
         {
             var races = _DBContext.Races.ToList();
@@ -454,8 +474,11 @@ namespace RaceAnalysis.Controllers
             }
 
       
-            CreateRaceAggregates(race);
-            CreateAgeGroupAggregates(race);
+            CreateRaceAggregates(race,"all");
+			CreateRaceAggregates(race,"pro");
+			CreateRaceAggregates(race,"agegroupers");
+			
+			CreateAgeGroupAggregates(race);
 
             race.IsAggregated = true;
             _DBContext.Races.AddOrUpdate(race);
@@ -465,14 +488,29 @@ namespace RaceAnalysis.Controllers
             return RedirectToAction("Admin");
         }
 
-        private void CreateRaceAggregates(Race race)
+        private void CreateRaceAggregates(Race race,string segment)
         {
-            List<Triathlete> athletes = _RaceService.GetAthletesFromStorage(
+			var agquery = _DBContext.AgeGroups.AsQueryable();
+
+			switch (segment)
+			{
+				case "pro":
+					agquery = agquery.Where(a => a.Value.ToLower().Equals("pro"));
+					break;
+				case "agegroupers":
+						agquery = agquery.Where(a => !a.Value.ToLower().Equals("pro"));
+					break;
+				//default is all
+
+			}
+			
+			List< Triathlete> athletes = _RaceService.GetAthletesFromStorage(
                   new BasicRaceCriteria
                   {
                       SelectedRaceIds = { race.RaceId },
                       SelectedAgeGroupIds =
-                          _DBContext.AgeGroups.OrderBy(a => a.DisplayOrder).Select(a => a.AgeGroupId).ToList(),
+                          agquery.OrderBy(a => a.DisplayOrder).Select(a => a.AgeGroupId).ToList(),
+
                       SelectedGenderIds =
                           _DBContext.Genders.Select(g => g.GenderId).ToList()
 
@@ -487,7 +525,9 @@ namespace RaceAnalysis.Controllers
             if (stats == null)
                 throw new Exception("No stats");
 
-            var aggr = _DBContext.RacesAggregates.Where(r => r.RaceId == race.RaceId).FirstOrDefault();
+            var aggr = _DBContext.RacesAggregates.
+						Where(r => r.RaceId == race.RaceId && r.Segment==segment).
+							FirstOrDefault();
             
             if (aggr == null)
             {
@@ -497,7 +537,8 @@ namespace RaceAnalysis.Controllers
     
 
             aggr.RaceId = race.RaceId;
-            aggr.AthleteCount = athletes.Count;
+			aggr.Segment = segment;
+			aggr.AthleteCount = athletes.Count;
             aggr.DNFCount = stats.DNFCount;
             aggr.MaleCount = athletes.Where(a => a.RequestContext.Gender.Value.Equals("M")).Count();
             aggr.FemaleCount = athletes.Where(a => a.RequestContext.Gender.Value.Equals("F")).Count();
