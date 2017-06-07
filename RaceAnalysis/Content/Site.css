@@ -950,3 +950,28 @@ a.btn.False{
     background-color:red;
     color:white;
 }
+
+/****MVC GRID*/
+
+div.grid-toolbar-row
+{
+    height:20px;
+
+  }
+
+table#MVCGridTable_RaceAdminGrid {
+    border-right: none;
+    border-left: none;
+    padding: 20px;
+    margin-top: 30px;
+}
+#MVCGridTable_RaceAdminGrid td 
+{
+    border:none;
+}
+#MVCGridTable_RaceAdminGrid thead tr th
+{
+    border: none;
+    --background-color: yellow;
+    border-bottom-width: 1px;
+}

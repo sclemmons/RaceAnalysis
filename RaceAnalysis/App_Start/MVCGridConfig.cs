@@ -315,6 +315,11 @@ namespace RaceAnalysis
                   cols.Add("RaceName").WithSorting(true).WithValueExpression(p => p.LongDisplayName);
                   cols.Add("RaceId").WithSorting(true).WithValueExpression(p => p.RaceId);
                   cols.Add("RaceDate").WithSorting(true).WithValueExpression(p => p.RaceDate.ToShortDateString());
+                  cols.Add("Edit").WithHtmlEncoding(false)
+                    .WithSorting(false)
+                    .WithHeaderText(" ")
+                    .WithValueExpression((p, c) => c.UrlHelper.Action("Edit", "Races", new { id = p.RaceId }))
+                    .WithValueTemplate("<a href='{Value}' class='btn btn-primary' role='button'>Edit</a>");
 
                   cols.Add("Populate").WithHtmlEncoding(false)
                       .WithSorting(false)
