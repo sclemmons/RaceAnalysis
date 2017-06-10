@@ -75,8 +75,7 @@ namespace RaceAnalysis.Controllers
                 return View(new TriathletesViewModel());
             else
             {
-                throw new NotImplementedException();
-                //return View(DoSearch(name));
+                return View(DoSearchByName(name));
 
             }
         }
