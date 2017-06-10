@@ -726,7 +726,10 @@ div#search-form-section.collapsible.collapse-close a  {
    background-color: #fff;
    color:black;
 }
-
+div#ace-selection-toolbar {
+    padding-top:30px;
+    background-color: aqua;
+}
 /**************************************************************************************************
  RACE Conditions 
     

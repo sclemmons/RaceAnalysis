@@ -7,21 +7,79 @@
     Layout = "~/Views/Layouts/_Layout.cshtml";
     ViewBag.BodyClass = "fullpage";
 
-  
-}
-<script  src="~/Scripts/modal.js"></script>
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
 
+        Url = Url.Action("RacesSearchByName"),
+        LoadingElementId = "loading-area",
+        LoadingElementDuration = 1000,
+        UpdateTargetId = "race-div",
+        OnSuccess = "OnSearchSuccess",
+
+    };
+}
+
+@section scripts{
+<link rel="stylesheet" type="text/css" href="~/Content/typeahead.css" />
+
+<script  src="~/Scripts/modal.js"></script>
 <script src="~/Scripts/jquery.rowselector.min.js"></script>
+<script src="~/Scripts/typeahead.bundle.min.js"></script>
+<script src="~/Scripts/typeahead.mvc.model.js?v=5"></script>
+}
 
 <div id="modal-container" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-content">
        
     </div>
 </div>
+<div id="race-selection-toolbar">
+    <div class="col-sm-3" style="padding-top:10px" data-toggle="buttons" id="race-distance-div">
+
+        @Ajax.ActionLink("140.6", "RaceDistanceToggle", "Races",
+                routeValues: new
+                {
+                    distance = "140.6",
+                },
+                ajaxOptions: new AjaxOptions { UpdateTargetId = "race-div" },
+                htmlAttributes: new { @class = "btn btn-primary race-distance active", @type = "radio", @id = "full" }
+                )
+        @Ajax.ActionLink("70.3", "RaceDistanceToggle", "Races",
+                 routeValues: new
+                 {
+                     distance = "70.3",
+                 },
+                 ajaxOptions: new AjaxOptions { UpdateTargetId = "race-div" },
+                 htmlAttributes: new { @class = "btn btn-primary race-distance", @type = "radio", @id = "half" }
+                 )
+
+    </div>
+    <div class="col-sm-9" style="padding-top:10px">
+        <div class="form-inline">
+            @using (Ajax.BeginForm(ajaxOptions))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="race-list-search-form">
+                    @Html.AutocompleteFor(model => model.SelectedRaceNames, model => model.SelectedRaceNames, "TypeaheadRaceSearch",
+                            "Races", false,
+                            new
+                            {
+                                htmlAttributes = new { placeholder = "Search Races", type = "search" }
+                            })
+
+                    <button type="submit" id="submitRaceSearch" style="display:none" class="btn btn-primary">Search</button>
+
+
+                </div>
+            }
+        </div>
+    </div>
+</div>
 
  @using (Html.BeginForm("DisplayStats", "TriStats", FormMethod.Post, new { @id = "myForm" }))
  {
-  
+         
     <div class="search-results-preface">
         @Html.ActionLink("I don't see my race...",
                          "ShowRaceRequest", "Race",
@@ -30,42 +88,18 @@
 
         <button type="submit" id="action-stats" class="btn btn-default btn-results">View Results</button>
     </div>
-<div id="accordian" class="race-list">
+    <div id="accordian" class="race-list">
 
     <header>1. Click on one or more rows to select the races you are interested in
     @Html.ActionLink("I don't see my race...",
                          "ShowRaceRequest", "Race",
                         new { id = "ShowRaceRequestLink", @class = "modal-link" })
     </header>
-
-
-    
-    <div>
-        <div data-toggle="buttons" id="race-distance-div">
-
-            @Ajax.ActionLink("140.6", "RaceDistanceToggle", "Races",
-                routeValues: new
-                {
-                    distance = "140.6",
-                },
-                ajaxOptions: new AjaxOptions { UpdateTargetId = "race-div" },
-                htmlAttributes: new { @class = "btn btn-primary race-distance active", @type = "radio", @id="full"}
-                )
-            @Ajax.ActionLink("70.3", "RaceDistanceToggle", "Races",
-                 routeValues: new
-                 {
-                     distance = "70.3",
-                 },
-                 ajaxOptions: new AjaxOptions { UpdateTargetId = "race-div" },
-                 htmlAttributes: new { @class = "btn btn-primary race-distance", @type = "radio", @id="half"}
-                 )
-
-        </div>
-        <div id="race-div">
+    <div>    
+        <div class="col-sm-12" id="race-div">
             @Html.Partial("~/Views/Shared/_OnePageOfRaces.cshtml", Model)
         </div>
     </div>
-
     <header>2. Select the Age Groups/Divisions that you are interested in (optional)</header>
     <div>
 
@@ -81,17 +115,27 @@
     <div id="duration-filter-container">
         @Html.Partial("~/Views/Shared/_FilterByDuration.cshtml", Model)
     </div>
-</div>
+   </div>
     <div class="search-results-post">
         <button type="submit" id= "action-stats2" class="btn btn-default btn-results">View Results</button>
     </div>
-
+  
  }
 <script type="text/javascript">
 
     var _SelectedRaces;
     
     $(document).ready(function () {
+
+        
+        $('input[type=search]').on('search', function () {
+            // search logic here
+            $("#SelectedRaceId").val("0");
+            // this function will be executed on click of X (clear button)
+            $(":submit").submit();
+        });
+        
+
         $("#accordian").accordion({
             heightStyle: "content"
         });
@@ -116,6 +160,13 @@
             });
 
         });
+
+        //when the search is utilized the results could be either half or full
+        function OnSearchSuccess() {
+            $('#half').removeClass("active");
+            $('#full').removeClass("active");
+
+        }
 
 
         //$('#config-form').on('submit', function (evt) {

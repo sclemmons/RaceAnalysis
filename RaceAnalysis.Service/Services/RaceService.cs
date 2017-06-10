@@ -275,12 +275,39 @@ namespace RaceAnalysis.Service
             return athlete.SingleOrDefault();
         }
 
+        public List<Race> GetRacesByName(string name)
+        {
+            var query = _DBContext.Races.Where(a => a.LongDisplayName.Contains(name));
+            return query.ToList();
+        }
+
+        public List<Race> GetRacesByGroupName(string name)
+        {
+
+            IQueryable<Race> query = _DBContext.Races;
+            if (!String.IsNullOrEmpty(name) && !name.Equals("0"))
+                query = query.Where(a => a.ShortName.Equals(name));
+
+            return query.ToList();
+        }
 
         public List<Race> GetRacesByTagId(List<int> tagIds)
         {
             var races = _DBContext.Races.Where(r => r.Conditions.RaceConditionTags.Select(t => t.TagId).Intersect(tagIds).Any());
 
             return races.ToList();
+        }
+
+        public List<Race> GetRacesById(string id)
+        {
+            IQueryable<Race> query = _DBContext.Races; 
+
+            if (!id.Equals("0"))
+            {
+                query = query.Where(r => r.RaceId == id);
+            }
+
+            return query.ToList();
         }
 
         public List<Race> GetRacesBySwimCondition(string conditions)

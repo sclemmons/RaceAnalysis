@@ -56,6 +56,44 @@ namespace RaceAnalysis.Controllers
           
             return View(viewModel);
         }
+        public ActionResult TypeaheadRaceSearch(string query)
+        {
+          
+            var races = _RaceService.GetRacesByName(query);
+
+            var shallowRaces = new List<ShallowRace>();
+            foreach (var r in races)
+            {
+                
+                // create objects
+                var race = new ShallowRace();
+
+                race.Name = r.RaceCategoryName;
+                race.Id = r.ShortName;
+
+                if(!shallowRaces.Contains(race,new ShallowRaceComparer()))
+                    shallowRaces.Add(race);
+            }
+
+
+            return Json(shallowRaces, JsonRequestBehavior.AllowGet);
+
+        }
+        public PartialViewResult RacesSearchByName(string SelectedRaceNames /*this is the shortname*/)
+        {
+            var races = _RaceService.GetRacesByGroupName(SelectedRaceNames);
+
+            var viewModel = new RaceFilterViewModel();
+            viewModel.AvailableRaces = races;
+
+            int page = 1;
+            viewModel.AvailableRaces = viewModel.AvailableRaces.ToPagedList(page, _PageSize); //max xx per page
+
+            return PartialView("~/Views/Shared/_OnePageOfRaces.cshtml", viewModel);
+
+            
+        }
+
         public ActionResult Search()
         {
             var viewModel = new RaceSearchViewModel();
@@ -64,6 +102,7 @@ namespace RaceAnalysis.Controllers
             return View(viewModel);
         }
 
+        //search based on race conditions RENAME THIS METHOD
         public ActionResult SearchRaces(FormCollection form)
         {
             var searchString = new StringBuilder();

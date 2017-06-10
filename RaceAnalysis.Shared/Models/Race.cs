@@ -40,6 +40,11 @@ namespace RaceAnalysis.Models
         [Display(Name = "Short Name")]
         public string ShortName { get; set; }//this is used for the REST call to get the data
 
+        [NotMapped]
+        public string RaceCategoryName {
+            get { return LongDisplayName.Substring(0, LongDisplayName.LastIndexOf(" ")); }
+        }
+
         public string Distance { get; set; } //this is for display and grouping purposes
 
         [ForeignKey("Conditions")]
@@ -95,5 +100,24 @@ namespace RaceAnalysis.Models
     }
   
 
+    public class ShallowRace
+    {
+        public string Id { get; set; }
+        public string Name { get; set; }
+
+    }
+
+    public class ShallowRaceComparer : EqualityComparer<ShallowRace>
+    {
+        public override bool Equals(ShallowRace x, ShallowRace y)
+        {
+            return x.Name.Equals(y.Name);
+        }
+
+        public override int GetHashCode(ShallowRace obj)
+        {
+            return obj.Name.GetHashCode();
+        }
+    }
 
 }

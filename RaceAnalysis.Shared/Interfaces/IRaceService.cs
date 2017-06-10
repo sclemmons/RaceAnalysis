@@ -32,6 +32,10 @@ namespace RaceAnalysis.Service.Interfaces
 
 
         List<Race> GetRacesByTagId(List<int> tagIds);
+        List<Race> GetRacesByName(string name);
+        List<Race> GetRacesById(string id);
+        List<Race> GetRacesByGroupName(string name);
+
     }
 
 }

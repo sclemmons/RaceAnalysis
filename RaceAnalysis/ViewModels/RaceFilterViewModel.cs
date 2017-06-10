@@ -33,6 +33,9 @@ namespace RaceAnalysis.Models
         public IEnumerable<Race> AvailableRaces { get; set; }
         public IList<string> SelectedRaceIds { get; set; }
 
+        //for ajax search call
+        public string SelectedRaceId { get; set; }
+
         public string SelectedRaceNames
         {
             get
