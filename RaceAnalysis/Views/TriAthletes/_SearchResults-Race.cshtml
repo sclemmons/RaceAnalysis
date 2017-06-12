@@ -1,0 +1,100 @@
+﻿@model RaceAnalysis.Models.TriathletesViewModel
+@using RaceAnalysis.Models;
+@{
+ 
+    var queryViewModel = new SimpleFilterViewModel
+    {
+        //Races = "",
+        AgeGroups = "0", //this will allow us to pass these as params and possibly use them in the future
+        Genders = "0",
+
+    };
+}
+<script src="~/Scripts/jquery.rowselector.min.js"></script>
+<div class="athletes-list">
+    <h2>Search Results</h2>
+
+    @if (Model.Triathletes.Any())
+    {
+        <div class="search-results-preface">
+
+        </div>
+        <div>
+            @Html.Partial("_AthletesTable", Model)
+            @Html.Partial("_CompareAthletesChart", Model)
+            @Html.Partial("~/Views/Shared/_RaceMedianChart.cshtml", Model)
+
+
+        </div>
+    }
+    else
+    {
+        <div class="normal">Sorry, no results were found.</div>
+    }
+
+</div>
+<script type="text/javascript">
+
+    $('#config-form').on('submit', function (evt) {
+     
+            evt.preventDefault();
+        });
+
+        $('#action-compare').on('click', actionSelected);
+        $('#action-compare').attr("disabled", true); //disable until user selects rows
+
+        function actionSelected(evt) {
+
+            if ($('#action-compare').attr('disabled') == 'disabled') {
+                return false;
+            }
+    
+            var selected = [];
+            $('#athletes-table').selectedrows().each(function (idx, el) {
+                if (el.id.length > 0) {
+                    selected.push(el.id);
+                }
+            });
+
+            
+            if (selected.length > 0) {
+
+                this.href += "&selectedAthletes=" + selected.join(', ');
+            }
+            else {
+                return false;
+            }
+
+        }
+
+
+        //$('#action-compare').on('click', actionSelected);
+
+        $('#select-type').on('change', function (evt) {
+            $('#athletes-table').attr('data-rs-type', $(this).val());
+            //alert("onchange-rs-type");
+        });
+
+
+        $('#select-class').on('change', function (evt) {
+            $('#athletes-table').attr('data-rs-class', $(this).val());
+
+            //alert("onchange rs-class");
+        });
+
+
+        $('#athletes-table').on('clicked.rs.row', function (evt) {
+
+            var numrows = $(this).selectedrows().length;
+            if (numrows > 0) {
+                $('#action-compare').attr("disabled", false);
+            }
+            else {
+                $('#action-compare').attr("disabled", true);
+
+            }
+
+        });
+
+
+</script>

@@ -1,0 +1,34 @@
+﻿@model RaceAnalysis.Models.TriathletesViewModel
+
+
+@{
+    string title = Model.SelectedAthleteName + ", Finish Time: " + Model.Triathletes.First().Finish.ToString();
+}
+
+
+<div>
+    <div id='UniqueId'></div>
+    <script type="text/javascript">
+
+        google.charts.load('current', { 'packages': ['corechart'] });
+
+        google.charts.setOnLoadCallback(function () {
+
+            var data = new google.visualization.DataTable(
+                                @Html.Raw(Json.Encode(Model.OneAthletesChart)))
+
+            var options = {
+                title: @Html.Raw(Json.Encode(title)),
+                legend: { position: 'right'},
+                bar: { groupWidth: '50%' },
+                isStacked: true,
+
+              };
+
+            var chart = new google.visualization.BarChart(document.getElementById('UniqueId'));
+            chart.draw(data, options);
+        });
+
+
+    </script>
+</div>

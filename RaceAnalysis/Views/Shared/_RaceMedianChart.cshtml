@@ -1,0 +1,31 @@
+﻿@model RaceAnalysis.Models.BaseViewModel
+
+<div>
+    <div id='race-median-div'></div>
+    <script type="text/javascript">
+
+        google.charts.load('current', { 'packages': ['corechart'] });
+
+        google.charts.setOnLoadCallback(function () {
+
+            var data = new google.visualization.DataTable(
+                                @Html.Raw(Json.Encode(Model.RaceMedianChart)))
+
+            var options = {
+                title: "Median Finish Times: " + @Html.Raw(Json.Encode(Model.RaceStats.Race.LongDisplayName)),
+                //width: 600,
+                //height: 400,
+                legend: { position: 'right'},
+                bar: { groupWidth: '50%' },
+                isStacked: true,
+
+              };
+
+        var chart = new google.visualization.BarChart(document.getElementById('race-median-div'));
+        chart.draw(data, options);
+        });
+
+
+    </script>
+</div>
+
