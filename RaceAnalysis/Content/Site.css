@@ -685,7 +685,7 @@ div#race-table-div, div#athlete-table-div {
     margin-top:50px;
     
 }
-#action-compare.btn.btn-default,#action-stats.btn.btn-default{
+#action-compare.btn.btn-default,#action-stats.btn.btn-default,a#action-search-all-athletes{
   
     position: absolute;
     margin-top:10px;
@@ -693,11 +693,8 @@ div#race-table-div, div#athlete-table-div {
     right: 0px;
     
 }
-
-.search-results-post
-{
-    position:relative;
-    margin-top:50px;
+a#action-search-all-athletes {
+    right: 20px;
 }
 #action-stats2.btn.btn-default
 {

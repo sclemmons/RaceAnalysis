@@ -19,8 +19,8 @@
     @if (Model.Triathletes.Any())
     {
         <h4>@Model.Triathletes.Count()  Finishers </h4>
-       @Html.Partial("~/Views/Shared/_CompareAthletesChart.cshtml", Model);
-       @Html.Partial("~/Views/Shared/_CompareAthletesDetail.cshtml", Model);
+       @Html.Partial("_CompareAthletesChart", Model);
+       @Html.Partial("_CompareAthletesDetail", Model);
 
 
        <script type="text/javascript">  $("#results").show(); </script>

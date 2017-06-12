@@ -6,7 +6,7 @@
 
         google.charts.load('current', { 'packages': ['corechart'] });
 
-            google.charts.setOnLoadCallback(function () {
+        google.charts.setOnLoadCallback(function () {
 
             var data = new google.visualization.DataTable(
                                 @Html.Raw(Json.Encode(Model.ComparisonChart)))
@@ -22,6 +22,8 @@
             
             var chart = new google.visualization.BarChart(document.getElementById('UniqueId'));
             chart.draw(data, options);
-            });
+        });
+
+
     </script>
 </div>

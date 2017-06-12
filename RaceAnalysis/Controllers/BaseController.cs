@@ -7,6 +7,7 @@ using X.PagedList;
 using RaceAnalysis.Service.Interfaces;
 using System.Linq;
 using System.IO;
+using System.Web;
 
 namespace RaceAnalysis.Controllers
 {
@@ -52,8 +53,17 @@ namespace RaceAnalysis.Controllers
         //called from actions links in the Action Bar using the GET verb
         public ActionResult Display(SimpleFilterViewModel model)
         {
-           var filter = new RaceFilterViewModel(model);
-           return DisplayResultsView(filter);
+            RaceFilterViewModel filter;
+            //the following is a workaround for some flawed javascript that doesn't always pass the params we need
+            if (String.IsNullOrEmpty(model.Races))
+            {
+                var parms = HttpUtility.ParseQueryString(Request.UrlReferrer.Query);
+                model.Races = parms["RaceId"];
+
+            }
+            filter = new RaceFilterViewModel(model);
+            
+            return DisplayResultsView(filter);
 
         }
 
@@ -299,6 +309,101 @@ namespace RaceAnalysis.Controllers
             return stats;
         }
 
+        protected TriStats GetRaceStats(string raceId)
+        {
+            var aggr = _DBContext.RacesAggregates.Include("Race").
+                                Where(r => r.RaceId == raceId && r.Segment.Equals("all")).SingleOrDefault();
+
+            TriStats stats = new TriStats();
+
+            stats.Race = aggr.Race;
+
+            //median
+            stats.Swim.Median = aggr.SwimMedian;
+            stats.Bike.Median = aggr.BikeMedian;
+            stats.Run.Median = aggr.RunMedian;
+            stats.Finish.Median = aggr.FinishMedian;
+
+
+            //stats.DivRank.Median = a;
+            //stats.GenderRank.Median = Math.Floor(calc.IntMedian("GenderRank"));
+            //stats.OverallRank.Median = Math.Floor(calc.IntMedian("OverallRank"));
+            //stats.Points.Median = Math.Floor(calc.IntMedian("Points"));
+
+         
+            //min
+            stats.Swim.Min = aggr.SwimFastest;
+            stats.Bike.Min = aggr.BikeFastest;
+            stats.Run.Min = aggr.RunFastest;
+            stats.Finish.Min = aggr.FinishFastest;
+
+
+
+            //max
+            stats.Swim.Max = aggr.SwimFastest;
+            stats.Bike.Max = aggr.BikeFastest;
+            stats.Run.Max = aggr.RunFastest;
+            stats.Finish.Max = aggr.FinishFastest;
+
+            
+
+            //standard deviation
+            stats.Swim.StandDev = aggr.SwimStdDev;
+            stats.Bike.StandDev = aggr.BikeStdDev;
+            stats.Run.StandDev = aggr.RunStdDev;
+            stats.Finish.StandDev = aggr.FinishStdDev;
+
+
+            stats.DNFCount = aggr.DNFCount;
+
+            return stats;
+
+        }
+
+        protected TriStats GetRaceDivisionStats(string raceId,int agegroup, int gender )
+        {
+            var aggr = _DBContext.AgeGroupAggregates.Include("Race").
+                                Where(r => r.RaceId == raceId
+                                        && r.AgeGroupId == agegroup
+                                            && r.GenderId == gender).SingleOrDefault();
+
+            TriStats stats = new TriStats();
+
+            stats.Race = aggr.Race;
+
+            //median
+            stats.Swim.Median = aggr.SwimMedian;
+            stats.Bike.Median = aggr.BikeMedian;
+            stats.Run.Median = aggr.RunMedian;
+            stats.Finish.Median = aggr.FinishMedian;
+
+            //min
+            stats.Swim.Min = aggr.SwimFastest;
+            stats.Bike.Min = aggr.BikeFastest;
+            stats.Run.Min = aggr.RunFastest;
+            stats.Finish.Min = aggr.FinishFastest;
+
+
+            //max
+            stats.Swim.Max = aggr.SwimFastest;
+            stats.Bike.Max = aggr.BikeFastest;
+            stats.Run.Max = aggr.RunFastest;
+            stats.Finish.Max = aggr.FinishFastest;
+
+
+
+            //standard deviation
+            stats.Swim.StandDev = aggr.SwimStdDev;
+            stats.Bike.StandDev = aggr.BikeStdDev;
+            stats.Run.StandDev = aggr.RunStdDev;
+            stats.Finish.StandDev = aggr.FinishStdDev;
+
+
+            stats.DNFCount = aggr.DNFCount;
+
+            return stats;
+
+        }
 
         #endregion //Protected Methods
 

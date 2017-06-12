@@ -27,7 +27,7 @@
     AjaxOptions ajaxOptions = new AjaxOptions
     {
         LoadingElementId = "loading-area",
-        LoadingElementDuration = 1000,
+       // LoadingElementDuration = 1000,
         Url = Url.Action("AthleteSearch"),
       //  OnBegin = "HideForm",
         OnFailure = "ShowFailure",
@@ -44,52 +44,74 @@
 
 <div id="results-header">
 
-    <h4>@Model.TotalCount   Finishers  (@Model.Filter.SelectedRaceNames)</h4>
+        @if (Model.TotalCount > 1)
+        {
+            <h4>@Model.TotalCount   Finishers  (@Model.Filter.SelectedRaceNames)</h4>
+        
+            using (Ajax.BeginForm(ajaxOptions))
+            {
+                    @Html.AntiForgeryToken()
 
-    
-        @using (Ajax.BeginForm(ajaxOptions))
-        { 
-            @Html.AntiForgeryToken()
+                    <div class="athletes-list-search-form">
+                        @Html.HiddenFor(model => model.SelectedAthleteId, new { id = "SelectedAthleteId" })
+                        @Html.AutocompleteFor(model => model.Athletes, model => model.SelectedAthleteId, "TypeaheadAthleteSearch",
+                                 "Triathletes", false,
+                                 new
+                                 {
+                                     htmlAttributes = new { placeholder = "Search Athletes", type = "search" }
+                                 })
+                 
+                        <button type="submit" id="submitAthleteSearch" style="display:none" class="btn btn-primary">Search</button>
 
-            <div class="athletes-list-search-form">
-                @Html.HiddenFor(model => model.SelectedAthleteId,new {id="SelectedAthleteId" } )
-                @Html.AutocompleteFor(model => model.Athletes, model => model.SelectedAthleteId, "TypeaheadAthleteSearch",
-                        "Triathletes", false,
-                        new
-                        {
-                            htmlAttributes = new { placeholder = "Search Athletes", type="search" }
-                        })
-
-    
+                        @Html.ActionLink("Search All Races", "Search", "athletes",
+                                 new { Model.SelectedAthleteName }, new { @id = "action-search-all-athletes", style = "display:none", title = "Search All Races" })
 
 
-                <button type="submit" id="submitAthleteSearch" style="display:none" class="btn btn-primary">Search</button>
+                        @Html.ActionLink("Compare Athletes", "Compare", "Triathletes",
+                                 queryViewModel, new { @id = "action-compare-athletes", @class = "btn btn-default", title = "Display Comparison" })
 
+                    </div>
 
-                @Html.ActionLink("Compare Athletes", "Compare", "Triathletes",
-                 queryViewModel, new { @id = "action-compare-athletes", @class = "btn btn-default", title = "Display Comparison" })
-
-            </div>
-
+            
+            }//using
         }
-
 </div>
 
 <div id="results-area">
-    @Html.Partial("~/Views/Shared/_OnePageOfAthletes.cshtml", Model)
+    @if (Model.TotalCount == 1)//this occurs when athlete name is clicked
+    {
+        @Html.Partial("_SearchResults-Race", Model)
+
+    }
+    else
+    {
+        @Html.Partial("~/Views/Shared/_OnePageOfAthletes.cshtml", Model)
+    }
+
 </div>
 
 <script type="text/javascript">
 
     $('input[type=search]').on('search', function () {
-        // search logic here
-        $("#SelectedAthleteId").val("0");
         // this function will be executed on click of X (clear button)
+        $("#SelectedAthleteId").val("0");
         $(":submit").submit();
     });
-    function OnSuccess() {
-        $('#action-compare-athletes').hide();
-        $('#action-show-athletes').show();
+    function OnSuccess() { //called when the athletes search results returns
+        var id = $("#SelectedAthleteId").val();
+        if (id == "0")//search has been cleared
+        {
+            $('#action-search-all-athletes').hide();
+            $('#action-compare-athletes').show();
+        }
+        else
+        {
+            $('#action-search-all-athletes').show();
+            $('#action-compare-athletes').hide();
+
+        }
+        
+       
 
     }
     function HideForm() {

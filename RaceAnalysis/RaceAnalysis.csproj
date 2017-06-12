@@ -604,7 +604,7 @@
     <Content Include="Views\TriAthletes\Search.cshtml" />
     <Content Include="Views\Shared\_Search.cshtml" />
     <Content Include="Views\Shared\_SearchResultsKeyValueList.cshtml" />
-    <Content Include="Views\TriAthletes\_SearchResults.cshtml" />
+    <Content Include="Views\TriAthletes\_SearchResults-Race.cshtml" />
     <Content Include="Views\TriStats\Details.cshtml" />
     <Content Include="Views\Shared\_DurationBarChart.cshtml" />
     <Content Include="Views\Shared\_RaceConditions.cshtml" />
@@ -621,7 +621,7 @@
     <Content Include="Views\Shared\_VertRaceFilter.cshtml" />
     <Content Include="Views\Shared\_ActionBar.cshtml" />
     <Content Include="Views\Shared\_FilterByDuration.cshtml" />
-    <Content Include="Views\Shared\_TriathletesCompare.cshtml" />
+    <Content Include="Views\TriAthletes\_TriathletesList.cshtml" />
     <Content Include="Views\TriAthletes\_CompareAthletesChart.cshtml" />
     <Content Include="Views\TriAthletes\Compare.cshtml" />
     <Content Include="Views\Shared\_OnePageOfAthletes.cshtml" />
@@ -682,7 +682,7 @@
     <Content Include="Views\Races\_RaceRequest.cshtml" />
     <Content Include="Views\RequestContexts\Search.cshtml" />
     <Content Include="Views\RequestContexts\_SearchResults.cshtml" />
-    <Content Include="Views\TriAthletes\_OnePageOfAthletes.cshtml" />
+    <Content Include="Views\TriAthletes\_AthletesTable.cshtml" />
     <Content Include="Views\RaceAggregates\Create.cshtml" />
     <Content Include="Views\RaceAggregates\Delete.cshtml" />
     <Content Include="Views\RaceAggregates\Details.cshtml" />
@@ -697,6 +697,10 @@
     <Content Include="Views\AgeGroupAggregates\Index.cshtml" />
     <Content Include="Views\AgeGroupAggregates\List.cshtml" />
     <Content Include="Views\Races\List.cshtml" />
+    <Content Include="Views\Shared\_RaceMedianChart.cshtml" />
+    <Content Include="Views\TriAthletes\_SearchResults-All.cshtml" />
+    <Content Include="Views\TriAthletes\_AthletesChart-Single.cshtml" />
+    <Content Include="Views\TriAthletes\_AthletesTable-Single.cshtml" />
     <None Include="Web.Test.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

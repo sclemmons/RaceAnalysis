@@ -12,19 +12,15 @@
 }
 <script src="~/Scripts/jquery.rowselector.min.js"></script>
 <div class="athletes-list">
-    <h2>Search Results</h2>
-
+  
     @if (Model.Triathletes.Any())
     {
-        <div class="search-results-preface">
-
+        <div class="athletes-list-search-form">
+    
         </div>
         <div>
-            @Html.Partial("_AthletesTable", Model)
-            @Html.Partial("_CompareAthletesChart", Model)
-            @Html.Partial("~/Views/Shared/_RaceMedianChart.cshtml", Model)
-
-
+            @Html.Partial("_AthletesTable-Single", Model)
+            @Html.Partial("_AthletesChart-Single", Model)
         </div>
     }
     else
@@ -34,7 +30,8 @@
 
 </div>
 <script type="text/javascript">
-
+   //on parent 
+    $('#action-search-all-athletes').attr('href','Search?SelectedAthleteName=' + @Html.Raw(Json.Encode(Model.SelectedAthleteName)));
     $('#config-form').on('submit', function (evt) {
      
             evt.preventDefault();

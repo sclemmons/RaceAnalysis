@@ -109,7 +109,7 @@
                     </td>
                     <td>
                          
-                        @Html.ActionLink(@athlete.Name, "Search","athletes", new {athlete.Name },null)
+                        @Html.ActionLink(@athlete.Name, "SearchRace","athletes", new {athlete.Race.RaceId,athlete.Name },null)
                     </td>
                     <td>
                         @athlete.Country

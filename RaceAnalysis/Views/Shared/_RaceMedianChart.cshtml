@@ -1,5 +1,8 @@
 ﻿@model RaceAnalysis.Models.BaseViewModel
 
+@{ 
+    string title = Model.RaceStats.Race.LongDisplayName + ", All Athletes Median Finish Time: " + Model.RaceStats.Finish.Median.ToString();
+}
 <div>
     <div id='race-median-div'></div>
     <script type="text/javascript">
@@ -12,9 +15,7 @@
                                 @Html.Raw(Json.Encode(Model.RaceMedianChart)))
 
             var options = {
-                title: "Median Finish Times: " + @Html.Raw(Json.Encode(Model.RaceStats.Race.LongDisplayName)),
-                //width: 600,
-                //height: 400,
+                title: @Html.Raw(Json.Encode(title)),
                 legend: { position: 'right'},
                 bar: { groupWidth: '50%' },
                 isStacked: true,

@@ -11,7 +11,7 @@
     {
         LoadingElementId = "loading-area",
         LoadingElementDuration = 1000,
-        Url = Url.Action("AthleteSearchByName"),
+        Url = Url.Action("AthleteSearchAllByName"),
         OnBegin = "HideForm",
         OnFailure = "ShowFailure",
         OnSuccess = "OnSuccess",
@@ -55,7 +55,7 @@
 
                 <div class="athletes-list-search-form">
                     @Html.HiddenFor(model => model.SelectedAthleteName, new { id = "SelectedAthleteId" })
-                    @Html.AutocompleteFor(model => model.Athletes, model => model.SelectedAthleteName, "JsonAthleteSearch",
+                    @Html.AutocompleteFor(model => model.Athletes, model => model.SelectedAthleteName, "TypeaheadAthleteSearch",
                         "Triathletes", false,
                         new
                         {
@@ -78,7 +78,7 @@
 <div id="results-area">
 @if (Model.Triathletes.Any())
 {
-    @Html.Partial("_SearchResults", Model);
+    @Html.Partial("_SearchResults-All", Model);
 
 }
 

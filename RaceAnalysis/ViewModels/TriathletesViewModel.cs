@@ -14,7 +14,8 @@ namespace RaceAnalysis.Models
 
         public int SelectedAthleteId { get; set; }
         public string SelectedAthleteName { get; set; }
-
+        public string SelectedAgeGroup { get; set; } //the age group of the selected athlete
+        public string SelectedGender { get; set; } //the gender of the selected athlete
        
         public IEnumerable<ShallowTriathlete> Athletes { get; set; }
 
@@ -38,7 +39,7 @@ namespace RaceAnalysis.Models
                 dataTable.AddColumn("Finish", "timeofday", "data");
 
                 
-                foreach (Triathlete athlete in base.Triathletes)
+                foreach (Triathlete athlete in base.Triathletes.OrderBy(t => t.Race.RaceDate))
                 {
                     var row = new List<object>();
 
@@ -62,6 +63,113 @@ namespace RaceAnalysis.Models
 
         }
 
+        public GoogleVisualizationDataTable SingleRaceChart
+        {
+            get
+            {
+                var dataTable = new GoogleVisualizationDataTable();
+
+                dataTable.AddColumn("Name", "string", "domain");
+                dataTable.AddColumn("Swim", "timeofday", "data");
+                dataTable.AddColumn("Bike", "timeofday", "data");
+                dataTable.AddColumn("Run", "timeofday", "data");
+                dataTable.AddColumn("T1 & T2", "timeofday", "data");
+                dataTable.AddColumn("", "string", "annotation");
+
+
+                //athlete stats:
+                foreach (Triathlete athlete in Triathletes)
+                {
+                    var row = new List<object>();
+
+                    row.Add(new object[] { athlete.Name });
+
+                    row.Add(new object[]
+                     { athlete.Swim.Hours, athlete.Swim.Minutes, athlete.Swim.Seconds });
+
+                    row.Add(new object[]
+                      { athlete.Bike.Hours, athlete.Bike.Minutes, athlete.Bike.Seconds });
+
+                    row.Add(new object[]
+                       { athlete.Run.Hours, athlete.Run.Minutes, athlete.Run.Seconds });
+                    if (athlete.Finish.TotalSeconds > 0)
+                    {
+                        TimeSpan tTime = athlete.Finish - (athlete.Swim + athlete.Bike + athlete.Run);
+                        row.Add(new object[]
+                         { tTime.Hours, tTime.Minutes, tTime.Seconds });
+                    }
+                    else
+                    {
+                        row.Add(new object[] { 0, 0, 0 });
+                    }
+                    row.Add(new object[] { "" });
+                    dataTable.AddRow(row);
+                }
+
+                //race stats: 
+                {
+                    var row = new List<object>();
+
+                    row.Add(new object[] { RaceStats.Race.DisplayName });
+
+                    row.Add(new object[]
+                     { RaceStats.Swim.Median.Hours, RaceStats.Swim.Median.Minutes, RaceStats.Swim.Median.Seconds });
+
+                    row.Add(new object[]
+                      { RaceStats.Bike.Median.Hours, RaceStats.Bike.Median.Minutes, RaceStats.Bike.Median.Seconds });
+
+                    row.Add(new object[]
+                       { RaceStats.Run.Median.Hours, RaceStats.Run.Median.Minutes, RaceStats.Run.Median.Seconds });
+                    if (RaceStats.Finish.Median.TotalSeconds > 0)
+                    {
+                        TimeSpan tTime = RaceStats.Finish.Median - (RaceStats.Swim.Median + RaceStats.Bike.Median + RaceStats.Run.Median);
+                        row.Add(new object[]
+                         { tTime.Hours, tTime.Minutes, tTime.Seconds });
+                    }
+                    else
+                    {
+                        row.Add(new object[] { 0, 0, 0 });
+                    }
+                    row.Add(new object[] { "" });
+                    dataTable.AddRow(row);
+                }
+
+                //division stats
+                {
+                    
+                    var row = new List<object>();
+
+                    row.Add(new object[] { SelectedAgeGroup + " " + SelectedGender });
+
+                    row.Add(new object[]
+                     { RaceDivisionStats.Swim.Median.Hours, RaceDivisionStats.Swim.Median.Minutes, RaceDivisionStats.Swim.Median.Seconds });
+
+                    row.Add(new object[]
+                      { RaceDivisionStats.Bike.Median.Hours, RaceDivisionStats.Bike.Median.Minutes, RaceDivisionStats.Bike.Median.Seconds });
+
+                    row.Add(new object[]
+                       { RaceDivisionStats.Run.Median.Hours, RaceDivisionStats.Run.Median.Minutes, RaceDivisionStats.Run.Median.Seconds });
+                    if (RaceDivisionStats.Finish.Median.TotalSeconds > 0)
+                    {
+                        TimeSpan tTime = RaceDivisionStats.Finish.Median - (RaceDivisionStats.Swim.Median + RaceDivisionStats.Bike.Median + RaceDivisionStats.Run.Median);
+                        row.Add(new object[]
+                         { tTime.Hours, tTime.Minutes, tTime.Seconds });
+                    }
+                    else
+                    {
+                        row.Add(new object[] { 0, 0, 0 });
+                    }
+                    row.Add(new object[] { "" });
+                    dataTable.AddRow(row);
+                }
+
+
+
+
+                return dataTable;
+            }
+
+        }
 
         public GoogleVisualizationDataTable ComparisonChart
         {
@@ -78,7 +186,7 @@ namespace RaceAnalysis.Models
 
 
                 //assign values to each column. 
-                foreach (Triathlete athlete in Triathletes)
+                foreach (Triathlete athlete in Triathletes.OrderBy(t => t.Race.RaceDate))
                 {
                     var row = new List<object>();
 
@@ -110,5 +218,8 @@ namespace RaceAnalysis.Models
             }
 
         }
+
+
+
     }
 }

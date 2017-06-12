@@ -15,7 +15,7 @@
         google.charts.setOnLoadCallback(function () {
 
             var data = new google.visualization.DataTable(
-                                @Html.Raw(Json.Encode(Model.OneAthletesChart)))
+                                @Html.Raw(Json.Encode(Model.SingleRaceChart)))
 
             var options = {
                 title: @Html.Raw(Json.Encode(title)),

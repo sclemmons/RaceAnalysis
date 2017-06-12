@@ -33,6 +33,6 @@
     @if (Model.Triathletes.Any())
     {
         <script type="text/javascript">  $("#results").show(); </script>
-          @Html.Partial("~/Views/Shared/_TriathletesCompare.cshtml",Model)
+          @Html.Partial("_TriathletesList",Model)
     }
 }
