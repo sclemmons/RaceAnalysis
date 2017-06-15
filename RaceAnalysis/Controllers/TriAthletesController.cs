@@ -68,15 +68,27 @@ namespace RaceAnalysis.Controllers
 
         //athletes/search?name=
         [Route("athletes/search")]
-        public ActionResult Search(string SelectedAthleteName)
+        public ActionResult Search(string selectedAthleteName)
         {
-            if (String.IsNullOrEmpty(SelectedAthleteName))
-                return View(new TriathletesViewModel());
-            else
-            {
-                return View(DoSearchAllByName(SelectedAthleteName));
+            string name;
 
+            if (!String.IsNullOrEmpty(selectedAthleteName))
+            {
+                name = selectedAthleteName;
             }
+            else if (!String.IsNullOrEmpty(Request.QueryString["name"]))
+            {
+                name = Request.QueryString["name"];
+            }
+            else
+            { 
+                return View(new TriathletesViewModel());
+            }
+            
+            
+            return View(DoSearchAllByName(name));
+
+           
         }
         //athletes/search?name=
         [Route("athletes/searchrace")]
