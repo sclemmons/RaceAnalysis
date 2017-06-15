@@ -55,6 +55,17 @@ namespace RaceAnalysis.Models
         [NotMapped]
         public bool IsSelected { get; set; }
 
+
+        public static string FormatName(string name)
+        {
+            string[] s = name.Split(',');
+
+            if (s.Length > 1) //the given name contained commas
+                return string.Format("{0}, {1}", s[0].Trim(), s[1].Trim());
+            else //just return the orinal without spaces
+                return name.Trim();
+
+        }
     }
 
 
@@ -63,7 +74,13 @@ namespace RaceAnalysis.Models
     {
         public override bool Equals(Triathlete x, Triathlete y)
         {
-            return x.Name.Equals(y.Name);
+
+
+            string xstr = string.Join("", x.Name.Split(default(string[]), StringSplitOptions.RemoveEmptyEntries));
+            string ystr = string.Join("", y.Name.Split(default(string[]), StringSplitOptions.RemoveEmptyEntries));
+
+
+            return xstr.Equals(ystr);
         }
 
         public override int GetHashCode(Triathlete obj)

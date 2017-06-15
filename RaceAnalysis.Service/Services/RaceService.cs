@@ -261,8 +261,9 @@ namespace RaceAnalysis.Service
 
         public List<Triathlete> GetAthletesByName(string name, string[] raceIds = null)
         {
+            var formattedName = Triathlete.FormatName(name);
             var query = _DBContext.Triathletes
-                                  .Where(a => a.Name.Contains(name));
+                                  .Where(a => a.Name.Contains(formattedName));
             if (raceIds != null)
                 query = query.Where(t => raceIds.Contains(t.RequestContext.RaceId));
 

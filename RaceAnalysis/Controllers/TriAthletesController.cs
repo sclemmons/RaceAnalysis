@@ -91,7 +91,7 @@ namespace RaceAnalysis.Controllers
             }
         }
 
-
+       
         //search athletes by id
         public PartialViewResult AthleteSearch(string SelectedAthleteId)
         {
@@ -190,8 +190,12 @@ namespace RaceAnalysis.Controllers
                 return viewmodel;
             }
 
-            
-            var a = _RaceService.GetAthletesByName(name, new []{ raceId}).SingleOrDefault();
+            //only one athlete supported
+            var a = _RaceService.GetAthletesByName(name, new[] { raceId }).First();
+            if(a == null)
+            {
+                return new TriathletesViewModel();
+            }
 
             athletes.Add(a);
             viewmodel.RaceStats = GetRaceStats(a.Race.RaceId);
