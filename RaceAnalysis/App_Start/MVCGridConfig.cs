@@ -30,7 +30,7 @@ namespace RaceAnalysis
               {
                   cols.Add("RaceName").WithSorting(true).WithValueExpression(p => p.Race.LongDisplayName);
 
-				  cols.Add("Segment").WithSorting(true).WithValueExpression(p => p.Segment);
+                  cols.Add("Segment").WithSorting(true).WithValueExpression(p => p.Segment).WithFiltering(true);
 
 				  cols.Add("Count").WithSorting(true).WithValueExpression(p => p.AthleteCount.ToString());
 
@@ -70,13 +70,19 @@ namespace RaceAnalysis
               {
                   var options = context.QueryOptions;
                   string distance = String.IsNullOrEmpty(options.GetFilterString("Distance")) ? "140.6" : options.GetFilterString("Distance");
+                  string segment = String.IsNullOrEmpty(options.GetFilterString("Segment")) ? "all" : options.GetFilterString("Segment");
+
                   string globalSearch = options.GetAdditionalQueryOptionString("Search");
                   var result = new QueryResult<RaceAggregate>();
                   using (var db = new RaceAnalysisDbContext())
                   {
                       var query = db.RacesAggregates.Include("Race").Where(p => p.Race.Distance == distance);
+
+                      query = query.Where(p => p.Segment.Equals(segment));
+
                       if (!String.IsNullOrEmpty(globalSearch))
                           query = query.Where(p => p.Race.LongDisplayName.Contains(globalSearch));
+
                       result.TotalRecords = query.Count();
 
                       if (!String.IsNullOrWhiteSpace(options.SortColumnName))

@@ -45,5 +45,9 @@
             $('#half').removeClass("active");
 
         });
+        $('#segment').change(function () {
+            MVCGrid.setFilters('RaceAggregateGrid', { Segment: $('#segment').val() });
+        });
+
     });
 </script>
