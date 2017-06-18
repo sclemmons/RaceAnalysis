@@ -9,6 +9,10 @@ using RestSharp;
 using RaceAnalysis.Service.Interfaces;
 using RaceAnalysis.ServiceSupport;
 using System.Web;
+using System.Configuration;
+using StackExchange.Redis;
+using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace RaceAnalysis.Service
 {
@@ -245,28 +249,54 @@ namespace RaceAnalysis.Service
             return search.SearchAthletesFieldQuery("name", name);
         }
 
-        public void PopulateShallowAthletes()
+        public List<ShallowTriathlete> PopulateShallowAthletesCache()
         {
-            HttpContext.Current.Application.Lock();
-
+            //  HttpContext.Current.Application.Lock();
+//            Trace.TraceInformation("PopulateShallowAth");
+            IDatabase cache = Connection.GetDatabase();
             var query = _DBContext.Triathletes.Include("RequestContext.Race");
-            var results = query.OrderBy(t => t.Name).ToList().Select(t => new ShallowTriathlete()
+            var results = query.OrderBy(t => t.Name).Select(t => new ShallowTriathlete()
                     { Name = t.Name, Id = t.TriathleteId, RaceId = t.RequestContext.Race.RaceId });
-            
-            HttpContext.Current.Application["ShallowAthletes"] = results;
 
-            HttpContext.Current.Application.UnLock();
+            var athletes = results.ToList<ShallowTriathlete>();
+
+            cache.StringSet("ShallowAthletes", JsonConvert.SerializeObject(results));
+            
+         //   HttpContext.Current.Application.UnLock();
+
+            return athletes;
         }
 
         public List<ShallowTriathlete> GetShallowAthletesByName(string name,string[] raceIds=null)
         {
-            if (HttpContext.Current.Application["ShallowAthletes"] == null)
-                PopulateShallowAthletes();
+            //Trace.TraceInformation("GetShallowathlete");
 
-            IEnumerable<ShallowTriathlete> athletes = HttpContext.Current.Application["ShallowAthletes"] as IEnumerable<ShallowTriathlete>;
+            List<ShallowTriathlete> athletes = null;
+            IDatabase cache;
+            
+         //   try
+            {
+                cache = Connection.GetDatabase();
+                string serializedAthletes = cache.StringGet("ShallowAthletes");
 
-            var query = athletes;
-            query = athletes.Where(a => a.Name.ToLower().Contains(name.ToLower()));
+                if (!String.IsNullOrEmpty(serializedAthletes))
+                {
+                    athletes = JsonConvert.DeserializeObject<List<ShallowTriathlete>>(serializedAthletes);
+                }
+                else
+                {
+                    athletes = PopulateShallowAthletesCache();
+                }
+
+            }
+            /**
+            catch (Exception ex)
+            {
+                Trace.TraceError(ex.Message);
+
+            }
+            **/
+            var query = athletes.Where(a => a.Name.ToLower().Contains(name.ToLower()));
             var results = query.ToList();
             if (raceIds != null)
                query = query.Where(a => raceIds.Contains(a.RaceId));
@@ -604,58 +634,23 @@ namespace RaceAnalysis.Service
             _DBContext.SaveChanges();
 
         }
-        
 
-        /*************
-        private List<Triathlete> GetAthletesFromSource_SAVE-MAY NEED THIS LATER(int[] raceIds, int[] agegroupIds, int[] genderIds)
+        // Redis Connection string info
+        private static Lazy<ConnectionMultiplexer> lazyConnection = new Lazy<ConnectionMultiplexer>(() =>
         {
-            List<Triathlete> athletesFromSource = new List<Triathlete>();
+            string cacheConnection = ConfigurationManager.AppSettings["CacheConnection"];
+         //   Trace.TraceInformation("connection: " + cacheConnection);
+            return ConnectionMultiplexer.Connect(cacheConnection);
+        });
 
-            //create a reqContext for each combination. 
-            foreach (int raceId in raceIds) 
+        public static ConnectionMultiplexer Connection
+        {
+            get
             {
-                foreach (int ageId in agegroupIds)
-                {
-                    foreach (int genderId in genderIds)
-                    {
-                        RequestContext reqContext = GetRequestContext(raceId, ageId, genderId);
-
-                        string baseUrl = reqContext.Race.BaseURL;
-
-
-                        RestClientX client = new RestClientX();
-                        for (int pagenum = 1; pagenum < 100; pagenum++)
-                        {
-
-                            string response = client.MakeRequest(baseUrl, BuildRequestParameters(pagenum,ageId,genderId));
-
-                            List<Triathlete> athletesPerPage = Triathlete.ParseData(reqContext, response);
-                            if (athletesPerPage.Count > 0)
-                            {
-                                athletesFromSource.AddRange(athletesPerPage);
-                            }
-                            else
-                            {
-                                break;
-                            }
-                        }
-
-
-                        //TO-DO: some of the contexts result in zero athletes, and we may not want to go back to the 
-                        //source since it will result in zero. Need to figure out how to differentiate the empy result
-                        //set from the neveer-been-checked cache
-                        _DBContext.RequestContext.Add(reqContext);
-                        _DBContext.SaveChanges();
-
-                        _DBContext.Triathletes.AddRange(athletesFromSource);
-                        _DBContext.SaveChanges();
-                    }
-                }
+                return lazyConnection.Value;
             }
-            return athletesFromSource;
-        } 
-        ****************/
-
+        }
+        
 
         #endregion //Private
 
