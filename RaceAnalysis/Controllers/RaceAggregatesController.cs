@@ -10,11 +10,12 @@ using RaceAnalysis.Models;
 
 namespace RaceAnalysis.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class RaceAggregatesController : Controller
     {
         private RaceAnalysisDbContext db = new RaceAnalysisDbContext();
 
-        // GET: RaceAggregates
+       // GET: RaceAggregates
         public ActionResult Index()
         {
             var racesAggregate = db.RacesAggregates.Include(r => r.Race);

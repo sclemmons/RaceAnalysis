@@ -1,20 +1,18 @@
-﻿
+﻿@model RaceAnalysis.Models.CacheViewModel
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Layouts/_Layout.cshtml";
 }
 
-<h2>Admin Quick Links</h2>
+<h2>Cache Info</h2>
 
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
-    <div> 
-    </div>
-</body>
-</html>
+<div>
+    Count: @Model.ShallowAthleteCount.ToString()
+</div>
+<div>
+    @Html.ActionLink("Flush Athletes", "FlushShallowAthletes")
+</div>
+<div>
+    @Html.ActionLink("FILL Athletes", "FillShallowAthletes")
+</div>

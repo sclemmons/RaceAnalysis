@@ -47,6 +47,9 @@ namespace RaceAnalysis.App_Start
             container.RegisterType<RaceAnalysis.Controllers.AccountController>(new InjectionConstructor());
             container.RegisterType<IIdentityMessageService,EmailService>();
             container.RegisterType<IRaceService, RaceService>();
+            container.RegisterType<ICacheService,CacheService>( new ContainerControlledLifetimeManager());
+            container.Resolve<ICacheService>();
+
         }
     }
 }

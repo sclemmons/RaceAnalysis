@@ -304,6 +304,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\CacheConfig.cs" />
     <Compile Include="App_Start\MVCGridConfig.cs" />
     <Compile Include="App_Start\TypeaheadBundleConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
@@ -318,6 +319,7 @@
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CacheController.cs" />
     <Compile Include="Controllers\CompareBikeRunController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\CuratedAnalysisController.cs" />
@@ -346,6 +348,7 @@
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="ViewModels\AgeGroupCompareViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\CacheViewModel.cs" />
     <Compile Include="ViewModels\CompareBikeRunViewModel.cs" />
     <Compile Include="ViewModels\HistogramViewModel.cs" />
     <Compile Include="ViewModels\HypotheticalsViewModel.cs" />
@@ -542,7 +545,7 @@
     <Content Include="Scripts\typeahead.bundle.min.js" />
     <Content Include="Scripts\typeahead.jquery.js" />
     <Content Include="Scripts\typeahead.jquery.min.js" />
-    <Content Include="Scripts\typeahead.mvc.model.js" />
+    <Content Include="Scripts\typeahead.raceanalysis.mvc.model.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Views\Shared\_BikeRunQuartileChart.cshtml" />
     <Content Include="Web.config">
@@ -701,6 +704,7 @@
     <Content Include="Views\TriAthletes\_SearchResults-All.cshtml" />
     <Content Include="Views\TriAthletes\_AthletesChart-Single.cshtml" />
     <Content Include="Views\TriAthletes\_AthletesTable-Single.cshtml" />
+    <Content Include="Views\Cache\Index.cshtml" />
     <None Include="Web.Test.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

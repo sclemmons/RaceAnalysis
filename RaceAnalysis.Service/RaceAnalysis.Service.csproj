@@ -116,6 +116,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Client Facades\ElasticSearchFacade.cs" />
+    <Compile Include="Services\CacheService.cs" />
     <Compile Include="Services\EmailService.cs" />
     <Compile Include="Services\RaceService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

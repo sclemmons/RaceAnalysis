@@ -8,11 +8,6 @@ using RaceAnalysis.Rest;
 using RestSharp;
 using RaceAnalysis.Service.Interfaces;
 using RaceAnalysis.ServiceSupport;
-using System.Web;
-using System.Configuration;
-using StackExchange.Redis;
-using Newtonsoft.Json;
-using System.Diagnostics;
 
 namespace RaceAnalysis.Service
 {
@@ -249,55 +244,26 @@ namespace RaceAnalysis.Service
             return search.SearchAthletesFieldQuery("name", name);
         }
 
-        public List<ShallowTriathlete> PopulateShallowAthletesCache()
-        {
-            //  HttpContext.Current.Application.Lock();
-//            Trace.TraceInformation("PopulateShallowAth");
-            IDatabase cache = Connection.GetDatabase();
-            var query = _DBContext.Triathletes.Include("RequestContext.Race");
-            var results = query.OrderBy(t => t.Name).Select(t => new ShallowTriathlete()
-                    { Name = t.Name, Id = t.TriathleteId, RaceId = t.RequestContext.Race.RaceId });
 
-            var athletes = results.ToList<ShallowTriathlete>();
-
-            cache.StringSet("ShallowAthletes", JsonConvert.SerializeObject(results));
-            
-         //   HttpContext.Current.Application.UnLock();
-
-            return athletes;
-        }
-
+  
         public List<ShallowTriathlete> GetShallowAthletesByName(string name,string[] raceIds=null)
         {
             //Trace.TraceInformation("GetShallowathlete");
-
-            List<ShallowTriathlete> athletes = null;
-            IDatabase cache;
-            
-         //   try
+           
+            var athletes = CacheService.Instance.GetShallowAthletes();      
+            if(athletes == null)
             {
-                cache = Connection.GetDatabase();
-                string serializedAthletes = cache.StringGet("ShallowAthletes");
+                var q = _DBContext.Triathletes.Include("RequestContext.Race");
+                var r = q.OrderBy(t => t.Name).Select(t => new ShallowTriathlete()
+                { Name = t.Name, Id = t.TriathleteId, RaceId = t.RequestContext.Race.RaceId });
 
-                if (!String.IsNullOrEmpty(serializedAthletes))
-                {
-                    athletes = JsonConvert.DeserializeObject<List<ShallowTriathlete>>(serializedAthletes);
-                }
-                else
-                {
-                    athletes = PopulateShallowAthletesCache();
-                }
+                athletes = r.ToList<ShallowTriathlete>();
 
+                CacheService.Instance.PopulateCache(athletes);
             }
-            /**
-            catch (Exception ex)
-            {
-                Trace.TraceError(ex.Message);
 
-            }
-            **/
-            var query = athletes.Where(a => a.Name.ToLower().Contains(name.ToLower()));
-            var results = query.ToList();
+            var query = athletes.Where(a => a.Name.ToLower().Contains(name.Trim().ToLower())).Take(50);
+      
             if (raceIds != null)
                query = query.Where(a => raceIds.Contains(a.RaceId));
 
@@ -635,21 +601,6 @@ namespace RaceAnalysis.Service
 
         }
 
-        // Redis Connection string info
-        private static Lazy<ConnectionMultiplexer> lazyConnection = new Lazy<ConnectionMultiplexer>(() =>
-        {
-            string cacheConnection = ConfigurationManager.AppSettings["CacheConnection"];
-         //   Trace.TraceInformation("connection: " + cacheConnection);
-            return ConnectionMultiplexer.Connect(cacheConnection);
-        });
-
-        public static ConnectionMultiplexer Connection
-        {
-            get
-            {
-                return lazyConnection.Value;
-            }
-        }
         
 
         #endregion //Private

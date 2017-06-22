@@ -21,6 +21,7 @@ using RaceAnalysis.App_Start;
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             MVCGridConfig.RegisterGrids();
+            CacheConfig.Register();
         }
 
         protected void Application_Error(object sender, EventArgs e)

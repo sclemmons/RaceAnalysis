@@ -119,6 +119,7 @@
   <ItemGroup>
     <Compile Include="DAL\RaceAnalysisConfiguration.cs" />
     <Compile Include="DAL\RaceAnalysisDBInitializer.cs" />
+    <Compile Include="Interfaces\ICacheService.cs" />
     <Compile Include="Interfaces\IDurationFilter.cs" />
     <Compile Include="Interfaces\IRaceCriteria.cs" />
     <Compile Include="Interfaces\IRaceService.cs" />
