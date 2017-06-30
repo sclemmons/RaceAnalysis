@@ -7,6 +7,9 @@
             },
             queryTokenizer: Bloodhound.tokenizers.whitespace,
             remote: {
+                rateLimitBy: "debounce",
+                rateLimitWait: 500,
+
                 wildcard: "%QUERY",
                 url: $(obj).data("autocomplete-url") + "?query=%QUERY",
                 filter: function (autos) {

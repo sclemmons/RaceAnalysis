@@ -9,8 +9,8 @@ namespace RaceAnalysis.Service.Interfaces
 {
     public interface ICacheService
     {
-        void PopulateCache(List<ShallowTriathlete> athletes);
-        List<ShallowTriathlete> GetShallowAthletes();
+        Task PopulateCacheAsync(List<ShallowTriathlete> athletes);
+        List<ShallowTriathlete> GetShallowAthletes(string name);
         void FlushShallowAthletes();
 
     }

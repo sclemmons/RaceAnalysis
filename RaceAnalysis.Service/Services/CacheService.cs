@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using System.Diagnostics;
 using RaceAnalysis.Models;
 using RaceAnalysis.Service.Interfaces;
+using System.Threading.Tasks;
 
 namespace RaceAnalysis.Service
 {
@@ -37,45 +38,73 @@ namespace RaceAnalysis.Service
         public CacheService() { }
 
 
-        public void PopulateCache(List<ShallowTriathlete> athletes)
+        public async Task PopulateCacheAsync(List<ShallowTriathlete> athletes)
         {
             //  HttpContext.Current.Application.Lock();
-            //            Trace.TraceInformation("PopulateShallowAth");
+            Trace.TraceInformation("PopulateShallowAth");
             IDatabase cache = Connection.GetDatabase();
-        
-            cache.StringSet(_CacheKeyShallowAthletes, JsonConvert.SerializeObject(athletes));
+
+      //      cache.KeyDelete(_CacheKeyShallowAthletes);
+
+           
+
+            var tasks = new List<Task>();
+            double i = 0;
+            foreach (var a in athletes)
+            {
+                string value = string.Format("{0}#{1}#{2}", a.Name.ToLower(), a.Id, a.RaceId.ToUpper());
+                tasks.Add(cache.SortedSetAddAsync(_CacheKeyShallowAthletes, value,i++, CommandFlags.FireAndForget));
+
+            }
+
+            await Task.WhenAll(tasks);
+
+            Trace.TraceInformation("PopulatEShallow-End");
+
 
             //   HttpContext.Current.Application.UnLock();
         }
 
-
-        public List<ShallowTriathlete> GetShallowAthletes()
+       
+        public List<ShallowTriathlete> GetShallowAthletes(string name)
         {
-            //Trace.TraceInformation("GetShallowathlete");
+            Trace.TraceInformation("GetShallowathlete: " + name);
 
-            List<ShallowTriathlete> athletes = null;
+            var athletes = new List<ShallowTriathlete>();
             IDatabase cache;
-
-            //   try
+            IEnumerable<SortedSetEntry> sortedAthletes; 
+            try
             {
                 cache = Connection.GetDatabase();
-                string serializedAthletes = cache.StringGet(_CacheKeyShallowAthletes);
-
-                if (!String.IsNullOrEmpty(serializedAthletes))
+            
+                sortedAthletes = cache.SortedSetScan(_CacheKeyShallowAthletes, String.Format("{0}*",name.ToLower()));
+               
+                foreach (var a in sortedAthletes.Take(50))
                 {
-                    athletes = JsonConvert.DeserializeObject<List<ShallowTriathlete>>(serializedAthletes);
+                    var value = a.Element.ToString();
+                    string[] fields = value.Split('#');
+                    athletes.Add(
+                                    new ShallowTriathlete
+                                    {
+                                        Name = fields[0],
+                                        Id = Convert.ToInt32(fields[1]),
+                                        RaceId = fields[2]
+                        
+                                    }
+                        );
                 }
 
             }
-            /**
+
             catch (Exception ex)
             {
                 Trace.TraceError(ex.Message);
 
             }
-            **/
+
+            Trace.TraceInformation("leaving with # athletes: " + athletes.Count.ToString());
+            return athletes;
         
-            return athletes == null ? new List<ShallowTriathlete>() : athletes;
         }
 
         public void FlushShallowAthletes()

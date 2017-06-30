@@ -8,6 +8,9 @@ using RaceAnalysis.Service.Interfaces;
 using System.Linq;
 using System.IO;
 using System.Web;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Queue;
+using System.Configuration;
 
 namespace RaceAnalysis.Controllers
 {
@@ -404,6 +407,7 @@ namespace RaceAnalysis.Controllers
             return stats;
 
         }
+
 
         #endregion //Protected Methods
 

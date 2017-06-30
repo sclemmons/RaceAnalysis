@@ -10,4 +10,10 @@ namespace RaceAnalysis.SharedQueueMessages
         public int[] AgegroupIds { get; set; }
         public int[] GenderIds { get; set; }
     }
+
+
+    public class CacheShallowAthletesMessage
+    {
+        public string RaceId { get; set; }
+    }
 }

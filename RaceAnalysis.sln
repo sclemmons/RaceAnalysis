@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaceAnalysis", "RaceAnalysis\RaceAnalysis.csproj", "{C8F7E368-5694-4453-A624-DC1F72347ECE}"
 EndProject
@@ -27,8 +27,11 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SharedQueueMessages", "Shar
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaceAnalysis.Service", "RaceAnalysis.Service\RaceAnalysis.Service.csproj", "{45F8C32C-81D3-45E7-A298-C6767BCA7EA0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaceAnalysis.AthleteCacheJob", "RaceAnalysis.AthleteCacheJob\RaceAnalysis.AthleteCacheJob.csproj", "{68B596A0-6516-4363-A6CC-560B9D543202}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		SharedQueueMessages\SharedQueueMessages.projitems*{68b596a0-6516-4363-a6cc-560b9d543202}*SharedItemsImports = 4
 		SharedQueueMessages\SharedQueueMessages.projitems*{90d32306-80fb-43d9-9179-9942ffc10577}*SharedItemsImports = 4
 		SharedQueueMessages\SharedQueueMessages.projitems*{bdaef501-e198-4214-b883-26b1669a604e}*SharedItemsImports = 13
 		SharedQueueMessages\SharedQueueMessages.projitems*{c8f7e368-5694-4453-a624-dc1f72347ece}*SharedItemsImports = 4
@@ -70,6 +73,10 @@ Global
 		{45F8C32C-81D3-45E7-A298-C6767BCA7EA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{45F8C32C-81D3-45E7-A298-C6767BCA7EA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{45F8C32C-81D3-45E7-A298-C6767BCA7EA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68B596A0-6516-4363-A6CC-560B9D543202}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68B596A0-6516-4363-A6CC-560B9D543202}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68B596A0-6516-4363-A6CC-560B9D543202}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68B596A0-6516-4363-A6CC-560B9D543202}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

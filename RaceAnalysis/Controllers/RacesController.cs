@@ -23,7 +23,7 @@ namespace RaceAnalysis.Controllers
     public class RacesController : BaseController
     {
       
-        private CloudQueue cacheRequestQueue;
+        private CloudQueue _CacheRequestQueue;
         private IIdentityMessageService _emailService;
 #if DEBUG
         private const int _PageSize = 2;
@@ -680,45 +680,6 @@ namespace RaceAnalysis.Controllers
 
         }
 
-        private async Task AddQueueMessages(string raceId)
-        {
-            var raceIds = new string[]{ raceId }; //for futer growth?
-            var agegroupIds = _DBContext.AgeGroups.Select(ag => ag.AgeGroupId).ToArray();
-            var genderIds = _DBContext.Genders.Select(g => g.GenderId).ToArray();
-
-            foreach (string id in raceIds)
-            {
-                foreach (int ageId in agegroupIds)
-                {
-                    foreach (int genderId in genderIds) //create a queue message for each AgeGroup, gender
-                    {
-                       var msg =  new FetchTriathletesMessage()
-                        {
-                           RaceId = id,
-                           AgegroupIds = new int[] { ageId },
-                           GenderIds = new int[] { genderId }
-                        };
-                        var queueMessage = new CloudQueueMessage(JsonConvert.SerializeObject(msg));
-                        await cacheRequestQueue.AddMessageAsync(queueMessage);
-                    }
-                }
-            }
-        }
-
- 
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _DBContext.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
-
-
-
         private void InitializeStorage()
         {
             // Open storage account using credentials from .cscfg file.
@@ -738,11 +699,49 @@ namespace RaceAnalysis.Controllers
             //queueClient.DefaultRequestOptions.RetryPolicy = new LinearRetry(TimeSpan.FromSeconds(3), 3);
 
             // Get a reference to the queue.
-            cacheRequestQueue = queueClient.GetQueueReference("triathletepullrequest");
-            cacheRequestQueue.CreateIfNotExists();
+            _CacheRequestQueue = queueClient.GetQueueReference("triathletepullrequest");
+            _CacheRequestQueue.CreateIfNotExists();
 
         }
 
+
+        private async Task AddQueueMessages(string raceId)
+        {
+            var raceIds = new string[] { raceId }; //for futer growth?
+            var agegroupIds = _DBContext.AgeGroups.Select(ag => ag.AgeGroupId).ToArray();
+            var genderIds = _DBContext.Genders.Select(g => g.GenderId).ToArray();
+
+            foreach (string id in raceIds)
+            {
+                foreach (int ageId in agegroupIds)
+                {
+                    foreach (int genderId in genderIds) //create a queue message for each AgeGroup, gender
+                    {
+                        var msg = new FetchTriathletesMessage()
+                        {
+                            RaceId = id,
+                            AgegroupIds = new int[] { ageId },
+                            GenderIds = new int[] { genderId }
+                        };
+                        var queueMessage = new CloudQueueMessage(JsonConvert.SerializeObject(msg));
+                        await _CacheRequestQueue.AddMessageAsync(queueMessage);
+                    }
+                }
+            }
+        }
+
+
+            
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _DBContext.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+        
+     
         protected override ActionResult DisplayResultsView(RaceFilterViewModel model)
         {
             throw new NotImplementedException();

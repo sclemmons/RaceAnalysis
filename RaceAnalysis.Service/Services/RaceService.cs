@@ -8,6 +8,7 @@ using RaceAnalysis.Rest;
 using RestSharp;
 using RaceAnalysis.Service.Interfaces;
 using RaceAnalysis.ServiceSupport;
+using System.Diagnostics;
 
 namespace RaceAnalysis.Service
 {
@@ -249,27 +250,34 @@ namespace RaceAnalysis.Service
         public List<ShallowTriathlete> GetShallowAthletesByName(string name,string[] raceIds=null)
         {
             //Trace.TraceInformation("GetShallowathlete");
+
+            //   var athletes = CacheService.Instance.GetShallowAthletes(name);      
            
-            var athletes = CacheService.Instance.GetShallowAthletes();      
-            if(athletes == null)
-            {
-                var q = _DBContext.Triathletes.Include("RequestContext.Race");
-                var r = q.OrderBy(t => t.Name).Select(t => new ShallowTriathlete()
-                { Name = t.Name, Id = t.TriathleteId, RaceId = t.RequestContext.Race.RaceId });
+           // if (athletes == null)
+          //  {
+            var triathletes = _DBContext.Triathletes.Include("RequestContext.RaceId");
+            var shallow = triathletes.OrderBy(t => t.Name).Select(t => new ShallowTriathlete()
+            { Name = t.Name, Id = t.TriathleteId, RaceId = t.RequestContext.RaceId }).
+                Where(t => t.Name.Contains(name.Trim().ToLower())).Take(50);
 
-                athletes = r.ToList<ShallowTriathlete>();
 
-                CacheService.Instance.PopulateCache(athletes);
-            }
+            //         var athletes = new List<ShallowTriathlete>();
 
-            var query = athletes.Where(a => a.Name.ToLower().Contains(name.Trim().ToLower())).Take(50);
-      
+            // }
+
+            //       var query = athletes.Where(a => a.Name.ToLower().Contains(name.Trim().ToLower())).Take(20);
+
+
+
             if (raceIds != null)
-               query = query.Where(a => raceIds.Contains(a.RaceId));
+                  shallow = shallow.Where(a => raceIds.Contains(a.RaceId));
 
-            query = query.Distinct(new ShallowTriathleteComparer());
+            var list = shallow.ToList();
+            return list.Distinct(new ShallowTriathleteComparer()).ToList();
 
-            return query.ToList();
+       //     Trace.TraceInformation("LeavingShallow with: " + list.Count.ToString());
+            //return query.ToList();
+            
         }
 
         public List<Triathlete> GetAthletesByName(string name, string[] raceIds = null)

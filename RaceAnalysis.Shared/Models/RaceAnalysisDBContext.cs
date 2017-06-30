@@ -42,7 +42,7 @@ namespace RaceAnalysis.Models
         public DbSet<RaceConditionTag> RaceConditionTags {get;set;}
         public DbSet<RaceAggregate> RacesAggregates { get; set; }
         public DbSet<AgeGroupAggregate> AgeGroupAggregates { get; set; }
-
+        public DbSet<AthleteCache> AthleteCache { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
 
