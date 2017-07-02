@@ -22,7 +22,7 @@ namespace RaceAnalysis.Shared.DAL
         private const string FullTextPrefix = "-FTSPREFIX-";
         public static string Fts(string search)
         {
-            return string.Format("({0}{1})", FullTextPrefix, search);
+            return string.Format("({0}\"*{1}*\")", FullTextPrefix, search);
         }
         public void NonQueryExecuting(DbCommand command, DbCommandInterceptionContext<int> interceptionContext)
         {
