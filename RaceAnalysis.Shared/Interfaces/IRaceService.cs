@@ -22,7 +22,6 @@ namespace RaceAnalysis.Service.Interfaces
         List<Race> GetRacesByBikeCondition(string conditions);
         List<Race> GetRacesByRunCondition(string conditions);
 
-        List<ShallowTriathlete> GetShallowAthletesByName(string name,string[] raceIds=null);
         List<Triathlete> GetAthletesByName(string name, string[] raceIds = null);
 
 
@@ -32,7 +31,6 @@ namespace RaceAnalysis.Service.Interfaces
 
 
         List<Race> GetRacesByTagId(List<int> tagIds);
-        List<Race> GetRacesByName(string name);
         List<Race> GetRacesById(string id);
         List<Race> GetRacesByGroupName(string name);
 

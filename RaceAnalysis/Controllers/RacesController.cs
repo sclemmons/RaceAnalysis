@@ -25,17 +25,20 @@ namespace RaceAnalysis.Controllers
       
         private CloudQueue _CacheRequestQueue;
         private IIdentityMessageService _emailService;
+        private ISearchService _searchService;
+     
 #if DEBUG
-        private const int _PageSize = 2;
+        private const int _PageSize = 20;
 #else
         private const int _PageSize = 20;
 
 #endif
 
 
-        public RacesController(IRaceService raceService, IIdentityMessageService emailService) : base(raceService) 
+        public RacesController(IRaceService raceService, ISearchService searchService, IIdentityMessageService emailService) : base(raceService) 
         {
             _emailService = emailService;
+            _searchService = searchService;
         }
 
         // GET: Races
@@ -59,23 +62,9 @@ namespace RaceAnalysis.Controllers
         public ActionResult TypeaheadRaceSearch(string query)
         {
           
-            var races = _RaceService.GetRacesByName(query);
+            var shallowRaces = _searchService.SearchRacesByName(query);
 
-            var shallowRaces = new List<ShallowRace>();
-            foreach (var r in races)
-            {
-                
-                // create objects
-                var race = new ShallowRace();
-
-                race.Name = r.RaceCategoryName;
-                race.Id = r.ShortName;
-
-                if(!shallowRaces.Contains(race,new ShallowRaceComparer()))
-                    shallowRaces.Add(race);
-            }
-
-
+           
             return Json(shallowRaces, JsonRequestBehavior.AllowGet);
 
         }
@@ -433,13 +422,22 @@ namespace RaceAnalysis.Controllers
             _RaceService.VerifyRace(race);
 
             var query = _DBContext.RequestContext.Where(r => r.RaceId == id);
-            race.ValidateMessage = "Validated";
-            foreach (var cxt in query)
+
+            //first make sure we have the right number of requests. sometimes ive seen more than one or missing
+            int expectedAGCount = _DBContext.AgeGroups.Count() * 2; //1 for each gender
+            int actualAGCount = query.Count();
+            if (expectedAGCount != actualAGCount)
+                race.ValidateMessage = "AgeGroup Miscount";
+            else
             {
-                if(cxt.Expected != cxt.SourceCount)
+                race.ValidateMessage = "Validated";
+                foreach (var req in query)
                 {
-                    race.ValidateMessage = "Mismatch";
-                    break;
+                    if (req.Expected != req.SourceCount)
+                    {
+                        race.ValidateMessage = "Mismatch";
+                        break;
+                    }
                 }
             }
             _DBContext.SaveChanges();

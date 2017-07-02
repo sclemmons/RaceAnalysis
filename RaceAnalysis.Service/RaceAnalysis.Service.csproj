@@ -118,6 +118,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Client Facades\IronmanClient.cs" />
     <Compile Include="Client Facades\RestClient.cs" />
+    <Compile Include="Services\SearchService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RaceAnalysis.Shared\RaceAnalysis.Shared.csproj">

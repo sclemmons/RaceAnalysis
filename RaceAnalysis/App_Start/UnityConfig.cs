@@ -49,6 +49,7 @@ namespace RaceAnalysis.App_Start
             container.RegisterType<IRaceService, RaceService>();
             container.RegisterType<ICacheService,CacheService>( new ContainerControlledLifetimeManager());
             container.Resolve<ICacheService>();
+            container.RegisterType<ISearchService, SearchService>();
 
         }
     }

@@ -13,8 +13,11 @@ namespace RaceAnalysis.Controllers
 {
     public class TriathletesController : BaseController
     {
-
-        public TriathletesController(IRaceService service) : base(service) { }
+        private ISearchService _SearchService;
+        public TriathletesController(IRaceService raceService,ISearchService search) : base(raceService)
+        {
+            _SearchService = search;
+        }
 
         public ActionResult Index()
         {
@@ -156,7 +159,7 @@ namespace RaceAnalysis.Controllers
             List<ShallowTriathlete> athletes;
             if (!String.IsNullOrEmpty(search))
             {
-                 athletes = _RaceService.GetShallowAthletesByName(search,raceIds);
+                 athletes = _SearchService.SearchAthletesByName(search,raceIds);
                 
             }
             else
