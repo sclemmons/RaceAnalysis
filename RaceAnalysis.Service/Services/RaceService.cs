@@ -9,6 +9,7 @@ using RestSharp;
 using RaceAnalysis.Service.Interfaces;
 using RaceAnalysis.ServiceSupport;
 using System.Diagnostics;
+using RaceAnalysis.Shared.DAL;
 
 namespace RaceAnalysis.Service
 {
@@ -245,16 +246,14 @@ namespace RaceAnalysis.Service
             return search.SearchAthletesFieldQuery("name", name);
         }
 
-
-  
-        public List<ShallowTriathlete> GetShallowAthletesByName(string name,string[] raceIds=null)
+        public List<ShallowTriathlete> GetShallowAthletesByNameOLD(string name, string[] raceIds = null)
         {
             //Trace.TraceInformation("GetShallowathlete");
 
             //   var athletes = CacheService.Instance.GetShallowAthletes(name);      
-           
-           // if (athletes == null)
-          //  {
+
+            // if (athletes == null)
+            //  {
             var triathletes = _DBContext.Triathletes.Include("RequestContext.RaceId");
             var shallow = triathletes.OrderBy(t => t.Name).Select(t => new ShallowTriathlete()
             { Name = t.Name, Id = t.TriathleteId, RaceId = t.RequestContext.RaceId }).
@@ -267,6 +266,30 @@ namespace RaceAnalysis.Service
 
             //       var query = athletes.Where(a => a.Name.ToLower().Contains(name.Trim().ToLower())).Take(20);
 
+
+
+            if (raceIds != null)
+                shallow = shallow.Where(a => raceIds.Contains(a.RaceId));
+
+            var list = shallow.ToList();
+            return list.Distinct(new ShallowTriathleteComparer()).ToList();
+
+            //     Trace.TraceInformation("LeavingShallow with: " + list.Count.ToString());
+            //return query.ToList();
+
+        }
+
+
+        public List<ShallowTriathlete> GetShallowAthletesByName(string name,string[] raceIds=null)
+        {
+            //Trace.TraceInformation("GetShallowathlete");
+
+            var s = FtsInterceptor.Fts(name);
+           
+            var triathletes = _DBContext.Triathletes.Include("RequestContext.RaceId");
+            var shallow = triathletes.OrderBy(t => t.Name).Select(t => new ShallowTriathlete()
+            { Name = t.Name, Id = t.TriathleteId, RaceId = t.RequestContext.RaceId }).
+                Where(t => t.Name.Contains(name.Trim().ToLower())).Take(50);
 
 
             if (raceIds != null)

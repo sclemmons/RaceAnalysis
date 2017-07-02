@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26430.12
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaceAnalysis", "RaceAnalysis\RaceAnalysis.csproj", "{C8F7E368-5694-4453-A624-DC1F72347ECE}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaceAnalysis.Tests", "RaceAnalysis.Tests\RaceAnalysis.Tests.csproj", "{8A9F7BE0-7D30-4A69-A52C-6DE80A971225}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1959353A-6804-4D40-B7B2-A1945448B775}"
 	ProjectSection(SolutionItems) = preProject
 		CleanRequestContextsAndDeleteAllTriathletes.sql = CleanRequestContextsAndDeleteAllTriathletes.sql
 		Grant.sql = Grant.sql
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaceAnalysis", "RaceAnalysis\RaceAnalysis.csproj", "{C8F7E368-5694-4453-A624-DC1F72347ECE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaceAnalysis.Tests", "RaceAnalysis.Tests\RaceAnalysis.Tests.csproj", "{8A9F7BE0-7D30-4A69-A52C-6DE80A971225}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaceAnalysisAPI", "RaceAnalysisAPI\RaceAnalysisAPI.csproj", "{BBE112B3-DD42-4B73-B368-371D0D6F8402}"
 EndProject
@@ -19,7 +19,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaceAnalysisAPI.Tests", "Ra
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaceAnalysis.Shared", "RaceAnalysis.Shared\RaceAnalysis.Shared.csproj", "{E2BD6BCB-06C1-4B0C-81B4-92D061CEF864}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "RaceAnalysis.Console", "RaceAnalysis.Console\RaceAnalysis.Console.xproj", "{B00AA49F-8B6E-4DDE-8A1A-8011880691C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RaceAnalysis.Console", "RaceAnalysis.Console\RaceAnalysis.Console.xproj", "{B00AA49F-8B6E-4DDE-8A1A-8011880691C8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaceAnalysis.WebJobCacheFill", "RaceAnalysis.WebJobCacheFill\RaceAnalysis.WebJobCacheFill.csproj", "{90D32306-80FB-43D9-9179-9942FFC10577}"
 EndProject

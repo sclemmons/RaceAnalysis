@@ -10,6 +10,8 @@ using System.Data.Entity.Validation;
 using System.Data.Entity.Core.Metadata.Edm;
 using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Infrastructure.Interception;
+using RaceAnalysis.Shared.DAL;
 
 namespace RaceAnalysis.Models
 {
@@ -24,6 +26,8 @@ namespace RaceAnalysis.Models
             //Database.SetInitializer(new Data.RaceAnalysisDBInitializer());
 
             this.Configuration.LazyLoadingEnabled = true;//just want to explicitly control this
+
+            DbInterception.Add(new FtsInterceptor());//add interceptor for Full-Text Search
         }
 
         public static RaceAnalysisDbContext Create()
