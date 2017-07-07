@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -16,6 +17,7 @@ namespace RaceAnalysis.Models
         public int TagId { get; set; }
 
         public virtual RaceConditions RaceConditions { get; set; }
+
         public virtual Tag Tag { get; set; }
 
         public int Count { get; set; }

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 
 namespace RaceAnalysis.ServiceSupport
@@ -21,6 +22,24 @@ namespace RaceAnalysis.ServiceSupport
         
         public IList<string> SelectedRaceIds { get; set; }
         
+        public override String ToString()
+        {
+            var sb = new StringBuilder();
+            foreach( var id in SelectedRaceIds)
+            {
+                sb.AppendFormat("{0},", id);
+            }
+            foreach(var id in SelectedAgeGroupIds)
+            {
+               sb.AppendFormat("{0},", id);
+            }
+            foreach(var id in SelectedGenderIds)
+            {
+                sb.AppendFormat("{0},", id);
+            }
+
+            return sb.ToString();
+        }
     }
 
 

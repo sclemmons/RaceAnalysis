@@ -11,6 +11,7 @@ namespace RaceAnalysis.Service.Interfaces
         IList<string> SelectedRaceIds { get; set; }
         IList<int> SelectedAgeGroupIds { get; set; }
         IList<int> SelectedGenderIds { get; set; }
+        string ToString();
     }
 
     

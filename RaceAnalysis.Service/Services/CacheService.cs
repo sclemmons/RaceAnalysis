@@ -65,7 +65,66 @@ namespace RaceAnalysis.Service
             //   HttpContext.Current.Application.UnLock();
         }
 
-       
+        public void PopulateAthletes(RequestContext req, List<Triathlete> athletes)
+        {
+            IDatabase cache = Connection.GetDatabase();
+
+            cache.StringSet(req.ToString(), JsonConvert.SerializeObject(athletes));
+
+        }
+
+        public void PopulateAthletes(IRaceCriteria crit, List<Triathlete> athletes)
+        {
+
+            IDatabase cache = Connection.GetDatabase();
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                PreserveReferencesHandling = PreserveReferencesHandling.Objects
+            };
+
+            cache.StringSet(crit.ToString(), JsonConvert.SerializeObject(athletes,settings));
+
+        }
+
+
+        public List<Triathlete> GetAthletes(IRaceCriteria crit)
+        {
+            List<Triathlete> athletes;
+
+            IDatabase cache = Connection.GetDatabase();
+            string serializedTeams = cache.StringGet(crit.ToString());
+            if (!String.IsNullOrEmpty(serializedTeams))
+            {
+                athletes = JsonConvert.DeserializeObject<List<Triathlete>>(serializedTeams);
+            }
+            else
+            {
+                athletes = new List<Triathlete>();
+            }
+
+            return athletes;
+
+        }
+
+        public List<Triathlete> GetAthletes(RequestContext req)
+        {
+            List<Triathlete> athletes;
+
+            IDatabase cache = Connection.GetDatabase();
+            string serializedTeams = cache.StringGet(req.ToString());
+            if (!String.IsNullOrEmpty(serializedTeams))
+            {
+                athletes = JsonConvert.DeserializeObject<List<Triathlete>>(serializedTeams);
+            }
+            else 
+            {
+                athletes = new List<Triathlete>();
+            }
+
+            return athletes;
+
+        }
+
         public List<ShallowTriathlete> GetShallowAthletes(string name)
         {
             Trace.TraceInformation("GetShallowathlete: " + name);

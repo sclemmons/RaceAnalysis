@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Newtonsoft.Json;
 
 namespace RaceAnalysis.Models
 {
@@ -11,24 +12,25 @@ namespace RaceAnalysis.Models
     {
         public RaceConditions()
         {
-
         }
         public int RaceConditionsId { get; set; }
 
         public virtual List<RaceConditionTag> RaceConditionTags { get; set; }
 
 
+        [JsonIgnore]
         [NotMapped]
         [Display(Name = "Swim Layout")]
         public List<RaceConditionTag> SwimLayout
         {
             get
             {
-                return RaceConditionTags.Where(rc => rc.Tag.Type == TagType.SwimLayout).ToList();
+                    return RaceConditionTags.Where(rc => rc.Tag.Type == TagType.SwimLayout).ToList();
             }
 
         }
 
+        [JsonIgnore]
         [NotMapped]
         [Display(Name = "Swim Medium")]
         public List<RaceConditionTag> SwimMedium
@@ -39,7 +41,7 @@ namespace RaceAnalysis.Models
             }
         }
 
-
+        [JsonIgnore]
         [NotMapped]
         [Display(Name = "Swim Weather")]
         public List<RaceConditionTag> SwimWeather 
@@ -50,6 +52,7 @@ namespace RaceAnalysis.Models
             }
         }
 
+        [JsonIgnore]
         [NotMapped]
         [Display(Name = "Swim Other")]
         public List<RaceConditionTag> SwimOther
@@ -60,6 +63,7 @@ namespace RaceAnalysis.Models
             }
         }
 
+        [JsonIgnore]
         [NotMapped]
         [Display(Name = "Bike Layout")]
         public List<RaceConditionTag> BikeLayout
@@ -70,6 +74,7 @@ namespace RaceAnalysis.Models
             }
         }
 
+        [JsonIgnore]
         [NotMapped]
         [Display(Name = "Bike Medium")]
         public  List<RaceConditionTag> BikeMedium
@@ -79,6 +84,7 @@ namespace RaceAnalysis.Models
                 return RaceConditionTags.Where(rc => rc.Tag.Type == TagType.BikeMedium).ToList();
             }
         }
+        [JsonIgnore]
         [NotMapped]
         [Display(Name = "Bike Weather")]
         public  List<RaceConditionTag> BikeWeather
@@ -88,6 +94,7 @@ namespace RaceAnalysis.Models
                 return RaceConditionTags.Where(rc => rc.Tag.Type == TagType.BikeWeather).ToList();
             }
         }
+        [JsonIgnore]
         [NotMapped]
         [Display(Name = "Bike Other")]
         public  List<RaceConditionTag> BikeOther
@@ -98,7 +105,7 @@ namespace RaceAnalysis.Models
             }
         }
 
-
+        [JsonIgnore]
         [NotMapped]
         [Display(Name = "Run Layout")]
         public  List<RaceConditionTag> RunLayout
@@ -108,7 +115,7 @@ namespace RaceAnalysis.Models
                 return RaceConditionTags.Where(rc => rc.Tag.Type == TagType.RunLayout).ToList();
             }
         }
-
+        [JsonIgnore]
         [NotMapped]
         [Display(Name = "Run Medium")]
         public  List<RaceConditionTag> RunMedium
@@ -119,6 +126,7 @@ namespace RaceAnalysis.Models
             }
         }
 
+        [JsonIgnore]
         [NotMapped]
         [Display(Name = "Run Weather")]
         public  List<RaceConditionTag> RunWeather
@@ -129,7 +137,7 @@ namespace RaceAnalysis.Models
             }
         }
 
-
+        [JsonIgnore]
         [NotMapped]
         [Display(Name = "Run Other")]
         public  List<RaceConditionTag> RunOther

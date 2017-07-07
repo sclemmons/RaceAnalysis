@@ -293,6 +293,7 @@ namespace RaceAnalysis.Controllers
 
             if (ModelState.IsValid)
             {
+                race.ValidateMessage = "Not Validated";
                 _DBContext.Races.Add(race);
                 _DBContext.SaveChanges();
                 return RedirectToAction("Index");

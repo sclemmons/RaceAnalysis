@@ -8,6 +8,7 @@ using RaceAnalysis.Rest;
 using RestSharp;
 using RaceAnalysis.Service.Interfaces;
 using RaceAnalysis.ServiceSupport;
+using System.Diagnostics;
 
 namespace RaceAnalysis.Service
 {
@@ -26,6 +27,20 @@ namespace RaceAnalysis.Service
         /// <returns></returns>
         public List<Triathlete> GetAthletes(IRaceCriteria criteria)
         {
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            
+            var cachedAtheletes = CacheService.Instance.GetAthletes(criteria);
+            if (cachedAtheletes != null && cachedAtheletes.Count > 0)
+            {
+                stopwatch.Stop();
+
+                Trace.TraceInformation(String.Format("GetAthletsFromCache took: {0} ", stopwatch.Elapsed.ToString()));
+
+                return cachedAtheletes;
+            }
+           
 
             List<Triathlete> allAthletes = new List<Triathlete>();
 
@@ -52,7 +67,11 @@ namespace RaceAnalysis.Service
                         }
                         else
                         {
-                            athletesInReqContext = GetAthletesFromStorage(reqContext);
+                            athletesInReqContext = GetAthletesFromDb(reqContext);
+
+//                            athletesInReqContext = this.GetAthletesFromCacheTest(reqContext);
+
+
                         }
 
                         if (athletesInReqContext.Count > 0)
@@ -64,7 +83,14 @@ namespace RaceAnalysis.Service
                 }
             }
 
-            return allAthletes.OrderBy(t => t.Finish).ToList();
+            var athletes =  allAthletes.OrderBy(t => t.Finish).ToList();
+
+            stopwatch.Stop();
+            Trace.TraceInformation(String.Format("GetAthletes without cache took: {0} ", stopwatch.Elapsed.ToString()));
+
+            CacheService.Instance.PopulateAthletes(criteria, athletes);
+
+            return athletes;
         }
 
 
@@ -88,7 +114,10 @@ namespace RaceAnalysis.Service
       * ****************************************/
         public List<Triathlete> GetAthletesFromStorage(IRaceCriteria criteria)
         {
+
             List<Triathlete> allAthletes = new List<Triathlete>();
+
+
 
             //create a requestContext for each combination. 
             foreach (string raceId in criteria.SelectedRaceIds)
@@ -106,7 +135,7 @@ namespace RaceAnalysis.Service
                         }
                         else
                         {
-                            athletesInReqContext = GetAthletesFromStorage(reqContext);
+                            athletesInReqContext = GetAthletesFromDb(reqContext);
                         }
 
                         if (athletesInReqContext.Count > 0)
@@ -348,116 +377,46 @@ namespace RaceAnalysis.Service
            // }
             return req;  //NOTE: THIS will return null if context not found
         }
-        private List<Triathlete> GetAthletesFromStorage(RequestContext req)
+        private List<Triathlete> GetAthletesFromDb(RequestContext req)
         {
-            List<Triathlete> athletesInKeyContext;
+            List<Triathlete> athletes;
+
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
 
             var query = from t in _DBContext.Triathletes
                         where t.RequestContextId == req.RequestContextId
                         select t;
 
-            athletesInKeyContext = query.ToList();
+            athletes = query.ToList();
 
-            return athletesInKeyContext;
+            stopwatch.Stop();
+
+   //         CacheService.Instance.PopulateAthletes(req, athletes);
+
+            Trace.TraceInformation(String.Format("GetAthletesFromStorage took: {0} ", stopwatch.Elapsed.ToString()));
+
+            return athletes;
         }
-      
-
-
-        private List<Triathlete> GetAthletesFromCacheDyanamic(RequestContext reqContext)
+        private List<Triathlete> GetAthletesFromCacheTestXX(RequestContext req)
         {
-            FilterRule outerFilter = new FilterRule();
-            outerFilter.Condition = "and";
-            outerFilter.Rules = new List<FilterRule>();
+            List<Triathlete> athletes;
 
-            if (!String.IsNullOrEmpty(reqContext.RaceId))
-            {
-                FilterRule raceFilter = new FilterRule();
-                raceFilter.Field = "RaceId";
-                raceFilter.Operator = "equal";
-                raceFilter.Value = reqContext.RaceId;
-                raceFilter.Type = "integer";
-                outerFilter.Rules.Add(raceFilter);
-            }
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
 
-            if (reqContext.AgeGroupId != 0)
-            {
-                FilterRule agegroupFilter = new FilterRule();
-                agegroupFilter.Field = "AgeGroupId";
-                agegroupFilter.Operator = "equal";
-                agegroupFilter.Value = reqContext.AgeGroupId.ToString();
-                agegroupFilter.Type = "integer";
-                outerFilter.Rules.Add(agegroupFilter);
-            }
-            if (reqContext.GenderId != 0)
-            {
-                FilterRule genderFilter = new FilterRule();
-                genderFilter.Field = "GenderId";
-                genderFilter.Operator = "equal";
-                genderFilter.Value = reqContext.GenderId.ToString();
-                genderFilter.Type = "integer";
-                outerFilter.Rules.Add(genderFilter);
-            }
+            athletes = CacheService.Instance.GetAthletes(req);
+            stopwatch.Stop();
 
-            List<int> contextIds = _DBContext.RequestContext.BuildQuery(outerFilter).Select(c => c.RequestContextId).ToList();
+            CacheService.Instance.PopulateAthletes(req, athletes);
 
-            var query = _DBContext.Triathletes
-                             .Where(t => contextIds.Contains(t.RequestContextId));
+     //       Trace.TraceInformation(String.Format("GetAthletesFromCache took: {0} ", stopwatch.Elapsed.ToString()));
 
-            List<Triathlete> filteredCollection = query.ToList();
-
-
-            return filteredCollection;
+            return athletes;
         }
 
-        private List<Triathlete> GetAthletesFromCacheDyanamic(int[] raceIds, int[] agegroupIds, int[] genderIds)
-        {
-            FilterRule outerFilter = new FilterRule();
-            outerFilter.Condition = "and";
-            outerFilter.Rules = new List<FilterRule>();
-
-            if (raceIds != null)
-            {
-                FilterRule raceFilter = new FilterRule();
-                raceFilter.Field = "RaceId";
-                raceFilter.Condition = "or";
-                raceFilter.Operator = "in";
-                raceFilter.Value = String.Join(",", raceIds.Select(p => p.ToString()).ToArray());
-                raceFilter.Type = "integer";
-                outerFilter.Rules.Add(raceFilter);
-            }
-
-            if (agegroupIds != null)
-            {
-                FilterRule agegroupFilter = new FilterRule();
-                agegroupFilter.Field = "AgeGroupId";
-                agegroupFilter.Condition = "or";
-                agegroupFilter.Operator = "in";
-                agegroupFilter.Value = String.Join(",", agegroupIds.Select(p => p.ToString()).ToArray());
-                agegroupFilter.Type = "integer";
-                outerFilter.Rules.Add(agegroupFilter);
-            }
-            if (genderIds != null)
-            {
-                FilterRule genderFilter = new FilterRule();
-                genderFilter.Field = "GenderId";
-                genderFilter.Condition = "or";
-                genderFilter.Operator = "in";
-                genderFilter.Value = String.Join(",", genderIds.Select(p => p.ToString()).ToArray());
-                genderFilter.Type = "integer";
-                outerFilter.Rules.Add(genderFilter);
-            }
-
-            List<int> contextIds = _DBContext.RequestContext.BuildQuery(outerFilter).Select(c => c.RequestContextId).ToList();
-
-            var query = _DBContext.Triathletes
-                             .Where(t => contextIds.Contains(t.RequestContextId));
-
-            List<Triathlete> filteredCollection = query.ToList();
 
 
-            return filteredCollection;
-        }
-       
         private List<Triathlete> GetAthletesFromSource(RequestContext reqContext)
         {
             List<Triathlete> athletesFromSource = new List<Triathlete>();
