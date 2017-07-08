@@ -11,6 +11,8 @@ using System.Web;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Queue;
 using System.Configuration;
+using System.Diagnostics;
+using RaceAnalysis.ServiceSupport;
 
 namespace RaceAnalysis.Controllers
 {
@@ -223,6 +225,9 @@ namespace RaceAnalysis.Controllers
         /// <returns></returns>
         protected TriStatsExtended GetStats(List<Triathlete> athletes)
         {
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+
             var stats = new TriStatsExtended(athletes);
             stats.Athletes = athletes.ToList();
 
@@ -308,6 +313,11 @@ namespace RaceAnalysis.Controllers
             stats.Finish.Data = athletes.OrderBy(a => a.Finish).Select(a => a.Finish.ToString("hh\\:mm\\:ss")).ToArray();
 
             stats.DNFCount = calc.NumberDNFs();
+
+
+            Trace.TraceInformation("Stats Calulation took: " + stopwatch.Elapsed);
+            stopwatch.Stop();
+
 
             return stats;
         }
@@ -408,6 +418,64 @@ namespace RaceAnalysis.Controllers
 
         }
 
+
+        protected List<Triathlete> GetAllAthletesForRaces(RaceFilterViewModel filter)
+        {
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            var allAthletes = new List<Triathlete>();
+            var allAgeGroupIds = AgeGroup.Expand(new int[] { 0 });
+            var allGenderIds = Gender.Expand(new int[] { 0 });
+
+            //assuming a cache contains athletes for each race, get all athletes for each race
+            foreach (var raceId in filter.SelectedRaceIds)
+            {
+                var athletes = _RaceService.GetAthletes(
+                        new BasicRaceCriteria
+                        {
+                            SelectedRaceIds = { raceId },
+                            SelectedAgeGroupIds = allAgeGroupIds,
+                            SelectedGenderIds = allGenderIds
+                        }
+                    );
+
+                if (athletes.Count > 0)
+                {
+                    allAthletes.AddRange(athletes);
+                }
+            }
+            Trace.TraceInformation("AgeGroupCompare GetAllRaceInfo took: " + stopwatch.Elapsed);
+            stopwatch.Reset();
+
+            return allAthletes;
+        }
+
+        //filter the list of athletes by agegroup, gender, and range
+        protected List<Triathlete> GetFilteredAthletes(List<Triathlete> allAthletes, RaceFilterViewModel filter)
+        {
+            var selectedAgeGroupIds = AgeGroup.Expand(filter.SelectedAgeGroupIds);
+            var selectedGenderIds = Gender.Expand(filter.SelectedGenderIds);
+
+            var athletes = allAthletes.Where(
+                    a => selectedAgeGroupIds.Contains(a.RequestContext.AgeGroupId) &&
+                    selectedGenderIds.Contains(a.RequestContext.GenderId)).ToList();
+
+            return new BasicFilterProvider(athletes, filter).GetAthletes();
+        }
+        //filter the list of athletes by race, agegroup, gender, and range
+        protected List<Triathlete> GetFilteredAthletes(string raceId, List<Triathlete> allAthletes, RaceFilterViewModel filter)
+        {
+            var selectedAgeGroupIds = AgeGroup.Expand(filter.SelectedAgeGroupIds);
+            var selectedGenderIds = Gender.Expand(filter.SelectedGenderIds);
+         
+            var athletes = allAthletes.Where(
+                a => a.RequestContext.RaceId.Equals(raceId, StringComparison.CurrentCultureIgnoreCase) &&
+                selectedAgeGroupIds.Contains(a.RequestContext.AgeGroupId) &&
+                    selectedGenderIds.Contains(a.RequestContext.GenderId)).ToList();
+
+            return new BasicFilterProvider(athletes, filter).GetAthletes();
+        }
 
         #endregion //Protected Methods
 

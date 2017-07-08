@@ -25,7 +25,9 @@ namespace RaceAnalysis.Controllers
         {
             var viewModel = new TriStatsViewModel();
             viewModel.Filter = filter;
-        
+
+            var selectedAgeGroupIds = AgeGroup.Expand(filter.SelectedAgeGroupIds);
+            var selectedGenderIds = Gender.Expand(filter.SelectedGenderIds);
             var athletes = new List<Triathlete>();
        
             foreach (string raceId in filter.SelectedRaceIds) 
@@ -34,8 +36,8 @@ namespace RaceAnalysis.Controllers
                      new BasicRaceCriteria
                      {
                          SelectedRaceIds = new string[] { raceId },
-                         SelectedAgeGroupIds = AgeGroup.Expand(filter.SelectedAgeGroupIds),
-                         SelectedGenderIds = Gender.Expand( filter.SelectedGenderIds)
+                         SelectedAgeGroupIds = selectedAgeGroupIds,
+                         SelectedGenderIds = selectedGenderIds
                      },
                      new BasicDurationFilter() { } //bypass the user's duration filter so we can get all athletes, including DNFs
                  );

@@ -35,22 +35,7 @@ namespace RaceAnalysis.Controllers
         {
             var viewModel = new HistogramViewModel();
             viewModel.Filter = filter;
-            var athletes = new List<Triathlete>();
-
-            foreach (string raceId in filter.SelectedRaceIds)
-            {
-                var athletesPerRace = _RaceService.GetAthletes(
-                       new BasicRaceCriteria
-                       {
-                           SelectedRaceIds = new string[] { raceId },
-                           SelectedAgeGroupIds = AgeGroup.Expand(filter.SelectedAgeGroupIds),
-                           SelectedGenderIds = Gender.Expand(filter.SelectedGenderIds)
-                       },
-                       filter
-                    );
-
-                athletes.AddRange(athletesPerRace); //add this group to our list
-            }
+            var athletes = GetFilteredAthletes(GetAllAthletesForRaces(filter), filter);
 
             var calculator = new TriStatsCalculator(athletes);
 
@@ -58,9 +43,6 @@ namespace RaceAnalysis.Controllers
             viewModel.BikeMedian = calculator.TimeSpanMedian("Bike");
             viewModel.RunMedian = calculator.TimeSpanMedian("Run");
             viewModel.FinishMedian = calculator.TimeSpanMedian("Finish");
-
-            //  var test = calculator.TimeSpanHistogram("Finish");
-            //  var test2 = calculator.TimeSpanHistogram("Bike");
 
             viewModel.Triathletes = athletes;
             return viewModel;

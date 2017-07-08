@@ -5,8 +5,8 @@ using RaceAnalysis.Helpers;
 using RaceAnalysis.Models;
 using RaceAnalysis.Service.Interfaces;
 using RaceAnalysis.ServiceSupport;
+using System;
 
-  
 namespace RaceAnalysis.Controllers
 {
 
@@ -93,21 +93,16 @@ namespace RaceAnalysis.Controllers
         {
             var viewModel = new TriStatsViewModel();
             viewModel.Filter = filter;
-           
 
-            foreach (string raceId in filter.SelectedRaceIds) //it makes more sense to split the races in order to compare them rather than to combine their stats
+            List<Triathlete> allAthletes = GetAllAthletesForRaces(filter);
+            var selectedAgeGroupIds = AgeGroup.Expand(filter.SelectedAgeGroupIds);
+            var selectedGenderIds = Gender.Expand(filter.SelectedGenderIds);
+
+
+            foreach (string raceId in filter.SelectedRaceIds) //get stats for each race in order to compare them rather than to combine their stats
             {
-             
-                var athletes = _RaceService.GetAthletes(
-                      new BasicRaceCriteria
-                      {
-                          SelectedRaceIds = new string[] { raceId },
-                          SelectedAgeGroupIds = AgeGroup.Expand(filter.SelectedAgeGroupIds),
-                          SelectedGenderIds = Gender.Expand(filter.SelectedGenderIds)
-                      }, 
-                      filter
-                );
-                var stats = GetStats(athletes, _DBContext.Races.Include("Conditions").Single(r => r.RaceId == raceId));
+                var athletes = GetFilteredAthletes(raceId, allAthletes, filter);
+                var stats = GetStats(athletes, _DBContext.Races.Include("Conditions").Single(r => r.RaceId.Equals(raceId, StringComparison.CurrentCultureIgnoreCase)));
                 viewModel.Stats.Add(stats);
             }
 

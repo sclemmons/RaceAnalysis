@@ -258,15 +258,7 @@ namespace RaceAnalysis.Controllers
             page = page > 0 ? page : 1;
             int pageSize = 20;
 
-            List<Triathlete> athletes = _RaceService.GetAthletes(
-                    new BasicRaceCriteria
-                    {
-                        SelectedRaceIds = filter.SelectedRaceIds,
-                        SelectedAgeGroupIds = AgeGroup.Expand(filter.SelectedAgeGroupIds),
-                        SelectedGenderIds = Gender.Expand(filter.SelectedGenderIds)
-                    },
-                    filter);
-
+            var athletes = GetFilteredAthletes(GetAllAthletesForRaces(filter), filter);
             var onePageOfAthletes = athletes.ToPagedList(page, pageSize); //max xx per page
 
 
@@ -285,15 +277,7 @@ namespace RaceAnalysis.Controllers
             page = page > 0 ? page : 1;
             int pageSize = 20;
 
-            List<Triathlete> athletes = _RaceService.GetAthletes(
-                    new BasicRaceCriteria
-                    {
-                        SelectedRaceIds = filter.SelectedRaceIds,
-                        SelectedAgeGroupIds = AgeGroup.Expand(filter.SelectedAgeGroupIds),
-                        SelectedGenderIds = Gender.Expand(filter.SelectedGenderIds)
-                    },
-                    filter);
-
+            var athletes = GetFilteredAthletes(GetAllAthletesForRaces(filter), filter);
             var onePageOfAthletes = athletes.ToPagedList(page, pageSize); //max xx per page
 
 
@@ -312,15 +296,7 @@ namespace RaceAnalysis.Controllers
             int page =  1;
             int pageSize = 20;
 
-            List<Triathlete> athletes = _RaceService.GetAthletes(
-                    new BasicRaceCriteria
-                    {
-                        SelectedRaceIds = filter.SelectedRaceIds,
-                        SelectedAgeGroupIds = AgeGroup.Expand(filter.SelectedAgeGroupIds),
-                        SelectedGenderIds = Gender.Expand(filter.SelectedGenderIds)
-                    },
-                    filter);
-
+            var athletes = GetFilteredAthletes(GetAllAthletesForRaces(filter), filter);
             var onePageOfAthletes = athletes.ToPagedList(page, pageSize); //max xx per page
      
             
@@ -338,24 +314,11 @@ namespace RaceAnalysis.Controllers
             int page = 1;
             int pageSize = 20;
 
-            List<Triathlete> athletes = _RaceService.GetAthletes(
-                    new BasicRaceCriteria
-                    {
-                        SelectedRaceIds = filter.SelectedRaceIds,
-                        SelectedAgeGroupIds = AgeGroup.Expand(filter.SelectedAgeGroupIds),
-                        SelectedGenderIds = Gender.Expand(filter.SelectedGenderIds)
-                    },
-                    filter);
-
+            var athletes = GetFilteredAthletes(GetAllAthletesForRaces(filter), filter);
             var onePageOfAthletes = athletes.ToPagedList(page, pageSize); //max xx per page
 
             return onePageOfAthletes;
-           // var viewmodel = new TriathletesViewModel();
-           // viewmodel.TotalCount = athletes.Count;
-           // viewmodel.Triathletes = onePageOfAthletes;
-           // viewmodel.Filter = filter;
-
-          //  return View("List", viewmodel);
+         
         }
 
 

@@ -1,6 +1,7 @@
 ﻿using RaceAnalysis.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 
@@ -17,7 +18,7 @@ namespace RaceAnalysis.Models
         public GoogleVisualizationDataTable ChartDataMedian
         {
             get
-            {
+            {                             
                 var dataTable = new GoogleVisualizationDataTable();
 
                 dataTable.AddColumn("Age Group", "string"); //our header column
@@ -34,7 +35,6 @@ namespace RaceAnalysis.Models
                         dataTable.AddRow(row);
                     }
                 }
-
                 return dataTable;
             }
 
@@ -71,6 +71,9 @@ namespace RaceAnalysis.Models
         { 
             get
             {
+                Stopwatch stopwatch = new Stopwatch();
+                stopwatch.Start();
+
                 var list = new List<object>();
                 list.Add(new object[] { "Age Group", "# Count" });
 
@@ -95,6 +98,8 @@ namespace RaceAnalysis.Models
                     listEnum.MoveNext();
                 }
 
+                Trace.TraceInformation("FinishersPerAgeGroup: " + stopwatch.Elapsed);
+                stopwatch.Stop();
 
                 return list;
             }

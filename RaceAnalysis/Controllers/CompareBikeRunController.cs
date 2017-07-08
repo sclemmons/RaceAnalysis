@@ -36,33 +36,17 @@ namespace RaceAnalysis.Controllers
             var viewModel = new CompareBikeRunViewModel();
             viewModel.Filter = filter;
 
-            var allAthletes = new List<Triathlete>();
-            foreach (string raceId in filter.SelectedRaceIds)
-            {
+            var athletes = GetFilteredAthletes(GetAllAthletesForRaces(filter), filter);
 
-                var athletes = _RaceService.GetAthletes(
-                      new BasicRaceCriteria
-                      {
-                          SelectedRaceIds = new string[] { raceId },
-                          SelectedAgeGroupIds = AgeGroup.Expand(filter.SelectedAgeGroupIds),
-                          SelectedGenderIds = Gender.Expand(filter.SelectedGenderIds)
-                      },
-                      filter
-                );
-                allAthletes.AddRange(athletes);
-               
-            }
-
-            var calc = new TriStatsCalculator(allAthletes);
+            var calc = new TriStatsCalculator(athletes);
             
             viewModel.BikeMedian = calc.TimeSpanMedian("Bike");
             viewModel.RunMedian = calc.TimeSpanMedian("Run");
-            
-            viewModel.Triathletes = allAthletes;
+            viewModel.Triathletes = athletes;
             
             PartitionAthletes(viewModel);
 
-            viewModel.Stats.Add(GetStats(allAthletes));
+            viewModel.Stats.Add(GetStats(athletes));
 
 
             return View(viewName, viewModel);

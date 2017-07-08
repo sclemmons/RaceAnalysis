@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web.Mvc;
 using RaceAnalysis.Service.Interfaces;
 using RaceAnalysis.ServiceSupport;
-
+using System.Diagnostics;
 
 namespace RaceAnalysis.Controllers
 {
@@ -24,33 +24,38 @@ namespace RaceAnalysis.Controllers
         {
             var viewModel = new AgeGroupCompareViewModel();
             viewModel.Filter = filter;
-            
-            var athletes = new List<Triathlete>();
 
-          //calculating each selected age groups so that we can do the same when we draw the chart
+            List<Triathlete> allAthletes= GetAllAthletesForRaces(filter);
+
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            var selectedGenderIds = Gender.Expand(filter.SelectedGenderIds);
+
+            var resultingAthletes = new List<Triathlete>();
+            //calculating each selected age groups so that we can do the same when we draw the chart
             foreach (var agId in AgeGroup.Expand(viewModel.Filter.SelectedAgeGroupIds)) //collect the stats for each age group
             {
-                var athletesPerAG = _RaceService.GetAthletes(
-                    new BasicRaceCriteria
-                    {
-                        SelectedRaceIds = filter.SelectedRaceIds,
-                        SelectedAgeGroupIds = new int[] { agId },
-                        SelectedGenderIds = Gender.Expand(filter.SelectedGenderIds)
-                    },
-                    filter
-                  );
-                athletes.AddRange(athletesPerAG);
+                var athletesPerAG = allAthletes.Where(
+                            a => a.RequestContext.AgeGroupId == agId &&
+                            selectedGenderIds.Contains(a.RequestContext.GenderId)).ToList();
 
-                var stats = GetStats(athletesPerAG);
+                var filteredAthletes = new BasicFilterProvider(athletesPerAG, filter).GetAthletes();
+
+                resultingAthletes.AddRange(filteredAthletes);
+
+                var stats = GetStats(filteredAthletes);
                 stats.AgeGroupId = agId;
                 viewModel.Stats.Add(stats);
 
             }
 
-            viewModel.Triathletes = athletes;
+            Trace.TraceInformation("AgeGroupCompare Calulating all took: " + stopwatch.Elapsed);
+            stopwatch.Stop();
+
+            viewModel.Triathletes = resultingAthletes;
             return View("Compare", viewModel);
         }
-
-       
+ 
     }
 }
