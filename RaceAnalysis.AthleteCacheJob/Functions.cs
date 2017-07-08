@@ -5,6 +5,7 @@ using Microsoft.Azure.WebJobs;
 using RaceAnalysis.SharedQueueMessages;
 using RaceAnalysis.Service;
 using RaceAnalysis.Models;
+using RaceAnalysis.ServiceSupport;
 
 namespace RaceAnalysis.AthleteCacheJob
 {
@@ -20,32 +21,28 @@ namespace RaceAnalysis.AthleteCacheJob
 
         // This function will get triggered/executed when a new message is written 
         // on an Azure Queue called queue.
-        public async static void ProcessQueueMessage(
-                 [QueueTrigger("shallowathletecacherequest")] CacheShallowAthletesMessage msg, TextWriter log)
+        public  static void ProcessQueueMessage(
+                 [QueueTrigger("athletecacherequest")] CacheRaceAthletesMessage msg, TextWriter log)
         {
-            log.WriteLine("Processing Shallow Athletes Cache request for race" + msg.RaceId);
-            await PopulateCache(msg.RaceId);
+            log.WriteLine("Processing Athletes Cache request for race" + msg.RaceId);
+            PopulateCache(msg.RaceId);
 
             log.Write("Completed PopulateCache");
         }
 
-        private static async Task PopulateCache(string raceId)
+        private static void PopulateCache(string raceId)
         {
-            IQueryable<ShallowTriathlete> shallowAthleteQuery;
             using (var db = new RaceAnalysisDbContext())
             {
-                var athleteQuery = db.Triathletes.Include("RequestContext.RaceId").Where(t => t.RequestContext.RaceId == raceId);
-
-                shallowAthleteQuery = athleteQuery.OrderBy(t => t.Name).
-                    Select(t =>
-                            new ShallowTriathlete()
-                            {
-                                Name = t.Name,
-                                Id = t.TriathleteId,
-                                RaceId = t.RequestContext.Race.RaceId
-                            });
-
-                await CacheService.Instance.PopulateCacheAsync(shallowAthleteQuery.ToList());
+                var raceService = new RaceService(db);
+                var athletes = raceService.GetAthletes(
+                      new BasicRaceCriteria
+                      {
+                          SelectedRaceIds = new string[] { raceId },
+                          SelectedAgeGroupIds = AgeGroup.Expand(new int[] { 0 }),
+                          SelectedGenderIds = Gender.Expand(new int[] { 0 })
+                      }
+                );
             }
 
         }

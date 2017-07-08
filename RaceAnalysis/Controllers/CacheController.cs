@@ -37,16 +37,9 @@ namespace RaceAnalysis.Controllers
             return View(viewModel);
         }
 
-        public ActionResult FlushShallowAthletes()
-        {
-            var viewModel = new CacheViewModel();
+      
 
-            _Cache.FlushShallowAthletes();
-            viewModel.ShallowAthleteCount = 0; //  _Cache.GetShallowAthletes("DUMMY").Count;
-            return View("Index", viewModel);
-        }
-
-        public async Task<ActionResult> FillShallowAthletes()
+        public ActionResult PopulateAthletesPerRace()
         {
             InitializeStorage();
 
@@ -54,7 +47,7 @@ namespace RaceAnalysis.Controllers
 
             foreach (var raceId in raceIds)
             {
-                await AddQueueMessage(raceId);
+                AddQueueMessage(raceId);
             }
 
             var viewModel = new CacheViewModel();
@@ -74,20 +67,20 @@ namespace RaceAnalysis.Controllers
             //queueClient.DefaultRequestOptions.RetryPolicy = new LinearRetry(TimeSpan.FromSeconds(3), 3);
 
             // Get a reference to the queue.
-            _CacheRequestQueue = queueClient.GetQueueReference("shallowathletecacherequest");
+            _CacheRequestQueue = queueClient.GetQueueReference("athletecacherequest");
             _CacheRequestQueue.CreateIfNotExists();
 
         }
 
-        private async Task AddQueueMessage(string raceId)
+        private void AddQueueMessage(string raceId)
         {
           
-            var msg = new CacheShallowAthletesMessage()
+            var msg = new CacheRaceAthletesMessage()
             {
                 RaceId = raceId,
             };
             var queueMessage = new CloudQueueMessage(JsonConvert.SerializeObject(msg));
-            await _CacheRequestQueue.AddMessageAsync(queueMessage);
+             _CacheRequestQueue.AddMessage(queueMessage);
         }
     }
 }

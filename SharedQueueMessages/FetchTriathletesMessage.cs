@@ -12,7 +12,7 @@ namespace RaceAnalysis.SharedQueueMessages
     }
 
 
-    public class CacheShallowAthletesMessage
+    public class CacheRaceAthletesMessage
     {
         public string RaceId { get; set; }
     }
