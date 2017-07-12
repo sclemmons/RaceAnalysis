@@ -15,9 +15,6 @@
         <h4>Race</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model =>model.Race.RaceId, new { Name = "Race.RaceId" })
-        @Html.HiddenFor(model =>model.Race.ConditionsId, new { Name = "Race.ConditionsId" })
-        @Html.HiddenFor(model =>model.Race.ConditionsId, new { Name = "Conditions.RaceConditionsId" })
 
 
 
