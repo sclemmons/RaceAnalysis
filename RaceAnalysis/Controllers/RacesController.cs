@@ -309,6 +309,8 @@ namespace RaceAnalysis.Controllers
             return View();
         }
 
+ 
+
         // GET: Races/Edit/5
         [Authorize(Roles = "Admin")]
         public ActionResult Edit(string id)
@@ -328,6 +330,10 @@ namespace RaceAnalysis.Controllers
         
             return View(viewModel);
         }
+
+        
+
+
 
         // POST: Races/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -366,6 +372,29 @@ namespace RaceAnalysis.Controllers
             }
             return View(race);
         }
+
+
+        // GET: Races/Copy/5
+        [Authorize(Roles = "Admin")]
+        public ActionResult Copy(string id)
+        {
+            if (String.IsNullOrEmpty(id))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Race race = _DBContext.Races.Find(id);
+            if (race == null)
+            {
+                return HttpNotFound();
+            }
+
+            var viewModel = new RaceViewModel();
+            viewModel.Race = race;
+
+            return View(viewModel);
+        }
+
+
 
         // POST: Races/Delete/5
         [HttpPost, ActionName("Delete")]

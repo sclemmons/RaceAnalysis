@@ -710,6 +710,7 @@
     <Content Include="Views\TriAthletes\_AthletesChart-Single.cshtml" />
     <Content Include="Views\TriAthletes\_AthletesTable-Single.cshtml" />
     <Content Include="Views\Cache\Index.cshtml" />
+    <Content Include="Views\Races\Copy.cshtml" />
     <None Include="Web.Test.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

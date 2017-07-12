@@ -327,6 +327,14 @@ namespace RaceAnalysis
                     .WithValueExpression((p, c) => c.UrlHelper.Action("Edit", "Races", new { id = p.RaceId }))
                     .WithValueTemplate("<a href='{Value}' class='btn btn-primary' role='button'>Edit</a>");
 
+                  cols.Add("Copy").WithHtmlEncoding(false)
+                    .WithSorting(false)
+                    .WithHeaderText(" ")
+                    .WithValueExpression((p, c) => c.UrlHelper.Action("Copy", "Races", new { id = p.RaceId }))
+                    .WithValueTemplate("<a href='{Value}' class='btn btn-primary' role='button'>Copy</a>");
+
+
+
                   cols.Add("Populate").WithHtmlEncoding(false)
                       .WithSorting(false)
                       .WithHeaderText(" ")
