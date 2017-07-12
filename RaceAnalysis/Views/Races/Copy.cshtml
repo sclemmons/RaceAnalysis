@@ -1,0 +1,106 @@
+﻿@model RaceAnalysis.Models.RaceViewModel
+
+@{
+    ViewBag.Title = "Copy";
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Race</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model =>model.Race.RaceId, new { Name = "Race.RaceId" })
+        @Html.HiddenFor(model =>model.Race.ConditionsId, new { Name = "Race.ConditionsId" })
+        @Html.HiddenFor(model =>model.Race.ConditionsId, new { Name = "Conditions.RaceConditionsId" })
+
+
+
+
+        <div class="form-group">
+            @Html.LabelFor(model =>model.Race.BaseURL, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model =>model.Race.BaseURL,null,"Race.BaseURL", new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model =>model.Race.BaseURL,"", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Race.ApiName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Race.ApiName, null, "Race.ApiName", new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Race.ApiName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model =>model.Race.DisplayName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model =>model.Race.DisplayName,null,"Race.DisplayName", new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model =>model.Race.DisplayName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Race.LongDisplayName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Race.LongDisplayName, null, "Race.LongDisplayName", new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Race.LongDisplayName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model =>model.Race.RaceDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model =>model.Race.RaceDate,null,"Race.RaceDate", new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model =>model.Race.RaceDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model =>model.Race.ShortName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model =>model.Race.ShortName,null, "Race.ShortName", new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model =>model.Race.ShortName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model =>model.Race.Distance, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model =>model.Race.Distance,null,"Race.Distance", new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model =>model.Race.Distance, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+      
+     <!--      @Html.LabelFor(model =>model.Race.ConditionsId, "Conditions", htmlAttributes: new { @class = "control-label col-md-2" }) -->
+            <div class="col-md-10">
+    <!--       @Html.HiddenFor(model=>model.Race.ConditionsId,new { @class = "form-control", id="Conditions.ConditionsId",Name="Conditions.RaceConditionsId" })   -->
+                            
+                @Html.ActionLink("Edit Race Conditions", "Edit", "RaceConditions", new { id = @Model.Race.RaceId },
+                                 new { @id = "raceConditionsEdit", title = "Edit Race Conditions" })
+
+</div>
+
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "admin")
+    
+</div>
+
+@section Scripts {
+  
+}
