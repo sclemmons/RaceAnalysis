@@ -6,6 +6,7 @@ using RaceAnalysis.Models;
 using HtmlAgilityPack;
 using RestSharp;
 using System.Text.RegularExpressions;
+using System.Diagnostics;
 
 namespace RaceAnalysis.Rest
 {
@@ -41,6 +42,7 @@ namespace RaceAnalysis.Rest
 
         public virtual List<Triathlete> ParseData(RequestContext request, string htmlData,int pageNum)
         {
+            Trace.TraceInformation(htmlData);
 
             HtmlDocument doc = new HtmlDocument();
             doc.LoadHtml(htmlData);
@@ -64,6 +66,7 @@ namespace RaceAnalysis.Rest
                 {
                     request.Status = "Failed to find table in HTML document.";
                     request.Instruction = RequestInstruction.ForceSource; //force next request rather than go to cache
+                    Trace.TraceError(request.Status);
                 }
 
                 return new List<Triathlete>();
@@ -209,6 +212,7 @@ namespace RaceAnalysis.Rest
             }
             else
             {
+                Trace.TraceError("Didn't find tableDiv to verify count");
                 request.Expected = -99; //magic number to indicate we didnt find tableDiv
             }
         }

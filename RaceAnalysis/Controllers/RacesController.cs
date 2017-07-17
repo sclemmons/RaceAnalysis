@@ -17,6 +17,7 @@ using X.PagedList;
 using System.Data.Entity.Migrations;
 using RaceAnalysis.ServiceSupport;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace RaceAnalysis.Controllers
 {
@@ -273,7 +274,7 @@ namespace RaceAnalysis.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
-   //         ViewBag.ConditionsId = new SelectList(_DBContext.RaceConditions, "RaceConditionsId", "SwimLayout");
+            //         ViewBag.ConditionsId = new SelectList(_DBContext.RaceConditions, "RaceConditionsId", "SwimLayout");
             return View();
         }
 
@@ -288,7 +289,8 @@ namespace RaceAnalysis.Controllers
              
 
         {
-            race.Conditions = new RaceConditions();
+            var rc = new RaceConditions();
+            race.Conditions = rc;
             race.RaceId = race.RaceId.ToUpper();
 
             if (ModelState.IsValid)
@@ -304,9 +306,9 @@ namespace RaceAnalysis.Controllers
                //but this view needs both a Race model and a Conditions Model and I need to build that ViewModel
                 ModelState.AddModelError("", "ERROR!!");
             }
-           
 
-            return View();
+
+            return View("List");
         }
 
  
@@ -412,11 +414,12 @@ namespace RaceAnalysis.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> CacheFill(string id)
         {
+
             if (String.IsNullOrEmpty(id))
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
+ 
             InitializeStorage();
             Race race = _DBContext.Races.Find(id);
             if (race == null)
@@ -426,7 +429,32 @@ namespace RaceAnalysis.Controllers
 
             await AddQueueMessages(id);
 
-            return RedirectToAction("Admin");
+            Thread.Sleep(30000); //wait 30 seconds before checking 
+            for (int i = 0; i < 60; i++)
+            {
+                Thread.Sleep(1000);
+
+                //we have to do it this way in order to avoid the EF Cache that we have
+                var sql = String.Format("SELECT COUNT(*) FROM RequestContexts WHERE RaceId = '{0}'", id);
+                var actualCount = _DBContext.Database.SqlQuery<int>(sql).First();
+
+
+                int expectedAGCount = _DBContext.AgeGroups.Count() * 2; //1 for each gender
+               
+                if (expectedAGCount == actualCount)
+                {
+                    race.ValidateMessage = "All agegroups retreived!";
+                    break;
+                }
+                else
+                {
+                    race.ValidateMessage = "Not Enough Agegroups";
+
+                }
+            }
+
+            _DBContext.SaveChanges();
+            return View("List"); //RedirectToAction("Admin");
         }
 
         [Authorize(Roles = "Admin")]
