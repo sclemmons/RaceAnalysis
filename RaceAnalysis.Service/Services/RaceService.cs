@@ -25,13 +25,16 @@ namespace RaceAnalysis.Service
         /// </summary>
         /// <param name="criteria"></param>
         /// <returns></returns>
-        public List<Triathlete> GetAthletes(IRaceCriteria criteria)
+        public List<Triathlete> GetAthletes(IRaceCriteria criteria,bool useCache=true)
         {
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
+            List<Triathlete> cachedAtheletes = null;
 
-            
-            var cachedAtheletes = CacheService.Instance.GetAthletes(criteria);
+            if (useCache)
+            {
+                cachedAtheletes = CacheService.Instance.GetAthletes(criteria);
+            }
             if (cachedAtheletes != null && cachedAtheletes.Count > 0)
             {
                 stopwatch.Stop();
@@ -68,10 +71,6 @@ namespace RaceAnalysis.Service
                         else
                         {
                             athletesInReqContext = GetAthletesFromDb(reqContext);
-
-//                            athletesInReqContext = this.GetAthletesFromCacheTest(reqContext);
-
-
                         }
 
                         if (athletesInReqContext.Count > 0)

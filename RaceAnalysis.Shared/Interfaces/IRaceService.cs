@@ -7,7 +7,7 @@ namespace RaceAnalysis.Service.Interfaces
 {
     public interface IRaceService
     {
-        List<Triathlete> GetAthletes(IRaceCriteria criteria);
+        List<Triathlete> GetAthletes(IRaceCriteria criteria,bool useCache=true);
         List<Triathlete> GetAthletes(IRaceCriteria criteria, IDurationFilter filter);
         List<Triathlete> GetAthletesFromStorage(IRaceCriteria criteria); //for testing purposes
         List<Triathlete> GetAthletesFromSource(IRaceCriteria criteria); //for testing purposes

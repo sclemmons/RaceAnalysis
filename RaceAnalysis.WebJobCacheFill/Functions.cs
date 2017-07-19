@@ -9,6 +9,9 @@ using Microsoft.Azure;
 using RaceAnalysis.SharedQueueMessages;
 using Flurl;
 using Flurl.Http;
+using RaceAnalysis.Models;
+using RaceAnalysis.Service;
+using RaceAnalysis.ServiceSupport;
 
 namespace RaceAnalysis.WebJobCacheFill
 {
@@ -34,10 +37,31 @@ namespace RaceAnalysis.WebJobCacheFill
             );
             var count = GetTriathletes(msg.RaceId, msg.AgegroupIds, msg.GenderIds);
 
-            log.Write("Count: " + count.Result);
+            log.Write("Count: " + count);
         }
-              
-        private static Task<string> GetTriathletes(string raceId,int[] ageGroupIds,int[] genderIds)
+
+        private static int GetTriathletes(string raceId, int[] ageGroupIds, int[] genderIds)
+        {
+            using (var db = new RaceAnalysisDbContext())
+            {
+                var raceService = new RaceService(db);
+                var athletes = raceService.GetAthletes(
+                      new BasicRaceCriteria
+                      {
+                          SelectedRaceIds = new string[] { raceId },
+                          SelectedAgeGroupIds = ageGroupIds,
+                          SelectedGenderIds = genderIds
+                      },
+                      false /*do not use cache*/
+
+                );
+                return athletes.Count();
+            }
+
+           
+
+        }
+        private static Task<string> GetTriathletesOLD(string raceId,int[] ageGroupIds,int[] genderIds)
         {
             var url = _restURL
                  .AppendPathSegments("api", "Triathletes","TriathletesCount")  //for now we are hard coding this until we have other endpoints
