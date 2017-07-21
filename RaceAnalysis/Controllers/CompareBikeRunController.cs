@@ -13,7 +13,7 @@ namespace RaceAnalysis.Controllers
 
     public class CompareBikeRunController : TriStatsController
     {
-        public CompareBikeRunController(IRaceService service) : base(service) { }
+        public CompareBikeRunController(IRaceService races,ICacheService cache) : base(races,cache) { }
 
         //called from actions links in the Action Bar
         public ActionResult DisplayPacing(SimpleFilterViewModel model)

@@ -11,6 +11,8 @@
                                     UpdateTargetId = "athlete-list",
                                 });
     pLRO.Display = PagedListDisplayMode.IfNeeded;
+
+    
 }
 <style>
     *.unselectable {
@@ -71,8 +73,9 @@
     <table id="athletes-table" class="table table-striped" data-rs-selectable data-rs-type="many">
         <thead>
             <tr>
-                <th>Race Name</th>
-                <th>Name</th>
+                <th>@Html.ActionLink("Race", "Index", new { raceSort = ViewBag.RaceSortParm })</th>
+                <th>@Html.ActionLink("Name", "Index", new { nameSort = ViewBag.NameSortParm })</th>
+
                 <th>
                     @Html.DisplayNameFor(model => model.Triathletes.ElementAt(0).Country)
                 </th>
@@ -106,9 +109,9 @@
                 <tr onclick="" id="@athlete.TriathleteId">
                     <td>
                         @athlete.Race.DisplayName
+                      
                     </td>
                     <td>
-                         
                         @Html.ActionLink(@athlete.Name, "SearchRace","athletes", new {athlete.Race.RaceId,athlete.Name },null)
                     </td>
                     <td>

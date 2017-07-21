@@ -36,7 +36,7 @@ namespace RaceAnalysis.Controllers
 #endif
 
 
-        public RacesController(IRaceService raceService, ISearchService searchService, IIdentityMessageService emailService) : base(raceService) 
+        public RacesController(IRaceService raceService, ISearchService searchService, IIdentityMessageService emailService,ICacheService cache) : base(raceService,cache) 
         {
             _emailService = emailService;
             _searchService = searchService;

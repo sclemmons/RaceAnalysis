@@ -12,6 +12,7 @@ namespace RaceAnalysis.Service.Interfaces
         Task PopulateCacheAsync(List<ShallowTriathlete> athletes);
         List<ShallowTriathlete> GetShallowAthletes(string name);
         void FlushShallowAthletes();
-
+        void SaveTempData(string data);
+        string GetTempData();
     }
 }

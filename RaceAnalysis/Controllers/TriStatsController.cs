@@ -12,7 +12,7 @@ namespace RaceAnalysis.Controllers
 
     public class TriStatsController : BaseController
     {
-        public TriStatsController(IRaceService service) : base(service) { }
+        public TriStatsController(IRaceService races,ICacheService cache) : base(races,cache) { }
 
 
         

@@ -13,6 +13,7 @@ using Microsoft.WindowsAzure.Storage.Queue;
 using System.Configuration;
 using System.Diagnostics;
 using RaceAnalysis.ServiceSupport;
+using Newtonsoft.Json;
 
 namespace RaceAnalysis.Controllers
 {
@@ -20,12 +21,35 @@ namespace RaceAnalysis.Controllers
     {
         protected RaceAnalysisDbContext _DBContext = new RaceAnalysisDbContext();
         protected IRaceService _RaceService;
+        protected ICacheService _CacheService;
 
-        public BaseController(IRaceService service)
+        public BaseController(IRaceService race,ICacheService cache)
         {
-            _RaceService = service;
+            _RaceService = race;
+            _CacheService = cache;
+
           
         }
+
+        #region Properties
+
+        //returns the current filter saved; WARNING: This is not the favored way of getting/setting the filter values, only used for sorting
+        protected SimpleFilterViewModel CurrentFilter
+        {
+            get
+            {
+                string val = _CacheService.GetTempData();
+                return JsonConvert.DeserializeObject<SimpleFilterViewModel>(val);
+             
+            }
+            set
+            {
+                _CacheService.SaveTempData(JsonConvert.SerializeObject(value));
+            }
+        }
+
+#endregion
+
         public ActionResult ResetDurations()
         {
             var model = new RaceFilterViewModel();
@@ -43,7 +67,7 @@ namespace RaceAnalysis.Controllers
         {
        
             var filter = new RaceFilterViewModel(queryModel);
-        
+            
             return DisplayResultsView(filter);
 
         }
@@ -51,24 +75,28 @@ namespace RaceAnalysis.Controllers
         //called from one controller to another
         public ActionResult ViewResults(SimpleFilterViewModel model)
         {
+            CurrentFilter = model; //save for race sort
+
             var filter = new RaceFilterViewModel(model);
             return DisplayResultsView(filter);
 
         }
         //called from actions links in the Action Bar using the GET verb
-        public ActionResult Display(SimpleFilterViewModel model)
+        public ActionResult Display(SimpleFilterViewModel simpleFilter)
         {
-            RaceFilterViewModel filter;
+            CurrentFilter = simpleFilter;//save for sort
+                       
             //the following is a workaround for some flawed javascript that doesn't always pass the params we need
-            if (String.IsNullOrEmpty(model.Races))
+            if (String.IsNullOrEmpty(simpleFilter.Races))
             {
                 var parms = HttpUtility.ParseQueryString(Request.UrlReferrer.Query);
-                model.Races = parms["RaceId"];
+                simpleFilter.Races = parms["RaceId"];
 
             }
-            filter = new RaceFilterViewModel(model);
-            
-            return DisplayResultsView(filter);
+
+            var viewModel = new RaceFilterViewModel(simpleFilter);
+                      
+            return DisplayResultsView(viewModel);
 
         }
 
@@ -459,7 +487,9 @@ namespace RaceAnalysis.Controllers
 
             var athletes = allAthletes.Where(
                     a => selectedAgeGroupIds.Contains(a.RequestContext.AgeGroupId) &&
-                    selectedGenderIds.Contains(a.RequestContext.GenderId)).ToList();
+                    selectedGenderIds.Contains(a.RequestContext.GenderId));
+            
+
 
             return new BasicFilterProvider(athletes, filter).GetAthletes();
         }
@@ -475,6 +505,11 @@ namespace RaceAnalysis.Controllers
                     selectedGenderIds.Contains(a.RequestContext.GenderId)).ToList();
 
             return new BasicFilterProvider(athletes, filter).GetAthletes();
+        }
+
+        private List<Athletes> OrderBy()
+        {
+
         }
 
         #endregion //Protected Methods

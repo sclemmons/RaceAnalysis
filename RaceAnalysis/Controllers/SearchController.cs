@@ -11,7 +11,7 @@ namespace RaceAnalysis.Controllers
 {
     public class SearchController : BaseController
     {
-        public SearchController(IRaceService service) : base(service) { }
+        public SearchController(IRaceService races,ICacheService cache) : base(races,cache) { }
 
         // GET: Search
         public ActionResult Index()

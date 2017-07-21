@@ -37,6 +37,18 @@ namespace RaceAnalysis.Service
         //making this public for Unity Injection
         public CacheService() { }
 
+        public void SaveTempData(string data)
+        {
+            IDatabase cache = Connection.GetDatabase();
+            cache.StringSet("TempData", data);
+        }
+        public string GetTempData()
+        {
+            IDatabase cache = Connection.GetDatabase();
+            var data = cache.StringGet("TempData");
+
+            return data;
+        }
 
         public async Task PopulateCacheAsync(List<ShallowTriathlete> athletes)
         {

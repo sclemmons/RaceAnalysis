@@ -11,7 +11,7 @@ namespace RaceAnalysis.Controllers
 {
     public class TriStatsAgeGroupsCompareController : TriStatsController
     {
-        public TriStatsAgeGroupsCompareController(IRaceService service) : base(service) { }
+        public TriStatsAgeGroupsCompareController(IRaceService races, ICacheService cache) : base(races,cache) { }
 
         public ActionResult Compare()
         {

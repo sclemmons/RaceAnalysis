@@ -12,7 +12,7 @@ namespace RaceAnalysis.Controllers
     public class HypotheticalsController : BaseController
     {
 
-        public HypotheticalsController(IRaceService service) : base(service) { }
+        public HypotheticalsController(IRaceService races,ICacheService cache) : base(races,cache) { }
 
         // GET: Hypotheticals
       

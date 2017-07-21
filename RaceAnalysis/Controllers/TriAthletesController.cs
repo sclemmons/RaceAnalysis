@@ -14,17 +14,22 @@ namespace RaceAnalysis.Controllers
     public class TriathletesController : BaseController
     {
         private ISearchService _SearchService;
-        public TriathletesController(IRaceService raceService,ISearchService search) : base(raceService)
+        public TriathletesController(IRaceService raceService,ISearchService search,ICacheService cache) : base(raceService,cache)
         {
             _SearchService = search;
         }
 
-        public ActionResult Index()
+        public ActionResult Index(string raceSort,string nameSort)
         {
-                    
-            var viewmodel = new TriathletesViewModel();
-            viewmodel.Filter = new RaceFilterViewModel();
-            return View(viewmodel);
+            ViewBag.RaceSortParm = String.IsNullOrEmpty(raceSort) ? "race_desc" : "";
+            ViewBag.NameSortParm = String.IsNullOrEmpty(nameSort) ? "name_desc" : "";
+
+
+
+
+            var filter = CurrentFilter;
+
+            return DisplayResultsView(new RaceFilterViewModel(filter));
         }
 
        
@@ -69,6 +74,7 @@ namespace RaceAnalysis.Controllers
             return View("~/Views/Triathletes/Compare.cshtml", viewmodel);
         }
 
+       
         //athletes/search?name=
         [Route("athletes/search")]
         public ActionResult Search(string selectedAthleteName)

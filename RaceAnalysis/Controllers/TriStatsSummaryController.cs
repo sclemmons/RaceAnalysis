@@ -11,7 +11,7 @@ namespace RaceAnalysis.Controllers
 
     public class TriStatsSummaryController : BaseController
     {
-        public TriStatsSummaryController(IRaceService service) : base(service) { }
+        public TriStatsSummaryController(IRaceService races,ICacheService cache) : base(races,cache) { }
 
 
         // GET: Summary
