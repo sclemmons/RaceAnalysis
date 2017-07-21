@@ -491,7 +491,7 @@ namespace RaceAnalysis.Controllers
             
 
 
-            return new BasicFilterProvider(athletes, filter).GetAthletes();
+            return new BasicFilterProvider(athletes.ToList(), filter).GetAthletes();
         }
         //filter the list of athletes by race, agegroup, gender, and range
         protected List<Triathlete> GetFilteredAthletes(string raceId, List<Triathlete> allAthletes, RaceFilterViewModel filter)
@@ -507,11 +507,7 @@ namespace RaceAnalysis.Controllers
             return new BasicFilterProvider(athletes, filter).GetAthletes();
         }
 
-        private List<Athletes> OrderBy()
-        {
-
-        }
-
+     
         #endregion //Protected Methods
 
         #region Private Methods
