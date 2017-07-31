@@ -30,14 +30,6 @@ using System.Web.Http;
                         .ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
         }
 
-        protected void Application_Error(object sender, EventArgs e)
-        {
-            Exception exception = Server.GetLastError();
-
-            throw exception;
-
-   //         Server.ClearError();
-   //         Response.Redirect("~/races");
-        }
+      
     }
 }

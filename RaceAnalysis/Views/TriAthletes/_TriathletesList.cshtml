@@ -48,32 +48,6 @@
         {
             <h4>@Model.TotalCount   Finishers  (@Model.Filter.SelectedRaceNames)</h4>
         
-            using (Ajax.BeginForm(ajaxOptions))
-            {
-                    @Html.AntiForgeryToken()
-
-                    <div class="athletes-list-search-form">
-                        @Html.HiddenFor(model => model.SelectedAthleteId, new { id = "SelectedAthleteId" })
-                        @Html.AutocompleteFor(model => model.Athletes, model => model.SelectedAthleteId, "TypeaheadAthleteSearch",
-                                 "Triathletes", false,
-                                 new
-                                 {
-                                     htmlAttributes = new { placeholder = "Search Athletes", type = "search" }
-                                 })
-                 
-                        <button type="submit" id="submitAthleteSearch" style="display:none" class="btn btn-primary">Search</button>
-
-                        @Html.ActionLink("Search All Races", "Search", "athletes",
-                                 new { Model.SelectedAthleteName }, new { @id = "action-search-all-athletes", style = "display:none", title = "Search All Races" })
-
-
-                        @Html.ActionLink("Compare Athletes", "Compare", "Triathletes",
-                                 queryViewModel, new { @id = "action-compare-athletes", @class = "btn btn-default", title = "Display Comparison" })
-
-                    </div>
-
-            
-            }//using
         }
 </div>
 
@@ -85,7 +59,7 @@
     }
     else
     {
-        @Html.Partial("~/Views/Shared/_OnePageOfAthletes.cshtml", Model)
+        @Html.Partial("~/Views/Shared/_OnePageOfAthletesImproved.cshtml", Model)
     }
 
 </div>

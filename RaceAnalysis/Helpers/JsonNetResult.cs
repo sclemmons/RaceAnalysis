@@ -13,7 +13,7 @@ namespace RaceAnalysis.Helpers
 
         public override void ExecuteResult(ControllerContext context)
         {
-            
+
             HttpResponseBase response = context.HttpContext.Response;
             response.ContentType = "application/json";
             if (ContentEncoding != null)
@@ -27,3 +27,4 @@ namespace RaceAnalysis.Helpers
             }
         }
     }
+}

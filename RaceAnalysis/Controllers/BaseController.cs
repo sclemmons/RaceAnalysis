@@ -8,12 +8,11 @@ using RaceAnalysis.Service.Interfaces;
 using System.Linq;
 using System.IO;
 using System.Web;
-using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Queue;
-using System.Configuration;
 using System.Diagnostics;
 using RaceAnalysis.ServiceSupport;
 using Newtonsoft.Json;
+using System.Linq.Dynamic;
+
 
 namespace RaceAnalysis.Controllers
 {
@@ -480,16 +479,27 @@ namespace RaceAnalysis.Controllers
         }
 
         //filter the list of athletes by agegroup, gender, and range
-        protected List<Triathlete> GetFilteredAthletes(List<Triathlete> allAthletes, RaceFilterViewModel filter)
+        protected List<Triathlete> GetFilteredAthletes(List<Triathlete> allAthletes, 
+                                                                            RaceFilterViewModel filter,
+                                                                              string sort=null,
+                                                                              string search=null)
         {
             var selectedAgeGroupIds = AgeGroup.Expand(filter.SelectedAgeGroupIds);
             var selectedGenderIds = Gender.Expand(filter.SelectedGenderIds);
 
-            var athletes = allAthletes.Where(
+            var  athletes = allAthletes.Where(
                     a => selectedAgeGroupIds.Contains(a.RequestContext.AgeGroupId) &&
                     selectedGenderIds.Contains(a.RequestContext.GenderId));
-            
 
+            if (!string.IsNullOrEmpty(sort))
+            {
+               athletes = athletes.AsQueryable().OrderBy(sort);
+            }
+
+            if (!String.IsNullOrEmpty(search))
+            {
+                athletes = athletes.Where(a => a.Name.ToLower().Contains(search.ToLower())).ToList();
+            }
 
             return new BasicFilterProvider(athletes.ToList(), filter).GetAthletes();
         }

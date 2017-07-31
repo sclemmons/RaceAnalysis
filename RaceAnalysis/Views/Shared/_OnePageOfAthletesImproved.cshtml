@@ -1,80 +1,21 @@
 ﻿@model RaceAnalysis.Models.TriathletesViewModel
-@using X.PagedList
-@using X.PagedList.Mvc;
 
-@{ 
-    var pLRO = PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(
-                                new AjaxOptions()
-                                {
-                                    HttpMethod = "GET",
-                                    InsertionMode = InsertionMode.Replace,
-                                    UpdateTargetId = "athlete-list",
-                                });
-    pLRO.Display = PagedListDisplayMode.IfNeeded;
 
+
+<link rel="stylesheet" type="text/css" href="~/Content/DataTables/css/dataTables.bootstrap.min.css" />
+
+
+<script src="~/Scripts/DataTables/jquery.dataTables.js"></script>
+<script type="text/javascript" language="javascript" src="~/Scripts/DataTables/dataTables.bootstrap.js"></script>
     
-}
-<style>
-    *.unselectable {
-        -webkit-touch-callout: none;
-        -webkit-user-select: none;
-        -khtml-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-    }
 
-    .table-striped > tbody > tr:nth-child(odd).selected > td {
-        background-color: #9FAFD1;
-    }
-
-    .table-striped > tbody > tr:nth-child(even).selected > td {
-        background-color: #B0BED9;
-    }
-
-    .table-striped > tbody > tr:nth-child(odd).bnw > td {
-        background-color: #2b2b2b;
-        color: #f2f2f2;
-    }
-
-    .table-striped > tbody > tr:nth-child(even).bnw > td {
-        background-color: #f2f2f2;
-        color: #2b2b2b;
-    }
-</style>
-
-<script src="~/Scripts/jquery.rowselector.min.js"></script>
-<div id="athlete-list" class="table-responsive">
-    <div id="pager-container">
-       @Html.PagedListPager((IPagedList)Model.Triathletes,
-                     page => Url.Action("DisplayPagedAthletes",
-                    new RouteValueDictionary{
-                            { "page", page },
-                            { "races",  @String.Join(",",Model.Filter.SelectedRaceIds.Select(x => x.ToString()).ToArray())},
-                            { "agegroups",  @String.Join(",",Model.Filter.SelectedAgeGroupIds.Select(x =>x.ToString()).ToArray()) },
-                            { "genders" , @String.Join(",",Model.Filter.SelectedGenderIds.Select(x => x.ToString()).ToArray()) },
-                            {"swimlowtimevalue", Model.Filter.SwimLow.TotalMinutes.ToString() },
-                            {"swimhightimevalue", Model.Filter.SwimHigh.TotalMinutes.ToString() },
-
-                            {"bikelowtimevalue", Model.Filter.BikeLow.TotalMinutes.ToString() },
-                            {"bikehightimevalue", Model.Filter.BikeHigh.TotalMinutes.ToString() },
-
-                            {"runlowtimevalue", Model.Filter.RunLow.TotalMinutes.ToString() },
-                            {"runhightimevalue", Model.Filter.RunHigh.TotalMinutes.ToString() },
-
-                            {"finishlowtimevalue", Model.Filter.FinishLow.TotalMinutes.ToString() },
-                            {"finishhightimevalue", Model.Filter.FinishHigh.TotalMinutes.ToString() },
-
-        
-                            }),pLRO)
-    </div>
-
-
-    <table id="athletes-table" class="table table-striped" data-rs-selectable data-rs-type="many">
+   <table id="athletes-table" class="table table-striped" data-rs-selectable data-rs-type="many">
         <thead>
             <tr>
-                <th>@Html.ActionLink("Race", "Index", new { raceSort = ViewBag.RaceSortParm })</th>
-                <th>@Html.ActionLink("Name", "Index", new { nameSort = ViewBag.NameSortParm })</th>
+
+                <th>Race</th>
+
+                <th>Name</th>
 
                 <th>
                     @Html.DisplayNameFor(model => model.Triathletes.ElementAt(0).Country)
@@ -102,152 +43,49 @@
                 </th>
             </tr>
         </thead>
-        <tbody>
-
-            @foreach (var athlete in Model.Triathletes)
-            {
-                <tr onclick="" id="@athlete.TriathleteId">
-                    <td>
-                        @athlete.Race.DisplayName
-                      
-                    </td>
-                    <td>
-                        @Html.ActionLink(@athlete.Name, "SearchRace","athletes", new {athlete.Race.RaceId,athlete.Name },null)
-                    </td>
-                    <td>
-                        @athlete.Country
-                    </td>
-                    <td>
-                        @athlete.DivRank
-                    </td>
-                    <td>
-                        @athlete.GenderRank
-                    </td>
-                    <td>
-                        @athlete.OverallRank
-                    </td>
-
-                    <td>
-                        @athlete.Swim
-                    </td>
-                    <td>
-                        @athlete.Bike
-                    </td>
-                    <td>
-                        @athlete.Run
-                    </td>
-                    <td>
-                        @athlete.Finish
-                    </td>
-
-                </tr>
-
-            }
-
-
-        </tbody>
+       
     </table>
- </div>
+ 
 
-
-<script type="text/javascript">
+ 
+    <script type="text/javascript">
         $(document).ready(function () {
-          
-            var savedIds = @Html.Raw(Json.Encode(Model.Filter.SelectedAthleteIds));
-          
-            if(savedIds.length > 0)
-            {
-                var strIds = savedIds.map(String);
-                var c =  $('#athletes-table').attr('data-rs-class') || 'selected';
+        $('#athletes-table').DataTable({
+            "dom": '<"top"flp<"clear">>rt<"bottom"ip<"clear">>',
+            "deferRender": true,
+            "serverSide": true,
+            "searchDelay": 800,
+            "autoWidth": true,
+            "stateSave": true,
+            "processing": true, // for show progress bar
+            "ajax": {
+                "url": "/Triathletes/GetAthletes",
+                "type": "POST",
+                "datatype": "json"
+            },
 
-                $('#athletes-table tr').each(function (index, element) {
-                    
-                    var i = strIds.indexOf(element.id);
-                    if (i >= 0)
-                    {
-                        //$('#' + element.id).prop('checked',true);
-                        $(this).toggleClass(c);
-                    }
-                });
-            }
-
-            $("#pager-container").on('click', 'a', function () {
-                return handleSelectionsOnClick(this);
-            });
-           $("#action-compare-athletes").off('click');//remove previous handler
-            $("#action-compare-athletes").click(function () {
-                return handleSelectionsOnClick(this);
-            });
-            function handleSelectionsOnClick(control)
-            {
-                var savedIds = @Html.Raw(Json.Encode(Model.Filter.SelectedAthleteIds));
-         
-                if(savedIds.length > 0)
+            "columns": [
                 {
-                    savedIds = filterSavedIds(savedIds);
-                }
-                var selectedIds = getSelectedIds();
-                
-                if(savedIds.length > 0 || selectedIds.length > 0)
+                    "data": "RequestContext.Race.DisplayName",
+                    "name": "RequestContext.Race.DisplayName",
+                    "autoWidth": true
+                },
                 {
-                    control.href += "&selectedAthletes=";
-                    if(savedIds.length > 0)
-                    {
-                        control.href += savedIds;
-                        if(selectedIds.length > 0)
-                            control.href += "," + selectedIds;
-                    }else
-                    {
-                        control.href+= selectedIds.join(', ');
-                    }
-                }
-                return true;
-
-            }
-            function getSelectedIds() {
-              
-                var selected = [];
-                $('#athletes-table').selectedrows().each(function (idx, el) {
-                    if (el.id.length > 0) {
-                        selected.push(el.id);
-                    }
-                });
-
-                return selected;
-            }
-
-            function filterSavedIds(savedIds){
-               
-                var strIds = savedIds.map(String);//converting for comparison 
-
-                $('#athletes-table tr').each(function (index, element) {
-                    var i = strIds.indexOf(element.id);
-                    if (i >= 0)
-                    {
-                      
-                        //this element was in our our savedids. We can discard it because it is either in our selectList
-                        //or has been unselected by user.
-                        strIds.splice(i,1);
-                    }
-                   
-                });
-                return strIds;
-            }
-            
-            
-            $('#athletes-table').on('clicked.rs.row', function (evt) {
-
-                var numrows = $(this).selectedrows().length;
-                if (numrows > 0) {
-                    $('#action-compare-athletes').attr("disabled", false);
-                }
-                else {
-                    $('#action-compare-athletes').attr("disabled", true);
-
-                }
-
-            });
+                    "data": "Name",
+                    "name": "Name",
+                    "autoWidth": true
+                },
+                { "data": "Country","name": "Country", "autoWidth": true },
+                { "data": "DivRank","name": "DivRank", "autoWidth": true },
+                { "data": "GenderRank","name": "GenderRank", "autoWidth": true },
+                { "data": "OverallRank","name": "OverallRank", "autoWidth": true },
+                { "data": "Swim","name": "Swim", "autoWidth": true },
+                { "data": "Bike","name":  "Bike", "autoWidth": true },
+                { "data": "Run", "name": "Run", "autoWidth": true },
+                { "data": "Finish", "type": "datetime", "name": "Finish", "autoWidth": true }
 
 
+            ]
         });
-</script>
+    });
+  </script>

@@ -41,11 +41,12 @@ namespace RaceAnalysis.Models
 
         [Nested(IncludeInParent =true)]
         public virtual RequestContext RequestContext {get;set;}
-              
-    
-     //  [Nested(IncludeInParent =true)]
-       [JsonIgnore]
-        public virtual Race Race
+
+
+        //  [Nested(IncludeInParent =true)]
+        [NotMapped]
+        [JsonIgnore]
+        public  Race Race
         {
             get {
                 return RequestContext.Race; 

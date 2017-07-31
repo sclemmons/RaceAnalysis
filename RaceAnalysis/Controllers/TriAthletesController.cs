@@ -8,6 +8,7 @@ using RaceAnalysis.ServiceSupport;
 using System.Linq;
 using System;
 using System.Web;
+using Newtonsoft.Json;
 
 namespace RaceAnalysis.Controllers
 {
@@ -30,6 +31,61 @@ namespace RaceAnalysis.Controllers
             var filter = CurrentFilter;
 
             return DisplayResultsView(new RaceFilterViewModel(filter));
+        }
+
+        [HttpPost]
+        public JsonResult GetAthletes()
+        {
+            var filter = new RaceFilterViewModel(CurrentFilter); //we may be able to pass this via the datatable options - check it out
+
+            var search = Request.Form.GetValues("search[value]").FirstOrDefault();
+            var draw = Request.Form.GetValues("draw").FirstOrDefault();
+            var start = Request.Form.GetValues("start").FirstOrDefault();
+            var length = Request.Form.GetValues("length").FirstOrDefault();
+            int pageSize = length != null ? Convert.ToInt32(length) : 0;
+            int skip = start != null ? Convert.ToInt32(start) : 0;
+            int recordsTotal = 0;
+
+            var sortColumn = Request.Form.GetValues("columns[" + Request.Form.GetValues("order[0][column]").FirstOrDefault() + "][name]").FirstOrDefault();
+            if (String.IsNullOrEmpty(sortColumn))
+                sortColumn = "Finish";
+            var sortColumnDir = Request.Form.GetValues("order[0][dir]").FirstOrDefault();
+                     
+            string sort = null;
+            if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDir)))
+            {
+                sort = sortColumn + " " + sortColumnDir;
+            }
+
+            List<Triathlete> athletes;
+
+        //    if (!String.IsNullOrEmpty(search))
+           // {
+          //      var all = GetAllAthletesForRaces(filter);
+         //       athletes = all.Where(a => a.Name.ToLower().Contains(search.ToLower())).ToList();
+
+         //   }
+         //   else
+            {
+                athletes = GetFilteredAthletes(GetAllAthletesForRaces(filter), filter, sort,search);
+            }
+            recordsTotal = athletes.Count();
+            var data = athletes.Skip(skip).Take(pageSize).ToList();
+      
+            var result = new JsonNetResult();
+            result.Data = 
+                   new
+                   {
+                       draw = draw,
+                       recordsFiltered = recordsTotal,
+                       recordsTotal = recordsTotal,
+                       data = data
+                   };
+
+            return result;
+                
+            
+               
         }
 
        
@@ -273,7 +329,7 @@ namespace RaceAnalysis.Controllers
             viewmodel.Triathletes = onePageOfAthletes;
             viewmodel.Filter = filter;
 
-            return PartialView("~/Views/Shared/_OnePageOfAthletes.cshtml", viewmodel);
+            return PartialView("~/Views/Shared/_OnePageOfAthletesImproved.cshtml", viewmodel);
         }
 
      

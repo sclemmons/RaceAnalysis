@@ -344,6 +344,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\Extensions.cs" />
+    <Compile Include="Helpers\JsonNetResult.cs" />
     <Compile Include="Helpers\TriStatsCalculator.cs" />
     <Compile Include="Helpers\TriStatsCalculatorExtended.cs" />
     <Compile Include="Models\Autocomplete.cs" />
