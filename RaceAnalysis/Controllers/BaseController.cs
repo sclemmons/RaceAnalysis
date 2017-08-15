@@ -472,7 +472,7 @@ namespace RaceAnalysis.Controllers
                     allAthletes.AddRange(athletes);
                 }
             }
-            Trace.TraceInformation("AgeGroupCompare GetAllRaceInfo took: " + stopwatch.Elapsed);
+            Trace.TraceInformation("BaseCcontroller GetAllRaceInfo took: " + stopwatch.Elapsed);
             stopwatch.Reset();
 
             return allAthletes;
@@ -484,24 +484,48 @@ namespace RaceAnalysis.Controllers
                                                                               string sort=null,
                                                                               string search=null)
         {
-            var selectedAgeGroupIds = AgeGroup.Expand(filter.SelectedAgeGroupIds);
-            var selectedGenderIds = Gender.Expand(filter.SelectedGenderIds);
-
-            var  athletes = allAthletes.Where(
-                    a => selectedAgeGroupIds.Contains(a.RequestContext.AgeGroupId) &&
-                    selectedGenderIds.Contains(a.RequestContext.GenderId));
-
-            if (!string.IsNullOrEmpty(sort))
+            try
             {
-               athletes = athletes.AsQueryable().OrderBy(sort);
-            }
+                Trace.TraceInformation("GetFilteredAthletes-1");
+                var selectedAgeGroupIds = AgeGroup.Expand(filter.SelectedAgeGroupIds);
+                var selectedGenderIds = Gender.Expand(filter.SelectedGenderIds);
 
-            if (!String.IsNullOrEmpty(search))
+                var athletes = allAthletes.Where(
+                        a => selectedAgeGroupIds.Contains(a.RequestContext.AgeGroupId) &&
+                        selectedGenderIds.Contains(a.RequestContext.GenderId));
+
+                Trace.TraceInformation("GetFilteredAthletes-1a");
+
+
+                if (!string.IsNullOrEmpty(sort))
+                {
+                    athletes = athletes.AsQueryable().OrderBy(sort);
+                }
+                Trace.TraceInformation("GetFilteredAthletes-1b");
+
+                if (!String.IsNullOrEmpty(search))
+                {
+                    Trace.TraceInformation("GetFilteredAthletes-Search");
+
+                    athletes = athletes.Where(a => a.Name.ToLower().Contains(search.ToLower())).ToList();
+                }
+
+                Trace.TraceInformation(String.Format("GetFilteredAthletes-2 athlete count {0}", athletes.Count()));
+
+                var list = athletes.ToList();
+
+                Trace.TraceInformation("GetFilteredAthletes-3");
+
+
+                var result = new BasicFilterProvider(list, filter).GetAthletes();
+
+                return result;
+            }
+            catch (Exception ex)
             {
-                athletes = athletes.Where(a => a.Name.ToLower().Contains(search.ToLower())).ToList();
+                Trace.TraceError(ex.Message);
+                throw ex;
             }
-
-            return new BasicFilterProvider(athletes.ToList(), filter).GetAthletes();
         }
         //filter the list of athletes by race, agegroup, gender, and range
         protected List<Triathlete> GetFilteredAthletes(string raceId, List<Triathlete> allAthletes, RaceFilterViewModel filter)

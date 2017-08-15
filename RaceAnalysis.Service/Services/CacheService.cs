@@ -104,10 +104,10 @@ namespace RaceAnalysis.Service
             List<Triathlete> athletes;
 
             IDatabase cache = Connection.GetDatabase();
-            string serializedTeams = cache.StringGet(crit.ToString());
-            if (!String.IsNullOrEmpty(serializedTeams))
+            string key = cache.StringGet(crit.ToString());
+            if (!String.IsNullOrEmpty(key))
             {
-                athletes = JsonConvert.DeserializeObject<List<Triathlete>>(serializedTeams);
+                athletes = JsonConvert.DeserializeObject<List<Triathlete>>(key);
             }
             else
             {

@@ -2,6 +2,7 @@
 using RaceAnalysis.Service.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,11 +18,14 @@ namespace RaceAnalysis.ServiceSupport
         private List<Triathlete> _Athletes;
         public BasicFilterProvider(List<Triathlete> athletes, IDurationFilter filter)
         {
+            Trace.TraceInformation("BasicFilterProvider");
+
             _Filter = filter;
             _Athletes = athletes;
         }
         public List<Triathlete> GetAthletes()
         {
+            Trace.TraceInformation("GetAthletes-BasicFilterProvider-1");
             var filteredList = new List<Triathlete>();
             foreach (var a in _Athletes)
             {
@@ -32,6 +36,7 @@ namespace RaceAnalysis.ServiceSupport
 
                 filteredList.Add(a);
             }
+            Trace.TraceInformation("GetAthletes-BasicFilterProvider-2");
             return filteredList;
         }
 

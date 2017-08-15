@@ -3,19 +3,33 @@
 
 
 <link rel="stylesheet" type="text/css" href="~/Content/DataTables/css/dataTables.bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.dataTables.min.css" />
+
 
 
 <script src="~/Scripts/DataTables/jquery.dataTables.js"></script>
 <script type="text/javascript" language="javascript" src="~/Scripts/DataTables/dataTables.bootstrap.js"></script>
-    
+<script type="text/javascript" language="javascript" src="http://cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.min.js"></script>
 
-   <table id="athletes-table" class="table table-striped" data-rs-selectable data-rs-type="many">
+   <table id="athletes-table" class="table table-striped" width="100%" cellspacing="0">
         <thead>
             <tr>
 
                 <th>Race</th>
 
                 <th>Name</th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Triathletes.ElementAt(0).Swim)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Triathletes.ElementAt(0).Bike)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Triathletes.ElementAt(0).Run)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Triathletes.ElementAt(0).Finish)
+                </th>
 
                 <th>
                     @Html.DisplayNameFor(model => model.Triathletes.ElementAt(0).Country)
@@ -28,18 +42,6 @@
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Triathletes.ElementAt(0).OverallRank)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Triathletes.ElementAt(0).Swim)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Triathletes.ElementAt(0).Bike)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Triathletes.ElementAt(0).Run)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Triathletes.ElementAt(0).Finish)
                 </th>
             </tr>
         </thead>
@@ -55,9 +57,14 @@
             "deferRender": true,
             "serverSide": true,
             "searchDelay": 800,
+            "responsive":true,
             "autoWidth": true,
             "stateSave": true,
             "processing": true, // for show progress bar
+            "initComplete": function (settings, json) {
+     //           alert('DataTables has finished its initialisation.');
+                debugger;
+            },
             "ajax": {
                 "url": "/Triathletes/GetAthletes",
                 "type": "POST",
@@ -68,6 +75,7 @@
                 {
                     "data": "RequestContext.Race.DisplayName",
                     "name": "RequestContext.Race.DisplayName",
+                    "defaultContent": "--",
                     "autoWidth": true
                 },
                 {
@@ -75,15 +83,17 @@
                     "name": "Name",
                     "autoWidth": true
                 },
+           
+               
+                { "data": "Swim", "name": "Swim", "autoWidth": true },
+                { "data": "Bike", "name": "Bike", "autoWidth": true },
+                { "data": "Run", "name": "Run", "autoWidth": true },
+                { "data": "Finish", "type": "datetime", "name": "Finish", "autoWidth": true },
                 { "data": "Country","name": "Country", "autoWidth": true },
                 { "data": "DivRank","name": "DivRank", "autoWidth": true },
                 { "data": "GenderRank","name": "GenderRank", "autoWidth": true },
                 { "data": "OverallRank","name": "OverallRank", "autoWidth": true },
-                { "data": "Swim","name": "Swim", "autoWidth": true },
-                { "data": "Bike","name":  "Bike", "autoWidth": true },
-                { "data": "Run", "name": "Run", "autoWidth": true },
-                { "data": "Finish", "type": "datetime", "name": "Finish", "autoWidth": true }
-
+              
 
             ]
         });

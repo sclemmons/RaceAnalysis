@@ -9,6 +9,7 @@ using System.Linq;
 using System;
 using System.Web;
 using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace RaceAnalysis.Controllers
 {
@@ -45,6 +46,7 @@ namespace RaceAnalysis.Controllers
             int pageSize = length != null ? Convert.ToInt32(length) : 0;
             int skip = start != null ? Convert.ToInt32(start) : 0;
             int recordsTotal = 0;
+            Trace.TraceInformation("GetAthletes-1" );
 
             var sortColumn = Request.Form.GetValues("columns[" + Request.Form.GetValues("order[0][column]").FirstOrDefault() + "][name]").FirstOrDefault();
             if (String.IsNullOrEmpty(sortColumn))
@@ -59,19 +61,17 @@ namespace RaceAnalysis.Controllers
 
             List<Triathlete> athletes;
 
-        //    if (!String.IsNullOrEmpty(search))
-           // {
-          //      var all = GetAllAthletesForRaces(filter);
-         //       athletes = all.Where(a => a.Name.ToLower().Contains(search.ToLower())).ToList();
+            Trace.TraceInformation("GetAthletes-sort&search:" + sort + "--" + search + " -- " );
 
-         //   }
-         //   else
-            {
-                athletes = GetFilteredAthletes(GetAllAthletesForRaces(filter), filter, sort,search);
-            }
+            athletes = GetFilteredAthletes(GetAllAthletesForRaces(filter), filter, sort,search);
+            Trace.TraceInformation("GetAthletes-2");
+
             recordsTotal = athletes.Count();
+            Trace.TraceInformation("GetAthletes-2.1");
+
             var data = athletes.Skip(skip).Take(pageSize).ToList();
-      
+            Trace.TraceInformation("GetAthletes-3");
+
             var result = new JsonNetResult();
             result.Data = 
                    new
@@ -82,10 +82,9 @@ namespace RaceAnalysis.Controllers
                        data = data
                    };
 
+            Trace.TraceInformation("GetAthletes-4");
+
             return result;
-                
-            
-               
         }
 
        
