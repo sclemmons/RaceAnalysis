@@ -56,7 +56,11 @@ namespace RaceAnalysis.Service
                     {
                         RequestContext reqContext = GetRequestContext(raceId, ageId, genderId);
                         List<Triathlete> athletesInReqContext = new List<Triathlete>();
-                        if (reqContext == null || reqContext.Instruction == RequestInstruction.ForceSource)
+                        if (reqContext == null ||
+                              reqContext.Instruction == RequestInstruction.ForceSource ||
+                              useCache== false //force getting from source
+
+                           )
                         {
                             if (reqContext == null)
                                 reqContext = CreateRequestContext(raceId, ageId, genderId);
@@ -64,7 +68,6 @@ namespace RaceAnalysis.Service
                             { //we need to remove any athletes that might be there under that context to avoid dupes
                               // DeleteAthletes(reqContext.RequestContextId);
                             }
-
                             //get from source 
                             athletesInReqContext = GetAthletesFromSource(reqContext);
                         }
@@ -366,14 +369,11 @@ namespace RaceAnalysis.Service
 
         private RequestContext GetRequestContext(string raceId, int agegroupId, int genderId)
         {
-            //test
+            Trace.TraceInformation(String.Format("GetRequestContext {0}-{1}-{2}", raceId, agegroupId, genderId));
      
             RequestContext req = _DBContext.RequestContext.SingleOrDefault(i => i.RaceId == raceId &&
                                 i.AgeGroupId == agegroupId && i.GenderId == genderId);
-           // if (req != null)
-           // {
-           //     _DBContext.Entry(req).Reload();//force reloading from database so next call will pick up the change
-           // }
+
             return req;  //NOTE: THIS will return null if context not found
         }
         private List<Triathlete> GetAthletesFromDb(RequestContext req)
@@ -418,6 +418,9 @@ namespace RaceAnalysis.Service
 
         private List<Triathlete> GetAthletesFromSource(RequestContext reqContext)
         {
+
+            Trace.TraceInformation(String.Format("GetFromSource {0}-{1}{2}", reqContext.RaceId, reqContext.AgeGroupId, reqContext.GenderId));
+                 
             List<Triathlete> athletesFromSource = new List<Triathlete>();
             reqContext.SourceCount = 0;
 

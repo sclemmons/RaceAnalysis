@@ -1,10 +1,7 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Diagnostics;
 
 namespace RaceAnalysis.Helpers
 {
@@ -21,9 +18,9 @@ namespace RaceAnalysis.Helpers
                 response.ContentEncoding = ContentEncoding;
             if (Data != null)
             {
-               
+                Trace.TraceInformation("JsonNet-1");
                 JsonTextWriter writer = new JsonTextWriter(response.Output) { Formatting = Formatting.Indented };
-                JsonSerializer serializer = new JsonSerializer();
+               // JsonSerializer serializer = new JsonSerializer();
                 /*** this code was causing issues with the race name not getting populated for every row.
                 JsonSerializer serializer = 
                     JsonSerializer.Create(  
@@ -33,8 +30,20 @@ namespace RaceAnalysis.Helpers
                         PreserveReferencesHandling = PreserveReferencesHandling.Objects
                     });
                     ***/
+
+                JsonSerializer serializer =
+                    JsonSerializer.Create(
+
+                    new JsonSerializerSettings
+                    {
+                         ReferenceLoopHandling  = ReferenceLoopHandling.Ignore
+                         
+                    });
+
                 serializer.Serialize(writer, Data);
                 writer.Flush();
+                Trace.TraceInformation("JsonNet-end");
+
             }
         }
     }

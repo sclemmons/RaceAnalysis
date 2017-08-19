@@ -10,7 +10,7 @@ namespace RaceAnalysis.Service.Interfaces
         List<Triathlete> GetAthletes(IRaceCriteria criteria,bool useCache=true);
         List<Triathlete> GetAthletes(IRaceCriteria criteria, IDurationFilter filter);
         List<Triathlete> GetAthletesFromStorage(IRaceCriteria criteria); //for testing purposes
-        List<Triathlete> GetAthletesFromSource(IRaceCriteria criteria); //for testing purposes
+        List<Triathlete> GetAthletesFromSource(IRaceCriteria criteria); 
 
         void VerifyRequestContext(RequestContext context);
         void VerifyRace(Race race);
