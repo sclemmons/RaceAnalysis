@@ -197,7 +197,7 @@ namespace RaceAnalysis.Service
             IronmanClient sourceClient;  //we'll change this to a factory pattern if we have more than these two classes
 
             string apiName = reqContext.Race.ApiName == null ? "IronmanClient" : reqContext.Race.ApiName.ToLower();
-            if (apiName.Equals("ironmanclientdoubletable"))
+            if (apiName.Equals("ironmanclientdoubletable",StringComparison.CurrentCultureIgnoreCase))
             {
                 sourceClient = new IronmanClientDoubleTable(_DBContext);
             }
@@ -429,7 +429,7 @@ namespace RaceAnalysis.Service
             IronmanClient sourceClient;  //we'll change this to a factory pattern if we have more than these two classes
 
             string apiName = reqContext.Race.ApiName == null ? "IronmanClient" : reqContext.Race.ApiName.ToLower();
-            if (apiName.Equals("ironmanclientdoubletable"))
+            if (apiName.Equals("ironmanclientdoubletable",StringComparison.CurrentCultureIgnoreCase))
             {
                 sourceClient = new IronmanClientDoubleTable(_DBContext);
             }

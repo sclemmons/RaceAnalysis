@@ -112,7 +112,7 @@ namespace RaceAnalysis.Models
     {
         public override bool Equals(ShallowRace x, ShallowRace y)
         {
-            return x.Name.Equals(y.Name);
+            return x.Name.Equals(y.Name,StringComparison.CurrentCultureIgnoreCase);
         }
 
         public override int GetHashCode(ShallowRace obj)

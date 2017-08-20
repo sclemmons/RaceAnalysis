@@ -36,7 +36,7 @@ namespace RaceAnalysis.Controllers
             foreach (string raceId in filter.SelectedRaceIds) 
             {
                 var athletesPerRace = allAthletes.Where(
-                    a => a.RequestContext.RaceId.Equals(raceId) &&
+                    a => a.RequestContext.RaceId.Equals(raceId,System.StringComparison.CurrentCultureIgnoreCase) &&
                     selectedAgeGroupIds.Contains(a.RequestContext.AgeGroupId) &&
                     selectedGenderIds.Contains(a.RequestContext.GenderId)
                     ).ToList();

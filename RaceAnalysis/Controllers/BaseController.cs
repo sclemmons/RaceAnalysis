@@ -352,7 +352,7 @@ namespace RaceAnalysis.Controllers
         protected TriStats GetRaceStats(string raceId)
         {
             var aggr = _DBContext.RacesAggregates.Include("Race").
-                                Where(r => r.RaceId == raceId && r.Segment.Equals("all")).SingleOrDefault();
+                                Where(r => r.RaceId.Equals(raceId,StringComparison.CurrentCultureIgnoreCase) && r.Segment.Equals("all")).SingleOrDefault();
 
             TriStats stats = new TriStats();
 
