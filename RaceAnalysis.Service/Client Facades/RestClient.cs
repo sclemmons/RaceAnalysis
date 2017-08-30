@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Threading.Tasks;
 using System.Net.Http;
 using RestSharp;
-using RaceAnalysis.Models;
+using System.Diagnostics;
 
 namespace RaceAnalysis.Rest
 {
@@ -25,6 +23,8 @@ namespace RaceAnalysis.Rest
                 request.AddParameter(parm.Key, parm.Value);
             }
 
+           
+            Trace.TraceInformation("RestRequest: " + client.BuildUri(request));
          
             var response = client.Execute(request);
 

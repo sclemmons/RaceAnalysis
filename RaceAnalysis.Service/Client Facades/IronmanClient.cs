@@ -42,7 +42,7 @@ namespace RaceAnalysis.Rest
 
         public virtual List<Triathlete> ParseData(RequestContext request, string htmlData,int pageNum)
         {
-            Trace.TraceInformation(htmlData);
+          //  Trace.TraceInformation(htmlData);
 
             HtmlDocument doc = new HtmlDocument();
             doc.LoadHtml(htmlData);

@@ -788,6 +788,7 @@
     <Content Include="Scripts\typeahead.jquery.min.js" />
     <Content Include="Scripts\typeahead.raceanalysis.mvc.model.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="sitemap.xml" />
     <Content Include="Views\Shared\_BikeRunQuartileChart.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
