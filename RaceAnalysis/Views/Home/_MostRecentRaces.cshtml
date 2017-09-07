@@ -1,0 +1,35 @@
+﻿@model RaceAnalysis.Models.RaceFilterViewModel
+
+
+<table id="race-table" class="table table-striped" data-rs-selectable data-rs-type="many">
+    <tr>
+        <th>
+            @Html.ActionLink("Name", "Index")
+
+        </th>
+        <th>
+            @Html.ActionLink("Race Date", "Index")
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AvailableRaces.ElementAt(0).Distance)
+        </th>
+     </tr>
+
+    @foreach (var item in Model.AvailableRaces)
+    {
+        <tr onclick="" id="@item.RaceId">
+            <td>
+                @Html.DisplayFor(modelItem => item.LongDisplayName)
+            </td>
+            <td>
+                @item.RaceDate.ToShortDateString()
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Distance)
+            </td>
+            
+
+        </tr>
+    }
+
+</table>

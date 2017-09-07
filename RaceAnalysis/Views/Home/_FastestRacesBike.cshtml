@@ -1,0 +1,41 @@
+﻿@model RaceAnalysis.Models.HomePageViewModel
+
+
+<table id="race-table" class="table table-striped" data-rs-selectable data-rs-type="many">
+    <tr>
+        <th>
+            @Html.ActionLink("Name", "Index")
+
+        </th>
+        <th>
+            @Html.ActionLink("Race Date", "Index")
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RecentRaces.ElementAt(0).Distance)
+        </th>
+        <th>
+            Bike Median
+        </th>
+    </tr>
+
+    @foreach (var item in Model.FastestBikes)
+    {
+        <tr onclick="" id="@item.RaceId">
+            <td>
+                @Html.DisplayFor(modelItem => item.Race.LongDisplayName)
+            </td>
+            <td>
+                @item.Race.RaceDate.ToShortDateString()
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Race.Distance)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BikeMedian)
+            </td>
+
+        </tr>
+    }
+
+</table>
+
