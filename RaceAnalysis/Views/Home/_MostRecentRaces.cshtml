@@ -1,5 +1,5 @@
-﻿@model RaceAnalysis.Models.RaceFilterViewModel
-
+﻿@model RaceAnalysis.Models.HomePageViewModel
+    
 
 <table id="race-table" class="table table-striped" data-rs-selectable data-rs-type="many">
     <tr>
@@ -11,11 +11,11 @@
             @Html.ActionLink("Race Date", "Index")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.AvailableRaces.ElementAt(0).Distance)
+            @Html.DisplayNameFor(model => model.RecentRaces.ElementAt(0).Distance)
         </th>
      </tr>
 
-    @foreach (var item in Model.AvailableRaces)
+    @foreach (var item in Model.RecentRaces)
     {
         <tr onclick="" id="@item.RaceId">
             <td>

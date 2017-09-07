@@ -9,6 +9,7 @@ using RestSharp;
 using RaceAnalysis.Service.Interfaces;
 using RaceAnalysis.ServiceSupport;
 using System.Diagnostics;
+using System.Data.Entity.SqlServer;
 
 namespace RaceAnalysis.Service
 {
@@ -305,9 +306,73 @@ namespace RaceAnalysis.Service
             return query.ToList();
         }
 
+        public List<Race> GetRacesMostRecent(int count)
+        {
+            IQueryable<Race> query = _DBContext.Races.OrderByDescending(r => r.RaceDate).Take(count);
+            return query.ToList();
+        }
+        public List<RaceAggregate> GetRacesFastestSwim(int count, string distance)
+        {
+            DateTime pastYear = DateTime.Today.AddYears(-1);
+            TimeSpan zero = new TimeSpan(0);
+            IQueryable<RaceAggregate> query = _DBContext.RacesAggregates.
+                                    Where(r =>
+                                        r.Segment.Equals("all", StringComparison.InvariantCultureIgnoreCase)
+                                        && r.Race.Distance.Equals(distance, StringComparison.InvariantCultureIgnoreCase)
+                                        && r.Race.RaceDate.CompareTo(pastYear).Equals(1)
+                                        && r.SwimMedian > zero)
+                                        .OrderBy(r => r.SwimMedian).Take(count);
+            return query.ToList();
+        }
+        public List<RaceAggregate> GetRacesFastestBike(int count, string distance)
+        {
+            DateTime pastYear = DateTime.Today.AddYears(-1);
+            TimeSpan zero = new TimeSpan(0);
+
+            IQueryable<RaceAggregate> query = _DBContext.RacesAggregates.
+                                    Where(r =>
+                                        r.Segment.Equals("all", StringComparison.InvariantCultureIgnoreCase)
+                                        && r.Race.Distance.Equals(distance, StringComparison.InvariantCultureIgnoreCase)
+                                        && r.Race.RaceDate.CompareTo(pastYear).Equals(1)
+                                        && r.BikeMedian > zero)
+                                        .OrderBy(r => r.BikeMedian).Take(count);
+            return query.ToList();
+        }
+
+        public List<RaceAggregate> GetRacesFastestRun(int count,string distance)
+        {
+            DateTime pastYear = DateTime.Today.AddYears(-1);
+            TimeSpan zero = new TimeSpan(0);
+
+            IQueryable<RaceAggregate> query = _DBContext.RacesAggregates.
+                                    Where(r => 
+                                        r.Segment.Equals("all", StringComparison.InvariantCultureIgnoreCase)
+                                        && r.Race.Distance.Equals(distance, StringComparison.InvariantCultureIgnoreCase)
+                                        && r.Race.RaceDate.CompareTo(pastYear).Equals(1)
+                                        && r.RunMedian > zero)
+                                        .OrderBy(r => r.RunMedian).Take(count);
+            return query.ToList();
+        }
+        
+        public List<RaceAggregate> GetRacesFastestFinish(int count, string distance)
+        {
+            DateTime pastYear = DateTime.Today.AddYears(-1);
+            TimeSpan zero = new TimeSpan(0);
+
+            IQueryable<RaceAggregate> query = _DBContext.RacesAggregates.
+                                    Where(r =>
+                                        r.Segment.Equals("all", StringComparison.InvariantCultureIgnoreCase)
+                                        && r.Race.Distance.Equals(distance, StringComparison.InvariantCultureIgnoreCase)
+                                        && r.Race.RaceDate.CompareTo(pastYear).Equals(1)
+                                        && r.FinishMedian > zero)
+                                        .OrderBy(r => r.FinishMedian).Take(count);
+            return query.ToList();
+        }
+
         public List<Race> GetRacesByTagId(List<int> tagIds)
         {
-            var races = _DBContext.Races.Where(r => r.Conditions.RaceConditionTags.Select(t => t.TagId).Intersect(tagIds).Any());
+            var races = _DBContext.Races.Where(r => r.Conditions.RaceConditionTags.
+                            Select(t => t.TagId).Intersect(tagIds).Any());
 
             return races.ToList();
         }

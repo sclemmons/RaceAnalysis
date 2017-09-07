@@ -33,6 +33,11 @@ namespace RaceAnalysis.Service.Interfaces
         List<Race> GetRacesByTagId(List<int> tagIds);
         List<Race> GetRacesById(string id);
         List<Race> GetRacesByGroupName(string name);
+        List<Race> GetRacesMostRecent(int count);
+        List<RaceAggregate> GetRacesFastestSwim(int count,string distance);
+        List<RaceAggregate> GetRacesFastestBike(int count, string distance);
+        List<RaceAggregate> GetRacesFastestRun(int count, string distance);
+        List<RaceAggregate> GetRacesFastestFinish(int count, string distance);
 
     }
 

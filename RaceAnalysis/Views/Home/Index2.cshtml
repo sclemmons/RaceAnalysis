@@ -1,8 +1,15 @@
-﻿@{
+﻿@model RaceAnalysis.Models.HomePageViewModel
+
+@{
     ViewBag.Title = "Home";
     Layout = "~/Views/Layouts/_HomePageLayout.cshtml";
 
 }
+
+<!-- bxSlider Javascript file -->
+<script src="~/Scripts/jquery.bxslider.js"></script>
+<!-- bxSlider CSS file -->
+<link href="~/Content/jquery.bxslider.css" rel="stylesheet" />
 
 
 <div class= "home-header" >
@@ -16,43 +23,74 @@
 </div>
 
 <div class="row">
- 
     <div class="col-md-12">
-            <div class="feature-callout">
-                <h2>Give me the tools</h2>
-                <p>
-                    <i>A flexible DIY tool that allows you to slice and dice triathlon race results.</i>
-                </p>
-                <p><a class="btn btn-default" href="~/races">Geek out... &raquo;</a></p>
-            </div>
-    </div>
-    <div class="col-md-12">
-        <div class="feature-callout">
-            <h2>How would I do?</h2>
-            <p><i>A guided approach geared toward <b>your</b> abilities.</i></p>
-            <p><a class="btn btn-default" href="~/Hypotheticals">Find out.. &raquo;</a></p>
+        <ul class="bxslider">
+            <li><img src="~/Content/images/shutterstock2.jpg" title="my caption here" /></li>
+            <li><img src="~/Content/images/tristats-share.jpg" title="my caption here" /></li>
+            <li><img src="~/Content/images/shutterstock_448957918.jpg" title="my caption here" /></li>
+
+        </ul>
         </div>
-    </div>
-    <div class="col-md-12">
-        <div class="feature-callout">
-            <h2>Help me find a race</h2>
-            <p><i>So many races, so little time. And money.</i></p>
-            <p><a class="btn btn-default" href="~/races/search">Let's begin... &raquo;</a></p>
-        </div>
-    </div>
-    
-    <div class="col-md-12">
-        <div class="feature-callout">
-            <h2>Just tell me</h2>
-            <p><i>A curated analysis of selected races.</i></p>
-             <p><a class="btn btn-default" href="~/CuratedAnalysis">Show me... &raquo;</a></p>
-        </div>
-    </div>
-    <div class="col-md-12">
-        <div class="feature-callout">
-            <h2>Where do we go from here?</h2>
-            <p><i>A list of planned features.</i></p>
-              <p><a class="btn btn-default" href="~/AppFeatures">Let's see... &raquo;</a></p>
-        </div>
-     </div>
 </div>
+
+<div class="row">
+
+    <div class="col-sm-4">
+        <div class="feature-callout">
+            <h3>Most Recent Races</h3>
+            @Html.Partial("_MostRecentRaces", Model)
+        </div>
+    </div>
+
+        <div class="col-sm-4">
+            <div class="feature-callout">
+                <h3>Fastest Finishes</h3>
+                @Html.Partial("_FastestRacesFinish", Model)
+            </div>
+        </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-4">
+        <div class="feature-callout">
+            <h3>Fastest Swims</h3>
+            @Html.Partial("_FastestRacesSwim", Model)
+        </div>
+    </div>
+
+    <div class="col-sm-4">
+        <div class="feature-callout">
+            <h3>Fastest Bikes</h3>
+            =                @Html.Partial("_FastestRacesBike", Model)
+        </div>
+    </div>
+
+    <div class="col-sm-4">
+        <div class="feature-callout">
+            <h3>Fastest Runs</h3>
+                @Html.Partial("_FastestRacesRun", Model)
+        </div>
+    </div>
+</div>
+
+
+
+    </div>
+</div> <!--row-->
+   
+  
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+       
+        $('.bxslider').bxSlider(
+            {
+                adaptiveHeight: false,
+                auto:true,
+                captions: true
+            }
+
+        );
+    });
+</script>
