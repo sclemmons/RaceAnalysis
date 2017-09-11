@@ -1,0 +1,34 @@
+﻿@model RaceAnalysis.Models.HomePageViewModel
+
+
+
+<table id="athletes-table" class="table table-striped" data-rs-selectable data-rs-type="one">
+    <tr>
+        <th>
+            @Html.ActionLink("Name", "Index")
+        </th>
+        <th>
+            @Html.ActionLink("Race", "Index")
+        </th>
+        <th>
+            Finish Time
+        </th>
+    </tr>
+
+    @foreach (var item in Model.FasestMaleFinishesIM)
+    {
+        <tr onclick="" id="@item.Name">
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Race.LongDisplayName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Finish)
+            </td> 
+        </tr>
+    }
+
+</table>
+
