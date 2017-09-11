@@ -1,7 +1,7 @@
 ﻿@model RaceAnalysis.Models.HomePageViewModel
 
 
-<table id="race-table" class="table table-striped" data-rs-selectable data-rs-type="many">
+<table id="race-table" class="table table-striped" data-rs-selectable data-rs-type="one">
     <tr>
         <th>
             @Html.ActionLink("Name", "Index")
@@ -18,7 +18,7 @@
         </th>
     </tr>
 
-    @foreach (var item in Model.FastestFinishes)
+    @foreach (var item in Model.FastestIMFinishes)
     {
         <tr onclick="" id="@item.RaceId">
             <td>

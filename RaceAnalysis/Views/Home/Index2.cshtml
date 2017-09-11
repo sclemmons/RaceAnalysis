@@ -8,8 +8,38 @@
 
 <!-- bxSlider Javascript file -->
 <script src="~/Scripts/jquery.bxslider.js"></script>
+<script src="~/Scripts/jquery.rowselector.min.js"></script>
+
 <!-- bxSlider CSS file -->
 <link href="~/Content/jquery.bxslider.css" rel="stylesheet" />
+<style>
+    *.unselectable {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    .table-striped > tbody > tr:nth-child(odd).selected > td {
+        background-color: #9FAFD1;
+    }
+
+    .table-striped > tbody > tr:nth-child(even).selected > td {
+        background-color: #B0BED9;
+    }
+
+    .table-striped > tbody > tr:nth-child(odd).bnw > td {
+        background-color: #2b2b2b;
+        color: #f2f2f2;
+    }
+
+    .table-striped > tbody > tr:nth-child(even).bnw > td {
+        background-color: #f2f2f2;
+        color: #2b2b2b;
+    }
+</style>
 
 
 <div class= "home-header" >
@@ -44,7 +74,7 @@
 
         <div class="col-sm-4">
             <div class="feature-callout">
-                <h3>Fastest Finishes</h3>
+                <h3>Fastest Ironman Finishes</h3>
                 @Html.Partial("_FastestRacesFinish", Model)
             </div>
         </div>
@@ -53,44 +83,74 @@
 <div class="row">
     <div class="col-sm-4">
         <div class="feature-callout">
-            <h3>Fastest Swims</h3>
+            <h3>Fastest Ironman Swims</h3>
             @Html.Partial("_FastestRacesSwim", Model)
         </div>
     </div>
 
     <div class="col-sm-4">
         <div class="feature-callout">
-            <h3>Fastest Bikes</h3>
-            =                @Html.Partial("_FastestRacesBike", Model)
+            <h3>Fastest Ironman Bikes</h3>
+            @Html.Partial("_FastestRacesBike", Model)
         </div>
     </div>
 
     <div class="col-sm-4">
         <div class="feature-callout">
-            <h3>Fastest Runs</h3>
+            <h3>Fastest Ironman Runs</h3>
                 @Html.Partial("_FastestRacesRun", Model)
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-4">
+        <div class="feature-callout">
+            <h3>Fastest IM Males</h3>
+            @Html.Partial("_FastestMaleFinishIM", Model)
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="feature-callout">
+            <h3>Fastest IM Females</h3>
+            @Html.Partial("_FastestFemaleFinishIM", Model)
         </div>
     </div>
 </div>
 
 
 
-    </div>
-</div> <!--row-->
-   
-  
 
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('.bxslider').bxSlider(
+                {
+                    adaptiveHeight: false,
+                    auto: true,
+                    captions: true
+                }
+
+            );
+        });
+
+
+    </script>
 <script type="text/javascript">
-
     $(document).ready(function () {
-       
-        $('.bxslider').bxSlider(
-            {
-                adaptiveHeight: false,
-                auto:true,
-                captions: true
-            }
+        $('.table').on('clicked.rs.row', function (evt) {
+            var rows = $(this).selectedrows();
+            var dir =  document.URL.substr(0, document.URL.lastIndexOf('/'));
+            location.href = dir + "/GetRace?raceId=" + rows[0].id; 
+         });
 
-        );
+        $('#athletes-table').on('clicked.rs.row', function (evt) {
+            var rows = $(this).selectedrows();
+            var dir = document.URL.substr(0, document.URL.indexOf('/'));
+            location.href = dir + "/athletes/search?name=" + rows[0].id;
+            
+        });
+
     });
 </script>
+'

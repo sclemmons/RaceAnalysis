@@ -295,6 +295,30 @@ namespace RaceAnalysis.Service
             return athlete.SingleOrDefault();
         }
 
+        public List<Triathlete> GetAthletesFastestFinish(int count,string distance,string genderValue=null)
+        {
+            DateTime pastYear = DateTime.Today.AddYears(-1);
+            TimeSpan zero = new TimeSpan(0);
+
+
+            IQueryable<Triathlete> query = _DBContext.Triathletes.
+                                   Where(t =>
+                                    t.Finish > zero
+                                    && t.Swim > zero   //eliminate races where swim cancelled
+
+                                    && t.RequestContext.Race.RaceDate.CompareTo(pastYear).Equals(1)
+                                    && t.RequestContext.Race.Distance.Equals(distance, StringComparison.InvariantCultureIgnoreCase));
+            if (genderValue != null)
+            {
+                query = query.Where(t => t.RequestContext.Gender.Value.Equals(genderValue, StringComparison.InvariantCultureIgnoreCase));
+            }
+
+
+            query = query.OrderBy(t => t.Finish).Take(count);
+
+            return query.ToList();
+        }
+
   
         public List<Race> GetRacesByGroupName(string name)
         {

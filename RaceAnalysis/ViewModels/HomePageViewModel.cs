@@ -9,12 +9,13 @@ namespace RaceAnalysis.Models
     public class HomePageViewModel
     {
         public IEnumerable<Race> RecentRaces { get; set; }
-        public IEnumerable<RaceAggregate> FastestRuns { get; set; }
-        public IEnumerable<RaceAggregate> FastestBikes { get; set; }
-        public IEnumerable<RaceAggregate> FastestSwims { get; set; }
-        public IEnumerable<RaceAggregate> FastestFinishes { get; set; }
+        public IEnumerable<RaceAggregate> FastestIMRuns { get; set; }
+        public IEnumerable<RaceAggregate> FastestIMBikes { get; set; }
+        public IEnumerable<RaceAggregate> FastestIMSwims { get; set; }
+        public IEnumerable<RaceAggregate> FastestIMFinishes { get; set; }
 
-        public IEnumerable<Triathlete> FastestAthleteFinishes { get; set; }
+        public IEnumerable<Triathlete> FastestMaleFinishesIM { get; set; }
+        public IEnumerable<Triathlete> FastestFemaleFinishesIM { get; set; }
 
 
     }

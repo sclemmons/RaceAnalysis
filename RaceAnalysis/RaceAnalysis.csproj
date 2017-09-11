@@ -965,6 +965,8 @@
     <Content Include="Views\Home\_FastestRacesBike.cshtml" />
     <Content Include="Views\Home\_FastestRacesSwim.cshtml" />
     <Content Include="Views\Home\_FastestRacesFinish.cshtml" />
+    <Content Include="Views\Home\_FastestMaleFinishIM.cshtml" />
+    <Content Include="Views\Home\_FastestFemaleFinishIM.cshtml" />
     <None Include="Web.Test.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

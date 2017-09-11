@@ -159,5 +159,12 @@ namespace RaceAnalysis.Models
 
             return simple;
         }
+        public static SimpleFilterViewModel Create()
+        {
+            var simple = new SimpleFilterViewModel();
+                        
+            return simple;
+        }
+
     }
 }

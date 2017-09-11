@@ -20,15 +20,35 @@ namespace RaceAnalysis.Controllers
         {
             var viewModel = new HomePageViewModel();
             viewModel.RecentRaces = _RaceService.GetRacesMostRecent(10);
-            viewModel.FastestSwims = _RaceService.GetRacesFastestSwim(10,"140.6");
-            viewModel.FastestBikes = _RaceService.GetRacesFastestBike(10, "140.6");
-            viewModel.FastestRuns = _RaceService.GetRacesFastestRun(10, "140.6");
-            viewModel.FastestFinishes = _RaceService.GetRacesFastestFinish(10, "140.6");
-
+            viewModel.FastestIMSwims = _RaceService.GetRacesFastestSwim(10,"140.6");
+            viewModel.FastestIMBikes = _RaceService.GetRacesFastestBike(10, "140.6");
+            viewModel.FastestIMRuns = _RaceService.GetRacesFastestRun(10, "140.6");
+            viewModel.FastestIMFinishes = _RaceService.GetRacesFastestFinish(10, "140.6");
+            viewModel.FastestMaleFinishesIM = _RaceService.GetAthletesFastestFinish(10, "140.6","M");
+            viewModel.FastestFemaleFinishesIM = _RaceService.GetAthletesFastestFinish(10, "140.6","F");
 
             return View(viewModel);
         }
+        public ActionResult GetRace(string raceId)
+        {
+            if (String.IsNullOrEmpty(raceId))
+                return new HttpNotFoundResult();
 
+            var simpleModel = SimpleFilterViewModel.Create();
+            simpleModel.Races = raceId;
+            return RedirectToAction("ViewResults", "TriStatsSummary", simpleModel);
+
+        }
+        public ActionResult GetAthlete(string raceId)
+        {
+            if (String.IsNullOrEmpty(raceId))
+                return new HttpNotFoundResult();
+
+            var simpleModel = SimpleFilterViewModel.Create();
+            simpleModel.Races = raceId;
+            return RedirectToAction("ViewResults", "TriStatsSummary", simpleModel);
+
+        }
         public ActionResult About()
         {
             ViewBag.Message = "TBD....";

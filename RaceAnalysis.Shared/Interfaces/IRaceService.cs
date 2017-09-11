@@ -7,28 +7,26 @@ namespace RaceAnalysis.Service.Interfaces
 {
     public interface IRaceService
     {
+        /*athlete info*/
+        Triathlete GetAthleteById(int id);
         List<Triathlete> GetAthletes(IRaceCriteria criteria,bool useCache=true);
         List<Triathlete> GetAthletes(IRaceCriteria criteria, IDurationFilter filter);
         List<Triathlete> GetAthletesFromStorage(IRaceCriteria criteria); //for testing purposes
-        List<Triathlete> GetAthletesFromSource(IRaceCriteria criteria); 
+        List<Triathlete> GetAthletesFromSource(IRaceCriteria criteria);
+        List<Triathlete> GetAthletesFastestFinish(int count,string distance,string genderValue=null);
+        List<Triathlete> GetAthletesByName(string name, string[] raceIds = null);
+        
 
         void VerifyRequestContext(RequestContext context);
         void VerifyRace(Race race);
 
-
-        Triathlete GetAthleteById(int id);
-
-        List<Race> GetRacesBySwimCondition(string conditions);
-        List<Race> GetRacesByBikeCondition(string conditions);
-        List<Race> GetRacesByRunCondition(string conditions);
-
-        List<Triathlete> GetAthletesByName(string name, string[] raceIds = null);
-
-
-
         void ReIndex(); //note we may move this
 
 
+        /*race info */
+        List<Race> GetRacesBySwimCondition(string conditions);
+        List<Race> GetRacesByBikeCondition(string conditions);
+        List<Race> GetRacesByRunCondition(string conditions);
 
         List<Race> GetRacesByTagId(List<int> tagIds);
         List<Race> GetRacesById(string id);
