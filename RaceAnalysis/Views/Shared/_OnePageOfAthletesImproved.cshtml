@@ -47,12 +47,11 @@
         </thead>
        
     </table>
- 
 
- 
-    <script type="text/javascript">
-        $(document).ready(function () {
-        $('#athletes-table').DataTable({
+<script>
+    $(document).ready(function () {
+
+    var atable =  $('#athletes-table').DataTable({
             "dom": '<"top"flp<"clear">>rt<"bottom"ip<"clear">>',
             "deferRender": true,
             "serverSide": true,
@@ -61,15 +60,12 @@
             "autoWidth": true,
             "stateSave": true,
             "processing": true, // for show progress bar
-            "initComplete": function (settings, json) {
-     //           alert('DataTables has finished its initialisation.');
-                debugger;
-            },
             "ajax": {
                 "url": "/Triathletes/GetAthletes",
                 "type": "POST",
                 "datatype": "json"
             },
+            "select" : true,
 
             "columns": [
                 {
@@ -80,11 +76,16 @@
                 },
                 {
                     "data": "Name",
-                    "name": "Name",
-                    "autoWidth": true
+                    "render": function (data, type, row, meta) {
+                        if (type === 'display') {
+
+                            data = '<a href="' + 'SearchRace?raceId=' + row.RequestContext.Race.RaceId + '&name=' + data + '">' + data + ' </a>';
+
+                        }
+
+                        return data;
+                    }
                 },
-           
-               
                 { "data": "Swim", "name": "Swim", "autoWidth": true },
                 { "data": "Bike", "name": "Bike", "autoWidth": true },
                 { "data": "Run", "name": "Run", "autoWidth": true },
@@ -93,9 +94,10 @@
                 { "data": "DivRank","name": "DivRank", "autoWidth": true },
                 { "data": "GenderRank","name": "GenderRank", "autoWidth": true },
                 { "data": "OverallRank","name": "OverallRank", "autoWidth": true },
-              
+
 
             ]
         });
+
     });
   </script>

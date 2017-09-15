@@ -58,7 +58,9 @@
             <li><img src="~/Content/images/shutterstock2.jpg" title="my caption here" /></li>
             <li><img src="~/Content/images/tristats-share.jpg" title="my caption here" /></li>
             <li><img src="~/Content/images/shutterstock_448957918.jpg" title="my caption here" /></li>
-
+            <li>
+                @Html.Partial("_FastestRacesBike", Model)
+            </li>
         </ul>
         </div>
 </div>
@@ -92,8 +94,8 @@
         <div class="feature-callout">
             <h3>Fastest Ironman Bikes</h3>
             @Html.Partial("_FastestRacesBike", Model)
-        </div>
     </div>
+        </div>
 
     <div class="col-sm-4">
         <div class="feature-callout">

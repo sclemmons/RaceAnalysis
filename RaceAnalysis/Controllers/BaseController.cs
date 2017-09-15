@@ -455,9 +455,12 @@ namespace RaceAnalysis.Controllers
             var allAgeGroupIds = AgeGroup.Expand(new int[] { 0 });
             var allGenderIds = Gender.Expand(new int[] { 0 });
 
-            //assuming a cache contains athletes for each race, get all athletes for each race
+            
+            //assuming a cache contains athletes for each race, get all athletes for each racfil
             foreach (var raceId in filter.SelectedRaceIds)
             {
+                if (String.IsNullOrEmpty(raceId))//i've seen this occassionally with a back button
+                    continue;
                 var athletes = _RaceService.GetAthletes(
                         new BasicRaceCriteria
                         {
