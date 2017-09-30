@@ -2,43 +2,44 @@
 /*****************************************************************************
     BODY
 **********************************************************************************/
-.col-sm-3,.col-sm-9{
-    padding-right:5px;
-    padding-left:5px;
+.col-sm-3, .col-sm-9 {
+    padding-right: 5px;
+    padding-left: 5px;
 }
+
 body {
     padding-top: 50px;
     padding-bottom: 20px;
-    background-color:whitesmoke;
-    color:darkblue;
-      
+    background-color: whitesmoke;
+    color: darkblue;
 }
-body.analysis{
-    background-image:none;
-    background-color:whitesmoke;
-     background-image: url(../Content/images/shutterstock_448957918.jpg);
-    background-repeat:no-repeat;
-    background-size:cover;
-}
-body.fullpage{
-    background-image:none;
-    background-color:whitesmoke;
-    background-image: url(../Content/images/fullpage.png);
-    background-repeat:no-repeat;
-    background-size:cover;
-}
-body.homepage{
-    --background-color:white;
-    background-image: url(../Content/images/shutterstock_448957918.jpg);
-    background-size:cover;
-    background-repeat:no-repeat;
-    
-}
+
+    body.analysis {
+        background-image: none;
+        background-color: whitesmoke;
+        background-image: url(../Content/images/shutterstock_448957918.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    body.fullpage {
+        background-image: none;
+        background-color: whitesmoke;
+        background-image: url(../Content/images/fullpage.png);
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    body.homepage {
+        background-image: url(../Content/images/shutterstock_448957918.jpg);
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
- // padding-left: 15px;
-  //  padding-right: 15px;
+    // padding-left: 15px;
+    // padding-right: 15px;
 }
 
 /**************************************************
@@ -53,6 +54,10 @@ body.homepage{
     white-space: normal;
 }
 
+table tr {
+    cursor: pointer;
+}
+
 /* Set width on the form input elements since they're 100% wide by default */
 input,
 select,
@@ -64,41 +69,40 @@ textarea {
     padding : 5px;
 }****/
 
-div.container.body-content{
+div.container.body-content {
     //background-color:yellow;
-    margin-top:30px;
- 
+    margin-top: 30px;
 }
+
 div.container-analysis {
-        margin-top: 30px;
-        //background-color: white;
-        //background-color:rgba(255,225,251,.8);
+    margin-top: 30px;
+    //background-color: white;
+    //background-color:rgba(255,225,251,.8);
 }
 
-.btn-default:not([disabled]){
-border-color:blue;
-color:darkblue;
-}
-.btn-default:disabled{
-border-color:#ccc;
-color:#333;
-}
-hr{
-   
-    border-top-color:whitesmoke;
-
-}
-hr.title
-{
-    --border-top-color:yellow;
-    width:25%;
-    text-align:left;
-    margin-left:0;
-   
+.btn-default:not([disabled]) {
+    border-color: blue;
+    color: darkblue;
 }
 
-td  a, th a{
-    text-decoration:underline;
+.btn-default:disabled {
+    border-color: #ccc;
+    color: #333;
+}
+
+hr {
+    border-top-color: whitesmoke;
+}
+
+    hr.title {
+        --border-top-color: yellow;
+        width: 25%;
+        text-align: left;
+        margin-left: 0;
+    }
+
+td a, th a {
+    text-decoration: underline;
 }
 
 input[type=search]::-webkit-search-cancel-button {
@@ -134,321 +138,305 @@ input[type=search]::-webkit-search-cancel-button {
     Layout
 ***************************************************************/
 
-#filter-show-btn
-{
-  margin:15px;
+#filter-show-btn {
+    margin: 15px;
 }
-#filter-container.col-sm-3
-{
-    padding:0;
+
+#filter-container.col-sm-3 {
+    padding: 0;
 }
 /***************************************************************
                                 Home page
     *************************************************************/
 .home-header {
     width: 100%;
- 
     background-position: 50% 30%;
     background-size: cover;
     position: relative;
     overflow: hidden;
-    
-}
-.home-header h2{
-    margin-top:10px;
-    color:darkblue;
-    font-style:italic;
 }
 
-.home-about{
-        color:black;
+    .home-header h2 {
+        margin-top: 10px;
+        color: darkblue;
+        font-style: italic;
+    }
+
+.home-about {
+    color: black;
 }
 
-
-.feature-callout{
-  
-    margin: 0 auto; /*center inside the outter div*/ 
-    margin-left:10px;
-    margin-top:10px;
-    padding:5px;
-    border-width:1px;
-    border-style:groove;
+.feature-callout {
+    width: 50%;
+    margin: 0 auto; /*center inside the outter div*/
+    margin-left: 10px;
+    margin-top: 10px;
+    padding: 5px;
+    border-width: 1px;
+    border-style: groove;
     border-color: rgba(0, 0, 0, 0.2);
-    --border-color: whitesmoke;
-    border-radius:5px;
-    text-align:left;
-    --opacity: .8;
-    color:darkblue;
-    background-color:white;
-    max-height:500px;
-    overflow-y:auto;
-    overflow-x: auto;
-}
-.feature-callout h3{
-    text-align:center;
+    border-color: whitesmoke;
+    border-radius: 5px;
+    text-align: center;
+    background-color: azure;
+    opacity: .8;
+    color: darkblue;
+    font-weight: bold;
 }
 
-.homepage-table{
-    width: 100%;
-    
-  /*padding-right: 0px;
-  margin-right: 0px; */
+
+
+
+div.comingsoon_banner {
+    margin: 10px;
+    font-size: 24px;
+    color: red;
 }
-.homepage-table-container {
-    display: inline-block;
-    width: 100%;
-    height: 500px;
-    padding: 10px;
-    margin: 0px;
-    --border: dashed;
-    --border-width: thin;
-    background-color: yellow;
+
+div.commingsoon_item {
+    margin: 10px;
+    height: 24px;
+    color: black;
+    font-weight: bold;
 }
 
 /***************************************************************
     SLIDER OVERRIDES
 ***************************************************************/
-.slider-step{
-    background-color:red;
+.slider-step {
+    background-color: red;
     width: 80%;
-    display:block;
-    margin-left:auto;
-    margin-right:auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
+
 .ui-slider-horizontal {
-	//width:80%; /*scott override*/
-    
+    //width:80%; /*scott override*/
 }
+
 .ui-slider .ui-slider-range {
     //width:70%;
-    background-color:antiquewhite;
-   
+    background-color: antiquewhite;
 }
-.ui-slider-range .ui-corner-all .ui-widget-header{
-//background-color:black;
+
+.ui-slider-range .ui-corner-all .ui-widget-header {
+    //background-color:black;
 }
-ui-slider-handle{
-    background-color:yellow;
+
+ui-slider-handle {
+    background-color: yellow;
 }
 
 /*****************************************************************************
      HELP TOOLTIPS
 ********************************************************************************/
-.help-tip{
-	position: absolute;
-	top: 18px;
-	right: 118px;
-    --left:0px;
-	text-align: center;
-	background-color: #BCDBEA;
-	border-radius: 50%;
-	width: 24px;
-	height: 24px;
-	font-size: 14px;
-	line-height: 26px;
-	cursor: default;
+.help-tip {
+    position: absolute;
+    top: 18px;
+    right: 118px;
+    --left: 0px;
+    text-align: center;
+    background-color: #BCDBEA;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    font-size: 14px;
+    line-height: 26px;
+    cursor: default;
 }
 
-.help-tip:before{
-	content:'?';
-	font-weight: bold;
-	color:#fff;
-}
+    .help-tip:before {
+        content: '?';
+        font-weight: bold;
+        color: #fff;
+    }
 
-.help-tip:hover p{
-	display:block;
-	transform-origin: 100% 0%;
+    .help-tip:hover p {
+        display: block;
+        transform-origin: 100% 0%;
+        -webkit-animation: fadeIn 0.3s ease-in-out;
+        animation: fadeIn 0.3s ease-in-out;
+    }
 
-	-webkit-animation: fadeIn 0.3s ease-in-out;
-	animation: fadeIn 0.3s ease-in-out;
+    .help-tip p { /* The tooltip */
+        display: none;
+        text-align: left;
+        background-color: #FFF;
+        padding: 20px;
+        width: 300px;
+        position: absolute;
+        border-radius: 3px;
+        box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+        right: -4px;
+        color: #1E2021;
+        font-size: 13px;
+        line-height: 1.4;
+    }
 
-}
+        .help-tip p:before { /* The pointer of the tooltip */
+            position: absolute;
+            content: '';
+            width: 0;
+            height: 0;
+            border: 6px solid transparent;
+            border-bottom-color: #1E2021;
+            right: 10px;
+            top: -12px;
+        }
 
-.help-tip p{	/* The tooltip */
-	display: none;
-	text-align: left;
-	background-color: #FFF;
-	padding: 20px;
-	width: 300px;
-	position: absolute;
-	border-radius: 3px;
-	box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
-	right: -4px;
-	color:   #1E2021;
-	font-size: 13px;
-	line-height: 1.4;
-}
-
-.help-tip p:before{ /* The pointer of the tooltip */
-	position: absolute;
-	content: '';
-	width:0;
-	height: 0;
-	border:6px solid transparent;
-	border-bottom-color:#1E2021;
-	right:10px;
-	top:-12px;
-}
-
-.help-tip p:after{ /* Prevents the tooltip from being hidden */
-	width:100%;
-	height:40px;
-	content:'';
-	position: absolute;
-	top:-40px;
-	left:0;
-}
+        .help-tip p:after { /* Prevents the tooltip from being hidden */
+            width: 100%;
+            height: 40px;
+            content: '';
+            position: absolute;
+            top: -40px;
+            left: 0;
+        }
 
 /* CSS animation */
 
 @-webkit-keyframes fadeIn {
-	0% { 
-		opacity:0; 
-		transform: scale(0.6);
-	}
+    0% {
+        opacity: 0;
+        transform: scale(0.6);
+    }
 
-	100% {
-		opacity:100%;
-		transform: scale(1);
-	}
+    100% {
+        opacity: 100%;
+        transform: scale(1);
+    }
 }
 
 @keyframes fadeIn {
-	0% { opacity:0; }
-	100% { opacity:100%; }
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 100%;
+    }
 }
 
 
-label.error  
-{
-    color:red;
-    
-   
+label.error {
+    color: red;
 }
 
 div.error {
-    color:red;
-    padding:1px 5px 1px 5px;
-    font-size:small;
-    width:200px;
-
+    color: red;
+    padding: 1px 5px 1px 5px;
+    font-size: small;
+    width: 200px;
 }
 
-div.SumoSelect{
-    max-width:100%;
-    width:100%;
-}
-.SumoSelect .select-all{
- height:inherit;
+div.SumoSelect {
+    max-width: 100%;
+    width: 100%;
 }
 
-#filter, #results, #page-header,#page-actions,#filter-duration, div.criteria,div.hypothetical,div.email-form{
-    margin:10px;
-    margin-left:0px;
-    margin-right:0px;
-    padding:5px;
-    background-color:white;
-    border-width:1px;
-    border-style:solid;
+.SumoSelect .select-all {
+    height: inherit;
+}
+
+#filter, #results, #page-header, #page-actions, #filter-duration, div.criteria, div.hypothetical, div.email-form {
+    margin: 10px;
+    margin-left: 0px;
+    margin-right: 0px;
+    padding: 5px;
+    background-color: white;
+    border-width: 1px;
+    border-style: solid;
     border-color: rgba(0, 0, 0, 0.2);
-    border-radius:5px;
-
-     -webkit-box-shadow: 0 8px 6px -6px black;
-	 -moz-box-shadow: 0 8px 6px -6px black;
-	 box-shadow: 0 8px 6px -6px black;
+    border-radius: 5px;
+    -webkit-box-shadow: 0 8px 6px -6px black;
+    -moz-box-shadow: 0 8px 6px -6px black;
+    box-shadow: 0 8px 6px -6px black;
 }
 
-#page-actions
-{
- border-bottom-left-radius:unset;
- border-bottom-right-radius:unset;   
-}
-#results
-{
-    border-top-left-radius:unset;
-    border-top-right-radius:unset;
-}
-#page-header
-{
-    text-align:center;
-   
-    margin-right:0px;
-}
-#analysis-container.col-sm-12
-{
-    padding-right:0px;
+#page-actions {
+    border-bottom-left-radius: unset;
+    border-bottom-right-radius: unset;
 }
 
-#results,#page-actions
-{
-    display:none;
+#results {
+    border-top-left-radius: unset;
+    border-top-right-radius: unset;
 }
 
-#page-actions
-{
-    border-bottom:none;
-    margin-bottom:0px;
-    padding-bottom:0px;
+#page-header {
+    text-align: center;
+    margin-right: 0px;
 }
-#results{
-    border-top:none;
-    margin-top:0px;
-    padding:10px;
-    
+
+#analysis-container.col-sm-12 {
+    padding-right: 0px;
+}
+
+#results, #page-actions {
+    display: none;
+}
+
+#page-actions {
+    border-bottom: none;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+}
+
+#results {
+    border-top: none;
+    margin-top: 0px;
+    padding: 10px;
 }
 
 
-div#results-header
-{
-  text-align:right;
-    
+div#results-header {
+    text-align: right;
 }
-div#results-header h3, h4{
-    //max-width:400px;
-    text-align:left;
-    //background-color:blue;
-}
-div#results-header .btn{
-      margin-right:50px;
-      
-}
-div#athlete-list{
+
+    div#results-header h3, h4 {
+        //max-width:400px;
+        text-align: left;
+        //background-color:blue;
+    }
+
+    div#results-header .btn {
+        margin-right: 50px;
+    }
+
+div#athlete-list {
     //background-color:chartreuse;
-    
 }
 
 
 
-#filter-duration .time-range
-{
-    --background-color:yellow;
-    border-width:1px;
-    border-style:groove;
-    border-radius:5px;
-    padding:5px;
+#filter-duration .time-range {
+    --background-color: yellow;
+    border-width: 1px;
+    border-style: groove;
+    border-radius: 5px;
+    padding: 5px;
 }
 
-#filter label
-{
-    font-size:small;
-    margin:5px;
+#filter label {
+    font-size: small;
+    margin: 5px;
 }
 
 
-#myForm div.btn-container{
+#myForm div.btn-container {
     //width:300px;
-    padding:5px;
+    padding: 5px;
     //background-color:yellow;
-    text-align:center;
-   margin:auto;
-   
-}
-#myForm button#submitButton.btn.btn-primary
-{ /*the apply button*/
+    text-align: center;
+    margin: auto;
 }
 
-.jumbotron p.normal{
-    font-size:14px;
+#myForm button#submitButton.btn.btn-primary { /*the apply button*/
+}
+
+.jumbotron p.normal {
+    font-size: 14px;
 }
 
 
@@ -458,172 +446,171 @@ div#athlete-list{
 .chartWithMarkerOverlay {
     position: relative;
     width: 100%;
-    
 }
-div#chart-div, div#bike-run-piechart,div#dnf-race-piechart, div#race-compare-median-div, div#race-compare-fastest-div{
-    width:100%;
-    height: 500px;
-    
-}
-div#chart-key{
-     margin:10px;
-    padding:5px;
-    background-color:white;
-    border-width:1px;
-    border-style:solid;
-    border-color: rgba(0, 0, 0, 0.2);
-    border-radius:5px;
 
+div#chart-div, div#bike-run-piechart, div#dnf-race-piechart, div#race-compare-median-div, div#race-compare-fastest-div {
+    width: 100%;
+    height: 500px;
+}
+
+div#chart-key {
+    margin: 10px;
+    padding: 5px;
+    background-color: white;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
 }
 
 .overlay-marker-bike, .overlay-marker-run {
     background: red;
     width: 1px;
-    position:absolute;
+    position: absolute;
     height: 1px;
-    border-style:dotted;
-    border-width:1px;
+    border-style: dotted;
+    border-width: 1px;
 }
 
 
 .overlay-text-Q1 {
-    background-color:yellow;
+    background-color: yellow;
     width: 20px;
     height: 20px;
     position: absolute;
-     top: -100px;   /* chartArea top  */
+    top: -100px; /* chartArea top  */
     left: -1000px; /* chartArea left */
-    text-align:center;
+    text-align: center;
 }
+
 .overlay-text-Q2 {
-    background-color:yellow;
+    background-color: yellow;
     width: 20px;
     height: 20px;
     position: absolute;
-    top: -100px;   /* chartArea top  */
+    top: -100px; /* chartArea top  */
     left: -1000px; /* chartArea left */
-    text-align:center;
+    text-align: center;
 }
+
 .overlay-text-Q3 {
-    background-color:yellow;
+    background-color: yellow;
     width: 20px;
     height: 20px;
     position: absolute;
-     top: -100px;   /* chartArea top  */
+    top: -100px; /* chartArea top  */
     left: -1000px; /* chartArea left */
-    text-align:center;
+    text-align: center;
 }
+
 .overlay-text-Q4 {
-    background-color:yellow;
+    background-color: yellow;
     width: 20px;
     height: 20px;
     position: absolute;
-    top: -100px;   /* chartArea top  */
+    top: -100px; /* chartArea top  */
     left: -1000px; /* chartArea left */
-    text-align:center;
-   
+    text-align: center;
 }
+
 .overlay-text-run-median {
-   
     width: 100px;
     height: 20px;
     position: absolute;
-    top: -100px;   /* chartArea top  */
+    top: -100px; /* chartArea top  */
     left: -1000px; /* chartArea left */
-    text-align:center;
-    font-style:italic;
+    text-align: center;
+    font-style: italic;
 }
+
 .overlay-text-bike-median {
     width: 100px;
     height: 20px;
     position: absolute;
-    top: -100px;   /* chartArea top  */
+    top: -100px; /* chartArea top  */
     left: -1000px; /* chartArea left */
-    text-align:center;
-    font-style:italic;
-   
+    text-align: center;
+    font-style: italic;
 }
 
 /*****************************************************************************
     HYPOTHETICALS
 ******************************************************************************/
-div.criteria,div.email-form {
-     width:50%;
-    margin: 10px auto; /*center inside the outter div*/ 
-    padding:5px;
-    background-color:white;
-    border-width:1px;
-    border-style:solid;
+div.criteria, div.email-form {
+    width: 50%;
+    margin: 10px auto; /*center inside the outter div*/
+    padding: 5px;
+    background-color: white;
+    border-width: 1px;
+    border-style: solid;
     border-color: rgba(0, 0, 0, 0.2);
-    border-radius:5px;
+    border-radius: 5px;
 }
-div.criteria span.title{
-    margin-bottom:10px;
-    //padding:10px;
-    //background-color:yellow;
-    color:darkslateblue;
-    font-size:24px;
-    //max-width: 100px;
-    
-}
+
+    div.criteria span.title {
+        margin-bottom: 10px;
+        //padding:10px;
+        //background-color:yellow;
+        color: darkslateblue;
+        font-size: 24px;
+        //max-width: 100px;
+    }
 
 div.hypothetical {
-    width:50%;
+    width: 50%;
     //margin-top:10px;
-     margin: 20px auto; /*center inside the outter div*/ 
-    padding:5px;
-    background-color:white;
-    border-width:1px;
-    border-style:solid;
+    margin: 20px auto; /*center inside the outter div*/
+    padding: 5px;
+    background-color: white;
+    border-width: 1px;
+    border-style: solid;
     border-color: rgba(0, 0, 0, 0.2);
-    border-radius:5px;
+    border-radius: 5px;
     font-size: 18px;
-    
 }
-div#box-estfinish,div#box-estSwim,div#box-estBike,div#box-estRun{
+
+div#box-estfinish, div#box-estSwim, div#box-estBike, div#box-estRun {
     position: relative;
     width: 100%;
-    height:300px;/*for some reason plotly needs this height or it wont display all of the hover markers*/
-
+    height: 300px; /*for some reason plotly needs this height or it wont display all of the hover markers*/
 }
 
-div#overlay-marker-estfinish,div#overlay-marker-estSwim,div#overlay-marker-estBike,div#overlay-marker-estRun  {
-    background-color:lightskyblue;
-    border-radius:2px;
+div#overlay-marker-estfinish, div#overlay-marker-estSwim, div#overlay-marker-estBike, div#overlay-marker-estRun {
+    background-color: lightskyblue;
+    border-radius: 2px;
     width: 200px;
     height: 24px;
     position: absolute;
-    top: 90px;   /* chartArea top  */
+    top: 90px; /* chartArea top  */
     left: 0px; /* chartArea left */
-    text-align:center;
+    text-align: center;
     border: 2px;
-    font-weight:bold;
+    font-weight: bold;
 }
 
-div#finish-range, div#Swim-range,div#Bike-range,div#Run-range,div#finish-results,div#run-results{
-    margin-top:10px;
+div#finish-range, div#Swim-range, div#Bike-range, div#Run-range, div#finish-results, div#run-results {
+    margin-top: 10px;
     font-style: italic;
-     //font-weight:bold;
+    //font-weight:bold;
     font-size: 18px;
     //background-color:darkturquoise;
     //color:white;
-    color:darkblue;
-    padding:10px;
+    color: darkblue;
+    padding: 10px;
 }
 
-div.time-range-span
-{
-    color:darkblue;
-   text-align:center;
-   font-weight:bold;
+div.time-range-span {
+    color: darkblue;
+    text-align: center;
+    font-weight: bold;
 }
-#BikeRangeSubmit
-{
-   margin-top:10px;
+
+#BikeRangeSubmit {
+    margin-top: 10px;
 }
-#RunRangeSubmit
-{
-   margin-top:10px;
+
+#RunRangeSubmit {
+    margin-top: 10px;
 }
 
 
@@ -632,8 +619,8 @@ div.time-range-span
     
 ***************************************************************************************************/
 
-div#app_features{
-    margin-top:20px;
+div#app_features {
+    margin-top: 20px;
 }
 
 /**************************************************************************************************
@@ -642,26 +629,27 @@ div#app_features{
 ***************************************************************************************************/
 
 div.email-form {
-     margin-bottom:10px;
-    color:darkslateblue;
-    font-size:18px;
-    
-}
-div.form-submit-btn{
-    text-align:center;
+    margin-bottom: 10px;
+    color: darkslateblue;
+    font-size: 18px;
 }
 
-a#ShowRaceRequestLink.modal-link{
-    float:right;
-    font-style:italic;
+div.form-submit-btn {
+    text-align: center;
 }
-a#XXShowRaceRequestLink.modal-link{
+
+a#ShowRaceRequestLink.modal-link {
+    float: right;
+    font-style: italic;
+}
+
+a#XXShowRaceRequestLink.modal-link {
     position: absolute;
     --margin-top: 10px;
     bottom: 10px;
     right: 120px;
-    font-style:italic;
-    display:none;
+    font-style: italic;
+    display: none;
 }
 
 /**************************************************************************************************
@@ -670,237 +658,230 @@ a#XXShowRaceRequestLink.modal-link{
 ***************************************************************************************************/
 
 span#request-race {
-   float: right;
-   font-style:italic;
+    float: right;
+    font-style: italic;
 }
-div.race-list #instructions,div.athletes-list #instructions{
-  
+
+div.race-list #instructions, div.athletes-list #instructions {
     margin-top: 5px;
-    
 }
+
 div#race-table-div, div#athlete-table-div {
     margin-top: 10px;
 }
 
 
 
-.search-results-preface
-{
-    position:relative;
-    margin-top:50px;
-    
+.search-results-preface {
+    position: relative;
+    margin-top: 50px;
 }
-#action-compare.btn.btn-default,#action-stats.btn.btn-default,a#action-search-all-athletes{
-  
+
+#action-compare.btn.btn-default, #action-stats.btn.btn-default, a#action-search-all-athletes {
     position: absolute;
-    margin-top:10px;
+    margin-top: 10px;
     bottom: 10px;
     right: 0px;
-    
 }
+
 a#action-search-all-athletes {
     right: 20px;
 }
-#action-stats2.btn.btn-default
-{
+
+#action-stats2.btn.btn-default {
     position: absolute;
-    margin-top:10px;
+    margin-top: 10px;
     bottom: 0px;
     right: 0px;
-    
 }
 
 div#search-form-section.collapsible.collapse-open a {
-    float:right;
-    padding:10px;
-    display:none;
+    float: right;
+    padding: 10px;
+    display: none;
 }
 
-div#search-form-section.collapsible.collapse-close a  {
-    display:block;
-    float:right;
-    padding:10px;
-    font-size:16px;
+div#search-form-section.collapsible.collapse-close a {
+    display: block;
+    float: right;
+    padding: 10px;
+    font-size: 16px;
 }
 
-.race-distance
-{
-   background-color: #fff;
-   color:black;
+.race-distance {
+    background-color: #fff;
+    color: black;
 }
+
 div#ace-selection-toolbar {
-    padding-top:30px;
+    padding-top: 30px;
     background-color: aqua;
 }
 /**************************************************************************************************
  RACE Conditions 
     
 ***************************************************************************************************/
-div.race-conditions{
-    margin:10px;
-}
-div.race-conditions button{
-   margin:5px;
-}
-div.race-conditions label{
-    font-weight:normal;
-    font-size:medium;
-}
-div.race-conditions input.btn.btn-primary
-{
-    margin-top:20px;
-    
+div.race-conditions {
+    margin: 10px;
 }
 
-div.rc-tag{
-    display:inline-block;
-    background-color:azure;
-    padding:5px;
+    div.race-conditions button {
+        margin: 5px;
+    }
+
+    div.race-conditions label {
+        font-weight: normal;
+        font-size: medium;
+    }
+
+    div.race-conditions input.btn.btn-primary {
+        margin-top: 20px;
+    }
+
+div.rc-tag {
+    display: inline-block;
+    background-color: azure;
+    padding: 5px;
 }
 
 /**********************************************************************************/
-div.athletes-list-search-form
-{
-   --background-color:yellow;
-     margin:10px;
-    margin-left:0px;
-    margin-right:0px;
-    padding:5px;
-    --border-width:1px;
-    --border-style:solid;
+div.athletes-list-search-form {
+    --background-color: yellow;
+    margin: 10px;
+    margin-left: 0px;
+    margin-right: 0px;
+    padding: 5px;
+    --border-width: 1px;
+    --border-style: solid;
     --border-color: rgba(0, 0, 0, 0.2);
-    --border-radius:5px;
-    --display:inline-flex;
-    --float:left;
-   text-align:left;
-    position:relative;
+    --border-radius: 5px;
+    --display: inline-flex;
+    --float: left;
+    text-align: left;
+    position: relative;
 }
-input#SearchByName.form-control.inline
-{
-   display:inline;
-   max-width:200px;
+
+input#SearchByName.form-control.inline {
+    display: inline;
+    max-width: 200px;
 }
-#action-compare-athletes
-{
-    position:absolute;
-    bottom:5px;
-    right:10px;
+
+#action-compare-athletes {
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
 }
-#submitAthleteSearch
-{
-    position:absolute;
-    bottom:5px;
-    margin-left:10px;
+
+#submitAthleteSearch {
+    position: absolute;
+    bottom: 5px;
+    margin-left: 10px;
 }
 
 /************************************************************************/
 /*****************************************************************************/
-div.modal-content
-{
-    max-width:95%;
-   --max-height:75%;
+div.modal-content {
+    max-width: 95%;
+    --max-height: 75%;
 }
 
 .modal-header {
-    border-bottom:none;
+    border-bottom: none;
 }
+
 .modal-title {
-  text-align:center;
+    text-align: center;
 }
 
 
 
-.jqcloud
-{
+.jqcloud {
     //max-width:90%;
-   // background-color:yellow;
+    // background-color:yellow;
 }
-.chart-container
-{
-    display:inline-block;
-    width:800px;
-    
+
+.chart-container {
+    display: inline-block;
+    width: 800px;
 }
-.quartile-chart{
-    
-   float:left;
+
+.quartile-chart {
+    float: left;
 }
+
 div.clearFloat::after {
-    clear:both;
-}
-.quartile-charts-div
-{
-    --width:800px;
-    background-color:yellow;
+    clear: both;
 }
 
-.charts-title
-{
-    font-size:medium;
-   text-align:center;
- 
-}
-.agegroup-chart-container
-{
-    display:inline-block;
-    width:100%;
-    --height:600px;
-    padding:10px;
-    margin:0px;
-    --border:dashed;
-    --border-width:thin;
-    --background-color:yellow;
-}
-.agegroup-charts{
-    
-   float:left;
-}
-#median-table-ags-div,#fastest-table-ags-div
-{
-    width:20%;
-    padding-right:0px;
-    margin-right:0px;
-   --background-color:aqua;
+.quartile-charts-div {
+    --width: 800px;
+    background-color: yellow;
 }
 
-#median-chart-div,#fastest-chart-div
-{
-    width:80%;
-    margin-left:0px;
-    padding-left:0px;
-    --background-color:blueviolet;
+.charts-title {
+    font-size: medium;
+    text-align: center;
+}
+
+.agegroup-chart-container {
+    display: inline-block;
+    width: 100%;
+    --height: 600px;
+    padding: 10px;
+    margin: 0px;
+    --border: dashed;
+    --border-width: thin;
+    --background-color: yellow;
+}
+
+.agegroup-charts {
+    float: left;
+}
+
+#median-table-ags-div, #fastest-table-ags-div {
+    width: 20%;
+    padding-right: 0px;
+    margin-right: 0px;
+    --background-color: aqua;
+}
+
+#median-chart-div, #fastest-chart-div {
+    width: 80%;
+    margin-left: 0px;
+    padding-left: 0px;
+    --background-color: blueviolet;
 }
 
 
-.nav-tabs > li > a{
-    display:inline-block;
-    --width:100%;
-    vertical-align:middle;
-    padding:10px;
-    text-align:center;
+.nav-tabs > li > a {
+    display: inline-block;
+    --width: 100%;
+    vertical-align: middle;
+    padding: 10px;
+    text-align: center;
     color: #555;
     cursor: default;
     background-color: #fff;
     border: 1px solid #ddd;
     border-bottom-color: transparent;
 }
+
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
     color: #555;
     cursor: default;
     background-color: #fff;
     border: 1px solid #ddd;
     border-bottom-color: transparent;
-    background-color:#bef1f5;
+    background-color: #bef1f5;
 }
 
 
 /*******************************************************************
     ADMIN 
 ***********************************************************************/
-div.admin-links a{
-    
-    font-size:large;
-    display:block;
+div.admin-links a {
+    font-size: large;
+    display: block;
 }
 
 
@@ -908,61 +889,62 @@ div.admin-links a{
     FACEbook
 **********************************************************************/
 div#share_button.fb-share {
-  vertical-align: top;
-  display: inline-block;
-  height: 18px;
-  padding: 0 4px;
-  border: 1px solid #cad4e7;
-  border-radius: 3px;
-  background: #eceef5;
-  color: #3b5998;
-  font-family: 'Lucida Grande', Tahoma, Verdana, Arial, sans-serif;
-  font-size: 11px;
-  line-height: 1;
-  text-decoration: none;
-  white-space: nowrap;
-  /* IE7 */
-  *display: inline;
-  *zoom: 1;
+    vertical-align: top;
+    display: inline-block;
+    height: 18px;
+    padding: 0 4px;
+    border: 1px solid #cad4e7;
+    border-radius: 3px;
+    background: #eceef5;
+    color: #3b5998;
+    font-family: 'Lucida Grande', Tahoma, Verdana, Arial, sans-serif;
+    font-size: 11px;
+    line-height: 1;
+    text-decoration: none;
+    white-space: nowrap;
+    /* IE7 */
+    *display: inline;
+    *zoom: 1;
 }
-div#share_button.fb-share:hover {
-  border-color: #9dacce;
-}
+
+    div#share_button.fb-share:hover {
+        border-color: #9dacce;
+    }
+
 span.fb-share-icon {
-  position: relative;
-  top: 2px;
-  display: inline-block;
-  width: 14px;
-  height: 14px;
-  margin-right: 1px;
-  background-image: url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/y-/r/tbhIfdAHjXE.png);
-  /* IE7 */
-  *display: inline;
-  *zoom: 1;
+    position: relative;
+    top: 2px;
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-right: 1px;
+    background-image: url(https://fbstatic-a.akamaihd.net/rsrc.php/v2/y-/r/tbhIfdAHjXE.png);
+    /* IE7 */
+    *display: inline;
+    *zoom: 1;
 }
+
 .fb-share-text {
-  position: relative;
-  top: -1px;
+    position: relative;
+    top: -1px;
 }
 
 /******************ADMIN ***************/
-a.btn.Mismatch{
-
-    background-color:red;
-    color:white;
+a.btn.Mismatch {
+    background-color: red;
+    color: white;
 }
-a.btn.False{
-    background-color:red;
-    color:white;
+
+a.btn.False {
+    background-color: red;
+    color: white;
 }
 
 /****MVC GRID*/
 
-div.grid-toolbar-row
-{
-    height:20px;
-
-  }
+div.grid-toolbar-row {
+    height: 20px;
+}
 
 table#MVCGridTable_RaceAdminGrid {
     border-right: none;
@@ -970,12 +952,12 @@ table#MVCGridTable_RaceAdminGrid {
     padding: 20px;
     margin-top: 30px;
 }
-#MVCGridTable_RaceAdminGrid td 
-{
-    border:none;
+
+#MVCGridTable_RaceAdminGrid td {
+    border: none;
 }
-#MVCGridTable_RaceAdminGrid thead tr th
-{
+
+#MVCGridTable_RaceAdminGrid thead tr th {
     border: none;
     --background-color: yellow;
     border-bottom-width: 1px;

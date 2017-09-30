@@ -94,7 +94,15 @@ namespace RaceAnalysis.Models
                        { athlete.Run.Hours, athlete.Run.Minutes, athlete.Run.Seconds });
                     if (athlete.Finish.TotalSeconds > 0)
                     {
-                        TimeSpan tTime = athlete.Finish - (athlete.Swim + athlete.Bike + athlete.Run);
+                        TimeSpan finish = athlete.Finish;
+                        TimeSpan total = (athlete.Swim + athlete.Bike + athlete.Run);
+                        TimeSpan tTime;
+                        if (finish > total)
+                            tTime = finish - total;
+                        else
+                            tTime = total - finish;
+
+
                         row.Add(new object[]
                          { tTime.Hours, tTime.Minutes, tTime.Seconds });
                     }
@@ -122,9 +130,18 @@ namespace RaceAnalysis.Models
                        { RaceStats.Run.Median.Hours, RaceStats.Run.Median.Minutes, RaceStats.Run.Median.Seconds });
                     if (RaceStats.Finish.Median.TotalSeconds > 0)
                     {
-                        TimeSpan tTime = RaceStats.Finish.Median - (RaceStats.Swim.Median + RaceStats.Bike.Median + RaceStats.Run.Median);
+                        TimeSpan finish = RaceStats.Finish.Median; 
+                        TimeSpan total  = (RaceStats.Swim.Median + RaceStats.Bike.Median + RaceStats.Run.Median);
+                        TimeSpan tTime;
+                        if (finish > total)
+                            tTime = finish - total;
+                        else
+                            tTime = total - finish;
+
                         row.Add(new object[]
                          { tTime.Hours, tTime.Minutes, tTime.Seconds });
+
+                        //swim+bike+run=14:03:42  finish med=13:39:02 
                     }
                     else
                     {
@@ -151,7 +168,14 @@ namespace RaceAnalysis.Models
                        { RaceDivisionStats.Run.Median.Hours, RaceDivisionStats.Run.Median.Minutes, RaceDivisionStats.Run.Median.Seconds });
                     if (RaceDivisionStats.Finish.Median.TotalSeconds > 0)
                     {
-                        TimeSpan tTime = RaceDivisionStats.Finish.Median - (RaceDivisionStats.Swim.Median + RaceDivisionStats.Bike.Median + RaceDivisionStats.Run.Median);
+                        TimeSpan finish = RaceDivisionStats.Finish.Median;
+                        TimeSpan total = (RaceDivisionStats.Swim.Median + RaceDivisionStats.Bike.Median + RaceDivisionStats.Run.Median);
+                        TimeSpan tTime;
+                        if (finish > total)
+                            tTime = finish - total;
+                        else
+                            tTime = total - finish;
+                        
                         row.Add(new object[]
                          { tTime.Hours, tTime.Minutes, tTime.Seconds });
                     }
